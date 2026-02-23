@@ -193,7 +193,7 @@
                 this.gameLog.push(this.intro);
                 this.statements = {
                     single: [
-                        "Seeker becomes Trailblazer, setting forth onto the Golden Path, cutting through the terrors, illusions, and distractions of this reality, and remaining steadfast, stoic, and forthright in the pursuit of wisdom, balance, power, and perfection.",
+                        "Seeker becomes Trailblazer - setting forth onto the Golden Path, cutting through the terrors, illusions, and distractions of this reality, and remaining steadfast and forthright in the pursuit of wisdom, balance, power, and perfection.",
                         "You advance on the Golden Path, slicing away fears and deceptions, holding firm in the quest for equilibrium and mastery.",
                         "You tread the Golden Path with unyielding resolve, dispelling shadows of doubt to embrace wisdom and strength.",
                         "You progress along the Golden Path, enduring illusions with stoicism, driven by the pursuit of perfect harmony.",
@@ -345,11 +345,11 @@
                     this.scoreAscensions(this.Seekers.length + 1);
                     this.Seekers = [];
                 } else if (rollSum === 3) {
-                    statement = "Now entering a trance-induced Portal of Triarchic Discipline, which will take the Seeker to the 3rd Flight, and advance the others ahead.";
+                    statement = "Entering a trance-induced Portal of Triarchic Discipline, the Seeker is taken to the 3rd Flight, and advances the others ahead.";
                     this.gameLog.push(`<span class="text-warning">${statement}</span>`);
                     this.advanceSeekers(3);
                 } else if (rollSum === 11) {
-                    statement = "Now entering a trance-induced Portal of Duality, which will take the Seeker to the 2nd Flight, and advance the others ahead.";
+                    statement = "Entering a trance-induced Portal of Duality, the Seeker is taken to the 3rd Flight, and advances the others ahead.";
                     this.gameLog.push(`<span class="text-warning">${statement}</span>`);
                     this.advanceSeekers(2);
                 } else if ([4, 10].includes(rollSum)) {
