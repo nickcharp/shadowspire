@@ -552,6 +552,7 @@
                     this.half_degree = "Bottom";
                     this.current_team = this.home_team;
                     this.gameLog.push(`<span class="${this.getTeamSpan(this.current_team)}">${this.current_team}</span> now seeks Ascension.`);
+					this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                     this.resetHalf();
                 } else {
                     const awayAsc = this.asc_this_degree[this.away_team];
