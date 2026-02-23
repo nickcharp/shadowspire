@@ -69,14 +69,77 @@
             color: #32CD32;
         }
 		
+		
+		/* Speed Trainer Metronome */
+.metronome-container {
+    padding: 20px;
+}
+
+.circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #495057;
+    margin: 10px;
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.circle.active {
+    background-color: #dc3545;
+}
+
+.circle.emphasis {
+    border: 3px solid #ffc107;
+}
+
+.controls {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.form-label {
+	color: #ffffff;
+}
+
+.form-range::-webkit-slider-thumb {
+    background-color: #32CD32;
+}
+
+.form-range::-moz-range-thumb {
+    background-color: #32CD32;
+}
+
+.form-range::-ms-thumb {
+    background-color: #32CD32;
+}
+
+.form-range:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(50, 205, 50, 0.25);
+}
+
+.form-range:focus::-moz-range-thumb {
+    box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(50, 205, 50, 0.25);
+}
+
+.form-range:focus::-ms-thumb {
+    box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(50, 205, 50, 0.25);
+}
+		
+		
 		.footer {
-        margin-top: 12px;
+        margin-top: 0px;
         font-size: 11px;
-		padding-bottom: 0px;
+		padding-bottom: 25px;
         color: #666;
 		}
     </style>
 </head>
+
+
+
+
 <body>
     <div class="container-fluid text-center" id="shadowspire">
 		<h1 class="mb-4">shadow spire ascension</h1>
@@ -101,7 +164,7 @@
                 this.half_degree = "Top";
                 this.gameLog = [];
                 this.rollCount = 0;
-                this.intro = `You have been summoned by the Order of the Ashen Blood/Wraith to ascend the immense spire before you, symbolic of your life and the ritualistic work you are here to undertake.  Beginning in the shadow haze of the circle surrounding the spire, you will approach the spiral staircase to heights signifying the Body, Mind, and Spirit disciplines, in order to establish the Shadow Triumvirate. Each Seeker/Aspirant conceals themselves, and proceeds lurking about the heights of the spire with dagger in hand and magickal forces at ready, in pursuit of the cultivation of their grey-blooded essence, confronting enemies within and outside of themselves.
+                this.intro = `You have been summoned by the Order of the Ashen Blood to ascend the immense spire before you, symbolic of your life and the ritualistic work you are here to undertake.  Beginning in the shadow haze of the circle surrounding the spire, you will approach the spiral staircase to heights signifying the Body, Mind, and Spirit disciplines, in order to establish the Shadow Triumvirate. Each Seeker conceals themselves, and proceeds lurking about the flights of the spire with blade in hand and magickal forces at ready, in pursuit of the cultivation of their grey-blooded essence, confronting enemies within themselves and within striking distance.
 		  |
 --==/////////////[}}====*
                   |
@@ -209,7 +272,7 @@
                         }
                         break;
                     } else {
-                        this.gameLog.push("It's a tie! Rolling again.");
+                        this.gameLog.push("It's a draw! Rolling again.");
                     }
                 }
                 this.current_team = this.away_team;
@@ -253,7 +316,7 @@
                 this.gameLog.push(`<span class="${this.getTeamSpan(this.current_team)}">${this.current_team}</span> rolled ${d1} and ${d2} (Total: ${rollSum})`);
                 let statement;
                 if ([2, 12].includes(rollSum)) {
-                    statement = rollSum === 2 ? "Wielding the Shade Blade and driving forward all Shadows to Ascension" : "Donning the Shade Cloak and driving forward all Shadows to Ascension";
+                    statement = rollSum === 2 ? "Wielding the Shade Blade as an extension of the aura, and thrusting forth all Shadows to Ascension." : "Donning the Shade Cloak, invisible to the adversaries, enshrouding and ushering forth all Shadows to Ascension.";
                     this.gameLog.push(`<span class="text-warning">${statement}</span>`);
                     this.scoreAscensions(this.walkers.length + 1);
                     this.walkers = [];
@@ -285,7 +348,7 @@
                     this.processElderDuel();
                 }
                 if (this.asc_this_degree[this.current_team] >= 3) {
-                    this.gameLog.push(`<span class="text-warning">${this.current_team} has attained maximum Ascensions! Half-Degree ends.</span>`);
+                    this.gameLog.push(`<span class="text-warning">${this.current_team} has attained maximum Ascensions! This attempt has come to an end.</span>`);
                     this.switchHalf();
                     return true;
                 }
@@ -472,7 +535,7 @@
                 const isTop = this.half_degree === "Top";
                 const prevTeam = this.current_team;
                 this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
-                this.gameLog.push("Half-Degree complete!");
+                this.gameLog.push("The Shadow Aspirant now withdraws to stretch and catch their breath, hearing dark, empowering music in the distance...");
                 this.gameLog.push(`<span class="${this.getTeamSpan(prevTeam)}">${prevTeam}</span> attained ${this.asc_this_degree[prevTeam]} Ascensions.`);
                 if (isTop) {
                     if (this.degree >= 3 && this.asc_this_degree[prevTeam] === 0 && this.degree_wins[this.home_team] >= 2) {
@@ -570,6 +633,213 @@
     </script>
 	
 	<hr class="glow animate-breathe">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!--Speed Trainer Metronome-->
+	
+	<div class="container metronome-container" id="metronome">
+            <h1 class="text-center mb-4">speed trainer metronome</h1>
+            <div id="circles" class="text-center mb-4"></div>
+            <div class="controls">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="bpm" class="form-label" align="center">BPM: <span id="bpmValue">100</span></label>
+                        <input type="range" class="form-range" id="bpm" min="20" max="500" value="100">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="timeSignature" class="form-label" align="center">Time Signature</label>
+                        <select class="form-select" id="timeSignature">
+                            <option value="3">3/4</option>
+                            <option value="4" selected>4/4 (Default)</option>
+                            <option value="5">5/4</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="tone" class="form-label" align="center">Tone</label>
+                        <input type="range" class="form-range" id="tone" min="200" max="1000" value="600">
+                    </div>
+                </div>
+                <div class="row g-3 mt-3">
+                    <div class="col-md-4">
+                        <label for="bpmChange" class="form-label" align="center">Tempo Change (BPM)</label>
+                        <input type="number" class="form-control" id="bpmChange" min="0" max="50" value="0">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="bars" class="form-label" align="center">Bars per Tempo Change</label>
+                        <input type="number" class="form-control" id="bars" min="1" value="4">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label" align="center">Increase or Decrease Tempo?</label>
+                        <select class="form-select" id="direction">
+                            <option value="increase">Increase</option>
+                            <option value="decrease">Decrease</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <button id="startStop" class="btn btn-danger">Start</button>
+                    <button id="reset" class="btn btn-danger ms-2">Reset</button>
+                </div>
+            </div>
+        </div>
+		
+		
+		
+		
+		
+		
+	
+	<script>
+		$(document).ready(function() {
+    let isPlaying = false;
+    let currentBeat = 0;
+    let intervalId = null;
+    let beatsPerMeasure = 4;
+    let currentBpm = 120;
+    let barCount = 0;
+    let emphasisBeats = new Set();
+    
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    
+    function createCircles(num) {
+        $('#circles').empty();
+        emphasisBeats.clear();
+        for (let i = 0; i < num; i++) {
+            $('#circles').append(`<div class="circle" data-beat="${i}"></div>`);
+        }
+    }
+
+    function playClick(frequency, isEmphasis) {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.value = isEmphasis ? frequency * 1.2 : frequency;
+        oscillator.type = 'square';
+        
+        gainNode.gain.setValueAtTime(1, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+        
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.1);
+    }
+
+    function updateMetronome() {
+        $('.circle').removeClass('active');
+        const $currentCircle = $(`.circle[data-beat="${currentBeat}"]`);
+        $currentCircle.addClass('active');
+        
+        const tone = parseInt($('#tone').val());
+        const isEmphasis = emphasisBeats.has(currentBeat);
+        playClick(tone, isEmphasis);
+
+        currentBeat = (currentBeat + 1) % beatsPerMeasure;
+        
+        if (currentBeat === 0) {
+            barCount++;
+            const barsPerChange = parseInt($('#bars').val());
+            if (barCount >= barsPerChange) {
+                adjustBpm();
+                barCount = 0;
+            }
+        }
+    }
+
+    function adjustBpm() {
+        const change = parseInt($('#bpmChange').val());
+        const direction = $('#direction').val();
+        
+        // Only adjust BPM if change is greater than 0
+        if (change > 0) {
+            if (direction === 'increase' && currentBpm + change <= 500) {
+                currentBpm += change;
+            } else if (direction === 'decrease' && currentBpm - change >= 20) {
+                currentBpm -= change;
+            }
+            $('#bpm').val(currentBpm);
+            $('#bpmValue').text(currentBpm);
+            if (isPlaying) {
+                clearInterval(intervalId);
+                intervalId = setInterval(updateMetronome, 60000 / currentBpm);
+            }
+        }
+        // If change is 0, no adjustment happens
+    }
+
+    function resetMetronome() {
+        currentBeat = 0;
+        barCount = 0;
+        $('.circle').removeClass('active');
+    }
+
+    // Initial setup
+    createCircles(beatsPerMeasure);
+
+    // Event handlers
+    $('#startStop').click(function() {
+        if (!isPlaying) {
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+            isPlaying = true;
+            $(this).text('Stop');
+            intervalId = setInterval(updateMetronome, 60000 / currentBpm);
+        } else {
+            isPlaying = false;
+            $(this).text('Start');
+            clearInterval(intervalId);
+        }
+    });
+
+    $('#reset').click(function() {
+        if (!isPlaying) {
+            resetMetronome();
+        }
+    });
+
+    $('#bpm').on('input', function() {
+        currentBpm = parseInt($(this).val());
+        $('#bpmValue').text(currentBpm);
+        if (isPlaying) {
+            clearInterval(intervalId);
+            intervalId = setInterval(updateMetronome, 60000 / currentBpm);
+        }
+    });
+
+    $('#timeSignature').change(function() {
+        beatsPerMeasure = parseInt($(this).val());
+        createCircles(beatsPerMeasure);
+        currentBeat = 0;
+        barCount = 0;
+        if (!isPlaying) {
+            resetMetronome();
+        }
+    });
+
+    $(document).on('click', '.circle', function() {
+        const beat = parseInt($(this).data('beat'));
+        if (emphasisBeats.has(beat)) {
+            emphasisBeats.delete(beat);
+            $(this).removeClass('emphasis');
+        } else {
+            emphasisBeats.add(beat);
+            $(this).addClass('emphasis');
+        }
+    });
+});
+	</script>
+	
+	<hr class="glow animate-breathe">
+	
 	<div class="container-fluid text-center footer">
 		Nikolai Zyrnitrov © <script>document.write(new Date().getUTCFullYear());</script>
     </div>
