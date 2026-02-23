@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Shadow Spire Ascension</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	
+    <!-- Old Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<!-- New Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	
+	
 	<!-- Custom Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap">
 <!-- font-family: 'UnifrakturMaguntia', Verdana, cursive; -->
@@ -12,7 +18,14 @@
 <!-- font-family: 'Metal Mania', Verdana, cursive; -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800">
 	
-	<link rel="icon" type="image/png" href="images/NC_icon.png"/>
+	<!-- CSS files -->
+    <link rel="stylesheet" type="text/css" href="CSS/all.css">
+    <link rel="stylesheet" type="text/css" href="CSS/w3.css">
+	<!--
+    <link rel="stylesheet" type="text/css" href="CSS/styles.css">
+	-->
+	
+	<link rel="icon" type="image/png" href="images/dice-six-faces-three.png"/>
 	
     <style>
         body {
@@ -153,15 +166,16 @@
     </div>
     <div class="game-container text-center">
         <div id="gameOutput" class="game-output"></div>
-        <button id="rollBonesBtn" class="btn btn-success btn-lg mt-3">Roll Your Bones</button>
+        <!--<button id="rollBonesBtn" class="btn btn-success btn-lg mt-3">Roll Your Bones</button>-->
+		<button id="rollBonesBtn" class="btn btn-danger btn-sm mt-3"><img src="images/dice-fire.png" width="150" height="auto" alt="Roll Your Bones"></button>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
         class ShadowSpireAscension {
             constructor() {
-                this.degree_wins = { "Lightbringers": 0, "Shadowcasters": 0 };
-                this.asc_this_degree = { "Lightbringers": 0, "Shadowcasters": 0 };
-                this.walkers = [];
+                this.degree_wins = { "Flamebearer": 0, "Shadowcaster": 0 };
+                this.asc_this_degree = { "Flamebearer": 0, "Shadowcaster": 0 };
+                this.Seekers = [];
                 this.deaths = 0;
                 this.degree = 1;
                 this.half_degree = "Top";
@@ -171,7 +185,7 @@
 `	  ||
   )======{{[//////////////////==--
           ||
-	You have been summoned by the Order of the Ashen Blood to ascend the immense spire before you, symbolic of your life and the ritualistic work you are here to undertake. Beginning in the shadow haze of the circle surrounding the spire, you will approach the spiral staircase to heights signifying the Body, Mind, and Spirit disciplines, in order to establish the Shadow Triumvirate. Each Seeker conceals themselves, and proceeds lurking about the flights of the spire with blade in hand and magickal forces at ready, in pursuit of the cultivation of their grey-blooded essence, confronting enemies within themselves and within striking distance.
+	You have been summoned by the Order of the Ashen Blood to ascend this immense spire before you, symbolic of your life and the ritualistic work you are here to undertake, to become one of the few Shadow elite perfected through perseverance of the painfully arduous process of corporeal alchemy. Beginning in the shadow haze of the circle surrounding the spire, you will approach the spiral staircase to heights signifying the disciplines of Body, Mind, and Spirit, in order to embody the Shadow Triumvirate. Each Seeker conceals themselves, and proceeds lurking about the flights of the spire with blade in hand and magickal forces at ready, in pursuit of the cultivation of their grey-blooded essence, confronting obstacles within themselves and enemies at the edge of their blade.
                         ||
   --==//////////////////]}}======(
                         ||
@@ -179,66 +193,66 @@
                 this.gameLog.push(this.intro);
                 this.statements = {
                     single: [
-                        "Walking the Golden Path, cutting through the terrors, illusions, and distractions of this reality, and remaining steadfast, stoic, and forthright in the pursuit of wisdom, balance, power, and perfection.",
-                        "Advancing on the Golden Path, slicing away fears and deceptions, holding firm in the quest for equilibrium and mastery.",
-                        "Treading the Golden Path with unyielding resolve, dispelling shadows of doubt to embrace wisdom and strength.",
-                        "Progressing along the Golden Path, enduring illusions with stoicism, driven by the pursuit of perfect harmony.",
-                        "Navigating the Golden Path, overcoming distractions with fortitude, seeking ultimate power and enlightenment."
+                        "Seeker becomes Trailblazer, setting forth onto the Golden Path, cutting through the terrors, illusions, and distractions of this reality, and remaining steadfast, stoic, and forthright in the pursuit of wisdom, balance, power, and perfection.",
+                        "You advance on the Golden Path, slicing away fears and deceptions, holding firm in the quest for equilibrium and mastery.",
+                        "You tread the Golden Path with unyielding resolve, dispelling shadows of doubt to embrace wisdom and strength.",
+                        "You progress along the Golden Path, enduring illusions with stoicism, driven by the pursuit of perfect harmony.",
+                        "You navigate the Golden Path, overcoming distractions with fortitude, seeking ultimate power and enlightenment."
                     ],
                     death5: [
-                        "Torn apart by wolves emerging from the shadow haze.",
-                        "Ambushed by wraiths lurking in the misty veil.",
-                        "Torn asunder by grasping shadow hands from the void.",
-                        "Falling irreversibly ill to the spire's insidious curse."
+                        "You are torn apart by wolves emerging from the shadow haze.",
+                        "You are ambushed by wraiths lurking in the misty veil.",
+                        "You are torn asunder by grasping shadow hands from the void.",
+                        "You fall irreversibly ill to the spire's insidious curse."
                     ],
                     death6: [
-                        "Losing oneself in the endless wilderness of shadows.",
-                        "Struck down by invisible forces of the encroaching void.",
-                        "Consumed by the creeping darkness from within.",
-                        "Perishing from a fatal misstep into the abyssal fog.",
-                        "Vanishing into the labyrinthine depths of eternal night."
+                        "You lose yourself in the endless wilderness of shadows.",
+                        "You are struck down by invisible forces of the encroaching void.",
+                        "You are consumed by the creeping darkness from within.",
+                        "You perish from a fatal misstep into the abyssal fog.",
+                        "You vanish into the labyrinthine depths of eternal night."
                     ],
                     sac9: [
-                        "Slain by flying discs hurled from the impenetrable darkness.",
-                        "Pierced by burning arrows infused with shadow fire.",
-                        "Sacrificing oneself through self-immolation as a distraction, allowing others to ascend.",
-                        "Offering life in a ritual blaze to pave the way for fellow shadows."
+                        "You are slain by otherwordly flying discs hurled from the impenetrable darkness.",
+                        "You have been pierced by burning arrows infused with shadow fire.",
+                        "You sacrifice yourself through self-immolation as a distraction, allowing others to ascend.",
+                        "You offer your life in a ritual blaze to pave the way for fellow shadows."
                     ],
                     shadowInit: [
-                        "An ancient Wraith lunges at you from out of the fog, as you approach the steps… Fight to advance, or die trying.",
-                        "From the misty shroud, an elder Wraith attacks... Battle for your progression or face oblivion.",
-                        "A spectral Wraith emerges from the haze, blade drawn... Duel for ascent or perish in the shadows.",
+                        "An ancient Reaper lunges at you from out of the fog, as you approach the steps… Fight to advance, or die trying.",
+                        "From the misty shroud, a deadly Reaper attacks... Battle for your progression or face oblivion.",
+                        "A spectral Reaper emerges from the haze, blade drawn... Duel for ascent or perish in the shadows.",
                         "Out of the fog, an ancient adversary strikes... Fight with valor to move forward, or fall."
                     ],
                     shadowWin: [
-                        "You vanquish the Wraith with a swift dagger thrust, allowing your Seeker to advance.",
+                        "You vanquish the Wraith with a swift thrust of your blade, allowing your Seeker to advance.",
                         "Overpowering the ancient foe, your Seeker claims victory and steps onto the first Flight.",
-                        "With skillful parries and strikes, you defeat the Wraith, securing passage forward.",
-                        "The Wraith falls to your blade; your Seeker advances unscathed."
+                        "With skillful parries and strikes, you defeat the Reaper, securing passage forward.",
+                        "The Reaper falls to your blade; your Seeker advances unscathed."
                     ],
                     shadowLose: [
-                        "The Wraith overwhelms you, claiming your Seeker's life in fierce combat.",
+                        "The Reaper overwhelms you, claiming your Seeker's life in fierce combat.",
                         "Defeated by the ancient specter, the Seeker succumbs to the shadows.",
-                        "Outmatched in the duel, your Seeker perishes at the Wraith's hand.",
-                        "The Wraith's blade strikes true; the Seeker dies in battle."
+                        "Outmatched in the duel, your Seeker perishes at the Reaper's hand.",
+                        "The Reaper's blade strikes true; the Seeker dies in battle."
                     ],
                     elderInit: [
-                        "A powerful and revered Shadow Elder standing before you, as you approach the steps… To evade his blade is your only chance to advance. Move now with cunning stealth, or die trying.",
-                        "Confronted by a mighty Shadow Elder... Employ stealth to slip past, or face certain death.",
-                        "A venerable Elder blocks your path, watchful and deadly... Evade with guile or perish.",
-                        "The Elder awaits, blade poised... Use cunning to advance, or meet your end."
+                        "Lord Wraith, a powerful and revered Shadow Elder stands before you, as you approach the steps… To evade his blade is your only chance to advance. Move now with cunning stealth, or die trying.",
+                        "Confronted by the mighty Shadow Elder, Lord Wraith, Father of the All-Shadow... Employ stealth to slip past, or face certain death.",
+                        "Lord Wraith, a venerable Shadow Elder, blocks your path, watchful and deadly... Evade with guile or perish.",
+                        "The Ancient Shadow Master, Lord Wraith, awaits, blade poised and an unspeakable fire in his eyes... Use cunning to advance, or meet your end."
                     ],
                     elderWin: [
-                        "With cunning stealth, you evade the Elder's blade, allowing your Lead Walker to advance.",
-                        "Slipping past the revered foe's defenses, your Lead Walker progresses along the path.",
+                        "With cunning stealth, you evade the Elder's blade, allowing your Lead Seeker to advance.",
+                        "Slipping past the revered foe's defenses, your Lead Seeker progresses along the path.",
                         "Employing shadow guile, you outmaneuver the Elder; advancement is yours.",
-                        "The Elder is eluded; your Lead Walker ascends to the next Flight."
+                        "The Elder is eluded; your Lead Seeker ascends to the next Flight."
                     ],
                     elderLose: [
-                        "The Elder strikes with unerring precision, slaying your Lead Walker in the confrontation.",
-                        "Unable to evade, your Lead Walker falls to the Elder's formidable blade.",
-                        "Outwitted by the revered guardian, death claims your Lead Walker.",
-                        "The Elder's vigilance prevails; your Lead Walker perishes."
+                        "The Elder strikes with unerring precision, slaying your Lead Seeker in the confrontation.",
+                        "Unable to evade, your Lead Seeker falls to the Elder's formidable blade.",
+                        "Outwitted by the revered guardian, death claims your Lead Seeker.",
+                        "The Elder's vigilance prevails; your Lead Seeker perishes."
                     ]
                 };
                 this.determineFirst();
@@ -261,19 +275,19 @@
 					this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                     lightRoll = this.rollDice().reduce((a, b) => a + b, 0);
                     shadowRoll = this.rollDice().reduce((a, b) => a + b, 0);
-                    this.gameLog.push(`<span class="text-danger">Lightbringers</span> rolled: ${lightRoll}`);
-                    this.gameLog.push(`<span class="text-success">Shadowcasters</span> rolled: ${shadowRoll}`);
+                    this.gameLog.push(`<span class="text-danger">Flamebearer</span> rolled: ${lightRoll}`);
+                    this.gameLog.push(`<span class="text-success">Shadowcaster</span> rolled: ${shadowRoll}`);
                     if (lightRoll !== shadowRoll) {
                         if (lightRoll < shadowRoll) {
-                            this.away_team = "Lightbringers";
-                            this.home_team = "Shadowcasters";
-                            this.gameLog.push(`<span class="text-danger">Lightbringers</span> will approach the Spire first.`);
-                            this.gameLog.push(`<span class="text-success">Shadowcasters</span> have the advantage.`);
+                            this.away_team = "Flamebearer";
+                            this.home_team = "Shadowcaster";
+                            this.gameLog.push(`<span class="text-danger">Flamebearer</span> will approach the Spire first.`);
+                            this.gameLog.push(`<span class="text-success">Shadowcaster</span> has the advantage.`);
                         } else {
-                            this.away_team = "Shadowcasters";
-                            this.home_team = "Lightbringers";
-                            this.gameLog.push(`<span class="text-success">Shadowcasters</span> will approach the Spire first.`);
-                            this.gameLog.push(`<span class="text-danger">Lightbringers</span> have the advantage.`);
+                            this.away_team = "Shadowcaster";
+                            this.home_team = "Flamebearer";
+                            this.gameLog.push(`<span class="text-success">Shadowcaster</span> will approach the Spire first.`);
+                            this.gameLog.push(`<span class="text-danger">Flamebearer</span> has the advantage.`);
                         }
                         break;
                     } else {
@@ -286,15 +300,15 @@
             logDegreeStart() {
                 let startText;
                 if (this.degree === 1) {
-                    startText = "The Trial of the Body now begins… Raise your hood, unsheath your blade, and move forth.";
+                    startText = "The Trial of the Body now begins… You have no foundation without a strong, supple, resilient body. Raise your hood, unsheath your blade, and move forth. Incipit Chaos!";
                 } else if (this.degree === 2) {
                     startText = "The Tribunal of the Mind now begins… Sharpen your wits in the shadows, refine your thoughts with cunning edge, and ascend with mental acuity.";
                 } else if (this.degree === 3) {
                     startText = "The Ritual of the Spirit within the Temple of the Astral Shadow, the final phase of existential battle, now begins… Embrace the ethereal, channel the astral forces, and uplift your essence to transcendent heights.";
                 } else if (this.degree === 4) {
-                    startText = "The Ritual of the Spirit within the Temple of the Astral Shadow continues… The battle intensifies, shadows deepen; seek the inner light amidst the void.";
+                    startText = "The Ritual of the Spirit within the Temple of the Astral Shadow continues… Demanding more from the body and mind as well... The battle intensifies, shadows deepen; seek the inner light amidst the void.";
                 } else if (this.degree === 5) {
-                    startText = "The Ritual of the Spirit within the Temple of the Astral Shadow continues… This is the absolute final Degree; both wraith warriors have endured, but only one shall ascend to the apex, transmuting their soul to achieve Shadow Mastery.";
+                    startText = "The Ritual of the Spirit within the Temple of the Astral Shadow continues… Demanding all that remains from the body and mind as well...  This is the absolute final Degree; both Wraith warriors have endured, but only one shall ascend to the apex, transmuting their soul to achieve Shadow Mastery.";
                 }
                 this.gameLog.push(startText);
                 this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
@@ -307,7 +321,7 @@
             }
 
             getTeamSpan(team) {
-                return team === "Lightbringers" ? "text-danger" : "text-success";
+                return team === "Flamebearer" ? "text-danger" : "text-success";
             }
 
             processPlay() {
@@ -321,22 +335,22 @@
                 this.gameLog.push(`<span class="${this.getTeamSpan(this.current_team)}">${this.current_team}</span> rolled ${d1} and ${d2} (Total: ${rollSum})`);
                 let statement;
                 if ([2, 12].includes(rollSum)) {
-                    statement = rollSum === 2 ? "Wielding the Shade Blade as an extension of the aura, and thrusting forth all Shadows to Ascension." : "Donning the Shade Cloak, invisible to the adversaries, enshrouding and ushering forth all Shadows to Ascension.";
+                    statement = rollSum === 2 ? "Wielding the Shade Blade as an extension of the aura, the Seeker thrusts forth all Shadows to Ascension." : "Donning the legendary Shade Cloak, now rendered invisible to the adversaries, the Seeker enshrouds and ushers forth all Shadows to Ascension.";
                     this.gameLog.push(`<span class="text-warning">${statement}</span>`);
-                    this.scoreAscensions(this.walkers.length + 1);
-                    this.walkers = [];
+                    this.scoreAscensions(this.Seekers.length + 1);
+                    this.Seekers = [];
                 } else if (rollSum === 3) {
-                    statement = "Entering a trance-induced Portal of the Three Schools Triarchy, formed within by the all-consuming chaotic flame of Unis’ae Noc, and driving forward all other Shadow Walkers along the Golden Path";
+                    statement = "Now entering a trance-induced Portal of Triarchic Discipline, which will take the Seeker to the 3rd Flight, and move the others along as well.";
                     this.gameLog.push(`<span class="text-warning">${statement}</span>`);
-                    this.advanceWalkers(3);
+                    this.advanceSeekers(3);
                 } else if (rollSum === 11) {
-                    statement = "Entering a trance-induced Portal of Duality, formed within by the all-consuming chaotic flame of Unis’ae Noc, and driving forward all other Shadow Walkers along the Golden Path";
+                    statement = "Now entering a trance-induced Portal of Duality, which will take the Seeker to the 2nd Flight, and move the others along as well.";
                     this.gameLog.push(`<span class="text-warning">${statement}</span>`);
-                    this.advanceWalkers(2);
+                    this.advanceSeekers(2);
                 } else if ([4, 10].includes(rollSum)) {
                     statement = this.getRandomStatement("single");
                     this.gameLog.push(`<span class="text-warning">${statement}</span>`);
-                    this.advanceWalkers(1);
+                    this.advanceSeekers(1);
                 } else if (rollSum === 5) {
                     statement = this.getRandomStatement("death5");
                     this.gameLog.push(`<span class="text-warning">${statement}</span>`);
@@ -353,7 +367,8 @@
                     this.processElderDuel();
                 }
                 if (this.asc_this_degree[this.current_team] >= 3) {
-                    this.gameLog.push(`<span class="text-warning">${this.current_team} has attained maximum Ascensions! This attempt has come to an end.</span>`);
+                    this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
+					this.gameLog.push(`<span class="text-warning">${this.current_team} has attained maximum Ascensions! This attempt has come to an end.</span>`);
                     this.switchHalf();
                     return true;
                 }
@@ -364,22 +379,22 @@
                 return false;
             }
 
-            advanceWalkers(advancement) {
+            advanceSeekers(advancement) {
                 let scored = 0;
-                const newWalkers = [];
-                for (const base of this.walkers.sort((a, b) => a - b)) {
+                const newSeekers = [];
+                for (const base of this.Seekers.sort((a, b) => a - b)) {
                     const newBase = base + advancement;
                     if (newBase > 3) {
                         scored += 1;
                     } else {
-                        newWalkers.push(newBase);
+                        newSeekers.push(newBase);
                     }
                 }
                 if (advancement > 0) {
                     const batterBase = Math.min(advancement, 3);
-                    newWalkers.push(batterBase);
+                    newSeekers.push(batterBase);
                 }
-                this.walkers = newWalkers.sort((a, b) => a - b);
+                this.Seekers = newSeekers.sort((a, b) => a - b);
                 this.scoreAscensions(scored);
             }
 
@@ -393,43 +408,43 @@
             }
 
             advanceWalk() {
-                if (this.walkers.length < 3) {
-                    this.walkers.sort((a, b) => a - b);
-                    if (!this.walkers.includes(1)) {
-                        this.walkers.push(1);
-                    } else if (!this.walkers.includes(2)) {
-                        this.walkers[this.walkers.indexOf(1)] = 2;
-                        this.walkers.push(1);
-                    } else if (!this.walkers.includes(3)) {
-                        this.walkers[this.walkers.indexOf(2)] = 3;
-                        this.walkers[this.walkers.indexOf(1)] = 2;
-                        this.walkers.push(1);
+                if (this.Seekers.length < 3) {
+                    this.Seekers.sort((a, b) => a - b);
+                    if (!this.Seekers.includes(1)) {
+                        this.Seekers.push(1);
+                    } else if (!this.Seekers.includes(2)) {
+                        this.Seekers[this.Seekers.indexOf(1)] = 2;
+                        this.Seekers.push(1);
+                    } else if (!this.Seekers.includes(3)) {
+                        this.Seekers[this.Seekers.indexOf(2)] = 3;
+                        this.Seekers[this.Seekers.indexOf(1)] = 2;
+                        this.Seekers.push(1);
                     }
                 } else {
                     this.scoreAscensions(1);
                 }
-                this.walkers = this.walkers.sort((a, b) => a - b);
+                this.Seekers = this.Seekers.sort((a, b) => a - b);
             }
 
             processSacrificialDeath() {
                 const statement = this.getRandomStatement("sac9");
                 this.gameLog.push(`<span class="text-warning">${statement}</span>`);
-                if (!this.walkers.length) {
+                if (!this.Seekers.length) {
                     this.deaths += 1;
                 } else if (this.deaths === 2) {
-                    this.gameLog.push(`<span class="text-warning">Sacrificial Death with 2 Deaths already; Walkers do not advance.</span>`);
+                    this.gameLog.push(`<span class="text-warning">Sacrificial Death with 2 Deaths already; Seekers do not advance.</span>`);
                     this.deaths += 1;
                 } else {
                     let scored = 0;
-                    if (this.walkers.includes(3)) {
+                    if (this.Seekers.includes(3)) {
                         scored += 1;
-                        this.walkers.splice(this.walkers.indexOf(3), 1);
+                        this.Seekers.splice(this.Seekers.indexOf(3), 1);
                     }
-                    if (this.walkers.includes(2)) {
-                        this.walkers[this.walkers.indexOf(2)] = 3;
+                    if (this.Seekers.includes(2)) {
+                        this.Seekers[this.Seekers.indexOf(2)] = 3;
                     }
-                    if (this.walkers.includes(1)) {
-                        this.walkers[this.walkers.indexOf(1)] = 2;
+                    if (this.Seekers.includes(1)) {
+                        this.Seekers[this.Seekers.indexOf(1)] = 2;
                     }
                     this.deaths += 1;
                     this.scoreAscensions(scored);
@@ -480,34 +495,34 @@
                 if (batterSum > oppSum) {
                     outcomeStmt = this.getRandomStatement("elderWin");
                     this.gameLog.push(`<span class="text-warning">${outcomeStmt}</span>`);
-                    if (this.walkers.length === 0) {
-                        this.walkers.push(1);
+                    if (this.Seekers.length === 0) {
+                        this.Seekers.push(1);
                     } else {
-                        const lead = Math.max(...this.walkers);
-                        const index = this.walkers.indexOf(lead);
+                        const lead = Math.max(...this.Seekers);
+                        const index = this.Seekers.indexOf(lead);
                         const newLead = lead + 1;
                         if (newLead > 3) {
                             this.scoreAscensions(1);
-                            this.walkers.splice(index, 1);
+                            this.Seekers.splice(index, 1);
                         } else {
-                            this.walkers[index] = newLead;
+                            this.Seekers[index] = newLead;
                         }
                     }
                 } else {
                     outcomeStmt = this.getRandomStatement("elderLose");
                     this.gameLog.push(`<span class="text-warning">${outcomeStmt}</span>`);
                     this.deaths += 1;
-                    if (this.walkers.length > 0) {
-                        const lead = Math.max(...this.walkers);
-                        const index = this.walkers.indexOf(lead);
-                        this.walkers.splice(index, 1);
+                    if (this.Seekers.length > 0) {
+                        const lead = Math.max(...this.Seekers);
+                        const index = this.Seekers.indexOf(lead);
+                        this.Seekers.splice(index, 1);
                     }
                 }
             }
 
             updateStatus() {
                 this.printFlightStatus();
-                this.gameLog.push(`Score: <span class="${this.getTeamSpan("Lightbringers")}">Lightbringers</span> <span class="text-warning">${this.asc_this_degree["Lightbringers"]}</span> - <span class="${this.getTeamSpan("Shadowcasters")}">Shadowcasters</span> <span class="text-warning">${this.asc_this_degree["Shadowcasters"]}</span>`);
+                this.gameLog.push(`Score: <span class="${this.getTeamSpan("Flamebearer")}">Flamebearer</span> <span class="text-warning">${this.asc_this_degree["Flamebearer"]}</span> - <span class="${this.getTeamSpan("Shadowcaster")}">Shadowcaster</span> <span class="text-warning">${this.asc_this_degree["Shadowcaster"]}</span>`);
                 this.gameLog.push(`Deaths: <span class="text-warning">${this.deaths}</span>`);
                 if (this.deaths < 3) {
                     this.gameLog.push(`<span class="text-limegreen">${"*".repeat(this.rollCount)}</span>`);
@@ -516,22 +531,22 @@
 
             printFlightStatus() {
                 const flights = ["1st", "2nd", "3rd"];
-                if (!this.walkers.length) {
+                if (!this.Seekers.length) {
                     this.gameLog.push("All Flights of the Spiral Stairway are empty.");
                 } else {
-                    const pos = this.walkers.map(base => `${flights[base - 1]} Flight`);
+                    const pos = this.Seekers.map(base => `${flights[base - 1]} Flight`);
                     let joined;
                     if (pos.length === 1) {
                         joined = pos[0];
                     } else {
                         joined = pos.slice(0, -1).join(", ") + (pos.length > 2 ? "," : "") + " and " + pos[pos.length - 1];
                     }
-                    this.gameLog.push(`${pos.length > 1 ? "Walkers at" : "Walker at"} ${joined}`);
+                    this.gameLog.push(`${pos.length > 1 ? "Seekers at" : "Seeker at"} ${joined}`);
                 }
             }
 
             resetHalf() {
-                this.walkers = [];
+                this.Seekers = [];
                 this.deaths = 0;
                 this.rollCount = 0;
             }
@@ -540,7 +555,7 @@
                 const isTop = this.half_degree === "Top";
                 const prevTeam = this.current_team;
                 this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
-                this.gameLog.push("The Shadow Aspirant now withdraws to stretch and catch their breath, hearing dark, empowering music in the distance...");
+                this.gameLog.push("The Shadow Aspirant has reached the next Circle of Silence upon the spire, awaiting judgement of the Shadow Elders and feeling a moment of tranquility, allowing them to briefly drop their guard - to stretch aching muscles, breathe in unison with their expanding aura, and drink their potent brew as they peer on the multitude of surrounding jagged and serrated architecture - hearing dark, empowering music in the distance... Their rival, and other ghastly wraiths, are surely not far away.");
                 this.gameLog.push(`<span class="${this.getTeamSpan(prevTeam)}">${prevTeam}</span> attained ${this.asc_this_degree[prevTeam]} Ascensions.`);
                 if (isTop) {
                     if (this.degree >= 3 && this.asc_this_degree[prevTeam] === 0 && this.degree_wins[this.home_team] >= 2) {
@@ -563,8 +578,8 @@
                     } else if (homeAsc > awayAsc) {
                         winner = this.home_team;
                     } else if (awayAsc === 3 && homeAsc === 3) {
-                        this.gameLog.push("Ascensions tied at 3! The battle must be repeated.");
-                        this.asc_this_degree = { "Lightbringers": 0, "Shadowcasters": 0 };
+                        this.gameLog.push("Ascensions tied at 3! The battle must be repeated from the Silent Circle below.");
+                        this.asc_this_degree = { "Flamebearer": 0, "Shadowcaster": 0 };
                         this.resetHalf();
                         this.half_degree = "Top";
                         this.current_team = this.away_team;
@@ -572,7 +587,7 @@
                         return;
                     } else {
                         this.gameLog.push("Ascensions tied! The battle must be repeated.");
-                        this.asc_this_degree = { "Lightbringers": 0, "Shadowcasters": 0 };
+                        this.asc_this_degree = { "Flamebearer": 0, "Shadowcaster": 0 };
                         this.resetHalf();
                         this.half_degree = "Top";
                         this.current_team = this.away_team;
@@ -582,8 +597,8 @@
                     this.degree_wins[winner] += 1;
                     const degreeName = this.getDegreeName(this.degree);
                     this.gameLog.push(`<span class="${this.getTeamSpan(winner)}">${winner}</span> has ascended victorious through ${degreeName}.`);
-                    this.gameLog.push(`Ascensions of the ${this.degree}°: <span class="${this.getTeamSpan("Lightbringers")}">Lightbringers</span> ${this.asc_this_degree["Lightbringers"]} - <span class="${this.getTeamSpan("Shadowcasters")}">Shadowcasters</span> ${this.asc_this_degree["Shadowcasters"]}`);
-                    this.gameLog.push(`Degrees Complete: <span class="${this.getTeamSpan("Lightbringers")}">Lightbringers</span> ${this.degree_wins["Lightbringers"]} - <span class="${this.getTeamSpan("Shadowcasters")}">Shadowcasters</span> ${this.degree_wins["Shadowcasters"]}`);
+                    this.gameLog.push(`Ascensions of the ${this.degree}°: <span class="${this.getTeamSpan("Flamebearer")}">Flamebearer</span> ${this.asc_this_degree["Flamebearer"]} - <span class="${this.getTeamSpan("Shadowcaster")}">Shadowcaster</span> ${this.asc_this_degree["Shadowcaster"]}`);
+                    this.gameLog.push(`Circle Degrees Complete: <span class="${this.getTeamSpan("Flamebearer")}">Flamebearer</span> ${this.degree_wins["Flamebearer"]} - <span class="${this.getTeamSpan("Shadowcaster")}">Shadowcaster</span> ${this.degree_wins["Shadowcaster"]}`);
                     this.checkGameOver();
                     if (this.game_over) return;
                     this.degree += 1;
@@ -591,7 +606,7 @@
                         this.game_over = true;
                         return;
                     }
-                    this.asc_this_degree = { "Lightbringers": 0, "Shadowcasters": 0 };
+                    this.asc_this_degree = { "Flamebearer": 0, "Shadowcaster": 0 };
                     this.resetHalf();
                     this.half_degree = "Top";
                     this.current_team = this.away_team;
@@ -600,8 +615,8 @@
             }
 
             checkGameOver() {
-                if (this.degree_wins["Lightbringers"] >= 3 || this.degree_wins["Shadowcasters"] >= 3) {
-                    const overallWinner = this.degree_wins["Lightbringers"] >= 3 ? "Lightbringers" : "Shadowcasters";
+                if (this.degree_wins["Flamebearer"] >= 3 || this.degree_wins["Shadowcaster"] >= 3) {
+                    const overallWinner = this.degree_wins["Flamebearer"] >= 3 ? "Flamebearer" : "Shadowcaster";
                     this.gameLog.push("Game over!");
                     this.gameLog.push(`<span class="${this.getTeamSpan(overallWinner)}">${overallWinner}</span> has attained Shadow Mastery upon Ascending the Shadow Spire!`);
                     this.game_over = true;
@@ -847,7 +862,7 @@
 	<hr class="glow animate-breathe">
 	
 	<div class="container-fluid text-center footer">
-		Nikolai Zyrnitrov © <script>document.write(new Date().getUTCFullYear());</script>
+		Zyrnitra © <script>document.write(new Date().getUTCFullYear());</script>
     </div>
 	
 </body>
