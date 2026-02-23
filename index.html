@@ -239,8 +239,8 @@
                     elderInit: [
                         "Lord Wraith, a powerful and revered Shadow Elder stands before you, as you approach the steps… To evade his blade is your only chance to advance. Move now with cunning stealth, or die trying.",
                         "Confronted by the mighty Shadow Elder, Lord Wraith, Father of the All-Shadow... Employ stealth to slip past, or face certain death.",
-                        "Lord Wraith, a venerable Shadow Elder, blocks your path, watchful and deadly... Evade with guile or perish.",
-                        "The Ancient Shadow Master, Lord Wraith, awaits, blade poised and an unspeakable fire in his eyes... Use cunning to advance, or meet your end."
+                        "Lord Wraith, the most fearsome and venerable Shadow Elder, blocks your path, watchful and deadly... Evade with guile or perish.",
+                        "The Ancient Shadow Master, Lord Wraith, awaits, blade poised with an unspeakable fire in his eyes... Use cunning to advance, or meet your end."
                     ],
                     elderWin: [
                         "With cunning stealth, you evade the Elder's blade, allowing your Lead Seeker to advance.",
@@ -300,14 +300,19 @@
             logDegreeStart() {
                 let startText;
                 if (this.degree === 1) {
-                    startText = "The Trial of the Body now begins… You have no foundation without a strong, supple, resilient body. Raise your hood, unsheath your blade, and move forth. Incipit Chaos!";
+				this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
+                    startText = "The Trial of the Body now begins… You have no foundation without a strong, supple, resilient body. Raise your hood, unsheath your blade, FOCUS, MOVE, and STRIKE forth. Incipit Chaos!";
                 } else if (this.degree === 2) {
+				this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                     startText = "The Tribunal of the Mind now begins… Sharpen your wits in the shadows, refine your thoughts with cunning edge, and ascend with mental acuity.";
                 } else if (this.degree === 3) {
+				this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                     startText = "The Ritual of the Spirit within the Temple of the Astral Shadow, the final phase of existential battle, now begins… Embrace the ethereal, channel the astral forces, and uplift your essence to transcendent heights.";
                 } else if (this.degree === 4) {
+				this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                     startText = "The Ritual of the Spirit within the Temple of the Astral Shadow continues… Demanding more from the body and mind as well... The battle intensifies, shadows deepen; seek the inner light amidst the void.";
                 } else if (this.degree === 5) {
+				this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                     startText = "The Ritual of the Spirit within the Temple of the Astral Shadow continues… Demanding all that remains from the body and mind as well...  This is the absolute final Degree; both Wraith warriors have endured, but only one shall ascend to the apex, transmuting their soul to achieve Shadow Mastery.";
                 }
                 this.gameLog.push(startText);
