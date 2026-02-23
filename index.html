@@ -238,7 +238,7 @@
                         "The Reaper's blade strikes true; the Seeker dies in battle."
                     ],
                     elderInit: [
-                        "Lord Wraith Zyrnitra, a powerful and revered Shadow Elder, stands before you as you approach the steps… To evade his lethal Shade Blade is your only chance to advance. Move now with cunning stealth, or die trying.",
+                        "Lord Wraith Zyrnitra, a powerful and revered Shadow Elder, stands before you as you approach the steps… To evade his hidden Shade Blade is your only hope to advance. Move now with cunning stealth, or die trying.",
                         "Confronted by the mighty Shadow Elder, Lord Wraith Zyrnitra, Father of the All-Shadow... Employ stealth to slip past, or face certain death.",
                         "Lord Wraith Zyrnitra, the most fearsome and venerable Shadow Elder, blocks your path, watchful and deadly... Evade with guile or perish.",
                         "The Ancient Shadow Master, Lord Wraith Zyrnitra, awaits, Shade Blade poised with an unspeakable black fire in his eyes... Use cunning to advance, or meet your end."
@@ -251,7 +251,7 @@
                     ],
                     elderLose: [
                         "Zyrnitra strikes with unerring precision, slaying your Lead Seeker in the confrontation.",
-                        "Unable to evade, your Lead Seeker falls to Zyrnitra's formidable Shade Blade.",
+                        "Unable to evade, your Lead Seeker falls to Zyrnitra's lethal and unseen blade.",
                         "Outwitted by the revered Lord Wraith, death claims your Lead Seeker.",
                         "Zyrnitra's vigilance prevails; your Lead Seeker perishes."
                     ]
@@ -341,7 +341,7 @@
                 this.gameLog.push(`<span class="${this.getTeamSpan(this.current_team)}">${this.current_team}</span> rolled ${d1} and ${d2} (Total: ${rollSum})`);
                 let statement;
                 if ([2, 12].includes(rollSum)) {
-                    statement = rollSum === 2 ? "Wielding the Shade Blade as an extension of the aura, the Seeker thrusts forth all Shadows to Ascension." : "Donning the legendary Shade Cloak, now rendered invisible to the adversaries, the Seeker enshrouds and ushers forth all Shadows to Ascension.";
+                    statement = rollSum === 2 ? "Wielding the Shade Blade as an extension of the aura, the Seeker thrusts forth all Shadows to Ascension." : "Donning the legendary Shade Cloak, now rendered invisible to your adversaries, the Seeker enshrouds and ushers forth all Shadows to Ascension.";
                     this.gameLog.push(`<span class="text-warning">${statement}</span>`);
                     this.scoreAscensions(this.Seekers.length + 1);
                     this.Seekers = [];
