@@ -171,7 +171,7 @@
 `	  ||
   )======{{[//////////////////==--
           ||
-	You have been summoned by the Order of the Ashen Blood to ascend the immense spire before you, symbolic of your life and the ritualistic work you are here to undertake.  Beginning in the shadow haze of the circle surrounding the spire, you will approach the spiral staircase to heights signifying the Body, Mind, and Spirit disciplines, in order to establish the Shadow Triumvirate. Each Seeker conceals themselves, and proceeds lurking about the flights of the spire with blade in hand and magickal forces at ready, in pursuit of the cultivation of their grey-blooded essence, confronting enemies within themselves and within striking distance.
+	You have been summoned by the Order of the Ashen Blood to ascend the immense spire before you, symbolic of your life and the ritualistic work you are here to undertake. Beginning in the shadow haze of the circle surrounding the spire, you will approach the spiral staircase to heights signifying the Body, Mind, and Spirit disciplines, in order to establish the Shadow Triumvirate. Each Seeker conceals themselves, and proceeds lurking about the flights of the spire with blade in hand and magickal forces at ready, in pursuit of the cultivation of their grey-blooded essence, confronting enemies within themselves and within striking distance.
                         ||
   --==//////////////////]}}======(
                         ||
@@ -445,7 +445,7 @@
                     const oppRoll = this.rollDice();
                     batterSum = batterRoll[0] + batterRoll[1];
                     oppSum = oppRoll[0] + oppRoll[1];
-                    this.gameLog.push(`Your roll: ${batterSum} Opponent's roll: ${oppSum}`);
+                    this.gameLog.push(`Your roll: ${batterSum} | Opponent's roll: ${oppSum}`);
                     if (batterSum === oppSum) {
                         this.gameLog.push(`<span class="text-warning">Blows are parried effectively; the duel intensifies—roll again.</span>`);
                     }
@@ -471,7 +471,7 @@
                     const oppRoll = this.rollDice();
                     batterSum = batterRoll[0] + batterRoll[1];
                     oppSum = oppRoll[0] + oppRoll[1];
-                    this.gameLog.push(`Your roll: ${batterSum} Opponent's roll: ${oppSum}`);
+                    this.gameLog.push(`Your roll: ${batterSum} | Opponent's roll: ${oppSum}`);
                     if (batterSum === oppSum) {
                         this.gameLog.push(`<span class="text-warning">Blows are parried effectively; the duel intensifies—roll again.</span>`);
                     }
