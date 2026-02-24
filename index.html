@@ -4,188 +4,242 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Shadow Spire Ascension</title>
-	
-    <!-- Old Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<!-- New Bootstrap CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	
-	
-	<!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap">
-<!-- font-family: 'UnifrakturMaguntia', Verdana, cursive; -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap">
-<!-- font-family: 'Metal Mania', Verdana, cursive; -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800">
-	
-	<!-- CSS files -->
     <link rel="stylesheet" type="text/css" href="CSS/all.css">
     <link rel="stylesheet" type="text/css" href="CSS/w3.css">
-	<!--
-    <link rel="stylesheet" type="text/css" href="CSS/styles.css">
-	-->
-	
-	<link rel="icon" type="image/png" href="images/dice-six-faces-three.png"/>
-	
+    <link rel="icon" type="image/png" href="images/dice-six-faces-three.png"/>
     <style>
-        body {
-            background-color: #1a1a1a;
+        :root {
+            --player1-color: #FF0000;
+            --player2-color: #32CD32;
         }
+        .text-player1 { color: var(--player1-color); }
+        .text-player2 { color: var(--player2-color); }
+        body { background-color: #1a1a1a; }
         h1 {
             color: #bfbfbf;
-			font-size: 45px;
-			font-family: 'UnifrakturMaguntia', Verdana, cursive;
-			padding-top: 25px;
+            font-size: 45px;
+            font-family: 'UnifrakturMaguntia', Verdana, cursive;
+            padding-top: 25px;
         }
-		
-		/* Horizontal Section Divider */
-		hr.glow {
-			border: none;
-			height: 2px;
-			width: 70%;
-			margin: 30px auto;
-			background: linear-gradient(to right, transparent, #ffffff 30%, #ffffff 70%, transparent);
-			/*GREEN
-			background: linear-gradient(to right, transparent, #32CD32 30%, #32CD32 70%, transparent);
-			*/
-			box-shadow: 0 0 10px rgba(50, 205, 50, 0.45);
-			opacity: 0.85;
-		}
-
-		/* Divider animations – add class like "animate-breathe" to <hr class="glow animate-breathe"> */
-		
-		@keyframes breatheExpand {
-			0%   { opacity: 0.50;   width: 40%;   }
-			50%  { opacity: 0.90; width: 80%; }
-			100% { opacity: 0.50;   width: 40%;   }
-		}
-
-		hr.glow.animate-breathe {
-			animation: breatheExpand 10s infinite ease-in-out;
-		}
-		
-        /* Shadow Spire Ascension Styles */
-        .game-container {
-            max-width: 600px;
-            margin: 20px auto;
+        hr.glow {
+            border: none;
+            height: 2px;
+            width: 70%;
+            margin: 30px auto;
+            background: linear-gradient(to right, transparent, #ffffff 30%, #ffffff 70%, transparent);
+            box-shadow: 0 0 10px rgba(50, 205, 50, 0.45);
+            opacity: 0.85;
         }
+        @keyframes breatheExpand {
+            0% { opacity: 0.50; width: 40%; }
+            50% { opacity: 0.90; width: 80%; }
+            100% { opacity: 0.50; width: 40%; }
+        }
+        hr.glow.animate-breathe {
+            animation: breatheExpand 10s infinite ease-in-out;
+        }
+        @keyframes subtleGreyPulse {
+            0%, 100% { box-shadow: 0 0 6px rgba(200, 200, 200, 0.15); }
+            50% { box-shadow: 0 0 12px rgba(200, 200, 200, 0.4); }
+        }
+        .breathing-glow {
+            border: 1px solid #555;
+            box-shadow: 0 0 6px rgba(200, 200, 200, 0.15);
+            animation: subtleGreyPulse 10s infinite ease-in-out;
+        }
+        .game-container { max-width: 600px; margin: 20px auto; }
         .game-output {
             font-family: monospace;
             background-color: #000000;
-            padding: 10px;
-            border-radius: 5px;
-            min-height: 200px;
+            padding: 12px;
+            border-radius: 6px;
+            min-height: 220px;
             overflow-y: auto;
             white-space: pre-wrap;
             text-align: left;
             color: #ffffff;
             resize: vertical;
         }
-        .text-limegreen {
-            color: #32CD32;
+        .text-limegreen { color: #32CD32; }
+        .text-warning { color: #ffc107; }
+        .roll-number,
+        .number { color: #aaaaaa; } /* slightly dark grey for numbers */
+        .form-select {
+            background-color: #ffffff;
+            color: #000000;
+            border: 1px solid #ced4da;
         }
-		
-		
-		/* Speed Trainer Metronome */
-.metronome-container {
-    padding: 20px;
-}
-
-.circle {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #495057;
-    margin: 10px;
-    display: inline-block;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.circle.active {
-    background-color: #dc3545;
-}
-
-.circle.emphasis {
-    border: 3px solid #ffc107;
-}
-
-.controls {
-    max-width: 600px;
-    margin: 20px auto;
-}
-
-.form-label {
-	color: #ffffff;
-}
-
-.form-range::-webkit-slider-thumb {
-    background-color: #32CD32;
-}
-
-.form-range::-moz-range-thumb {
-    background-color: #32CD32;
-}
-
-.form-range::-ms-thumb {
-    background-color: #32CD32;
-}
-
-.form-range:focus::-webkit-slider-thumb {
-    box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(50, 205, 50, 0.25);
-}
-
-.form-range:focus::-moz-range-thumb {
-    box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(50, 205, 50, 0.25);
-}
-
-.form-range:focus::-ms-thumb {
-    box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(50, 205, 50, 0.25);
-}
-		
-		
-		.footer {
-        margin-top: 0px;
-        font-size: 14px;
-		padding-bottom: 25px;
-        color: #666;
-		}
+        .form-select:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+        }
+        .player-label {
+            color: #cccccc;
+            font-weight: 500;
+        }
+        #riddleModal .modal-content {
+            background-color: #111;
+            color: #ddd;
+            border: 1px solid #444;
+        }
+        #riddleModal .modal-header {
+            border-bottom: 1px solid #444;
+        }
+        #riddleModal .modal-footer {
+            border-top: 1px solid #444;
+        }
+        .metronome-container { padding: 20px; }
+        .circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #495057;
+            margin: 10px;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .circle.active { background-color: #dc3545; }
+        .circle.emphasis { border: 3px solid #ffc107; }
+        .controls { max-width: 600px; margin: 20px auto; }
+        .form-label { color: #ffffff; }
+        .form-range::-webkit-slider-thumb { background-color: #32CD32; }
+        .form-range::-moz-range-thumb { background-color: #32CD32; }
+        .form-range::-ms-thumb { background-color: #32CD32; }
+        .form-range:focus::-webkit-slider-thumb { box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(50, 205, 50, 0.25); }
+        .form-range:focus::-moz-range-thumb { box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(50, 205, 50, 0.25); }
+        .form-range:focus::-ms-thumb { box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(50, 205, 50, 0.25); }
+        .footer {
+            margin-top: 0;
+            font-size: 14px;
+            padding-bottom: 25px;
+            color: #666;
+        }
     </style>
 </head>
-
-
-
-
 <body>
     <div class="container-fluid text-center" id="shadowspire">
-		<h1 class="mb-4">shadow spire ascension</h1>
-		<hr class="glow animate-breathe">
-<!--
-        <h1 class="mb-4">...a Shadow/Wraith Themed Ascension Game</h1>
--->
+        <h1 class="mb-4">shadow spire ascension</h1>
+        <hr class="glow animate-breathe">
     </div>
     <div class="game-container text-center">
-        <div id="gameOutput" class="game-output"></div>
-        <!--<button id="rollBonesBtn" class="btn btn-success btn-lg mt-3">Roll Your Bones</button>-->
-		<button id="rollBonesBtn" class="btn btn-danger btn-sm mt-3"><img src="images/dice-fire.png" width="150" height="auto" alt="Roll Your Bones"></button>
+        <div class="row mb-3">
+            <div class="col-6">
+                <label class="player-label">Player 1</label>
+                <select id="player1Select" class="form-select breathing-glow">
+                    <option value="Flamebearer" selected>Flamebearer</option>
+                    <option value="Shadowcaster">Shadowcaster</option>
+                    <option value="Illusion">Illusion</option>
+                    <option value="Mirage">Mirage</option>
+                    <option value="Phantom">Phantom</option>
+                    <option value="Reaper">Reaper</option>
+                    <option value="Shade">Shade</option>
+                    <option value="Shadow">Shadow</option>
+                    <option value="Silhouette">Silhouette</option>
+                    <option value="Specter">Specter</option>
+                    <option value="Spirit">Spirit</option>
+                    <option value="Warrior">Warrior</option>
+                    <option value="Watcher">Watcher</option>
+                    <option value="Wraith">Wraith</option>
+                    <option value="Yin">Yin</option>
+                    <option value="Yang">Yang</option>
+                </select>
+            </div>
+            <div class="col-6">
+                <label class="player-label">Player 2</label>
+                <select id="player2Select" class="form-select breathing-glow">
+                    <option value="Flamebearer">Flamebearer</option>
+                    <option value="Shadowcaster" selected>Shadowcaster</option>
+                    <option value="Illusion">Illusion</option>
+                    <option value="Mirage">Mirage</option>
+                    <option value="Phantom">Phantom</option>
+                    <option value="Reaper">Reaper</option>
+                    <option value="Shade">Shade</option>
+                    <option value="Shadow">Shadow</option>
+                    <option value="Silhouette">Silhouette</option>
+                    <option value="Specter">Specter</option>
+                    <option value="Spirit">Spirit</option>
+                    <option value="Warrior">Warrior</option>
+                    <option value="Watcher">Watcher</option>
+                    <option value="Wraith">Wraith</option>
+                    <option value="Yin">Yin</option>
+                    <option value="Yang">Yang</option>
+                </select>
+            </div>
+        </div>
+        <div id="gameOutput" class="game-output breathing-glow"></div>
+        <button id="rollBonesBtn" class="btn btn-danger btn-sm mt-3 breathing-glow">
+            <img src="images/dice-fire.png" width="150" height="auto" alt="Roll Your Bones">
+        </button>
+    </div>
+    <!-- Scholar Riddle Modal -->
+    <div class="modal fade" id="riddleModal" tabindex="-1" aria-labelledby="riddleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="riddleModalLabel">Shadow Scholar's Riddle</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="riddleText" class="mb-4"></p>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="riddleAnswer" id="yesRadio" value="yes" checked>
+                        <label class="form-check-label" for="yesRadio">Yes</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="riddleAnswer" id="noRadio" value="no">
+                        <label class="form-check-label" for="noRadio">No</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="submitRiddle">Execute</button>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         class ShadowSpireAscension {
             constructor() {
-                this.degree_wins = { "Flamebearer": 0, "Shadowcaster": 0 };
-                this.asc_this_degree = { "Flamebearer": 0, "Shadowcaster": 0 };
+                this.playerColors = {
+                    "Flamebearer": "#FF0000",
+                    "Shadowcaster": "#32CD32",
+                    "Illusion": "#DA70D6",
+                    "Mirage": "#00FFFF",
+                    "Phantom": "#778899",
+                    "Reaper": "#8B0000",
+                    "Shade": "#696969",
+                    "Shadow": "#4B0082",
+                    "Silhouette": "#2F4F4F",
+                    "Specter": "#F5F5F5",
+                    "Spirit": "#00FF7F",
+                    "Warrior": "#FFD700",
+                    "Watcher": "#FF8C00",
+                    "Wraith": "#9932CC",
+                    "Yin": "#FFFFFF",
+                    "Yang": "#FFFF00"
+                };
+                this.player1Name = "Flamebearer";
+                this.player2Name = "Shadowcaster";
+                this.degree_wins = { player1: 0, player2: 0 };
+                this.asc_this_degree = { player1: 0, player2: 0 };
                 this.Seekers = [];
                 this.deaths = 0;
                 this.degree = 1;
                 this.half_degree = "Top";
                 this.gameLog = [];
                 this.rollCount = 0;
-                this.intro = 
-`	  ||
+                this.intro = ` ||
   )======{{[//////////////////==--
           ||
-	You have been summoned by the Order of the Ashen Blood to ascend the monumental spire before you, symbolic of your life and the ritualistic work you are here to undertake, to become one of the few Shadow elite perfected through perseverance of the painful rite of passage of corporeal alchemy. Beginning in the shadow haze of the circle surrounding the spire, you will approach the spiral staircase to heights signifying the disciplines of Body, Mind, and Spirit, in order to embody the Shadow Triumvirate. Each Seeker must conceal themselves, and proceed lurking about the flights of the spire with blade in hand and lycanthropic forces at ready, in pursuit of the cultivation of their grey-blooded essence, confronting obstacles within themselves and enemies at the edge of their blade.
+You have been summoned by the Order of the Ashen Blood to ascend the monumental spire before you, symbolic of your life and the ritualistic work you are here to undertake, to become one of the few Shadow elite perfected through perseverance of the painful rite of passage of corporeal alchemy. Beginning in the shadow haze of the circle surrounding the spire, you will approach the spiral staircase to heights signifying the disciplines of Body, Mind, and Spirit, in order to embody the Shadow Triumvirate. Each Seeker must conceal themselves, and proceed lurking about the flights of the spire with blade in hand and lycanthropic forces at ready, in pursuit of the cultivation of their grey-blooded essence, confronting obstacles within themselves and enemies at the edge of their blade.
                         ||
   --==//////////////////]}}======(
                         ||
@@ -203,7 +257,7 @@
                         "You are torn apart by wolves emerging from the shadow haze.",
                         "You are ambushed by wraiths lurking in the misty veil.",
                         "Consumed by the chaotic fire of Unis'ae Noc, your Seeker is incinerated.",
-						"You are torn asunder by grasping shadow hands from the void.",
+                        "You are torn asunder by grasping shadow hands from the void.",
                         "You fall irreversibly ill to the spire's insidious curse."
                     ],
                     death6: [
@@ -218,6 +272,60 @@
                         "You have been pierced by burning arrows infused with shadow fire, but the others manage to escape.",
                         "You sacrifice yourself through self-immolation as a distraction, allowing the others to ascend.",
                         "You offer your life in a ritual blaze to light the way for fellow shadows."
+                    ],
+                    wraithInit: [
+                        "Lord Wraith Zyrnitra, a powerful and revered Shadow Elder, stands before you as you approach the steps… To evade his hidden Shade Blade is your only hope to advance. Move now with cunning stealth, or die trying.",
+                        "Confronted by the mighty Shadow Elder, Lord Wraith Zyrnitra, Father of the All-Shadow... Employ stealth to slip past, or face certain death.",
+                        "Lord Wraith Zyrnitra, the most fearsome and venerable Shadow Elder, blocks your path, watchful and deadly... Evade with guile or perish.",
+                        "The Ancient Shadow Master, Lord Wraith Zyrnitra, awaits, Shade Blade poised with an unspeakable black fire in his eyes... Use cunning to advance, or meet your end."
+                    ],
+                    wraithWin: [
+                        "With cunning stealth, you evade Zyrnitra's Shade Blade, allowing your Lead Seeker to advance.",
+                        "Slipping past the revered foe's defenses, your Lead Seeker progresses along the path.",
+                        "Employing shadow guile, you outmaneuver Zyrnitra; advancement is yours.",
+                        "Zyrnitra is eluded; your Lead Seeker advances to the next Flight."
+                    ],
+                    wraithLose: [
+                        "Zyrnitra strikes with unerring precision, slaying your Lead Seeker in the confrontation.",
+                        "Unable to evade, your Lead Seeker falls to Zyrnitra's lethal and unseen blade.",
+                        "Outwitted by the revered Lord Wraith, death claims your Lead Seeker.",
+                        "Zyrnitra's vigilance prevails; your Lead Seeker perishes."
+                    ],
+                    scholarInit: [
+                        "A wise Shadow Scholar emerges from the mists, challenging your intellect with a cryptic riddle... Answer correctly to advance, or face mental oblivion.",
+                        "The erudite Shadow Scholar bars your path with enigmas of the void... Solve the puzzle or succumb to confusion.",
+                        "Confronted by the Shadow Scholar's labyrinthine mind... Decipher the riddle or perish in ignorance.",
+                        "The Scholar of Shadows poses a question shrouded in mystery... Wisdom grants passage, folly brings death."
+                    ],
+                    scholarWin: [
+                        "Your insight pierces the riddle; the Scholar nods in approval, allowing your Lead Seeker to progress.",
+                        "Correct answer! The Scholar steps aside, your Lead Seeker advances to the next Flight.",
+                        "Wisdom prevails; your Lead Seeker moves forward.",
+                        "The riddle unraveled; your Lead Seeker progresses."
+                    ],
+                    scholarLose: [
+                        "The riddle confounds you; the Scholar's judgment falls, claiming your Lead Seeker.",
+                        "Incorrect! Mental shadows consume your Lead Seeker.",
+                        "Folly exposed; death claims the unwise Seeker.",
+                        "The Scholar's enigma proves fatal; your Lead Seeker perishes."
+                    ],
+                    hierophantInit: [
+                        "The enigmatic Shadow Hierophant appears, drawing from the astral deck... The card's omen will decide your fate.",
+                        "High Priest of the Astral Shadow summons a vision... Interpret the sign or face spiritual judgment.",
+                        "The Hierophant channels ethereal forces, revealing a tarot omen... Fortune or doom awaits.",
+                        "Sacred guardian of the spirit realm draws forth a card... The astral will determines advancement or fall."
+                    ],
+                    hierophantFavorable: [
+                        "Favorable omen! The spirits smile upon you; your Lead Seeker advances.",
+                        "The card aligns with fortune; progression is blessed.",
+                        "Auspicious sign; ascend to the next Flight.",
+                        "Spiritual favor granted; your Lead Seeker moves forward."
+                    ],
+                    hierophantIll: [
+                        "Ill-favored omen! The spirits turn against you; your Lead Seeker falls.",
+                        "The card portends doom; death claims the unfortunate.",
+                        "Ominous sign; perish in the astral shadows.",
+                        "Spiritual wrath unleashed; your Lead Seeker is lost."
                     ],
                     shadowInit: [
                         "An ancient Reaper lunges at you from out of the fog, as you approach the steps… Fight to advance, or die trying.",
@@ -236,59 +344,77 @@
                         "Defeated by the ancient specter, the Seeker succumbs to the shadows.",
                         "Outmatched in the duel, your Seeker perishes at the Reaper's hand.",
                         "The Reaper's blade strikes true; the Seeker dies in battle."
-                    ],
-                    elderInit: [
-                        "Lord Wraith Zyrnitra, a powerful and revered Shadow Elder, stands before you as you approach the steps… To evade his hidden Shade Blade is your only hope to advance. Move now with cunning stealth, or die trying.",
-                        "Confronted by the mighty Shadow Elder, Lord Wraith Zyrnitra, Father of the All-Shadow... Employ stealth to slip past, or face certain death.",
-                        "Lord Wraith Zyrnitra, the most fearsome and venerable Shadow Elder, blocks your path, watchful and deadly... Evade with guile or perish.",
-                        "The Ancient Shadow Master, Lord Wraith Zyrnitra, awaits, Shade Blade poised with an unspeakable black fire in his eyes... Use cunning to advance, or meet your end."
-                    ],
-                    elderWin: [
-                        "With cunning stealth, you evade Zyrnitra's Shade Blade, allowing your Lead Seeker to advance.",
-                        "Slipping past the revered foe's defenses, your Lead Seeker progresses along the path.",
-                        "Employing shadow guile, you outmaneuver Zyrnitra; advancement is yours.",
-                        "Zyrnitra is eluded; your Lead Seeker ascends to the next Flight."
-                    ],
-                    elderLose: [
-                        "Zyrnitra strikes with unerring precision, slaying your Lead Seeker in the confrontation.",
-                        "Unable to evade, your Lead Seeker falls to Zyrnitra's lethal and unseen blade.",
-                        "Outwitted by the revered Lord Wraith, death claims your Lead Seeker.",
-                        "Zyrnitra's vigilance prevails; your Lead Seeker perishes."
                     ]
+                };
+                this.riddles = [
+                    {riddle: "I am the absence of light, yet I follow you in the day. What am I?", proposed: "A shadow", correct: true},
+                    {riddle: "I am the absence of light, yet I follow you in the day. What am I?", proposed: "Night", correct: false},
+                    {riddle: "What lurks in every corner but can never be caught?", proposed: "Darkness", correct: true},
+                    {riddle: "What lurks in every corner but can never be caught?", proposed: "A spider", correct: false},
+                    {riddle: "I speak in whispers of the void, eternal and unseen. What am I?", proposed: "The wind", correct: false},
+                    {riddle: "I speak in whispers of the void, eternal and unseen. What am I?", proposed: "A wraith", correct: true},
+                    {riddle: "Born of fire, yet cold as death. What am I?", proposed: "Ash", correct: true},
+                    {riddle: "Born of fire, yet cold as death. What am I?", proposed: "Ice", correct: false},
+                    {riddle: "I cloak the truth in veils of deception. What am I?", proposed: "An illusion", correct: true},
+                    {riddle: "I cloak the truth in veils of deception. What am I?", proposed: "A mirror", correct: false},
+                    {riddle: "Silent guardian of forgotten lore, I stand eternal. What am I?", proposed: "A shadow spire", correct: true},
+                    {riddle: "Silent guardian of forgotten lore, I stand eternal. What am I?", proposed: "A tree", correct: false},
+                    {riddle: "I consume all, yet give birth to creation. What am I?", proposed: "Chaos", correct: true},
+                    {riddle: "I consume all, yet give birth to creation. What am I?", proposed: "Time", correct: false},
+                    {riddle: "Veiled in grey, I balance light and dark. What am I?", proposed: "Twilight", correct: true},
+                    {riddle: "Veiled in grey, I balance light and dark. What am I?", proposed: "Fog", correct: false},
+                    {riddle: "I reap souls without a scythe. What am I?", proposed: "A reaper's gaze", correct: false},
+                    {riddle: "I reap souls without a scythe. What am I?", proposed: "Fear", correct: true},
+                ];
+                this.tarotCards = {
+                    2: {name: "Ashen Dragon", desc: "Symbol of power and rebirth from flames."},
+                    3: {name: "Grey Wolf", desc: "Embodiment of cunning and pack loyalty."},
+                    4: {name: "White Raven", desc: "Messenger of secrets and omens."},
+                    5: {name: "Obsidian Spider", desc: "Weaver of fates and intricate webs."},
+                    6: {name: "Ritual Dagger", desc: "Tool of sacrifice and transformation."},
+                    7: {name: "Unis'ae Noc", desc: "Where All is None - the primordial void."},
+                    8: {name: "Fire of Chaos", desc: "Destructive force that forges anew."},
+                    9: {name: "Black Sun", desc: "Eclipse of hope and hidden knowledge."},
+                    10: {name: "Eclipse Moon", desc: "Balance of light and dark cycles."},
+                    11: {name: "Void Serpent", desc: "Devourer of worlds and endless hunger."},
+                    12: {name: "Spectral Owl", desc: "Wisdom in darkness and silent flight."}
                 };
                 this.determineFirst();
                 this.logDegreeStart();
                 this.game_over = false;
             }
-
             rollDice() {
                 return [Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1];
             }
-
             getRandomStatement(type) {
                 const arr = this.statements[type];
                 return arr[Math.floor(Math.random() * arr.length)];
             }
-
+            getPlayerName(team) {
+                return this[team + 'Name'];
+            }
+            getTeamClass(team) {
+                return team === 'player1' ? 'text-player1' : 'text-player2';
+            }
             determineFirst() {
                 let lightRoll, shadowRoll;
                 while (true) {
-					this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
+                    this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                     lightRoll = this.rollDice().reduce((a, b) => a + b, 0);
                     shadowRoll = this.rollDice().reduce((a, b) => a + b, 0);
-                    this.gameLog.push(`<span class="text-danger">Flamebearer</span> rolled: ${lightRoll}`);
-                    this.gameLog.push(`<span class="text-success">Shadowcaster</span> rolled: ${shadowRoll}`);
+                    this.gameLog.push(`<span class="${this.getTeamClass('player1')}">${this.getPlayerName('player1')}</span> rolled: <span class="roll-number">${lightRoll}</span>`);
+                    this.gameLog.push(`<span class="${this.getTeamClass('player2')}">${this.getPlayerName('player2')}</span> rolled: <span class="roll-number">${shadowRoll}</span>`);
                     if (lightRoll !== shadowRoll) {
                         if (lightRoll < shadowRoll) {
-                            this.away_team = "Flamebearer";
-                            this.home_team = "Shadowcaster";
-                            this.gameLog.push(`<span class="text-danger">Flamebearer</span> will approach the Spire first.`);
-                            this.gameLog.push(`<span class="text-success">Shadowcaster</span> has the advantage.`);
+                            this.away_team = 'player1';
+                            this.home_team = 'player2';
+                            this.gameLog.push(`<span class="${this.getTeamClass('player1')}">${this.getPlayerName('player1')}</span> will approach the Spire first.`);
+                            this.gameLog.push(`<span class="${this.getTeamClass('player2')}">${this.getPlayerName('player2')}</span> has the advantage.`);
                         } else {
-                            this.away_team = "Shadowcaster";
-                            this.home_team = "Flamebearer";
-                            this.gameLog.push(`<span class="text-success">Shadowcaster</span> will approach the Spire first.`);
-                            this.gameLog.push(`<span class="text-danger">Flamebearer</span> has the advantage.`);
+                            this.away_team = 'player2';
+                            this.home_team = 'player1';
+                            this.gameLog.push(`<span class="${this.getTeamClass('player2')}">${this.getPlayerName('player2')}</span> will approach the Spire first.`);
+                            this.gameLog.push(`<span class="${this.getTeamClass('player1')}">${this.getPlayerName('player1')}</span> has the advantage.`);
                         }
                         break;
                     } else {
@@ -297,39 +423,32 @@
                 }
                 this.current_team = this.away_team;
             }
-
             logDegreeStart() {
                 let startText;
                 if (this.degree === 1) {
-				this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
+                    this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                     startText = "The Trial of the Body now begins… You have no foundation without a strong, supple, resilient body. Raise your hood, unsheath your blade, FOCUS, MOVE, and STRIKE forth. Incipit Chaos!";
                 } else if (this.degree === 2) {
-				this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
+                    this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                     startText = "The Tribunal of the Mind now begins… Sharpen your wits in the shadows, refine your thoughts with cunning edge, and ascend with mental acuity.";
                 } else if (this.degree === 3) {
-				this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
+                    this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                     startText = "The Ritual of the Spirit within the Temple of the Astral Shadow, the final phase of existential battle, now begins… Embrace the ethereal, channel the astral forces, and uplift your essence to transcendent heights.";
                 } else if (this.degree === 4) {
-				this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
+                    this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                     startText = "The Ritual of the Spirit within the Temple of the Astral Shadow continues… Demanding more from the body and mind as well... The battle intensifies, shadows deepen; seek the inner light amidst the void.";
                 } else if (this.degree === 5) {
-				this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
-                    startText = "The Ritual of the Spirit within the Temple of the Astral Shadow continues… Demanding all that remains from the body and mind as well...  This is the absolute final Degree; both Wraith warriors have endured, but only one shall ascend to the apex, transmuting their soul to achieve Shadow Mastery.";
+                    this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
+                    startText = "The Ritual of the Spirit within the Temple of the Astral Shadow continues… Demanding all that remains from the body and mind as well... This is the absolute final Degree; both Wraith warriors have endured, but only one shall ascend to the apex, transmuting their soul to achieve Shadow Mastery.";
                 }
                 this.gameLog.push(startText);
                 this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
             }
-
             getDegreeName(d) {
                 if (d === 1) return "The Trial of the Body";
                 if (d === 2) return "The Tribunal of the Mind";
                 return "The Ritual of the Spirit within the Temple of the Astral Shadow";
             }
-
-            getTeamSpan(team) {
-                return team === "Flamebearer" ? "text-danger" : "text-success";
-            }
-
             processPlay() {
                 if (this.deaths >= 3 || this.asc_this_degree[this.current_team] >= 3) {
                     this.switchHalf();
@@ -338,7 +457,7 @@
                 this.rollCount++;
                 const [d1, d2] = this.rollDice();
                 const rollSum = d1 + d2;
-                this.gameLog.push(`<span class="${this.getTeamSpan(this.current_team)}">${this.current_team}</span> rolled ${d1} and ${d2} (Total: ${rollSum})`);
+                this.gameLog.push(`<span class="${this.getTeamClass(this.current_team)}">${this.getPlayerName(this.current_team)}</span> rolled <span class="roll-number">${d1}</span> and <span class="roll-number">${d2}</span> (Total: <span class="roll-number">${rollSum}</span>)`);
                 let statement;
                 if ([2, 12].includes(rollSum)) {
                     statement = rollSum === 2 ? "Wielding the Shade Blade as an extension of the aura, the Seeker thrusts forth all Shadows to Ascension." : "Donning the legendary Shade Cloak, now rendered invisible to your adversaries, the Seeker enshrouds and ushers forth all Shadows to Ascension.";
@@ -370,11 +489,16 @@
                 } else if (rollSum === 7) {
                     this.processShadowDuel();
                 } else if (rollSum === 8) {
-                    this.processElderDuel();
+                    this.processBossEncounter();
                 }
                 if (this.asc_this_degree[this.current_team] >= 3) {
                     this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
-					this.gameLog.push(`<span class="text-warning">${this.current_team} has attained maximum Ascensions! This attempt has come to an end.</span>`);
+                    this.gameLog.push(`<span class="text-warning">${this.getPlayerName(this.current_team)} has attained maximum Ascensions! This attempt has come to an end.</span>`);
+                    this.switchHalf();
+                    return true;
+                }
+                if (this.half_degree === "Bottom" && this.asc_this_degree[this.current_team] > this.asc_this_degree[this.away_team]) {
+                    this.gameLog.push(`<span class="text-warning">${this.getPlayerName(this.current_team)} has surpassed the opponent! Half-Degree ends.</span>`);
                     this.switchHalf();
                     return true;
                 }
@@ -384,7 +508,6 @@
                 }
                 return false;
             }
-
             advanceSeekers(advancement) {
                 let scored = 0;
                 const newSeekers = [];
@@ -403,16 +526,17 @@
                 this.Seekers = newSeekers.sort((a, b) => a - b);
                 this.scoreAscensions(scored);
             }
-
             scoreAscensions(num) {
                 const current = this.asc_this_degree[this.current_team];
                 const toAdd = Math.min(num, 3 - current);
                 this.asc_this_degree[this.current_team] += toAdd;
+                if (toAdd > 0) {
+                    this.gameLog.push(`<span class="text-warning">${toAdd} Ascension${toAdd > 1 ? "s" : ""} attained!</span>`);
+                }
                 if (toAdd < num) {
                     this.gameLog.push(`<span class="text-warning">Ascensions capped at maximum of 3; ${num - toAdd} lost to the shadows.</span>`);
                 }
             }
-
             advanceWalk() {
                 if (this.Seekers.length < 3) {
                     this.Seekers.sort((a, b) => a - b);
@@ -431,7 +555,6 @@
                 }
                 this.Seekers = this.Seekers.sort((a, b) => a - b);
             }
-
             processSacrificialDeath() {
                 const statement = this.getRandomStatement("sac9");
                 this.gameLog.push(`<span class="text-warning">${statement}</span>`);
@@ -456,7 +579,6 @@
                     this.scoreAscensions(scored);
                 }
             }
-
             processShadowDuel() {
                 const initStmt = this.getRandomStatement("shadowInit");
                 this.gameLog.push(`<span class="text-warning">${initStmt}</span>`);
@@ -466,7 +588,7 @@
                     const oppRoll = this.rollDice();
                     batterSum = batterRoll[0] + batterRoll[1];
                     oppSum = oppRoll[0] + oppRoll[1];
-                    this.gameLog.push(`Your roll: ${batterSum} | Opponent's roll: ${oppSum}`);
+                    this.gameLog.push(`Your roll: <span class="roll-number">${batterSum}</span> | Opponent's roll: <span class="roll-number">${oppSum}</span>`);
                     if (batterSum === oppSum) {
                         this.gameLog.push(`<span class="text-warning">Blows are parried effectively; the duel intensifies—roll again.</span>`);
                     }
@@ -482,24 +604,55 @@
                     this.deaths += 1;
                 }
             }
-
-            processElderDuel() {
-                const initStmt = this.getRandomStatement("elderInit");
+            processBossEncounter() {
+                let boss;
+                if (this.degree === 1) {
+                    boss = 'wraith';
+                } else if (this.degree === 2) {
+                    boss = 'scholar';
+                } else if (this.degree === 3) {
+                    boss = 'hierophant';
+                } else {
+                    const bosses = ['wraith', 'scholar', 'hierophant'];
+                    boss = bosses[Math.floor(Math.random() * bosses.length)];
+                }
+                const initStmt = this.getRandomStatement(boss + 'Init');
                 this.gameLog.push(`<span class="text-warning">${initStmt}</span>`);
-                let batterSum, oppSum;
-                do {
-                    const batterRoll = this.rollDice();
-                    const oppRoll = this.rollDice();
-                    batterSum = batterRoll[0] + batterRoll[1];
-                    oppSum = oppRoll[0] + oppRoll[1];
-                    this.gameLog.push(`Your roll: ${batterSum} | Opponent's roll: ${oppSum}`);
-                    if (batterSum === oppSum) {
-                        this.gameLog.push(`<span class="text-warning">Blows are parried effectively; the duel intensifies—roll again.</span>`);
-                    }
-                } while (batterSum === oppSum);
+                let success = false;
+                if (boss === 'wraith') {
+                    let batterSum, oppSum;
+                    do {
+                        const batterRoll = this.rollDice();
+                        const oppRoll = this.rollDice();
+                        batterSum = batterRoll[0] + batterRoll[1];
+                        oppSum = oppRoll[0] + oppRoll[1];
+                        this.gameLog.push(`Your roll: <span class="roll-number">${batterSum}</span> | Opponent's roll: <span class="roll-number">${oppSum}</span>`);
+                        if (batterSum === oppSum) {
+                            this.gameLog.push(`<span class="text-warning">Blows are parried effectively; the duel intensifies—roll again.</span>`);
+                        }
+                    } while (batterSum === oppSum);
+                    success = batterSum > oppSum;
+                } else if (boss === 'scholar') {
+                    const riddle = this.riddles[Math.floor(Math.random() * this.riddles.length)];
+                    $('#riddleText').text(riddle.riddle + "\n\nIs it " + riddle.proposed + "?");
+                    this.pendingScholarCorrect = riddle.correct;
+                    const riddleModal = new bootstrap.Modal(document.getElementById('riddleModal'));
+                    riddleModal.show();
+                    return; // Pause until modal submit
+                } else if (boss === 'hierophant') {
+                    const [d1, d2] = this.rollDice();
+                    const cardSum = d1 + d2;
+                    const card = this.tarotCards[cardSum];
+                    this.gameLog.push(`Card drawn: <span class="text-warning">${card.name}</span> - ${card.desc}`);
+                    const [o1, o2] = this.rollDice();
+                    const omenSum = o1 + o2;
+                    const isOdd = omenSum % 2 === 1;
+                    this.gameLog.push(`Omen roll: <span class="roll-number">${o1}</span> + <span class="roll-number">${o2}</span> = <span class="roll-number">${omenSum}</span> (${isOdd ? 'odd' : 'even'})`);
+                    success = isOdd;
+                }
                 let outcomeStmt;
-                if (batterSum > oppSum) {
-                    outcomeStmt = this.getRandomStatement("elderWin");
+                if (success) {
+                    outcomeStmt = this.getRandomStatement(boss + (boss === 'hierophant' ? 'Favorable' : 'Win'));
                     this.gameLog.push(`<span class="text-warning">${outcomeStmt}</span>`);
                     if (this.Seekers.length === 0) {
                         this.Seekers.push(1);
@@ -515,7 +668,7 @@
                         }
                     }
                 } else {
-                    outcomeStmt = this.getRandomStatement("elderLose");
+                    outcomeStmt = this.getRandomStatement(boss + (boss === 'hierophant' ? 'Ill' : 'Lose'));
                     this.gameLog.push(`<span class="text-warning">${outcomeStmt}</span>`);
                     this.deaths += 1;
                     if (this.Seekers.length > 0) {
@@ -525,55 +678,52 @@
                     }
                 }
             }
-
             updateStatus() {
                 this.printFlightStatus();
-                this.gameLog.push(`Score: <span class="${this.getTeamSpan("Flamebearer")}">Flamebearer</span> <span class="text-warning">${this.asc_this_degree["Flamebearer"]}</span> - <span class="${this.getTeamSpan("Shadowcaster")}">Shadowcaster</span> <span class="text-warning">${this.asc_this_degree["Shadowcaster"]}</span>`);
-                this.gameLog.push(`Deaths: <span class="text-warning">${this.deaths}</span>`);
+                this.gameLog.push(`Score: <span class="${this.getTeamClass('player1')}">${this.getPlayerName('player1')}</span> <span class="number">${this.asc_this_degree["player1"]}</span> - <span class="${this.getTeamClass('player2')}">${this.getPlayerName('player2')}</span> <span class="number">${this.asc_this_degree["player2"]}</span>`);
+                this.gameLog.push(`Deaths: <span class="number">${this.deaths}</span>`);
                 if (this.deaths < 3) {
                     this.gameLog.push(`<span class="text-limegreen">${"*".repeat(this.rollCount)}</span>`);
                 }
             }
-
             printFlightStatus() {
                 const flights = ["1st", "2nd", "3rd"];
                 if (!this.Seekers.length) {
                     this.gameLog.push("All Flights of the Spiral Stairway are empty.");
                 } else {
-                    const pos = this.Seekers.map(base => `${flights[base - 1]} Flight`);
+                    const pos = this.Seekers.map(base => `${flights[base - 1]}`);
                     let joined;
                     if (pos.length === 1) {
                         joined = pos[0];
                     } else {
-                        joined = pos.slice(0, -1).join(", ") + (pos.length > 2 ? "," : "") + " and " + pos[pos.length - 1];
+                        const and = pos.length > 2 ? ", and " : " and ";
+                        joined = pos.slice(0, -1).join(", ") + and + pos[pos.length - 1];
                     }
-                    this.gameLog.push(`${pos.length > 1 ? "Seekers at" : "Seeker at"} ${joined}`);
+                    this.gameLog.push(`${pos.length > 1 ? "Seekers at" : "Seeker at"} ${joined} Flight`);
                 }
             }
-
             resetHalf() {
                 this.Seekers = [];
                 this.deaths = 0;
                 this.rollCount = 0;
             }
-
             switchHalf() {
                 const isTop = this.half_degree === "Top";
                 const prevTeam = this.current_team;
                 this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                 this.gameLog.push("The Shadow Aspirant has reached the next Circle of Silence upon the spire, awaiting judgement of the Shadow Elders and feeling a moment of tranquility, allowing you to briefly drop your guard - to stretch aching muscles, breathe in unison with your oscillating aura, and drink your potent brew as you peer out on the multitude of surrounding jagged and serrated architecture - hearing dark, empowering music in the distance... Your rival, and other ghastly wraiths, are surely not far away.");
-                this.gameLog.push(`<span class="${this.getTeamSpan(prevTeam)}">${prevTeam}</span> attained ${this.asc_this_degree[prevTeam]} Ascensions.`);
+                this.gameLog.push(`<span class="${this.getTeamClass(prevTeam)}">${this.getPlayerName(prevTeam)}</span> attained <span class="number">${this.asc_this_degree[prevTeam]}</span> Ascensions.`);
                 if (isTop) {
                     if (this.degree >= 3 && this.asc_this_degree[prevTeam] === 0 && this.degree_wins[this.home_team] >= 2) {
                         this.degree_wins[this.home_team] += 1;
-                        this.gameLog.push(`<span class="text-warning"><span class="${this.getTeamSpan(this.home_team)}">${this.home_team}</span> claims victory with advantage! Opponent failed to Ascend any beyond the 3rd Flight in the Spirit phase.</span>`);
+                        this.gameLog.push(`<span class="text-warning"><span class="${this.getTeamClass(this.home_team)}">${this.getPlayerName(this.home_team)}</span> claims victory with advantage! Opponent failed to Ascend any beyond the 3rd Flight in the Spirit phase.</span>`);
                         this.checkGameOver();
                         return;
                     }
                     this.half_degree = "Bottom";
                     this.current_team = this.home_team;
-                    this.gameLog.push(`<span class="${this.getTeamSpan(this.current_team)}">${this.current_team}</span> now seeks Ascension.`);
-					this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
+                    this.gameLog.push(`<span class="${this.getTeamClass(this.current_team)}">${this.getPlayerName(this.current_team)}</span> now seeks Ascension.`);
+                    this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                     this.resetHalf();
                 } else {
                     const awayAsc = this.asc_this_degree[this.away_team];
@@ -585,7 +735,7 @@
                         winner = this.home_team;
                     } else if (awayAsc === 3 && homeAsc === 3) {
                         this.gameLog.push("Ascensions tied at 3! The battle must be repeated from the Silent Circle below.");
-                        this.asc_this_degree = { "Flamebearer": 0, "Shadowcaster": 0 };
+                        this.asc_this_degree = { player1: 0, player2: 0 };
                         this.resetHalf();
                         this.half_degree = "Top";
                         this.current_team = this.away_team;
@@ -593,7 +743,7 @@
                         return;
                     } else {
                         this.gameLog.push("Ascensions tied! The battle must be repeated.");
-                        this.asc_this_degree = { "Flamebearer": 0, "Shadowcaster": 0 };
+                        this.asc_this_degree = { player1: 0, player2: 0 };
                         this.resetHalf();
                         this.half_degree = "Top";
                         this.current_team = this.away_team;
@@ -602,9 +752,9 @@
                     }
                     this.degree_wins[winner] += 1;
                     const degreeName = this.getDegreeName(this.degree);
-                    this.gameLog.push(`<span class="${this.getTeamSpan(winner)}">${winner}</span> has ascended victorious through ${degreeName}.`);
-                    this.gameLog.push(`Ascensions of the ${this.degree}°: <span class="${this.getTeamSpan("Flamebearer")}">Flamebearer</span> ${this.asc_this_degree["Flamebearer"]} - <span class="${this.getTeamSpan("Shadowcaster")}">Shadowcaster</span> ${this.asc_this_degree["Shadowcaster"]}`);
-                    this.gameLog.push(`Circle Degrees Complete: <span class="${this.getTeamSpan("Flamebearer")}">Flamebearer</span> ${this.degree_wins["Flamebearer"]} - <span class="${this.getTeamSpan("Shadowcaster")}">Shadowcaster</span> ${this.degree_wins["Shadowcaster"]}`);
+                    this.gameLog.push(`<span class="${this.getTeamClass(winner)}">${this.getPlayerName(winner)}</span> has ascended victorious through ${degreeName}.`);
+                    this.gameLog.push(`Ascensions of the ${this.degree}°: <span class="${this.getTeamClass('player1')}">${this.getPlayerName('player1')}</span> <span class="number">${this.asc_this_degree["player1"]}</span> - <span class="${this.getTeamClass('player2')}">${this.getPlayerName('player2')}</span> <span class="number">${this.asc_this_degree["player2"]}</span>`);
+                    this.gameLog.push(`Circle Degrees Complete: <span class="${this.getTeamClass('player1')}">${this.getPlayerName('player1')}</span> <span class="number">${this.degree_wins["player1"]}</span> - <span class="${this.getTeamClass('player2')}">${this.getPlayerName('player2')}</span> <span class="number">${this.degree_wins["player2"]}</span>`);
                     this.checkGameOver();
                     if (this.game_over) return;
                     this.degree += 1;
@@ -612,27 +762,42 @@
                         this.game_over = true;
                         return;
                     }
-                    this.asc_this_degree = { "Flamebearer": 0, "Shadowcaster": 0 };
+                    this.asc_this_degree = { player1: 0, player2: 0 };
                     this.resetHalf();
                     this.half_degree = "Top";
                     this.current_team = this.away_team;
                     this.logDegreeStart();
                 }
             }
-
             checkGameOver() {
-                if (this.degree_wins["Flamebearer"] >= 3 || this.degree_wins["Shadowcaster"] >= 3) {
-                    const overallWinner = this.degree_wins["Flamebearer"] >= 3 ? "Flamebearer" : "Shadowcaster";
+                if (this.degree_wins["player1"] >= 3 || this.degree_wins["player2"] >= 3) {
+                    const overallWinner = this.degree_wins["player1"] >= 3 ? 'player1' : 'player2';
                     this.gameLog.push("Game over!");
-                    this.gameLog.push(`<span class="${this.getTeamSpan(overallWinner)}">${overallWinner}</span> has attained Shadow Mastery upon Ascending the Shadow Spire!`);
+                    this.gameLog.push(`<span class="${this.getTeamClass(overallWinner)}">${this.getPlayerName(overallWinner)}</span> has attained Shadow Mastery upon Ascending the Shadow Spire!`);
                     this.game_over = true;
                 }
             }
+            changePlayerName(player, newName) {
+                const otherPlayer = player === 'player1' ? 'player2' : 'player1';
+                if (newName === this[otherPlayer + 'Name']) {
+                    alert("Cannot select the same name as the other player.");
+                    return false;
+                }
+                const oldName = this[player + 'Name'];
+                this[player + 'Name'] = newName;
+                // Replace only whole words in gameplay lines (skip intro at index 0)
+                for (let i = 1; i < this.gameLog.length; i++) {
+                    const regex = new RegExp(`\\b${oldName}\\b`, 'g');
+                    this.gameLog[i] = this.gameLog[i].replace(regex, newName);
+                }
+                return true;
+            }
+            changePlayerColor(player, newColor) {
+                document.documentElement.style.setProperty(`--${player}-color`, newColor);
+            }
         }
-
-        // Global game instance
         let game = new ShadowSpireAscension();
-
+        let pendingScholarCorrect = false;
         function rollBones() {
             if (!game.game_over) {
                 const didSwitch = game.processPlay();
@@ -640,6 +805,8 @@
                     game.updateStatus();
                 }
                 $("#gameOutput").html(game.gameLog.join("\n"));
+                const gameOutput = $("#gameOutput")[0];
+                gameOutput.scrollTop = gameOutput.scrollHeight;
             } else {
                 $("#gameOutput").html(game.gameLog.join("\n") + "\nGame is over! Click 'Roll Your Bones' to start a new game.");
                 $("#rollBonesBtn").one("click", function() {
@@ -647,229 +814,237 @@
                     $("#gameOutput").html(game.gameLog.join("\n"));
                 });
             }
-            const gameOutput = $("#gameOutput")[0];
-            gameOutput.scrollTop = gameOutput.scrollHeight;
         }
-
         $(document).ready(function() {
             $("#rollBonesBtn").click(function() {
                 rollBones();
             });
             $("#gameOutput").html(game.gameLog.join("\n"));
+            $('#player1Select').change(function() {
+                const newName = $(this).val();
+                if (game.changePlayerName('player1', newName)) {
+                    game.changePlayerColor('player1', game.playerColors[newName]);
+                    $("#gameOutput").html(game.gameLog.join("\n"));
+                } else {
+                    $(this).val(game.player1Name);
+                }
+            });
+            $('#player2Select').change(function() {
+                const newName = $(this).val();
+                if (game.changePlayerName('player2', newName)) {
+                    game.changePlayerColor('player2', game.playerColors[newName]);
+                    $("#gameOutput").html(game.gameLog.join("\n"));
+                } else {
+                    $(this).val(game.player2Name);
+                }
+            });
+            $('#submitRiddle').click(function() {
+                const userAnswer = $('input[name="riddleAnswer"]:checked').val() === 'yes';
+                const correct = pendingScholarCorrect;
+                const success = userAnswer === correct;
+                let outcomeStmt;
+                if (success) {
+                    outcomeStmt = game.getRandomStatement('scholarWin');
+                    game.gameLog.push(`<span class="text-warning">${outcomeStmt}</span>`);
+                    if (game.Seekers.length === 0) {
+                        game.Seekers.push(1);
+                    } else {
+                        const lead = Math.max(...game.Seekers);
+                        const index = game.Seekers.indexOf(lead);
+                        const newLead = lead + 1;
+                        if (newLead > 3) {
+                            game.scoreAscensions(1);
+                            game.Seekers.splice(index, 1);
+                        } else {
+                            game.Seekers[index] = newLead;
+                        }
+                    }
+                    game.printFlightStatus();  // Show updated position after success (once only)
+                } else {
+                    outcomeStmt = game.getRandomStatement('scholarLose');
+                    game.gameLog.push(`<span class="text-warning">${outcomeStmt}</span>`);
+                    game.deaths += 1;
+                    if (game.Seekers.length > 0) {
+                        const lead = Math.max(...game.Seekers);
+                        const index = game.Seekers.indexOf(lead);
+                        game.Seekers.splice(index, 1);
+                    }
+                    game.printFlightStatus();  // Show updated position after failure (once only)
+                }
+                $("#gameOutput").html(game.gameLog.join("\n"));
+                const gameOutput = $("#gameOutput")[0];
+                gameOutput.scrollTop = gameOutput.scrollHeight;
+                bootstrap.Modal.getInstance(document.getElementById('riddleModal')).hide();
+            });
         });
     </script>
-	
-	<hr class="glow animate-breathe">
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<!--Speed Trainer Metronome-->
-	
-	<div class="container metronome-container" id="metronome">
-            <h1 class="text-center mb-4">speed trainer metronome</h1>
-            <div id="circles" class="text-center mb-4"></div>
-            <div class="controls">
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <label for="bpm" class="form-label" align="center">BPM: <span id="bpmValue">100</span></label>
-                        <input type="range" class="form-range" id="bpm" min="20" max="500" value="100">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="timeSignature" class="form-label" align="center">Time Signature</label>
-                        <select class="form-select" id="timeSignature">
-                            <option value="3">3/4</option>
-                            <option value="4" selected>4/4 (Default)</option>
-                            <option value="5">5/4</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="tone" class="form-label" align="center">Tone</label>
-                        <input type="range" class="form-range" id="tone" min="200" max="1000" value="600">
-                    </div>
+    <hr class="glow animate-breathe">
+    <!-- Speed Trainer Metronome -->
+    <div class="container metronome-container" id="metronome">
+        <h1 class="text-center mb-4">speed trainer metronome</h1>
+        <div id="circles" class="text-center mb-4"></div>
+        <div class="controls">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label for="bpm" class="form-label" align="center">BPM: <span id="bpmValue">100</span></label>
+                    <input type="range" class="form-range" id="bpm" min="20" max="500" value="100">
                 </div>
-                <div class="row g-3 mt-3">
-                    <div class="col-md-4">
-                        <label for="bpmChange" class="form-label" align="center">Tempo Change (BPM)</label>
-                        <input type="number" class="form-control" id="bpmChange" min="0" max="50" value="0">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="bars" class="form-label" align="center">Bars per Tempo Change</label>
-                        <input type="number" class="form-control" id="bars" min="1" value="4">
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label" align="center">Increase or Decrease Tempo?</label>
-                        <select class="form-select" id="direction">
-                            <option value="increase">Increase</option>
-                            <option value="decrease">Decrease</option>
-                        </select>
-                    </div>
+                <div class="col-md-4">
+                    <label for="timeSignature" class="form-label" align="center">Time Signature</label>
+                    <select class="form-select" id="timeSignature">
+                        <option value="3">3/4</option>
+                        <option value="4" selected>4/4 (Default)</option>
+                        <option value="5">5/4</option>
+                    </select>
                 </div>
-                <div class="text-center mt-4">
-                    <button id="startStop" class="btn btn-danger">Start</button>
-                    <button id="reset" class="btn btn-danger ms-2">Reset</button>
+                <div class="col-md-4">
+                    <label for="tone" class="form-label" align="center">Tone</label>
+                    <input type="range" class="form-range" id="tone" min="200" max="1000" value="600">
                 </div>
             </div>
+            <div class="row g-3 mt-3">
+                <div class="col-md-4">
+                    <label for="bpmChange" class="form-label" align="center">Tempo Change (BPM)</label>
+                    <input type="number" class="form-control" id="bpmChange" min="0" max="50" value="0">
+                </div>
+                <div class="col-md-4">
+                    <label for="bars" class="form-label" align="center">Bars per Tempo Change</label>
+                    <input type="number" class="form-control" id="bars" min="1" value="4">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" align="center">Increase or Decrease Tempo?</label>
+                    <select class="form-select" id="direction">
+                        <option value="increase">Increase</option>
+                        <option value="decrease">Decrease</option>
+                    </select>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <button id="startStop" class="btn btn-danger">Start</button>
+                <button id="reset" class="btn btn-danger ms-2">Reset</button>
+            </div>
         </div>
-		
-		
-		
-		
-		
-		
-	
-	<script>
-		$(document).ready(function() {
-    let isPlaying = false;
-    let currentBeat = 0;
-    let intervalId = null;
-    let beatsPerMeasure = 4;
-    let currentBpm = 120;
-    let barCount = 0;
-    let emphasisBeats = new Set();
-    
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    
-    function createCircles(num) {
-        $('#circles').empty();
-        emphasisBeats.clear();
-        for (let i = 0; i < num; i++) {
-            $('#circles').append(`<div class="circle" data-beat="${i}"></div>`);
-        }
-    }
-
-    function playClick(frequency, isEmphasis) {
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.frequency.value = isEmphasis ? frequency * 1.2 : frequency;
-        oscillator.type = 'square';
-        
-        gainNode.gain.setValueAtTime(1, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-        
-        oscillator.start(audioContext.currentTime);
-        oscillator.stop(audioContext.currentTime + 0.1);
-    }
-
-    function updateMetronome() {
-        $('.circle').removeClass('active');
-        const $currentCircle = $(`.circle[data-beat="${currentBeat}"]`);
-        $currentCircle.addClass('active');
-        
-        const tone = parseInt($('#tone').val());
-        const isEmphasis = emphasisBeats.has(currentBeat);
-        playClick(tone, isEmphasis);
-
-        currentBeat = (currentBeat + 1) % beatsPerMeasure;
-        
-        if (currentBeat === 0) {
-            barCount++;
-            const barsPerChange = parseInt($('#bars').val());
-            if (barCount >= barsPerChange) {
-                adjustBpm();
-                barCount = 0;
-            }
-        }
-    }
-
-    function adjustBpm() {
-        const change = parseInt($('#bpmChange').val());
-        const direction = $('#direction').val();
-        
-        // Only adjust BPM if change is greater than 0
-        if (change > 0) {
-            if (direction === 'increase' && currentBpm + change <= 500) {
-                currentBpm += change;
-            } else if (direction === 'decrease' && currentBpm - change >= 20) {
-                currentBpm -= change;
-            }
-            $('#bpm').val(currentBpm);
-            $('#bpmValue').text(currentBpm);
-            if (isPlaying) {
-                clearInterval(intervalId);
-                intervalId = setInterval(updateMetronome, 60000 / currentBpm);
-            }
-        }
-        // If change is 0, no adjustment happens
-    }
-
-    function resetMetronome() {
-        currentBeat = 0;
-        barCount = 0;
-        $('.circle').removeClass('active');
-    }
-
-    // Initial setup
-    createCircles(beatsPerMeasure);
-
-    // Event handlers
-    $('#startStop').click(function() {
-        if (!isPlaying) {
-            if (audioContext.state === 'suspended') {
-                audioContext.resume();
-            }
-            isPlaying = true;
-            $(this).text('Stop');
-            intervalId = setInterval(updateMetronome, 60000 / currentBpm);
-        } else {
-            isPlaying = false;
-            $(this).text('Start');
-            clearInterval(intervalId);
-        }
-    });
-
-    $('#reset').click(function() {
-        if (!isPlaying) {
-            resetMetronome();
-        }
-    });
-
-    $('#bpm').on('input', function() {
-        currentBpm = parseInt($(this).val());
-        $('#bpmValue').text(currentBpm);
-        if (isPlaying) {
-            clearInterval(intervalId);
-            intervalId = setInterval(updateMetronome, 60000 / currentBpm);
-        }
-    });
-
-    $('#timeSignature').change(function() {
-        beatsPerMeasure = parseInt($(this).val());
-        createCircles(beatsPerMeasure);
-        currentBeat = 0;
-        barCount = 0;
-        if (!isPlaying) {
-            resetMetronome();
-        }
-    });
-
-    $(document).on('click', '.circle', function() {
-        const beat = parseInt($(this).data('beat'));
-        if (emphasisBeats.has(beat)) {
-            emphasisBeats.delete(beat);
-            $(this).removeClass('emphasis');
-        } else {
-            emphasisBeats.add(beat);
-            $(this).addClass('emphasis');
-        }
-    });
-});
-	</script>
-	
-	<hr class="glow animate-breathe">
-	
-	<div class="container-fluid text-center footer">
-		Zyrnitra © <script>document.write(new Date().getUTCFullYear());</script>
     </div>
-	
+    <script>
+        $(document).ready(function() {
+            let isPlaying = false;
+            let currentBeat = 0;
+            let intervalId = null;
+            let beatsPerMeasure = 4;
+            let currentBpm = 120;
+            let barCount = 0;
+            let emphasisBeats = new Set();
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            function createCircles(num) {
+                $('#circles').empty();
+                emphasisBeats.clear();
+                for (let i = 0; i < num; i++) {
+                    $('#circles').append(`<div class="circle" data-beat="${i}"></div>`);
+                }
+            }
+            function playClick(frequency, isEmphasis) {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                oscillator.frequency.value = isEmphasis ? frequency * 1.2 : frequency;
+                oscillator.type = 'square';
+                gainNode.gain.setValueAtTime(1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.1);
+            }
+            function updateMetronome() {
+                $('.circle').removeClass('active');
+                const $currentCircle = $(`.circle[data-beat="${currentBeat}"]`);
+                $currentCircle.addClass('active');
+                const tone = parseInt($('#tone').val());
+                const isEmphasis = emphasisBeats.has(currentBeat);
+                playClick(tone, isEmphasis);
+                currentBeat = (currentBeat + 1) % beatsPerMeasure;
+                if (currentBeat === 0) {
+                    barCount++;
+                    const barsPerChange = parseInt($('#bars').val());
+                    if (barCount >= barsPerChange) {
+                        adjustBpm();
+                        barCount = 0;
+                    }
+                }
+            }
+            function adjustBpm() {
+                const change = parseInt($('#bpmChange').val());
+                const direction = $('#direction').val();
+                if (change > 0) {
+                    if (direction === 'increase' && currentBpm + change <= 500) {
+                        currentBpm += change;
+                    } else if (direction === 'decrease' && currentBpm - change >= 20) {
+                        currentBpm -= change;
+                    }
+                    $('#bpm').val(currentBpm);
+                    $('#bpmValue').text(currentBpm);
+                    if (isPlaying) {
+                        clearInterval(intervalId);
+                        intervalId = setInterval(updateMetronome, 60000 / currentBpm);
+                    }
+                }
+            }
+            function resetMetronome() {
+                currentBeat = 0;
+                barCount = 0;
+                $('.circle').removeClass('active');
+            }
+            createCircles(beatsPerMeasure);
+            $('#startStop').click(function() {
+                if (!isPlaying) {
+                    if (audioContext.state === 'suspended') {
+                        audioContext.resume();
+                    }
+                    isPlaying = true;
+                    $(this).text('Stop');
+                    intervalId = setInterval(updateMetronome, 60000 / currentBpm);
+                } else {
+                    isPlaying = false;
+                    $(this).text('Start');
+                    clearInterval(intervalId);
+                }
+            });
+            $('#reset').click(function() {
+                if (!isPlaying) {
+                    resetMetronome();
+                }
+            });
+            $('#bpm').on('input', function() {
+                currentBpm = parseInt($(this).val());
+                $('#bpmValue').text(currentBpm);
+                if (isPlaying) {
+                    clearInterval(intervalId);
+                    intervalId = setInterval(updateMetronome, 60000 / currentBpm);
+                }
+            });
+            $('#timeSignature').change(function() {
+                beatsPerMeasure = parseInt($(this).val());
+                createCircles(beatsPerMeasure);
+                currentBeat = 0;
+                barCount = 0;
+                if (!isPlaying) {
+                    resetMetronome();
+                }
+            });
+            $(document).on('click', '.circle', function() {
+                const beat = parseInt($(this).data('beat'));
+                if (emphasisBeats.has(beat)) {
+                    emphasisBeats.delete(beat);
+                    $(this).removeClass('emphasis');
+                } else {
+                    emphasisBeats.add(beat);
+                    $(this).addClass('emphasis');
+                }
+            });
+        });
+    </script>
+    <hr class="glow animate-breathe">
+    <div class="container-fluid text-center footer">
+        Zyrnitra © <script>document.write(new Date().getUTCFullYear());</script>
+    </div>
 </body>
 </html>
