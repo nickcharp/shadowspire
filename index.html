@@ -58,17 +58,16 @@
             background-color: #000000;
             padding: 12px;
             border-radius: 6px;
-            min-height: 220px;
+            height: 670px;               /* ← Adjust this value to change the fixed height */
             overflow-y: auto;
             white-space: pre-wrap;
             text-align: left;
             color: #ffffff;
-            resize: vertical;
         }
         .text-limegreen { color: #32CD32; }
         .text-warning { color: #ffc107; }
         .roll-number,
-        .number { color: #aaaaaa; } /* slightly dark grey for numbers */
+        .number { color: #aaaaaa; }
         .form-select {
             background-color: #ffffff;
             color: #000000;
@@ -173,11 +172,11 @@
             </div>
         </div>
         <div id="gameOutput" class="game-output"></div>
-<!--	<div id="gameOutput" class="game-output breathing-glow"></div> -->
         <button id="rollBonesBtn" class="btn btn-danger btn-sm mt-3 breathing-glow">
             <img src="images/dice-fire.png" width="150" height="auto" alt="Roll Your Bones">
         </button>
     </div>
+
     <!-- Scholar Riddle Modal -->
     <div class="modal fade" id="riddleModal" tabindex="-1" aria-labelledby="riddleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -204,8 +203,10 @@
             </div>
         </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
         class ShadowSpireAscension {
             constructor() {
@@ -237,15 +238,14 @@
                 this.half_degree = "Top";
                 this.gameLog = [];
                 this.rollCount = 0;
-                this.intro = 
-`          ||
+                this.intro =
+`	  ||
   )======{{[//////////////////==--
           ||
 You have been summoned by the Order of the Ashen Blood to ascend the monumental spire before you, symbolic of your life and the ritualistic work you are here to undertake, to become one of the few Shadow elite perfected through perseverance of the painful rite of passage of corporeal alchemy. Beginning in the shadow haze of the circle surrounding the spire, you will approach the spiral staircase to heights signifying the disciplines of Body, Mind, and Spirit, in order to embody the Shadow Triumvirate. Each Seeker must conceal themselves, and proceed lurking about the flights of the spire with blade in hand and lycanthropic forces at ready, in pursuit of the cultivation of their grey-blooded essence, confronting obstacles within themselves and enemies at the edge of their blade.
                         ||
   --==//////////////////]}}======(
-                        ||
-`;
+                        ||`;
                 this.gameLog.push(this.intro);
                 this.statements = {
                     single: [
@@ -385,19 +385,24 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                 this.logDegreeStart();
                 this.game_over = false;
             }
+
             rollDice() {
                 return [Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1];
             }
+
             getRandomStatement(type) {
                 const arr = this.statements[type];
                 return arr[Math.floor(Math.random() * arr.length)];
             }
+
             getPlayerName(team) {
                 return this[team + 'Name'];
             }
+
             getTeamClass(team) {
                 return team === 'player1' ? 'text-player1' : 'text-player2';
             }
+
             determineFirst() {
                 let lightRoll, shadowRoll;
                 while (true) {
@@ -425,6 +430,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                 }
                 this.current_team = this.away_team;
             }
+
             logDegreeStart() {
                 let startText;
                 if (this.degree === 1) {
@@ -446,11 +452,13 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                 this.gameLog.push(startText);
                 this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
             }
+
             getDegreeName(d) {
                 if (d === 1) return "The Trial of the Body";
                 if (d === 2) return "The Tribunal of the Mind";
                 return "The Ritual of the Spirit within the Temple of the Astral Shadow";
             }
+
             processPlay() {
                 if (this.deaths >= 3 || this.asc_this_degree[this.current_team] >= 3) {
                     this.switchHalf();
@@ -510,6 +518,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                 }
                 return false;
             }
+
             advanceSeekers(advancement) {
                 let scored = 0;
                 const newSeekers = [];
@@ -528,6 +537,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                 this.Seekers = newSeekers.sort((a, b) => a - b);
                 this.scoreAscensions(scored);
             }
+
             scoreAscensions(num) {
                 const current = this.asc_this_degree[this.current_team];
                 const toAdd = Math.min(num, 3 - current);
@@ -539,6 +549,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     this.gameLog.push(`<span class="text-warning">Ascensions capped at maximum of 3; ${num - toAdd} lost to the shadows.</span>`);
                 }
             }
+
             advanceWalk() {
                 if (this.Seekers.length < 3) {
                     this.Seekers.sort((a, b) => a - b);
@@ -557,6 +568,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                 }
                 this.Seekers = this.Seekers.sort((a, b) => a - b);
             }
+
             processSacrificialDeath() {
                 const statement = this.getRandomStatement("sac9");
                 this.gameLog.push(`<span class="text-warning">${statement}</span>`);
@@ -581,6 +593,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     this.scoreAscensions(scored);
                 }
             }
+
             processShadowDuel() {
                 const initStmt = this.getRandomStatement("shadowInit");
                 this.gameLog.push(`<span class="text-warning">${initStmt}</span>`);
@@ -606,6 +619,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     this.deaths += 1;
                 }
             }
+
             processBossEncounter() {
                 let boss;
                 if (this.degree === 1) {
@@ -680,6 +694,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     }
                 }
             }
+
             updateStatus() {
                 this.printFlightStatus();
                 this.gameLog.push(`Score: <span class="${this.getTeamClass('player1')}">${this.getPlayerName('player1')}</span> <span class="number">${this.asc_this_degree["player1"]}</span> - <span class="${this.getTeamClass('player2')}">${this.getPlayerName('player2')}</span> <span class="number">${this.asc_this_degree["player2"]}</span>`);
@@ -688,6 +703,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     this.gameLog.push(`<span class="text-limegreen">${"*".repeat(this.rollCount)}</span>`);
                 }
             }
+
             printFlightStatus() {
                 const flights = ["1st", "2nd", "3rd"];
                 if (!this.Seekers.length) {
@@ -704,11 +720,13 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     this.gameLog.push(`${pos.length > 1 ? "Seekers at" : "Seeker at"} ${joined} Flight`);
                 }
             }
+
             resetHalf() {
                 this.Seekers = [];
                 this.deaths = 0;
                 this.rollCount = 0;
             }
+
             switchHalf() {
                 const isTop = this.half_degree === "Top";
                 const prevTeam = this.current_team;
@@ -771,6 +789,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     this.logDegreeStart();
                 }
             }
+
             checkGameOver() {
                 if (this.degree_wins["player1"] >= 3 || this.degree_wins["player2"] >= 3) {
                     const overallWinner = this.degree_wins["player1"] >= 3 ? 'player1' : 'player2';
@@ -779,6 +798,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     this.game_over = true;
                 }
             }
+
             changePlayerName(player, newName) {
                 const otherPlayer = player === 'player1' ? 'player2' : 'player1';
                 if (newName === this[otherPlayer + 'Name']) {
@@ -787,19 +807,21 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                 }
                 const oldName = this[player + 'Name'];
                 this[player + 'Name'] = newName;
-                // Replace only whole words in gameplay lines (skip intro at index 0)
                 for (let i = 1; i < this.gameLog.length; i++) {
                     const regex = new RegExp(`\\b${oldName}\\b`, 'g');
                     this.gameLog[i] = this.gameLog[i].replace(regex, newName);
                 }
                 return true;
             }
+
             changePlayerColor(player, newColor) {
                 document.documentElement.style.setProperty(`--${player}-color`, newColor);
             }
         }
+
         let game = new ShadowSpireAscension();
         let pendingScholarCorrect = false;
+
         function rollBones() {
             if (!game.game_over) {
                 const didSwitch = game.processPlay();
@@ -817,11 +839,13 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                 });
             }
         }
+
         $(document).ready(function() {
             $("#rollBonesBtn").click(function() {
                 rollBones();
             });
             $("#gameOutput").html(game.gameLog.join("\n"));
+
             $('#player1Select').change(function() {
                 const newName = $(this).val();
                 if (game.changePlayerName('player1', newName)) {
@@ -831,6 +855,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     $(this).val(game.player1Name);
                 }
             });
+
             $('#player2Select').change(function() {
                 const newName = $(this).val();
                 if (game.changePlayerName('player2', newName)) {
@@ -840,10 +865,12 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     $(this).val(game.player2Name);
                 }
             });
+
             $('#submitRiddle').click(function() {
                 const userAnswer = $('input[name="riddleAnswer"]:checked').val() === 'yes';
                 const correct = pendingScholarCorrect;
                 const success = userAnswer === correct;
+
                 let outcomeStmt;
                 if (success) {
                     outcomeStmt = game.getRandomStatement('scholarWin');
@@ -861,7 +888,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                             game.Seekers[index] = newLead;
                         }
                     }
-                    game.printFlightStatus();  // Show updated position after success (once only)
+                    game.printFlightStatus(); // Show updated position after success (once only)
                 } else {
                     outcomeStmt = game.getRandomStatement('scholarLose');
                     game.gameLog.push(`<span class="text-warning">${outcomeStmt}</span>`);
@@ -871,8 +898,12 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                         const index = game.Seekers.indexOf(lead);
                         game.Seekers.splice(index, 1);
                     }
-                    game.printFlightStatus();  // Show updated position after failure (once only)
+                    game.printFlightStatus(); // Show updated position after failure (once only)
+                    // Manually append score & deaths for scholar failure
+                    game.gameLog.push(`Score: <span class="${game.getTeamClass('player1')}">${game.getPlayerName('player1')}</span> <span class="number">${game.asc_this_degree["player1"]}</span> - <span class="${game.getTeamClass('player2')}">${game.getPlayerName('player2')}</span> <span class="number">${game.asc_this_degree["player2"]}</span>`);
+                    game.gameLog.push(`Deaths: <span class="number">${game.deaths}</span>`);
                 }
+
                 $("#gameOutput").html(game.gameLog.join("\n"));
                 const gameOutput = $("#gameOutput")[0];
                 gameOutput.scrollTop = gameOutput.scrollHeight;
@@ -880,8 +911,9 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
             });
         });
     </script>
+
     <hr class="glow animate-breathe">
-    <!-- Speed Trainer Metronome -->
+
     <div class="container metronome-container" id="metronome">
         <h1 class="text-center mb-4">speed trainer metronome</h1>
         <div id="circles" class="text-center mb-4"></div>
@@ -927,6 +959,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
             </div>
         </div>
     </div>
+
     <script>
         $(document).ready(function() {
             let isPlaying = false;
@@ -936,7 +969,9 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
             let currentBpm = 120;
             let barCount = 0;
             let emphasisBeats = new Set();
+
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
             function createCircles(num) {
                 $('#circles').empty();
                 emphasisBeats.clear();
@@ -944,26 +979,34 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     $('#circles').append(`<div class="circle" data-beat="${i}"></div>`);
                 }
             }
+
             function playClick(frequency, isEmphasis) {
                 const oscillator = audioContext.createOscillator();
                 const gainNode = audioContext.createGain();
+
                 oscillator.connect(gainNode);
                 gainNode.connect(audioContext.destination);
+
                 oscillator.frequency.value = isEmphasis ? frequency * 1.2 : frequency;
                 oscillator.type = 'square';
+
                 gainNode.gain.setValueAtTime(1, audioContext.currentTime);
                 gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+
                 oscillator.start(audioContext.currentTime);
                 oscillator.stop(audioContext.currentTime + 0.1);
             }
+
             function updateMetronome() {
                 $('.circle').removeClass('active');
                 const $currentCircle = $(`.circle[data-beat="${currentBeat}"]`);
                 $currentCircle.addClass('active');
+
                 const tone = parseInt($('#tone').val());
                 const isEmphasis = emphasisBeats.has(currentBeat);
                 playClick(tone, isEmphasis);
                 currentBeat = (currentBeat + 1) % beatsPerMeasure;
+
                 if (currentBeat === 0) {
                     barCount++;
                     const barsPerChange = parseInt($('#bars').val());
@@ -973,9 +1016,11 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     }
                 }
             }
+
             function adjustBpm() {
                 const change = parseInt($('#bpmChange').val());
                 const direction = $('#direction').val();
+
                 if (change > 0) {
                     if (direction === 'increase' && currentBpm + change <= 500) {
                         currentBpm += change;
@@ -990,12 +1035,15 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     }
                 }
             }
+
             function resetMetronome() {
                 currentBeat = 0;
                 barCount = 0;
                 $('.circle').removeClass('active');
             }
+
             createCircles(beatsPerMeasure);
+
             $('#startStop').click(function() {
                 if (!isPlaying) {
                     if (audioContext.state === 'suspended') {
@@ -1010,11 +1058,13 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     clearInterval(intervalId);
                 }
             });
+
             $('#reset').click(function() {
                 if (!isPlaying) {
                     resetMetronome();
                 }
             });
+
             $('#bpm').on('input', function() {
                 currentBpm = parseInt($(this).val());
                 $('#bpmValue').text(currentBpm);
@@ -1023,6 +1073,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     intervalId = setInterval(updateMetronome, 60000 / currentBpm);
                 }
             });
+
             $('#timeSignature').change(function() {
                 beatsPerMeasure = parseInt($(this).val());
                 createCircles(beatsPerMeasure);
@@ -1032,6 +1083,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     resetMetronome();
                 }
             });
+
             $(document).on('click', '.circle', function() {
                 const beat = parseInt($(this).data('beat'));
                 if (emphasisBeats.has(beat)) {
@@ -1044,6 +1096,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
             });
         });
     </script>
+
     <hr class="glow animate-breathe">
     <div class="container-fluid text-center footer">
         Zyrnitra © <script>document.write(new Date().getUTCFullYear());</script>
