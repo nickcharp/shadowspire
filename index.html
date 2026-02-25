@@ -157,6 +157,7 @@
                 <label class="player-label">Seeker 1</label>
                 <select id="player1Select" class="form-select breathing-glow">
                     <option value="Zyrnitra" selected>Zyrnitra</option>
+					<option value="Faelad">Faelad</option>
                     <option value="Illusion">Illusion</option>
 					<option value="Flamebearer">Flamebearer</option>
                     <option value="Shadowcaster">Shadowcaster</option>
@@ -180,7 +181,8 @@
                 <label class="player-label">Seeker 2</label>
                 <select id="player2Select" class="form-select breathing-glow">
                     <option value="Zyrnitra">Zyrnitra</option>
-                    <option value="Illusion" selected>Illusion</option>
+					<option value="Faelad" selected>Faelad</option>
+                    <option value="Illusion">Illusion</option>
 					<option value="Flamebearer">Flamebearer</option>
                     <option value="Shadowcaster">Shadowcaster</option>
                     <option value="Eclipse">Eclipse</option>
@@ -238,6 +240,7 @@
             constructor() {
                 this.playerColors = {
                     "Zyrnitra": "#32CD32",
+					"Faelad": "#FF0000",
                     "Illusion": "#FF0000",
 					"Flamebearer": "#DA70D6",
 					"Shadowcaster": "#0057B7",
@@ -257,7 +260,7 @@
                     "Yang": "#FFFF00"
                 };
                 this.player1Name = "Zyrnitra";
-                this.player2Name = "Illusion";
+                this.player2Name = "Faelad";
                 this.degree_wins = { player1: 0, player2: 0 };
                 this.asc_this_degree = { player1: 0, player2: 0 };
                 this.Seekers = [];
@@ -268,20 +271,22 @@
                 this.rollCount = 0;
                 this.intro =
 `          ||
-  )======{{[//////////////////==--
+  )xxxxxx{{[//////////////////==--
           ||
-You have been summoned by the Order of the Ashen Blood to ascend the monumental spire before you, symbolic of your life and the ritualistic work you are here to undertake, to become one of the few Shadow elite perfected through perseverance of the painful rite of passage of corporeal alchemy. Beginning in the shadow haze of the circle surrounding the spire, you will approach the spiral staircase to heights signifying the disciplines of Body, Mind, and Spirit, in order to embody the Shadow Triumvirate. Each Seeker must conceal themselves, and proceed lurking about the flights of the spire with blade in hand and lycanthropic forces at ready, in pursuit of the cultivation of their grey-blooded essence, confronting obstacles within themselves and enemies at the edge of their blade.
+ You have been summoned by the Order of the Ashen Blood to ascend the monumental spire before you, symbolic of your life and the ritualistic work you are here to undertake, to a establish a legacy as one of the few Shadow elite perfected through perseverance of a painful rite of passage of corporeal alchemy. 
+ Beginning in the shadow haze of the circle surrounding the spire, you will approach the spiral staircase to heights signifying the disciplines of Body, Mind, and Spirit, in order to embody the Shadow Triumvirate. 
+ Each Seeker must conceal themselves, and proceed lurking about the flights of the spire with blade in hand and lycanthropic forces ready at will, for the cultivation of their grey-blooded essence and, with that, the pursuit of 3 vital Keys, while confronting obstacles within themselves and enemies at the serrated edges of this colossal tower.
                         ||
-  --==//////////////////]}}======(
+  --==//////////////////]}}xxxxxx(
                         ||`;
                 this.gameLog.push(this.intro);
                 this.statements = {
                     single: [
-                        "Single Flight - Seeker blazes a trail towards the Golden Path, cutting through the terrors, illusions, and distractions of this reality, and remaining steadfast and forthright in the pursuit of wisdom, balance, power, and perfection.",
+                        "Single Flight - You blaze a trail to the Golden Path, cutting through the terrors, illusions, and distractions of this reality, and remaining steadfast and forthright in the pursuit of wisdom, balance, power, and perfection.",
                         "Single Flight - You advance on the Golden Path, slicing away fears and deceptions, holding firm in the quest for equilibrium and mastery.",
                         "Single Flight - You tread the Golden Path with unyielding resolve, dispelling shadows of doubt to embrace wisdom and strength.",
                         "Single Flight - You progress along the Golden Path, enduring illusions with stoicism, driven by the pursuit of perfect harmony.",
-                        "Single Flight - You navigate the Golden Path, overcoming distractions with fortitude, seeking ultimate power and enlightenment."
+                        "Single Flight - You approach the Golden Path, overcoming distractions with fortitude, seeking ultimate power and enlightenment."
                     ],
                     death5: [
                         "You are torn apart by wolves emerging from the shadow haze.",
@@ -336,8 +341,8 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     scholarLose: [
                         "The riddle confounds you, causing massive neurological trauma; claiming your Lead Seeker.",
                         "Incorrect! Mental shadows consume your Lead Seeker.",
-                        "Folly exposed; death claims the unwise Seeker.",
-                        "The Sages's enigma proves fatal; your Lead Seeker perishes."
+                        "Folly exposed; death claims the unwise Seeker at the helm.",
+                        "The Sages's Chaosophic enigma proves fatal; your Lead Seeker perishes."
                     ],
                     hierophantInit: [
                         "The enigmatic Shadow Hierophant appears, drawing from the astral deck... The card's omen will decide your fate.",
@@ -377,37 +382,37 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     ]
                 };
                 this.riddles = [
-                    {riddle: "I am the absence of light, yet I follow you in the day. What am I?", proposed: "A shadow", correct: true},
+                    {riddle: "I am the absence of light, yet I follow you in the day. What am I?", proposed: "a Shadow", correct: true},
                     {riddle: "I am the absence of light, yet I follow you in the day. What am I?", proposed: "Night", correct: false},
                     {riddle: "What lurks in every corner but can never be caught?", proposed: "Darkness", correct: true},
-                    {riddle: "What lurks in every corner but can never be caught?", proposed: "A spider", correct: false},
-                    {riddle: "I speak in whispers of the void, eternal and unseen. What am I?", proposed: "The wind", correct: false},
-                    {riddle: "I speak in whispers of the void, eternal and unseen. What am I?", proposed: "A wraith", correct: true},
+                    {riddle: "What lurks in every corner but can never be caught?", proposed: "a Spider", correct: false},
+                    {riddle: "I speak in whispers of the void, eternal and unseen. What am I?", proposed: "the Wind", correct: false},
+                    {riddle: "I speak in whispers of the void, eternal and unseen. What am I?", proposed: "a Wraith", correct: true},
                     {riddle: "Born of fire, yet cold as death. What am I?", proposed: "Ash", correct: true},
                     {riddle: "Born of fire, yet cold as death. What am I?", proposed: "Ice", correct: false},
-                    {riddle: "I cloak the truth in veils of deception. What am I?", proposed: "An illusion", correct: true},
-                    {riddle: "I cloak the truth in veils of deception. What am I?", proposed: "A mirror", correct: false},
-                    {riddle: "Silent guardian of forgotten lore, I stand eternal. What am I?", proposed: "A shadow spire", correct: true},
-                    {riddle: "Silent guardian of forgotten lore, I stand eternal. What am I?", proposed: "A tree", correct: false},
+                    {riddle: "I cloak the truth in veils of deception. What am I?", proposed: "an Illusion", correct: true},
+                    {riddle: "I cloak the truth in veils of deception. What am I?", proposed: "a Mirror", correct: false},
+                    {riddle: "Silent guardian of forgotten lore, I stand eternal. What am I?", proposed: "a Shadow Spire", correct: true},
+                    {riddle: "Silent guardian of forgotten lore, I stand eternal. What am I?", proposed: "a Tree", correct: false},
                     {riddle: "I consume all, yet give birth to creation. What am I?", proposed: "Chaos", correct: true},
                     {riddle: "I consume all, yet give birth to creation. What am I?", proposed: "Time", correct: false},
                     {riddle: "Veiled in grey, I balance light and dark. What am I?", proposed: "Twilight", correct: true},
                     {riddle: "Veiled in grey, I balance light and dark. What am I?", proposed: "Fog", correct: false},
-                    {riddle: "I reap souls without a scythe. What am I?", proposed: "A reaper's gaze", correct: false},
+                    {riddle: "I reap souls without a scythe. What am I?", proposed: "a Reaper's gaze", correct: false},
                     {riddle: "I reap souls without a scythe. What am I?", proposed: "Fear", correct: true},
                 ];
                 this.tarotCards = {
-                    2: {name: "Ashen Dragon", desc: "Symbol of power and rebirth from flames."},
-                    3: {name: "Lone Grey Wolf", desc: "Embodiment of cunning and pack solitary perseverance."},
-                    4: {name: "White Raven", desc: "Messenger of secrets and omens."},
+                    2: {name: "Black Dragon Majesty", desc: "Symbol of power and rebirth from flames."},
+                    3: {name: "Lone Grey Wolf", desc: "Embodiment of ferocity, cunning, and solitary perseverance."},
+                    4: {name: "Ashen Raven", desc: "Messenger of secrets and omens."},
                     5: {name: "Obsidian Spider", desc: "Weaver of fates and intricate webs."},
-                    6: {name: "Ritual Dagger", desc: "Tool of sacrifice and transformation."},
+                    6: {name: "Ritual Dagger", desc: "Instrument of sacrifice and transformation."},
                     7: {name: "Unis'ae Noc", desc: "Where All is None - the primordial void."},
                     8: {name: "Fire of Chaos", desc: "Destructive force that forges anew."},
-                    9: {name: "Black Sun", desc: "Eclipse of hope and hidden knowledge."},
+                    9: {name: "Jet Black Sun", desc: "Eclipse of hope and hidden knowledge."},
                     10: {name: "Eclipsed Moon", desc: "Balance of light and dark cycles."},
                     11: {name: "Void Serpent", desc: "Devourer of worlds and endless hunger."},
-                    12: {name: "Spectral Owl", desc: "Wisdom in darkness and silent flight."}
+                    12: {name: "Midnight Owl", desc: "Wisdom in darkness and silent flight."}
                 };
                 this.determineFirst();
                 this.logDegreeStart();
@@ -457,7 +462,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                 let startText;
                 if (this.degree === 1) {
                     this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
-                    startText = "The Trial of the Body now begins… You have no foundation without a strong, supple, resilient body. Raise your hood, unsheath your blade, FOCUS, MOVE, and STRIKE forth. Pain is both inevitable and necessary. Suffering is endless opportunity. Embrace it, endure, and establish your might. Incipit Chaos!";
+                    startText = "The Trial of the Body now begins… You have no foundation without a strong, supple, resilient body. Raise your hood, unsheath your blade, FOCUS, MOVE, and STRIKE forth. Pain is both inevitable and necessary. Suffering is endless opportunity. Embrace it, endure it, and perpetually prove your might. Incipit Chaos!";
                 } else if (this.degree === 2) {
                     this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                     startText = "The Tribunal of the Mind now begins… Sharpen your wits in the shadows, refine your thoughts with cunning edge, and ascend with mental acuity.";
@@ -466,7 +471,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     startText = "The Ritual of the Spirit within the Temple of the Astral Shadow, the final phase of existential battle, now begins… Embrace the ethereal, channel the astral forces, and uplift your essence to transcendent heights.";
                 } else if (this.degree === 4) {
                     this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
-                    startText = "The Ritual of the Spirit within the Temple of the Astral Shadow continues… Demanding more from the body and mind... The battle intensifies, shadows deepen; seek the inner light amidst the void.";
+                    startText = "The Ritual of the Spirit within the Temple of the Astral Shadow continues… Demanding more from the mind and body... The battle intensifies, shadows deepen; seek the inner light amidst the void.";
                 } else if (this.degree === 5) {
                     this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                     startText = "The Ritual of the Spirit within the Temple of the Astral Shadow continues… Demanding all that remains from the totality of your being... This is the absolute final Degree; both Wraith warriors have endured, but only one shall ascend to the apex, transmuting their soul to achieve Shadow Mastery.";
@@ -495,11 +500,11 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     this.scoreAscensions(this.Seekers.length + 1);
                     this.Seekers = [];
                 } else if (rollSum === 3) {
-                    statement = "Triple Flight - Seeker enters a trance-induced Portal of Triarchic Discipline to the 3rd Flight, and advances any others ahead.";
+                    statement = "Triple Flight - You enter a trance-induced Portal of Triarchic Discipline to the 3rd Flight, and advances any others ahead.";
                     this.gameLog.push(`<span class="text-warning">${statement}</span>`);
                     this.advanceSeekers(3);
                 } else if (rollSum === 11) {
-                    statement = "Double Flight - Seeker enters a trance-induced Portal of Duality to the 2nd Flight, and advances any others ahead.";
+                    statement = "Double Flight - You enter a trance-induced Portal of Duality to the 2nd Flight, and advances any others ahead.";
                     this.gameLog.push(`<span class="text-warning">${statement}</span>`);
                     this.advanceSeekers(2);
                 } else if ([4, 10].includes(rollSum)) {
@@ -575,7 +580,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
         this.gameLog.push(
             `<span class="text-warning">Ascensions capped at maximum of 3; </span>` +
             `<span class="number">${num - toAdd}</span> ` +
-            `<span class="text-warning">lost to the shadows.</span>`
+            `<span class="text-warning">soul lost to the shadows.</span>`
         );
     }
 }
@@ -676,7 +681,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     success = batterSum > oppSum;
                 } else if (boss === 'scholar') {
                     const riddle = this.riddles[Math.floor(Math.random() * this.riddles.length)];
-                    $('#riddleText').text(riddle.riddle + "\n\nIs it " + riddle.proposed + "?");
+                    $('#riddleText').text(riddle.riddle + "\n\nAm I " + riddle.proposed + "?");
                     this.pendingScholarCorrect = riddle.correct;
                     const riddleModal = new bootstrap.Modal(document.getElementById('riddleModal'));
                     riddleModal.show();
@@ -753,7 +758,8 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                 const isTop = this.half_degree === "Top";
                 const prevTeam = this.current_team;
                 this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
-                this.gameLog.push("Whether a coveted Void Key is gained or not, the Shadow Aspirant has reached one of the few levels of the Shadow Spire free from merciless toil and violence, and now awaits the judgement of the Shadow Elders... indulging in a moment of tranquility, allowing one to briefly drop their guard, stretch aching muscles, breathe in unison with their increasingly glowing aura, and imbibe their potent brew while peering out on a multitude of jagged and serrated architecture - hearing dark, empowering music in the distance... Rival Shadows, and other ghastly wraiths, are surely not far away.");
+                this.gameLog.push("The Shadow Aspirant has reached one of the Spire's Void Chambers, free from merciless toil and violence, and now awaits the judgement of the Shadow Elders, to obtain the coveted Key to the Inner Circle... indulging in a moment of tranquility, allowing one to briefly drop their guard, stretch aching muscles, breathe in unison with their increasingly glowing aura, and imbibe their potent brew while peering out through the cracks on a multitude of jagged architecture - hearing dark, empowering music in the distance... Rival Shadows, and other ghastly wraiths, are surely not far away.");
+				this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                 this.gameLog.push(`<span class="${this.getTeamClass(prevTeam)}">${this.getPlayerName(prevTeam)}</span> attained <span class="number">${this.asc_this_degree[prevTeam]}</span> Ascensions.`);
                 if (isTop) {
                     if (this.degree >= 3 && this.asc_this_degree[prevTeam] === 0 && this.degree_wins[this.home_team] >= 2) {
@@ -776,6 +782,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     } else if (homeAsc > awayAsc) {
                         winner = this.home_team;
                     } else if (awayAsc === 3 && homeAsc === 3) {
+						this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                         this.gameLog.push("Ascensions tied at 3! The battle must be repeated from the Outer Circle below.");
                         this.asc_this_degree = { player1: 0, player2: 0 };
                         this.resetHalf();
@@ -784,6 +791,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                         this.logDegreeStart();
                         return;
                     } else {
+						this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                         this.gameLog.push("Ascensions tied! The battle must be repeated.");
                         this.asc_this_degree = { player1: 0, player2: 0 };
                         this.resetHalf();
@@ -795,8 +803,8 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     this.degree_wins[winner] += 1;
                     const degreeName = this.getDegreeName(this.degree);
                     this.gameLog.push(`<span class="${this.getTeamClass(winner)}">${this.getPlayerName(winner)}</span> has ascended victorious through ${degreeName}.`);
-                    this.gameLog.push(`Ascensions to Inner Circle #${this.degree}: <span class="${this.getTeamClass('player1')}">${this.getPlayerName('player1')}</span> <span class="number">${this.asc_this_degree["player1"]}</span> - <span class="${this.getTeamClass('player2')}">${this.getPlayerName('player2')}</span> <span class="number">${this.asc_this_degree["player2"]}</span>`);
-                    this.gameLog.push(`Keys to Inner Circles: <span class="${this.getTeamClass('player1')}">${this.getPlayerName('player1')}</span> <span class="number">${this.degree_wins["player1"]}</span> - <span class="${this.getTeamClass('player2')}">${this.getPlayerName('player2')}</span> <span class="number">${this.degree_wins["player2"]}</span>`);
+                    this.gameLog.push(`Ascensions to Void Chamber #${this.degree}: <span class="${this.getTeamClass('player1')}">${this.getPlayerName('player1')}</span> <span class="number">${this.asc_this_degree["player1"]}</span> - <span class="${this.getTeamClass('player2')}">${this.getPlayerName('player2')}</span> <span class="number">${this.asc_this_degree["player2"]}</span>`);
+                    this.gameLog.push(`Keys to the Inner Circles: <span class="${this.getTeamClass('player1')}">${this.getPlayerName('player1')}</span> <span class="number">${this.degree_wins["player1"]}</span> - <span class="${this.getTeamClass('player2')}">${this.getPlayerName('player2')}</span> <span class="number">${this.degree_wins["player2"]}</span>`);
                     this.checkGameOver();
                     if (this.game_over) return;
                     this.degree += 1;
@@ -849,7 +857,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                 const gameOutput = $("#gameOutput")[0];
                 gameOutput.scrollTop = gameOutput.scrollHeight;
             } else {
-                $("#gameOutput").html(game.gameLog.join("\n") + "\nGame is over! Click 'Roll Your Bones' to start a new game.");
+                $("#gameOutput").html(game.gameLog.join("\n") + "\nThe Ascent is over! 'Roll Your Bones' to begin Chaos anew.");
                 $("#rollBonesBtn").one("click", function() {
                     game = new ShadowSpireAscension();
                     $("#gameOutput").html(game.gameLog.join("\n"));
