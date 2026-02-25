@@ -22,8 +22,14 @@
         body { background-color: #1a1a1a; }
         h1 {
             color: #bfbfbf;
-            font-size: 45px;
+            font-size: 50px;
             font-family: 'UnifrakturMaguntia', Verdana, cursive;
+            padding-top: 0px;
+        }
+		h2 {
+            color: #bfbfbf;
+            font-size: 30px;
+            font-family: 'Metal Mania', Verdana, cursive;
             padding-top: 25px;
         }
         hr.glow {
@@ -141,7 +147,8 @@
 </head>
 <body>
     <div class="container-fluid text-center" id="shadowspire">
-        <h1 class="mb-4">shadow spire ascension</h1>
+        <h2 class="mb-4">shadow bones presents:</h1>
+		<h1 class="mb-4">shadow spire ascension</h1>
         <hr class="glow animate-breathe">
     </div>
     <div class="game-container text-center">
@@ -315,28 +322,28 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                         "Lord Wraith's vigilance prevails; your Lead Seeker perishes."
                     ],
                     scholarInit: [
-                        "A wise Shadow Scholar emerges from the mists, challenging your intellect with a cryptic riddle... Answer correctly to advance, or face mental oblivion.",
-                        "The erudite Shadow Scholar bars your path with enigmas of the void... Solve the puzzle or succumb to confusion.",
-                        "Confronted by the Shadow Scholar's labyrinthine mind... Decipher the riddle or perish in ignorance.",
-                        "The Scholar of Shadows poses a question shrouded in mystery... Wisdom grants passage, folly brings death."
+                        "A sophisticated Shadow Sage emerges from the mists, challenging your intellect with a cryptic riddle... Answer correctly to advance, or face mental oblivion.",
+                        "The erudite Shadow Sage bars your path with enigmas of the void... Solve the puzzle or succumb to confusion.",
+                        "Confronted by the Shadow Sage's labyrinthine mind... Decipher the riddle or perish in ignorance.",
+                        "An infinity wise Shadow Sage poses a question shrouded in mystery... Wisdom grants passage, folly brings death."
                     ],
                     scholarWin: [
-                        "Your insight pierces the riddle; the Scholar nods in approval, allowing your Lead Seeker to progress.",
-                        "Correct answer! The Scholar steps aside, your Lead Seeker advances to the next Flight.",
+                        "Your insight pierces the riddle; the Sage nods in approval, allowing your Lead Seeker to progress.",
+                        "Correct answer! The Sage steps aside, your Lead Seeker advances to the next Flight.",
                         "Wisdom prevails; your Lead Seeker moves forward.",
                         "The riddle unraveled; your Lead Seeker progresses."
                     ],
                     scholarLose: [
-                        "The riddle confounds you; the Scholar's judgment falls, claiming your Lead Seeker.",
+                        "The riddle confounds you, causing massive neurological trauma; claiming your Lead Seeker.",
                         "Incorrect! Mental shadows consume your Lead Seeker.",
                         "Folly exposed; death claims the unwise Seeker.",
-                        "The Scholar's enigma proves fatal; your Lead Seeker perishes."
+                        "The Sages's enigma proves fatal; your Lead Seeker perishes."
                     ],
                     hierophantInit: [
                         "The enigmatic Shadow Hierophant appears, drawing from the astral deck... The card's omen will decide your fate.",
-                        "High Priest of the Astral Shadow summons a vision... Interpret the sign or face spiritual judgment.",
-                        "The Hierophant channels ethereal forces, revealing a tarot omen... Fortune or doom awaits.",
-                        "Sacred guardian of the spirit realm draws forth a card... The astral will determines advancement or fall."
+                        "The Hierophant of the Astral Shadow summons a vision... Interpret the sign or face spiritual catastrophe.",
+                        "The Shadow Hierophant channels ethereal forces, revealing a tarot omen... Fortune or doom awaits.",
+                        "The Shadow Hierophant of the spirit realm draws forth a card... The astral will determines advancement or fall."
                     ],
                     hierophantFavorable: [
                         "Favorable omen! The spirits smile upon you; your Lead Seeker advances.",
@@ -450,7 +457,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                 let startText;
                 if (this.degree === 1) {
                     this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
-                    startText = "The Trial of the Body now begins… You have no foundation without a strong, supple, resilient body. Raise your hood, unsheath your blade, FOCUS, MOVE, and STRIKE forth. Incipit Chaos!";
+                    startText = "The Trial of the Body now begins… You have no foundation without a strong, supple, resilient body. Raise your hood, unsheath your blade, FOCUS, MOVE, and STRIKE forth. Pain is both inevitable and necessary. Suffering is endless opportunity. Accept it, endure, and be transformed. Incipit Chaos!";
                 } else if (this.degree === 2) {
                     this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                     startText = "The Tribunal of the Mind now begins… Sharpen your wits in the shadows, refine your thoughts with cunning edge, and ascend with mental acuity.";
@@ -521,7 +528,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     return true;
                 }
                 if (this.half_degree === "Bottom" && this.asc_this_degree[this.current_team] > this.asc_this_degree[this.away_team]) {
-                    this.gameLog.push(`<span class="text-warning">${this.getPlayerName(this.current_team)} has surpassed the opponent! Half-Degree ends.</span>`);
+                    this.gameLog.push(`<span class="text-warning">${this.getPlayerName(this.current_team)} has surpassed the opponent! This section of the spire has come to an end.</span>`);
                     this.switchHalf();
                     return true;
                 }
@@ -746,7 +753,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                 const isTop = this.half_degree === "Top";
                 const prevTeam = this.current_team;
                 this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
-                this.gameLog.push("The Shadow Aspirant has reached the next Circle of Silence upon the spire, awaiting judgement of the Shadow Elders and feeling a moment of tranquility, allowing you to briefly drop your guard - to stretch aching muscles, breathe in unison with your oscillating aura, and drink your potent brew as you peer out on the multitude of surrounding jagged and serrated architecture - hearing dark, empowering music in the distance... Your rival, and other ghastly wraiths, are surely not far away.");
+                this.gameLog.push("Whether a coveted Void Key is gained or not, the Shadow Aspirant has reached one of the few levels of the Shadow Spire free from merciless toil and violence, and now awaits the judgement of the Shadow Elders... indulging in a moment of tranquility, allowing one to briefly drop their guard, stretch aching muscles, breathe in unison with their increasingly glowing aura, and imbibe their potent brew while peering out on a multitude of jagged and serrated architecture - hearing dark, empowering music in the distance... Rival Shadows, and other ghastly wraiths, are surely not far away.");
                 this.gameLog.push(`<span class="${this.getTeamClass(prevTeam)}">${this.getPlayerName(prevTeam)}</span> attained <span class="number">${this.asc_this_degree[prevTeam]}</span> Ascensions.`);
                 if (isTop) {
                     if (this.degree >= 3 && this.asc_this_degree[prevTeam] === 0 && this.degree_wins[this.home_team] >= 2) {
@@ -769,7 +776,7 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     } else if (homeAsc > awayAsc) {
                         winner = this.home_team;
                     } else if (awayAsc === 3 && homeAsc === 3) {
-                        this.gameLog.push("Ascensions tied at 3! The battle must be repeated from the Silent Circle below.");
+                        this.gameLog.push("Ascensions tied at 3! The battle must be repeated from the Outer Circle below.");
                         this.asc_this_degree = { player1: 0, player2: 0 };
                         this.resetHalf();
                         this.half_degree = "Top";
@@ -788,8 +795,8 @@ You have been summoned by the Order of the Ashen Blood to ascend the monumental 
                     this.degree_wins[winner] += 1;
                     const degreeName = this.getDegreeName(this.degree);
                     this.gameLog.push(`<span class="${this.getTeamClass(winner)}">${this.getPlayerName(winner)}</span> has ascended victorious through ${degreeName}.`);
-                    this.gameLog.push(`Ascensions of the ${this.degree}°: <span class="${this.getTeamClass('player1')}">${this.getPlayerName('player1')}</span> <span class="number">${this.asc_this_degree["player1"]}</span> - <span class="${this.getTeamClass('player2')}">${this.getPlayerName('player2')}</span> <span class="number">${this.asc_this_degree["player2"]}</span>`);
-                    this.gameLog.push(`Circle Degrees Complete: <span class="${this.getTeamClass('player1')}">${this.getPlayerName('player1')}</span> <span class="number">${this.degree_wins["player1"]}</span> - <span class="${this.getTeamClass('player2')}">${this.getPlayerName('player2')}</span> <span class="number">${this.degree_wins["player2"]}</span>`);
+                    this.gameLog.push(`Ascensions to Inner Circle #${this.degree}: <span class="${this.getTeamClass('player1')}">${this.getPlayerName('player1')}</span> <span class="number">${this.asc_this_degree["player1"]}</span> - <span class="${this.getTeamClass('player2')}">${this.getPlayerName('player2')}</span> <span class="number">${this.asc_this_degree["player2"]}</span>`);
+                    this.gameLog.push(`Keys to Inner Circles: <span class="${this.getTeamClass('player1')}">${this.getPlayerName('player1')}</span> <span class="number">${this.degree_wins["player1"]}</span> - <span class="${this.getTeamClass('player2')}">${this.getPlayerName('player2')}</span> <span class="number">${this.degree_wins["player2"]}</span>`);
                     this.checkGameOver();
                     if (this.game_over) return;
                     this.degree += 1;
