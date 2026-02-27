@@ -157,6 +157,7 @@
                 <label class="player-label">Seeker 1</label>
                 <select id="player1Select" class="form-select breathing-glow">
                     <option value="Zyrnitra" selected>Zyrnitra</option>
+					<option value="Tyrryal">Tyrryal</option>
 					<option value="Faelad">Faelad</option>
                     <option value="Illusion">Illusion</option>
 					<option value="Flamebearer">Flamebearer</option>
@@ -181,7 +182,8 @@
                 <label class="player-label">Seeker 2</label>
                 <select id="player2Select" class="form-select breathing-glow">
                     <option value="Zyrnitra">Zyrnitra</option>
-					<option value="Faelad" selected>Faelad</option>
+					<option value="Tyrryal" selected>Tyrryal</option>
+					<option value="Faelad">Faelad</option>
                     <option value="Illusion">Illusion</option>
 					<option value="Flamebearer">Flamebearer</option>
                     <option value="Shadowcaster">Shadowcaster</option>
@@ -240,6 +242,7 @@
             constructor() {
                 this.playerColors = {
                     "Zyrnitra": "#32CD32",
+					"Tyrryal": "#FF0000",
 					"Faelad": "#FF0000",
                     "Illusion": "#FF0000",
 					"Flamebearer": "#DA70D6",
@@ -260,7 +263,7 @@
                     "Yang": "#FFFF00"
                 };
                 this.player1Name = "Zyrnitra";
-                this.player2Name = "Faelad";
+                this.player2Name = "Tyrryal";
                 this.degree_wins = { player1: 0, player2: 0 };
                 this.asc_this_degree = { player1: 0, player2: 0 };
                 this.Seekers = [];
