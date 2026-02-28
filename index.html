@@ -294,7 +294,7 @@
                 this.gameLog.push(this.intro);
                 this.statements = {
                     single: [
-                        "Single Flight - You blaze a trail to the Golden Path, cutting through the terrors, illusions, and distractions of this reality, and remaining steadfast and forthright in the pursuit of wisdom, balance, power, and perfection.",
+                        "Single Flight - You blaze a trail to the Golden Path, cutting through the terrors, illusions, and distractions of this reality, and remaining steadfast in the pursuit of wisdom, balance, power, and perfection.",
                         "Single Flight - You advance on the Golden Path, slicing away fears and deceptions, holding firm in the quest for equilibrium and mastery.",
                         "Single Flight - You tread the Golden Path with unyielding resolve, dispelling shadows of doubt to embrace wisdom and strength.",
                         "Single Flight - You progress along the Golden Path, enduring illusions with stoicism, driven by the pursuit of perfect harmony.",
@@ -302,16 +302,17 @@
                     ],
                     death5: [
                         "You are torn apart by wolves emerging from the shadow haze.",
-						"You are seduced by a brood of scantily-clad harlots, and hopelessly stray from the Golden Path.",
+						"You are seduced by a sultry temptress, and hopelessly stray from the Golden Path.",
                         "You are ambushed by wraiths lurking in the misty veil.",
                         "Consumed by the chaotic fire of Unis'ae Noc, your Seeker is incinerated.",
+						"You step through an ice-cold waterfall, which feels good at first, then abruptly freezes you to into nothingness.",
                         "You are torn asunder by grasping shadow hands from the void.",
                         "You fall irreversibly ill to the spire's insidious curse."
                     ],
                     death6: [
                         "You utterly lose yourself in an endless wilderness of shadows.",
 						"Your sense of judgement begins to wane from neutrality, separating you from your path as a Shadow.",
-						"You encounter a devious gorgon. Staring into her eyes, you immediately turn to stone.",
+						"As you turn a corner, you encounter a devious gorgon sorceress. Staring into her demonic eyes, you immediately turn to stone.",
                         "You are struck down by invisible forces of the encroaching void.",
                         "You are consumed by the creeping darkness from within.",
                         "You perish from a fatal misstep into the abyssal fog.",
@@ -319,6 +320,7 @@
                     ],
                     sac9: [
                         "You are slain by otherwordly flying discs launched from the impenetrable darkness, but your other forces slip away unscathed.",
+						"You are mesmerized by a spicy brood of scantily-clad harlots, lured to indulge in unfathomable pleasures, causing you to lose your way... but the others ahead do not, and keep moving forward.",
                         "You have been pierced by burning arrows infused with shadow fire, but your other forces manage to escape.",
                         "You sacrifice yourself through self-immolation as a distraction, allowing your other forces to move ahead.",
                         "You offer your life in a ritual blaze to light the way for fellow shadows."
@@ -418,7 +420,7 @@
                 ];
                 this.tarotCards = {
                     2: {name: "Black Dragon Majesty", desc: "Symbol of power and rebirth from flames."},
-                    3: {name: "Lone Grey Wolf", desc: "Embodiment of ferocity, cunning, and solitary perseverance."},
+                    3: {name: "Lycanthropic Bloodlust", desc: "Embodiment of ferocity, cunning, and solitary perseverance."},
                     4: {name: "Ashen Raven", desc: "Messenger of secrets and omens."},
                     5: {name: "Obsidian Spider", desc: "Weaver of fates and intricate webs."},
                     6: {name: "Ritual Dagger", desc: "Instrument of sacrifice and transformation."},
@@ -477,7 +479,7 @@
                 let startText;
                 if (this.degree === 1) {
                     this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
-                    startText = "The Trial of the Body now begins… You have no foundation without a strong, supple, resilient body. Raise your hood, unsheath your blade, FOCUS, MOVE, and STRIKE forth. Pain is both inevitable and necessary. Suffering is endless opportunity. Embrace it, endure it, be purified and hardened by it, and perpetually prove your might. Incipit Chaos!";
+                    startText = "The Trial of the Body now begins… You have no foundation without a strong, supple, resilient body. Raise your hood, unsheath your blade, FOCUS, MOVE, and STRIKE forth. Pain is both inevitable and necessary. Suffering is endless opportunity. Embrace it, endure it, be purified and hardened by it - and perpetually prove your might. Incipit Chaos!";
                 } else if (this.degree === 2) {
                     this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                     startText = "The Tribunal of the Mind now begins… Sharpen your wits in the shadows, refine your thoughts with cunning edge, and ascend with mental acuity.";
@@ -773,7 +775,7 @@
                 const isTop = this.half_degree === "Top";
                 const prevTeam = this.current_team;
                 this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
-                this.gameLog.push("The Shadow Aspirant has reached one of the spire's inner Void Chambers, free from the merciless violence of the toilsome ascent. While awaiting the judgement of the Shadow Elders, to obtain the coveted Key to the Inner Circle, here rejuvenation is found within volcanic steam, allowing one to indulge in a moment of healing - to briefly drop their guard, stretch aching muscles, breathe in unison with their increasingly glowing aura, and imbibe their potent brew while peering out through the cracks on a multitude of jagged architecture - hearing dark, empowering chants, chimes, rhythms, and strings in the distance... Rival Shadows, and other ghastly wraiths, are surely not far away.");
+                this.gameLog.push(" The Shadow Aspirant has reached one of the spire's inner Void Chambers, free from the merciless violence of the toilsome ascent. <br> While awaiting the judgement of the Shadow Elders, to obtain the coveted Key to the Inner Circle, here rejuvenation is found within volcanic steam, allowing one to indulge in a moment of healing - to briefly drop their guard, stretch aching muscles, breathe in unison with their increasingly glowing aura, and imbibe their potent brew while peering out through the cracks on a multitude of jagged architecture - hearing dark, empowering chants, chimes, rhythms, and strings in the distance... <br> Rival Shadows, and other ghastly wraiths, are surely not far away.");
 				this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                 this.gameLog.push(`<span class="${this.getTeamClass(prevTeam)}">${this.getPlayerName(prevTeam)}</span> attained <span class="number">${this.asc_this_degree[prevTeam]}</span> Ascensions.`);
                 if (isTop) {
