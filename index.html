@@ -318,9 +318,9 @@
                         "You vanish into the labyrinthine depths of eternal night."
                     ],
                     sac9: [
-                        "You are slain by otherwordly flying discs launched from the impenetrable darkness, but the others slip away unscathed.",
-                        "You have been pierced by burning arrows infused with shadow fire, but the others manage to escape.",
-                        "You sacrifice yourself through self-immolation as a distraction, allowing others to move ahead.",
+                        "You are slain by otherwordly flying discs launched from the impenetrable darkness, but your other forces slip away unscathed.",
+                        "You have been pierced by burning arrows infused with shadow fire, but your other forces manage to escape.",
+                        "You sacrifice yourself through self-immolation as a distraction, allowing your other forces to move ahead.",
                         "You offer your life in a ritual blaze to light the way for fellow shadows."
                     ],
                     wraithInit: [
@@ -477,7 +477,7 @@
                 let startText;
                 if (this.degree === 1) {
                     this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
-                    startText = "The Trial of the Body now begins… You have no foundation without a strong, supple, resilient body. Raise your hood, unsheath your blade, FOCUS, MOVE, and STRIKE forth. Pain is both inevitable and necessary. Suffering is endless opportunity. Embrace it, endure it, and perpetually prove your might. Incipit Chaos!";
+                    startText = "The Trial of the Body now begins… You have no foundation without a strong, supple, resilient body. Raise your hood, unsheath your blade, FOCUS, MOVE, and STRIKE forth. Pain is both inevitable and necessary. Suffering is endless opportunity. Embrace it, endure it, be purified and hardened by it, and perpetually prove your might. Incipit Chaos!";
                 } else if (this.degree === 2) {
                     this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                     startText = "The Tribunal of the Mind now begins… Sharpen your wits in the shadows, refine your thoughts with cunning edge, and ascend with mental acuity.";
@@ -510,16 +510,16 @@
                 this.gameLog.push(`<span class="${this.getTeamClass(this.current_team)}">${this.getPlayerName(this.current_team)}</span> rolled <span class="roll-number">${d1}</span> and <span class="roll-number">${d2}</span> (Total: <span class="roll-number">${rollSum}</span>)`);
                 let statement;
                 if ([2, 12].includes(rollSum)) {
-                    statement = rollSum === 2 ? "Wielding the Shade Blade as an extension of the aura, the Seeker thrusts forth all Shadows to Ascension." : "Donning the legendary Shade Cloak, now rendered invisible to your adversaries, the Seeker enshrouds and ushers forth all Shadows to Ascension.";
+                    statement = rollSum === 2 ? "Wielding the Shade Blade as an extension of the aura, the Seeker thrusts forth all Shadows to Ascension." : "Concealed by the legendary Shade Cloak, which renders thee invisible to all adversaries, the Seeker enshrouds and ushers forth all Shadows to Ascension.";
                     this.gameLog.push(`<span class="text-warning">${statement}</span>`);
                     this.scoreAscensions(this.Seekers.length + 1);
                     this.Seekers = [];
                 } else if (rollSum === 3) {
-                    statement = "Triple Flight - You enter a trance-induced Portal of Triarchic Discipline to the 3rd Flight, and advances any others ahead.";
+                    statement = "Triple Flight - You enter a trance-induced Portal of Triarchic Discipline to the 3rd Flight, and advance any forces ahead.";
                     this.gameLog.push(`<span class="text-warning">${statement}</span>`);
                     this.advanceSeekers(3);
                 } else if (rollSum === 11) {
-                    statement = "Double Flight - You enter a trance-induced Portal of Duality to the 2nd Flight, and advances any others ahead.";
+                    statement = "Double Flight - You enter a trance-induced Portal of Duality to the 2nd Flight, and advance any forces ahead.";
                     this.gameLog.push(`<span class="text-warning">${statement}</span>`);
                     this.advanceSeekers(2);
                 } else if ([4, 10].includes(rollSum)) {
@@ -652,7 +652,7 @@
                     oppSum = oppRoll[0] + oppRoll[1];
                     this.gameLog.push(`Your roll: <span class="roll-number">${batterSum}</span> | Opponent's roll: <span class="roll-number">${oppSum}</span>`);
                     if (batterSum === oppSum) {
-                        this.gameLog.push(`<span class="text-warning">Blows are parried effectively; the duel intensifies—roll again.</span>`);
+                        this.gameLog.push(`<span class="text-warning">Blows are parried effectively; the duel intensifies - roll again.</span>`);
                     }
                 } while (batterSum === oppSum);
                 let outcomeStmt;
@@ -690,7 +690,7 @@
                         oppSum = oppRoll[0] + oppRoll[1];
                         this.gameLog.push(`Your roll: <span class="roll-number">${batterSum}</span> | Opponent's roll: <span class="roll-number">${oppSum}</span>`);
                         if (batterSum === oppSum) {
-                            this.gameLog.push(`<span class="text-warning">Blows are parried effectively; the duel intensifies—roll again.</span>`);
+                            this.gameLog.push(`<span class="text-warning">Blows are parried effectively; the duel intensifies - roll again.</span>`);
                         }
                     } while (batterSum === oppSum);
                     success = batterSum > oppSum;
@@ -773,7 +773,7 @@
                 const isTop = this.half_degree === "Top";
                 const prevTeam = this.current_team;
                 this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
-                this.gameLog.push("The Shadow Aspirant has reached one of the Spire's Void Chambers, free from merciless toil and violence, and now awaits the judgement of the Shadow Elders, to obtain the coveted Key to the Inner Circle... indulging in a moment of tranquility, allowing one to briefly drop their guard, stretch aching muscles, breathe in unison with their increasingly glowing aura, and imbibe their potent brew while peering out through the cracks on a multitude of jagged architecture - hearing dark, empowering music in the distance... Rival Shadows, and other ghastly wraiths, are surely not far away.");
+                this.gameLog.push("The Shadow Aspirant has reached one of the spire's inner Void Chambers, free from the merciless violence of the toilsome ascent. While awaiting the judgement of the Shadow Elders, to obtain the coveted Key to the Inner Circle, here rejuvenation is found within volcanic steam, allowing one to indulge in a moment of healing - to briefly drop their guard, stretch aching muscles, breathe in unison with their increasingly glowing aura, and imbibe their potent brew while peering out through the cracks on a multitude of jagged architecture - hearing dark, empowering chants, chimes, rhythms, and strings in the distance... Rival Shadows, and other ghastly wraiths, are surely not far away.");
 				this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                 this.gameLog.push(`<span class="${this.getTeamClass(prevTeam)}">${this.getPlayerName(prevTeam)}</span> attained <span class="number">${this.asc_this_degree[prevTeam]}</span> Ascensions.`);
                 if (isTop) {
@@ -872,7 +872,7 @@
                 const gameOutput = $("#gameOutput")[0];
                 gameOutput.scrollTop = gameOutput.scrollHeight;
             } else {
-                $("#gameOutput").html(game.gameLog.join("\n") + "\nThe Ascent is over! 'Roll Your Bones' to begin Chaos anew.");
+                $("#gameOutput").html(game.gameLog.join("\n") + "\nThe Ascent is final! 'Roll Your Bones' to begin Chaos anew.");
                 $("#rollBonesBtn").one("click", function() {
                     game = new ShadowSpireAscension();
                     $("#gameOutput").html(game.gameLog.join("\n"));
