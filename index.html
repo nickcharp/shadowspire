@@ -287,7 +287,7 @@
           ||
  You have been summoned by the Order of the Ashen Blood to ascend the monumental spire before you, symbolic of your life and the ritualistic work you are here to undertake, to a establish a legacy as one of the few Shadow elite perfected through perseverance of a painful rite of passage of corporeal alchemy. 
  Beginning in the shadow haze of the circle surrounding the spire, you will approach the spiral staircase to heights signifying the disciplines of Body, Mind, and Spirit, in order to embody the Shadow Triumvirate. 
- Each Seeker must conceal themselves, cast multiple shadows forward, and proceed lurking about the flights of the spire with blade in hand and lycanthropic forces primed to attack, for the cultivation of their grey-blooded essence and, with that, the pursuit of 3 vital Keys to secure a Crown of Shade, while confronting obstacles within themselves and antagonists at the serrated edges of the colossal tower.
+ Each Seeker must conceal themselves, cast multiple shadows forward, and proceed lurking about the flights of the spire with blade in hand and lycanthropic forces primed to attack, for the cultivation of their grey-blooded essence and, with that, the pursuit of 3 vital Keys to secure a Crown of Shade, while confronting obstacles within themselves and challengers at the serrated edges of the colossal tower.
                         ||
   --==//////////////////]}}xxxxxx(
                         ||`;
@@ -514,7 +514,7 @@
                 this.gameLog.push(`<span class="${this.getTeamClass(this.current_team)}">${this.getPlayerName(this.current_team)}</span> rolled <span class="roll-number">${d1}</span> and <span class="roll-number">${d2}</span> (Total: <span class="roll-number">${rollSum}</span>)`);
                 let statement;
                 if ([2, 12].includes(rollSum)) {
-                    statement = rollSum === 2 ? "Wielding the Shade Blade as an extension of the aura, the Seeker thrusts forth all Shadows to Ascension." : "Concealed by the legendary Shade Cloak, which renders thee invisible to all adversaries, the Seeker enshrouds and ushers forth all Shadows to Ascension.";
+                    statement = rollSum === 2 ? "Wielding the Shade Blade - a masterful extension of the aura - the Seeker thrusts forth all Shadows to Ascension." : "Concealed by the legendary Shade Cloak, which renders thee invisible to all adversaries, the Seeker enshrouds and ushers forth all Shadows to Ascension.";
                     this.gameLog.push(`<span class="text-warning">${statement}</span>`);
                     this.scoreAscensions(this.Seekers.length + 1);
                     this.Seekers = [];
@@ -777,7 +777,7 @@
                 const isTop = this.half_degree === "Top";
                 const prevTeam = this.current_team;
                 this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
-                this.gameLog.push(" The Shadow Aspirant has reached one of the spire's inner Void Chambers, free from the merciless violence of the toilsome ascent. <br> While awaiting the judgement of the Shadow Elders, to obtain the coveted Key to the Inner Circle, here rejuvenation is found within volcanic steam, allowing one to indulge in a moment of healing - to briefly drop their guard, stretch aching muscles, breathe in unison with their increasingly glowing aura, and imbibe their potent brew while peering out through the cracks on a multitude of jagged architecture - hearing dark, empowering chants, chimes, rhythms, and strings in the distance... <br> Rival Shadows, and other ghastly wraiths, are surely not far away.");
+                this.gameLog.push(" The Shadow Aspirant has reached one of the spire's inner Void Chambers, free from the merciless violence of the toilsome ascent, but unaware of the total count of ascensions. <br> While awaiting the judgement of the Shadow Elders, to obtain the coveted Key to the Inner Circle, here rejuvenation is found within volcanic steam, allowing one to indulge in a moment of healing - to briefly drop their guard, stretch aching muscles, breathe in unison with their increasingly glowing aura, and imbibe their potent brew while peering out through the cracks on a multitude of jagged architecture - hearing dark, empowering chants, chimes, rhythms, and strings in the distance... <br> Rival Shadows, and other ghastly wraiths, are surely not far away.");
 				this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                 this.gameLog.push(`<span class="${this.getTeamClass(prevTeam)}">${this.getPlayerName(prevTeam)}</span> attained <span class="number">${this.asc_this_degree[prevTeam]}</span> Ascensions.`);
                 if (isTop) {
@@ -802,7 +802,7 @@
                         winner = this.home_team;
                     } else if (awayAsc === 3 && homeAsc === 3) {
 						this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
-                        this.gameLog.push("Ascensions tied at 3! The battle must be repeated from the Outer Circle below.");
+                        this.gameLog.push("Ascensions tied at 3! The battle must be repeated from the stairway below.");
                         this.asc_this_degree = { player1: 0, player2: 0 };
                         this.resetHalf();
                         this.half_degree = "Top";
@@ -842,7 +842,7 @@
                 if (this.degree_wins["player1"] >= 3 || this.degree_wins["player2"] >= 3) {
                     const overallWinner = this.degree_wins["player1"] >= 3 ? 'player1' : 'player2';
                     this.gameLog.push("Game over!");
-                    this.gameLog.push(`Ritualistically ennobeled by the Crown of Shade, endowed by the Elders, <span class="${this.getTeamClass(overallWinner)}">${this.getPlayerName(overallWinner)}</span> has attained Shadow Mastery upon Ascending the Shadow Spire!`);
+                    this.gameLog.push(`Endowed by the Elders, <span class="${this.getTeamClass(overallWinner)}">${this.getPlayerName(overallWinner)}</span> has been ritualistically ennobeled by the Crown of Shade, attaining absolute Shadow Mastery upon Ascending the Shadow Spire!`);
                     this.game_over = true;
                 }
             }
