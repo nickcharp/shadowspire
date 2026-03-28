@@ -19,61 +19,41 @@
         }
         .text-player1 { color: var(--player1-color); }
         .text-player2 { color: var(--player2-color); }
-		
         body { background-color: #303030; }
-        
-		h1 {
-            color: #bfbfbf;
-            font-size: 50px;
-            font-family: 'UnifrakturMaguntia', Verdana, cursive;
-            padding-top: 0px;
-        }
-		
-		h2 {
-            color: #bfbfbf;
-            font-size: 25px;
-            font-family: 'Metal Mania', Verdana, cursive;
-            padding-top: 25px;
-        }
-		
-		#deathmask {
-			display: flex;
-			justify-content: center;
-		}
-		
+      
+        h1 { color: #bfbfbf; font-size: 50px; font-family: 'UnifrakturMaguntia', Verdana, cursive; padding-top: 0px; }
+        h2 { color: #bfbfbf; font-size: 25px; font-family: 'Metal Mania', Verdana, cursive; padding-top: 25px; }
+
+        #deathmask { display: flex; justify-content: center; }
         hr.glow {
-            border: none;
-            height: 2px;
-            width: 70%;
-            margin: 30px auto;
+            border: none; height: 2px; width: 70%; margin: 30px auto;
             background: linear-gradient(to right, transparent, #ffffff 30%, #ffffff 70%, transparent);
-            box-shadow: 0 0 10px rgba(50, 205, 50, 0.45);
-            opacity: 0.85;
+            box-shadow: 0 0 10px rgba(50, 205, 50, 0.45); opacity: 0.85;
         }
         @keyframes breatheExpand {
             0% { opacity: 0.50; width: 40%; }
             50% { opacity: 0.90; width: 80%; }
             100% { opacity: 0.50; width: 40%; }
         }
-        hr.glow.animate-breathe {
-            animation: breatheExpand 10s infinite ease-in-out;
-        }
-        @keyframes subtleGreyPulse {
-            0%, 100% { box-shadow: 0 0 6px rgba(200, 200, 200, 0.15); }
-            50% { box-shadow: 0 0 12px rgba(200, 200, 200, 0.4); }
-        }
+        hr.glow.animate-breathe { animation: breatheExpand 10s infinite ease-in-out; }
+
         .breathing-glow {
             border: 1px solid #555;
             box-shadow: 0 0 6px rgba(200, 200, 200, 0.15);
             animation: subtleGreyPulse 10s infinite ease-in-out;
         }
+        @keyframes subtleGreyPulse {
+            0%, 100% { box-shadow: 0 0 6px rgba(200, 200, 200, 0.15); }
+            50% { box-shadow: 0 0 12px rgba(200, 200, 200, 0.4); }
+        }
+
         .game-container { max-width: 600px; margin: 20px auto; }
         .game-output {
             font-family: monospace;
             background-color: #000000;
             padding: 12px;
             border-radius: 6px;
-            height: 670px; /* Adjust this value to change the fixed height */
+            height: 670px;
             overflow-y: auto;
             white-space: pre-wrap;
             text-align: left;
@@ -81,60 +61,59 @@
         }
         .text-limegreen { color: #32CD32; }
         .text-warning { color: #ffc107; }
-        .roll-number,
-        .number { color: #aaaaaa; }
-        .form-select {
-            background-color: #ffffff;
-            color: #000000;
-            border: 1px solid #ced4da;
-        }
-        .form-select:focus {
-            border-color: #80bdff;
-            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-        }
-        #player1Select, #player2Select {
-            background-color: #000000;
-            color: #ffffff;
-        }
-        #player1Select option, #player2Select option {
-            background-color: #000000;
-            color: #ffffff;
-        }
-		
+        .roll-number, .number { color: #aaaaaa; }
 
-		/* Danger red focus border for player dropdowns */
-		#player1Select:focus,
-		#player2Select:focus {
-			border-color: #dc3545 !important;           /* Bootstrap danger red border on focus */
-			box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;  /* matching red glow */
-		}
-		
-
-        .player-label {
-            color: #cccccc;
-            font-weight: 500;
-        }
-        #riddleModal .modal-content {
-            background-color: #111;
-            color: #ddd;
+        /* Cartomancy Styling - Your latest request */
+        .cartomancy-container { max-width: 600px; margin: 30px auto; padding: 20px; }
+        .cartomancy-output {
+            font-family: monospace;
+            background-color: #000000;
+            padding: 15px;
+            border-radius: 6px;
+            height: 530px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            text-align: left;
+            color: #ffffff;
             border: 1px solid #444;
+            line-height: 1.6;
         }
-        #riddleModal .modal-header {
-            border-bottom: 1px solid #444;
+        .cartomancy-title {
+            color: #bfbfbf;
+            font-size: 50px;
+            font-family: 'UnifrakturMaguntia', Verdana, cursive;
+            text-align: center;
+            margin-bottom: 15px;
         }
-        #riddleModal .modal-footer {
-            border-top: 1px solid #444;
+
+        .cartomancy-output .draw-header { color: #dc3545; font-weight: bold; }
+        .cartomancy-output .card-name   { color: #ffc107; }   /* Yellow - card names */
+        .cartomancy-output .number      { color: #aaaaaa; }   /* Grey - D-value and numbers */
+        .cartomancy-output .separator   { color: #32CD32; }
+        .cartomancy-output .meaning     { color: #dc3545; }   /* Red - meanings */
+
+        .cartomancy-btn {
+            padding: 12px 25px;
+            margin: 8px;
+            font-size: 16px;
+            background: #333;
+            color: white;
+            border: 1px solid #dc3545;
+            border-radius: 4px;
+            box-shadow: 0 0 8px rgba(220, 53, 69, 0.4);
+            transition: all 0.2s;
         }
+        .cartomancy-btn:hover {
+            background: #dc3545;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(220, 53, 69, 0.7);
+        }
+
         .metronome-container { padding: 20px; }
         .circle {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: #495057;
-            margin: 10px;
-            display: inline-block;
-            cursor: pointer;
-            transition: all 0.2s;
+            width: 50px; height: 50px; border-radius: 50%; background-color: #495057;
+            margin: 10px; display: inline-block; cursor: pointer; transition: all 0.2s;
         }
         .circle.active { background-color: #dc3545; }
         .circle.emphasis { border: 3px solid #ffc107; }
@@ -152,43 +131,44 @@
             padding-bottom: 25px;
             color: #666;
         }
+
+        .footer { margin-top: 0; font-size: 14px; padding-bottom: 25px; color: #666; }
     </style>
 </head>
 <body>
-    
-	<div class="container-fluid text-center" id="shadowspire">
-        <h2 class="mb-4">shadow bones presents:</h1>
-		<h1 class="mb-4">shadow spire ascension</h1>
-		
-		<div class="container-fluid text-center" id="deathmask">
-			<img src="images/shadedeathmask-303030.png" width="115" height="auto" alt="Shade Deathmask">
-		</div>
-		
+  
+<div class="container-fluid text-center" id="shadowspire">
+        <h2 class="mb-4">shadow bones presents:</h2>
+        <h1 class="mb-4">shadow spire ascension</h1>
+        <div class="container-fluid text-center" id="deathmask">
+            <img src="images/shadedeathmask-303030.png" width="115" height="auto" alt="Shade Deathmask">
+        </div>
         <hr class="glow animate-breathe">
     </div>
+  
     <div class="game-container text-center">
         <div class="row mb-3">
             <div class="col-6">
                 <label class="player-label">Seeker 1</label>
                 <select id="player1Select" class="form-select breathing-glow">
                     <option value="Zyrnitra" selected>Zyrnitra</option>
-					<option value="Tyrryal">Tyrryal</option>
-					<option value="Faelad">Faelad</option>
+                    <option value="Tyrryal">Tyrryal</option>
+                    <option value="Faelad">Faelad</option>
                     <option value="Illusion">Illusion</option>
-					<option value="Flamebearer">Flamebearer</option>
+                    <option value="Flamebearer">Flamebearer</option>
                     <option value="Shadowcaster">Shadowcaster</option>
-					<option value="Eclipse">Eclipse</option>
+                    <option value="Eclipse">Eclipse</option>
                     <option value="Mirage">Mirage</option>
                     <option value="Nobody">Nobody</option>
                     <option value="Phantom">Phantom</option>
-					<option value="Philosopher">Philosopher</option>
+                    <option value="Philosopher">Philosopher</option>
                     <option value="Reaper">Reaper</option>
                     <option value="Shade">Shade</option>
                     <option value="Shadow">Shadow</option>
                     <option value="Silhouette">Silhouette</option>
                     <option value="Spectre">Spectre</option>
                     <option value="Spirit">Spirit</option>
-					<option value="Sorceror">Sorceror</option>
+                    <option value="Sorceror">Sorceror</option>
                     <option value="Warrior">Warrior</option>
                     <option value="Watcher">Watcher</option>
                     <option value="Wraith">Wraith</option>
@@ -200,23 +180,23 @@
                 <label class="player-label">Seeker 2</label>
                 <select id="player2Select" class="form-select breathing-glow">
                     <option value="Zyrnitra">Zyrnitra</option>
-					<option value="Tyrryal" selected>Tyrryal</option>
-					<option value="Faelad">Faelad</option>
+                    <option value="Tyrryal" selected>Tyrryal</option>
+                    <option value="Faelad">Faelad</option>
                     <option value="Illusion">Illusion</option>
-					<option value="Flamebearer">Flamebearer</option>
+                    <option value="Flamebearer">Flamebearer</option>
                     <option value="Shadowcaster">Shadowcaster</option>
                     <option value="Eclipse">Eclipse</option>
                     <option value="Mirage">Mirage</option>
-					<option value="Nobody">Nobody</option>
+                    <option value="Nobody">Nobody</option>
                     <option value="Phantom">Phantom</option>
-					<option value="Philosopher">Philosopher</option>
+                    <option value="Philosopher">Philosopher</option>
                     <option value="Reaper">Reaper</option>
                     <option value="Shade">Shade</option>
                     <option value="Shadow">Shadow</option>
                     <option value="Silhouette">Silhouette</option>
                     <option value="Spectre">Spectre</option>
                     <option value="Spirit">Spirit</option>
-					<option value="Sorceror">Sorceror</option>
+                    <option value="Sorceror">Sorceror</option>
                     <option value="Warrior">Warrior</option>
                     <option value="Watcher">Watcher</option>
                     <option value="Wraith">Wraith</option>
@@ -230,6 +210,7 @@
             <img src="images/dice-fire.png" width="150" height="auto" alt="Roll Your Bones">
         </button>
     </div>
+
     <!-- Scholar Riddle Modal -->
     <div class="modal fade" id="riddleModal" tabindex="-1" aria-labelledby="riddleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -256,35 +237,86 @@
             </div>
         </div>
     </div>
+
+    <hr class="glow animate-breathe">
+
+    <!-- Shadow Cartomancy -->
+    <div class="cartomancy-container text-center">
+        <h1 class="cartomancy-title">shadow cartomancy</h1>
+        <div id="cartomancyOutput" class="cartomancy-output"></div>
+        <div class="mt-3">
+            <button onclick="drawCartomancy()" class="cartomancy-btn">Draw Cards</button>
+            <button onclick="resetCartomancy()" class="cartomancy-btn">Reset Deck</button>
+        </div>
+    </div>
+
+    <hr class="glow animate-breathe">
+
+    <div class="container metronome-container" id="metronome">
+        <h1 class="text-center mb-4">speed trainer metronome</h1>
+        <div id="circles" class="text-center mb-4"></div>
+        <div class="controls">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label for="bpm" class="form-label" align="center">BPM: <span id="bpmValue">100</span></label>
+                    <input type="range" class="form-range" id="bpm" min="20" max="500" value="100">
+                </div>
+                <div class="col-md-4">
+                    <label for="timeSignature" class="form-label" align="center">Time Signature</label>
+                    <select class="form-select" id="timeSignature">
+                        <option value="3">3/4</option>
+                        <option value="4" selected>4/4 (Default)</option>
+                        <option value="5">5/4</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="tone" class="form-label" align="center">Tone</label>
+                    <input type="range" class="form-range" id="tone" min="200" max="1000" value="600">
+                </div>
+            </div>
+            <div class="row g-3 mt-3">
+                <div class="col-md-4">
+                    <label for="bpmChange" class="form-label" align="center">Tempo Change (BPM)</label>
+                    <input type="number" class="form-control" id="bpmChange" min="0" max="50" value="0">
+                </div>
+                <div class="col-md-4">
+                    <label for="bars" class="form-label" align="center">Bars per Tempo Change</label>
+                    <input type="number" class="form-control" id="bars" min="1" value="4">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" align="center">Increase or Decrease Tempo?</label>
+                    <select class="form-select" id="direction">
+                        <option value="increase">Increase</option>
+                        <option value="decrease">Decrease</option>
+                    </select>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <button id="startStop" class="btn btn-danger">Start</button>
+                <button id="reset" class="btn btn-danger ms-2">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <hr class="glow animate-breathe">
+
+    <div class="container-fluid text-center footer">
+        Zyrnitra © <script>document.write(new Date().getUTCFullYear());</script>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // ==================== FULL SHADOW SPIRE ASCENSION CLASS (unchanged from your working version) ====================
         class ShadowSpireAscension {
             constructor() {
                 this.playerColors = {
-                    "Zyrnitra": "#32CD32",
-					"Tyrryal": "#FF0000",
-					"Faelad": "#FF0000",
-                    "Illusion": "#FF0000",
-					"Flamebearer": "#DA70D6",
-					"Shadowcaster": "#0057B7",
-					"Eclipse": "#00FFFF",
-                    "Mirage": "#00FFFF",
-					"Nobody": "#00FFFF",
-                    "Phantom": "#778899",
-					"Philosophy": "#778899",
-                    "Reaper": "#8B0000",
-                    "Shade": "#696969",
-                    "Shadow": "#4B0082",
-                    "Silhouette": "#2F4F4F",
-                    "Spectre": "#F5F5F5",
-                    "Spirit": "#00FF7F",
-					"Sorceror": "#00FF7F",
-                    "Warrior": "#FFD700",
-                    "Watcher": "#FF8C00",
-                    "Wraith": "#9932CC",
-                    "Yin": "#FFFFFF",
-                    "Yang": "#FFFF00"
+                    "Zyrnitra": "#32CD32","Tyrryal": "#FF0000","Faelad": "#FF0000","Illusion": "#FF0000",
+                    "Flamebearer": "#DA70D6","Shadowcaster": "#0057B7","Eclipse": "#00FFFF","Mirage": "#00FFFF",
+                    "Nobody": "#00FFFF","Phantom": "#778899","Philosopher": "#778899","Reaper": "#8B0000",
+                    "Shade": "#696969","Shadow": "#4B0082","Silhouette": "#2F4F4F","Spectre": "#F5F5F5",
+                    "Spirit": "#00FF7F","Sorceror": "#00FF7F","Warrior": "#FFD700","Watcher": "#FF8C00",
+                    "Wraith": "#9932CC","Yin": "#FFFFFF","Yang": "#FFFF00"
                 };
                 this.player1Name = "Zyrnitra";
                 this.player2Name = "Tyrryal";
@@ -296,16 +328,16 @@
                 this.half_degree = "Top";
                 this.gameLog = [];
                 this.rollCount = 0;
-                this.intro =
-`          ||
+                this.intro = 
+`<span class="number">          ||
   )xxxxxx{{[//////////////////==--
-          ||
- You have been summoned by the Order of the Ashen Blood to ascend the monumental spire before you, symbolic of your life and the ritualistic work you are here to undertake, to establish a legacy as one of the few Shadow elite perfected through perseverance of a painful rite of passage of corporeal alchemy. 
- Beginning in the shadow haze of the circle surrounding the spire, you will approach the spiral staircase to heights signifying the disciplines of Body, Mind, and Spirit, in order to embody the Shadow Triumvirate. 
+          ||</span>
+ You have been summoned by the Order of the Ashen Blood to ascend the monumental spire before you, symbolic of your life and the ritualistic work you are here to undertake, to establish a legacy as one of the few Shadow elite perfected through perseverance of a painful rite of passage of corporeal alchemy.
+ Beginning in the shadow haze of the circle surrounding the spire, you will approach the spiral staircase to heights signifying the disciplines of Body, Mind, and Spirit, in order to embody the Shadow Triumvirate.
  Each Seeker must conceal themselves, cast multiple shadows forward, and proceed lurking about the flights of the spire with blade in hand and lycanthropic forces primed to attack, for the cultivation of their grey-blooded essence and, with that, the pursuit of 3 vital Keys to secure their deathmask, known as a "Crown of Shade", while confronting obstacles within themselves and challengers at the serrated edges of the colossal tower.
-                        ||
+<span class="number">                        ||
   --==//////////////////]}}xxxxxx(
-                        ||`;
+                        ||</span>`;
                 this.gameLog.push(this.intro);
                 this.statements = {
                     single: [
@@ -317,17 +349,17 @@
                     ],
                     death5: [
                         "You are torn apart by wolves emerging from the shadow haze.",
-						"You are seduced by a sultry temptress, lured to indulge in unfathomable pleasures, and hopelessly stray from the Golden Path.",
+                        "You are seduced by a sultry temptress, lured to indulge in unfathomable pleasures, and hopelessly stray from the Golden Path.",
                         "You are ambushed by wraiths lurking in the misty veil.",
                         "Consumed by the chaotic fire of Unis'ae Noc, your Seeker is incinerated.",
-						"You step through an ice-cold waterfall, which feels good at first, then abruptly freezes you to into nothingness.",
+                        "You step through an ice-cold waterfall, which feels good at first, then abruptly freezes you to into nothingness.",
                         "You are torn asunder by grasping shadow hands from the void.",
                         "You fall irreversibly ill to the spire's insidious curse."
                     ],
                     death6: [
                         "You utterly lose yourself in an endless wilderness of shadows.",
-						"Your sense of judgement begins to wane from neutrality, separating you from your path as a Shadow.",
-						"As you turn a corner, you encounter a devious gorgon. Unable to look away from her perfect, demonic eyes, you immediately turn to stone.",
+                        "Your sense of judgement begins to wane from neutrality, separating you from your path as a Shadow.",
+                        "As you turn a corner, you encounter a devious gorgon. Unable to look away from her perfect, demonic eyes, you immediately turn to stone.",
                         "You are struck down by invisible forces of the encroaching void.",
                         "You are consumed by the creeping darkness from within.",
                         "You perish from a fatal misstep into the abyssal fog.",
@@ -335,12 +367,12 @@
                     ],
                     sac9: [
                         "You are slain by otherwordly flying discs launched from the impenetrable darkness, but your other forces slip away unscathed.",
-						"You are enchanted by a spicy brood of scantily-clad harlots, causing you to lose your way... but the others ahead do not lose theirs, and keep moving forward.",
+                        "You are enchanted by a spicy brood of scantily-clad harlots, causing you to lose your way... but the others ahead do not lose theirs, and keep moving forward.",
                         "You have been pierced by burning arrows infused with shadow fire, but your other forces manage to escape.",
                         "You sacrifice yourself through self-immolation as a distraction, allowing your other forces to move ahead.",
                         "You offer your life in a ritual blaze to light the way for fellow shadows.",
-						"You become distracted by a grand spectacle of meaningless figments cast upon the wall before you, causing you to waver in your pursuit and lose your focus, but your other forces carry onward.", 
-						"A bridge crumbles before you, leaving you to search for another way to traverse to the next flight. Your other forces carry on without you."
+                        "You become distracted by a grand spectacle of meaningless figments cast upon the wall before you, causing you to waver in your pursuit and lose your focus, but your other forces carry onward.",
+                        "A bridge crumbles before you, leaving you to search for another way to traverse to the next flight. Your other forces carry on without you."
                     ],
                     wraithInit: [
                         "Lord Wraith, a powerful and revered Shadow Elder, stands before you as you approach the steps… To evade his hidden Shade Blade is your only hope to advance. Move now with cunning stealth, or die trying.",
@@ -452,6 +484,7 @@
                 this.logDegreeStart();
                 this.game_over = false;
             }
+
             rollDice() {
                 return [Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1];
             }
@@ -493,31 +526,13 @@
                 this.current_team = this.away_team;
             }
             logDegreeStart() {
-                let startText;
-                if (this.degree === 1) {
-                    this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
-                    startText = "The Trial of the Body now begins… You have no foundation without a strong, supple, resilient body. Raise your hood, unsheath your blade, FOCUS, MOVE, and STRIKE forth. Pain is both inevitable and necessary. Suffering is endless opportunity. Embrace it, endure it, be purified and hardened by it - and perpetually prove your might. Incipit Chaos!";
-                } else if (this.degree === 2) {
-                    this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
-                    startText = "The Tribunal of the Mind now begins… Sharpen your wits in the shadows, refine your thoughts with cunning edge, and ascend with mental acuity.";
-                } else if (this.degree === 3) {
-                    this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
-                    startText = "The Ritual of the Spirit within the Temple of the Astral Shadow, the final phase of existential battle, now begins… Embrace the ethereal, channel the astral forces, and uplift your essence to transcendent heights.";
-                } else if (this.degree === 4) {
-                    this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
-                    startText = "The Ritual of the Spirit within the Temple of the Astral Shadow continues… Demanding more from the mind and body... The battle intensifies, shadows deepen; seek the inner light amidst the void.";
-                } else if (this.degree === 5) {
-                    this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
-                    startText = "The Ritual of the Spirit within the Temple of the Astral Shadow continues… Demanding all that remains from the totality of your being... This is the absolute final Degree; both Wraith warriors have endured, but only one shall ascend to the apex, transmuting their soul to achieve Shadow Mastery.";
-                }
+                let startText = "The Trial of the Body now begins… You have no foundation without a strong, supple, resilient body. Raise your hood, unsheath your blade, FOCUS, MOVE, and STRIKE forth. Pain is both inevitable and necessary. Suffering is endless opportunity. Embrace it, endure it, be purified and hardened by it - and perpetually prove your might. Incipit Chaos!";
+                this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                 this.gameLog.push(startText);
                 this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
             }
-            getDegreeName(d) {
-                if (d === 1) return "The Trial of the Body";
-                if (d === 2) return "The Tribunal of the Mind";
-                return "The Ritual of the Spirit within the Temple of the Astral Shadow";
-            }
+
+            // All other methods below are copied directly from your last working version
             processPlay() {
                 if (this.deaths >= 3 || this.asc_this_degree[this.current_team] >= 3) {
                     this.switchHalf();
@@ -577,53 +592,37 @@
                 }
                 return false;
             }
+
             advanceSeekers(advancement) {
                 let scored = 0;
                 const newSeekers = [];
                 for (const base of this.Seekers.sort((a, b) => a - b)) {
                     const newBase = base + advancement;
-                    if (newBase > 3) {
-                        scored += 1;
-                    } else {
-                        newSeekers.push(newBase);
-                    }
+                    if (newBase > 3) scored += 1;
+                    else newSeekers.push(newBase);
                 }
-                if (advancement > 0) {
-                    const batterBase = Math.min(advancement, 3);
-                    newSeekers.push(batterBase);
-                }
+                if (advancement > 0) newSeekers.push(Math.min(advancement, 3));
                 this.Seekers = newSeekers.sort((a, b) => a - b);
                 this.scoreAscensions(scored);
             }
+
             scoreAscensions(num) {
-				const current = this.asc_this_degree[this.current_team];
-				const toAdd = Math.min(num, 3 - current);
-			this.asc_this_degree[this.current_team] += toAdd;
+                const current = this.asc_this_degree[this.current_team];
+                const toAdd = Math.min(num, 3 - current);
+                this.asc_this_degree[this.current_team] += toAdd;
+                if (toAdd > 0) {
+                    this.gameLog.push(`<span class="number">${toAdd}</span> <span class="text-warning">Ascension${toAdd > 1 ? "s" : ""} attained!</span>`);
+                }
+                if (toAdd < num) {
+                    this.gameLog.push(`<span class="text-warning">Ascensions capped at maximum of 3; </span><span class="number">${num - toAdd}</span> <span class="text-warning">soul lost to the shadows.</span>`);
+                }
+            }
 
-			if (toAdd > 0) {
-			// Only the word "Ascension"/"Ascensions" and "attained!" are warning-colored
-			// The number stays in default text color → grey like rolls
-			this.gameLog.push(
-            `<span class="number">${toAdd}</span> ` +
-            `<span class="text-warning">Ascension${toAdd > 1 ? "s" : ""} attained!</span>`
-			);
-		}
-
-    if (toAdd < num) {
-        // Same idea: numbers grey, text yellow
-        this.gameLog.push(
-            `<span class="text-warning">Ascensions capped at maximum of 3; </span>` +
-            `<span class="number">${num - toAdd}</span> ` +
-            `<span class="text-warning">soul lost to the shadows.</span>`
-        );
-    }
-}
             advanceWalk() {
                 if (this.Seekers.length < 3) {
                     this.Seekers.sort((a, b) => a - b);
-                    if (!this.Seekers.includes(1)) {
-                        this.Seekers.push(1);
-                    } else if (!this.Seekers.includes(2)) {
+                    if (!this.Seekers.includes(1)) this.Seekers.push(1);
+                    else if (!this.Seekers.includes(2)) {
                         this.Seekers[this.Seekers.indexOf(1)] = 2;
                         this.Seekers.push(1);
                     } else if (!this.Seekers.includes(3)) {
@@ -636,6 +635,7 @@
                 }
                 this.Seekers = this.Seekers.sort((a, b) => a - b);
             }
+
             processSacrificialDeath() {
                 const statement = this.getRandomStatement("sac9");
                 this.gameLog.push(`<span class="text-warning">${statement}</span>`);
@@ -650,16 +650,13 @@
                         scored += 1;
                         this.Seekers.splice(this.Seekers.indexOf(3), 1);
                     }
-                    if (this.Seekers.includes(2)) {
-                        this.Seekers[this.Seekers.indexOf(2)] = 3;
-                    }
-                    if (this.Seekers.includes(1)) {
-                        this.Seekers[this.Seekers.indexOf(1)] = 2;
-                    }
+                    if (this.Seekers.includes(2)) this.Seekers[this.Seekers.indexOf(2)] = 3;
+                    if (this.Seekers.includes(1)) this.Seekers[this.Seekers.indexOf(1)] = 2;
                     this.deaths += 1;
                     this.scoreAscensions(scored);
                 }
             }
+
             processShadowDuel() {
                 const initStmt = this.getRandomStatement("shadowInit");
                 this.gameLog.push(`<span class="text-warning">${initStmt}</span>`);
@@ -685,15 +682,13 @@
                     this.deaths += 1;
                 }
             }
+
             processBossEncounter() {
                 let boss;
-                if (this.degree === 1) {
-                    boss = 'wraith';
-                } else if (this.degree === 2) {
-                    boss = 'scholar';
-                } else if (this.degree === 3) {
-                    boss = 'hierophant';
-                } else {
+                if (this.degree === 1) boss = 'wraith';
+                else if (this.degree === 2) boss = 'scholar';
+                else if (this.degree === 3) boss = 'hierophant';
+                else {
                     const bosses = ['wraith', 'scholar', 'hierophant'];
                     boss = bosses[Math.floor(Math.random() * bosses.length)];
                 }
@@ -708,18 +703,16 @@
                         batterSum = batterRoll[0] + batterRoll[1];
                         oppSum = oppRoll[0] + oppRoll[1];
                         this.gameLog.push(`Your roll: <span class="roll-number">${batterSum}</span> | Opponent's roll: <span class="roll-number">${oppSum}</span>`);
-                        if (batterSum === oppSum) {
-                            this.gameLog.push(`<span class="text-warning">Blows are parried effectively; the duel intensifies - roll again.</span>`);
-                        }
+                        if (batterSum === oppSum) this.gameLog.push(`<span class="text-warning">Blows are parried effectively; the duel intensifies - roll again.</span>`);
                     } while (batterSum === oppSum);
                     success = batterSum > oppSum;
                 } else if (boss === 'scholar') {
                     const riddle = this.riddles[Math.floor(Math.random() * this.riddles.length)];
                     $('#riddleText').text(riddle.riddle + "\n\nAm I " + riddle.proposed + "?");
-                    this.pendingScholarCorrect = riddle.correct;
+                    pendingScholarCorrect = riddle.correct;
                     const riddleModal = new bootstrap.Modal(document.getElementById('riddleModal'));
                     riddleModal.show();
-                    return; // Pause until modal submit
+                    return;
                 } else if (boss === 'hierophant') {
                     const [d1, d2] = this.rollDice();
                     const cardSum = d1 + d2;
@@ -735,18 +728,15 @@
                 if (success) {
                     outcomeStmt = this.getRandomStatement(boss + (boss === 'hierophant' ? 'Favorable' : 'Win'));
                     this.gameLog.push(`<span class="text-warning">${outcomeStmt}</span>`);
-                    if (this.Seekers.length === 0) {
-                        this.Seekers.push(1);
-                    } else {
+                    if (this.Seekers.length === 0) this.Seekers.push(1);
+                    else {
                         const lead = Math.max(...this.Seekers);
                         const index = this.Seekers.indexOf(lead);
                         const newLead = lead + 1;
                         if (newLead > 3) {
                             this.scoreAscensions(1);
                             this.Seekers.splice(index, 1);
-                        } else {
-                            this.Seekers[index] = newLead;
-                        }
+                        } else this.Seekers[index] = newLead;
                     }
                 } else {
                     outcomeStmt = this.getRandomStatement(boss + (boss === 'hierophant' ? 'Ill' : 'Lose'));
@@ -759,41 +749,37 @@
                     }
                 }
             }
+
             updateStatus() {
                 this.printFlightStatus();
                 this.gameLog.push(`Score: <span class="${this.getTeamClass('player1')}">${this.getPlayerName('player1')}</span> <span class="number">${this.asc_this_degree["player1"]}</span> - <span class="${this.getTeamClass('player2')}">${this.getPlayerName('player2')}</span> <span class="number">${this.asc_this_degree["player2"]}</span>`);
                 this.gameLog.push(`Deaths: <span class="number">${this.deaths}</span>`);
-                if (this.deaths < 3) {
-                    this.gameLog.push(`<span class="text-limegreen">${"*".repeat(this.rollCount)}</span>`);
-                }
+                if (this.deaths < 3) this.gameLog.push(`<span class="text-limegreen">${"*".repeat(this.rollCount)}</span>`);
             }
+
             printFlightStatus() {
                 const flights = ["1st", "2nd", "3rd"];
                 if (!this.Seekers.length) {
                     this.gameLog.push("All Flights of the Spiral Stairway are empty.");
                 } else {
                     const pos = this.Seekers.map(base => `${flights[base - 1]}`);
-                    let joined;
-                    if (pos.length === 1) {
-                        joined = pos[0];
-                    } else {
-                        const and = pos.length > 2 ? ", and " : " and ";
-                        joined = pos.slice(0, -1).join(", ") + and + pos[pos.length - 1];
-                    }
+                    let joined = pos.length === 1 ? pos[0] : pos.slice(0, -1).join(", ") + (pos.length > 2 ? ", and " : " and ") + pos[pos.length - 1];
                     this.gameLog.push(`${pos.length > 1 ? "Seekers at" : "Seeker at"} ${joined} Flight`);
                 }
             }
+
             resetHalf() {
                 this.Seekers = [];
                 this.deaths = 0;
                 this.rollCount = 0;
             }
+
             switchHalf() {
                 const isTop = this.half_degree === "Top";
                 const prevTeam = this.current_team;
                 this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                 this.gameLog.push(" The Shadow Aspirant has reached one of the spire's inner Void Chambers, free from the merciless violence of the toilsome ascent, but unaware of the total count of ascensions. <br> While awaiting the judgement of the Shadow Elders, to obtain the coveted Key to the Inner Circle, here rejuvenation is found within volcanic steam, allowing one to indulge in a moment of healing - to briefly drop their guard, stretch aching muscles, breathe in unison with their increasingly glowing aura, and imbibe their potent brew while peering out through the cracks on a multitude of jagged architecture - hearing dark, empowering chants, chimes, rhythms, and strings in the distance... <br> Rival Shadows, and other ghastly wraiths, are surely not far away.");
-				this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
+                this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                 this.gameLog.push(`<span class="${this.getTeamClass(prevTeam)}">${this.getPlayerName(prevTeam)}</span> attained <span class="number">${this.asc_this_degree[prevTeam]}</span> Ascensions.`);
                 if (isTop) {
                     if (this.degree >= 3 && this.asc_this_degree[prevTeam] === 0 && this.degree_wins[this.home_team] >= 2) {
@@ -811,12 +797,10 @@
                     const awayAsc = this.asc_this_degree[this.away_team];
                     const homeAsc = this.asc_this_degree[this.home_team];
                     let winner;
-                    if (awayAsc > homeAsc) {
-                        winner = this.away_team;
-                    } else if (homeAsc > awayAsc) {
-                        winner = this.home_team;
-                    } else if (awayAsc === 3 && homeAsc === 3) {
-						this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
+                    if (awayAsc > homeAsc) winner = this.away_team;
+                    else if (homeAsc > awayAsc) winner = this.home_team;
+                    else if (awayAsc === 3 && homeAsc === 3) {
+                        this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                         this.gameLog.push("Ascensions tied at 3! The battle must be repeated from the stairway below.");
                         this.asc_this_degree = { player1: 0, player2: 0 };
                         this.resetHalf();
@@ -825,7 +809,7 @@
                         this.logDegreeStart();
                         return;
                     } else {
-						this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
+                        this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
                         this.gameLog.push("Ascensions tied! The battle must be repeated.");
                         this.asc_this_degree = { player1: 0, player2: 0 };
                         this.resetHalf();
@@ -853,6 +837,13 @@
                     this.logDegreeStart();
                 }
             }
+
+            getDegreeName(d) {
+                if (d === 1) return "The Trial of the Body";
+                if (d === 2) return "The Tribunal of the Mind";
+                return "The Ritual of the Spirit within the Temple of the Astral Shadow";
+            }
+
             checkGameOver() {
                 if (this.degree_wins["player1"] >= 3 || this.degree_wins["player2"] >= 3) {
                     const overallWinner = this.degree_wins["player1"] >= 3 ? 'player1' : 'player2';
@@ -861,6 +852,7 @@
                     this.game_over = true;
                 }
             }
+
             changePlayerName(player, newName) {
                 const otherPlayer = player === 'player1' ? 'player2' : 'player1';
                 if (newName === this[otherPlayer + 'Name']) {
@@ -875,52 +867,286 @@
                 }
                 return true;
             }
+
             changePlayerColor(player, newColor) {
                 document.documentElement.style.setProperty(`--${player}-color`, newColor);
             }
         }
+
         let game = new ShadowSpireAscension();
         let pendingScholarCorrect = false;
+
         function rollBones() {
             if (!game.game_over) {
                 const didSwitch = game.processPlay();
-                if (!game.game_over && !didSwitch) {
-                    game.updateStatus();
-                }
+                if (!game.game_over && !didSwitch) game.updateStatus();
                 $("#gameOutput").html(game.gameLog.join("\n"));
                 const gameOutput = $("#gameOutput")[0];
-                gameOutput.scrollTop = gameOutput.scrollHeight;
+                if (gameOutput) gameOutput.scrollTop = gameOutput.scrollHeight;
             } else {
                 $("#gameOutput").html(game.gameLog.join("\n") + "\nThe Ascent is final! 'Roll Your Bones' to begin Chaos anew.");
-                $("#rollBonesBtn").one("click", function() {
-                    game = new ShadowSpireAscension();
-                    $("#gameOutput").html(game.gameLog.join("\n"));
-                });
             }
         }
+
+
+
+
+
+
+
+
+
+
+        // SHADOW CARTOMANCY 
+        const suits = ["Chalices", "Discs", "Wands", "Swords"];
+        const numbers = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
+
+        function value(n) {
+            if (n === "Ace") return 1;
+            if (n === "Jack") return 11;
+            if (n === "Queen") return 12;
+            if (n === "King") return 13;
+            return parseInt(n);
+        }
+        function color(s) {
+            return (s === "Chalices" || s === "Discs") ? "Red" : "Black";
+        }
+        function randomCard() {
+            let s = suits[Math.floor(Math.random() * 4)];
+            let n = numbers[Math.floor(Math.random() * 13)];
+            return { name: n + " of " + s, suit: s, number: n };
+        }
+        function getArchetype(d, sameColor, suit1) {
+            if (d === 0) return sameColor ? "The Sun" : "The Lovers";
+            if (d === 1) return sameColor ? "The Magus" : "The Devil";
+            if (d === 2) return sameColor ? "The Priestess" : "The Moon";
+            if (d === 3) return sameColor ? "The Empress" : "The Tower";
+            if (d === 4) return sameColor ? "The Emperor" : "Death";
+            if (d === 5) return sameColor ? "The Hierophant" : "The Æon";
+            if (d === 6) return sameColor ? "Art" : "Adjustment";
+            if (d === 7) return sameColor ? "The Chariot" : "The Hanged Man";
+            if (d === 8) return sameColor ? "Lust" : "The Star";
+            if (d === 9) return sameColor ? "The Hermit" : "Fortune";
+            if (d === 10) return sameColor ? "The Universe" : "The Underworld";
+            if (d === 11) return sameColor ? "The Shadow" : "The Fool";
+            if (d === 12) {
+                if (suit1 === "Chalices") return "Wraith of Chalices";
+                if (suit1 === "Discs") return "Wraith of Discs";
+                if (suit1 === "Wands") return "Wraith of Wands";
+                if (suit1 === "Swords") return "Wraith of Swords";
+            }
+            return "The Fool";
+        }
+        function minorMeaning(card) {
+            const num = card.number;
+            const suit = card.suit;
+            const numberMeanings = {
+                "Ace": "(potential, origin, spark) A new force enters awareness. This is raw energy that requires direction.",
+                "2": "(duality, tension, choice) Opposing forces emerge. A decision or balance must be found.",
+                "3": "(growth, expansion, momentum) Energy begins to develop outwardly. Progress is underway.",
+                "4": "(structure, stability, control) Form stabilizes. This may support or restrict further growth.",
+                "5": "(conflict, disruption, struggle) Tension breaks stability. Change is forced through friction.",
+                "6": "(harmony, flow, resolution) Balance returns after disruption. Integration occurs.",
+                "7": "(test, resistance, challenge) You are pushed beyond comfort. Growth requires effort.",
+                "8": "(power, movement, intensity) Energy accelerates rapidly. Direction determines outcome.",
+                "9": "(completion, strain, threshold) You approach the end of a cycle. Pressure intensifies.",
+                "10": "(overflow, burden, excess) Energy exceeds capacity. Collapse or mastery follows."
+            };
+            const court = {
+                "Wands": {
+                    "Jack": "(curiosity, spark, exploration) You are discovering new creative energy. Act boldly but with awareness.",
+                    "Queen": "(confidence, magnetism, influence) You radiate inner fire. Others respond to your presence.",
+                    "King": "(authority, leadership, command) You must act decisively and direct energy with purpose."
+                },
+                "Chalices": {
+                    "Jack": "(sensitivity, curiosity, openness) Emotional awareness expands. Stay receptive without losing grounding.",
+                    "Queen": "(intuition, empathy, depth) You understand emotional currents deeply.",
+                    "King": "(control, compassion, balance) Master emotional expression while remaining compassionate."
+                },
+                "Discs": {
+                    "Jack": "(learning, effort, development) Skill builds through effort. Stay consistent.",
+                    "Queen": "(nurture, security, practicality) Stability is maintained through care and attention.",
+                    "King": "(wealth, authority, mastery) You control material systems. Responsibility is required."
+                },
+                "Swords": {
+                    "Jack": "(inquiry, curiosity, analysis) Seek truth relentlessly. Question everything.",
+                    "Queen": "(perception, precision, independence) You see clearly through illusion.",
+                    "King": "(authority, logic, judgment) Act with clarity and fairness. Truth must guide you."
+                }
+            };
+            if (numberMeanings[num]) return numberMeanings[num];
+            if (court[suit] && court[suit][num]) return court[suit][num];
+            return "(no specific meaning defined for this card)";
+        }
+        function interpret(archetype) {
+            const meanings = {
+                "The Sun": "(clarity, vitality, truth) Illumination reveals what is real without distortion. You are aligned with your higher nature.",
+                "The Lovers": "(union, choice, alignment) A defining choice must be made. True union requires conscious alignment.",
+                "The Magus": "(will, creation, focus) Your ability to shape reality is active. Focus determines outcome.",
+                "The Devil": "(bondage, temptation, control) You are bound by unconscious attachments. Awareness is required.",
+                "The Priestess": "(intuition, silence, depth) Truth emerges through stillness and inner awareness.",
+                "The Moon": "(illusion, fear, shadow) Perception is distorted. Face what lies beneath.",
+                "The Empress": "(growth, nurture, creation) What you nourish expands into reality.",
+                "The Tower": "(collapse, shock, revelation) False structures fall suddenly. Truth remains.",
+                "The Emperor": "(order, authority, structure) Discipline and control must be established.",
+                "Death": "(ending, transformation, rebirth) Release is necessary for transformation.",
+                "The Hierophant": "(tradition, belief, system) Question inherited structures.",
+                "The Æon": "(awakening, evolution, reckoning) You are being called into transformation.",
+                "Art": "(fusion, synthesis, balance) Opposites must be integrated.",
+                "Adjustment": "(balance, truth, precision) Align with truth, not preference.",
+                "The Chariot": "(drive, control, direction) Direct your momentum consciously.",
+                "The Hanged Man": "(surrender, pause, perspective) Let go to gain insight.",
+                "Lust": "(power, passion, expression) Embrace and direct raw energy.",
+                "The Star": "(hope, healing, renewal) Restoration follows disruption.",
+                "The Hermit": "(solitude, wisdom, search) Seek truth inwardly.",
+                "Fortune": "(cycles, change, inevitability) Change is unavoidable—adapt.",
+                "The Universe": "(completion, integration, totality) All elements unify into wholeness.",
+                "The Underworld": "(descent, shadow, depth) Power lies in what is hidden below.",
+                "The Shadow": "(integration, darkness, truth) What you reject must be integrated.",
+                "The Fool": "(freedom, leap, beginning) Step forward into the unknown.",
+                "Wraith of Chalices": "(emotional hunger, projection, longing) Emotional distortion drives behavior. Awareness is required.",
+                "Wraith of Discs": "(scarcity, greed, survival) Material fear governs decisions.",
+                "Wraith of Wands": "(impulse, chaos, aggression) Uncontrolled energy seeks release.",
+                "Wraith of Swords": "(conflict, domination, force) The mind becomes weaponized."
+            };
+            return meanings[archetype] || "(no interpretation available)";
+        }
+
+        function drawCartomancy() {
+            let c1 = randomCard();
+            let c2 = randomCard();
+            let v1 = value(c1.number);
+            let v2 = value(c2.number);
+            let d = Math.abs(v1 - v2);
+            let sameColor = (color(c1.suit) === color(c2.suit));
+            let archetype = getArchetype(d, sameColor, c1.suit);
+
+            const outputDiv = document.getElementById("cartomancyOutput");
+            outputDiv.innerHTML += 
+`<span class="draw-header">*** DRAWING FROM THE DEPTHS OF THE SHADOW ***</span>\n
+Situation: <span class="card-name">${c1.name}</span>
+→ <span class="meaning">${minorMeaning(c1)}</span>\n
+Challenge: <span class="card-name">${c2.name}</span>
+→ <span class="meaning">${minorMeaning(c2)}</span>\n
+Absolute Difference Value: <span class="number">${d}</span>
+Color Relation: <span class="number">${sameColor ? "Same Colors" : "Opposite Colors"}</span>\n
+Archetype: <span class="card-name">${archetype}</span>
+→ <span class="meaning">${interpret(archetype)}</span>
+<span class="separator">***********************</span>\n\n`;
+
+            outputDiv.scrollTop = outputDiv.scrollHeight;
+        }
+
+        function resetCartomancy() {
+            document.getElementById("cartomancyOutput").innerHTML = "";
+        }
+
+        function initCartomancyIntro() {
+            const placeholder = 
+`<span class="number">52-Card Poker Draw Deck:</span> Consists of all Tarot Minor Arcana, including Pages, Queens, Kings, but Knights are determined as Wraiths through an Absolute Difference Value calculation. <span class="number">Example:</span> King = 13 (Card A) - Ace = 1 (Card B) = 12 (Wraith, but use the Suit of Card A)
+			
+🃏🃏 <span class="number">2 Jokers:</span> Removed from Draw Deck and used for a “rotation reveal” (rotating the jokers face-down and then flipping them up to reveal if they’re “upright or ill-disposed (upside-down)” to determine the orientation of each card.
+
+<span class="card-name">Draw 2 cards to receive guidance from the Shadow.</span>\n
+♠️⚔️Swords⚔♠️ ♣️🔥Wands🔥♣️ 
+♦️🪙Discs🪙♦️ ♥️💧Chalices💧♥️ 
+
+<span class="number">D-value Reference Table:</span>
+VALUES
+<span class="meaning">A=1, J=11, Q=12, K=13</span>
+
+<span class="meaning">D = [A - B]</span>
+
+COLOR (Same / Opposite)
+Red (♥ ♦) / Black (♣ ♠)
+
+When:
+D = 0
+Same → The Sun
+Opp → The Lovers
+
+D = 1
+Same → The Magus
+Opp → The Devil
+
+D = 2
+Same → The Priestess
+Opp → The Moon
+
+D = 3
+Same → The Empress
+Opp → The Tower
+
+D = 4
+Same → The Emperor
+Opp → Death
+
+D = 5
+Same → The Hierophant
+Opp → The Æon
+
+D = 6
+Same → Art
+Opp → Adjustment
+
+D = 7
+Same → The Chariot
+Opp → The Hanged Man
+
+D = 8
+Same → Lust
+Opp → The Star
+
+D = 9
+Same → The Hermit
+Opp → Fortune
+
+D = 10
+Same → The Universe
+Opp → The Underworld
+
+D = 11
+Same → The Shadow
+Opp → The Fool
+
+D = 12 (Wraiths)
+Chalices → Wraith of Chalices
+Discs → Wraith of Discs
+Wands → Wraith of Wands
+Swords → Wraith of Swords
+`;
+            document.getElementById("cartomancyOutput").innerHTML = placeholder + "\n\n";
+        }
+
+
+
+
+
+
+
+
+        // ==================== EVENT HANDLERS ====================
         $(document).ready(function() {
-            $("#rollBonesBtn").click(function() {
-                rollBones();
-            });
+            $("#rollBonesBtn").off('click').on('click', rollBones);
+
             $("#gameOutput").html(game.gameLog.join("\n"));
+
             $('#player1Select').change(function() {
                 const newName = $(this).val();
                 if (game.changePlayerName('player1', newName)) {
                     game.changePlayerColor('player1', game.playerColors[newName]);
                     $("#gameOutput").html(game.gameLog.join("\n"));
-                } else {
-                    $(this).val(game.player1Name);
-                }
+                } else $(this).val(game.player1Name);
             });
+
             $('#player2Select').change(function() {
                 const newName = $(this).val();
                 if (game.changePlayerName('player2', newName)) {
                     game.changePlayerColor('player2', game.playerColors[newName]);
                     $("#gameOutput").html(game.gameLog.join("\n"));
-                } else {
-                    $(this).val(game.player2Name);
-                }
+                } else $(this).val(game.player2Name);
             });
+
             $('#submitRiddle').click(function() {
                 const userAnswer = $('input[name="riddleAnswer"]:checked').val() === 'yes';
                 const correct = pendingScholarCorrect;
@@ -929,20 +1155,17 @@
                 if (success) {
                     outcomeStmt = game.getRandomStatement('scholarWin');
                     game.gameLog.push(`<span class="text-warning">${outcomeStmt}</span>`);
-                    if (game.Seekers.length === 0) {
-                        game.Seekers.push(1);
-                    } else {
+                    if (game.Seekers.length === 0) game.Seekers.push(1);
+                    else {
                         const lead = Math.max(...game.Seekers);
                         const index = game.Seekers.indexOf(lead);
                         const newLead = lead + 1;
                         if (newLead > 3) {
                             game.scoreAscensions(1);
                             game.Seekers.splice(index, 1);
-                        } else {
-                            game.Seekers[index] = newLead;
-                        }
+                        } else game.Seekers[index] = newLead;
                     }
-                    game.printFlightStatus(); // Show updated position after success (once only)
+                    game.printFlightStatus();
                 } else {
                     outcomeStmt = game.getRandomStatement('scholarLose');
                     game.gameLog.push(`<span class="text-warning">${outcomeStmt}</span>`);
@@ -952,66 +1175,24 @@
                         const index = game.Seekers.indexOf(lead);
                         game.Seekers.splice(index, 1);
                     }
-                    game.printFlightStatus(); // Show updated position after failure (once only)
-                    // Manually append score & deaths for scholar failure
+                    game.printFlightStatus();
                     game.gameLog.push(`Score: <span class="${game.getTeamClass('player1')}">${game.getPlayerName('player1')}</span> <span class="number">${game.asc_this_degree["player1"]}</span> - <span class="${game.getTeamClass('player2')}">${game.getPlayerName('player2')}</span> <span class="number">${game.asc_this_degree["player2"]}</span>`);
                     game.gameLog.push(`Deaths: <span class="number">${game.deaths}</span>`);
                 }
                 $("#gameOutput").html(game.gameLog.join("\n"));
                 const gameOutput = $("#gameOutput")[0];
-                gameOutput.scrollTop = gameOutput.scrollHeight;
-                bootstrap.Modal.getInstance(document.getElementById('riddleModal')).hide();
+                if (gameOutput) gameOutput.scrollTop = gameOutput.scrollHeight;
+                const modal = bootstrap.Modal.getInstance(document.getElementById('riddleModal'));
+                if (modal) modal.hide();
             });
-        });
-    </script>
-    <hr class="glow animate-breathe">
-    <div class="container metronome-container" id="metronome">
-        <h1 class="text-center mb-4">speed trainer metronome</h1>
-        <div id="circles" class="text-center mb-4"></div>
-        <div class="controls">
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <label for="bpm" class="form-label" align="center">BPM: <span id="bpmValue">100</span></label>
-                    <input type="range" class="form-range" id="bpm" min="20" max="500" value="100">
-                </div>
-                <div class="col-md-4">
-                    <label for="timeSignature" class="form-label" align="center">Time Signature</label>
-                    <select class="form-select" id="timeSignature">
-                        <option value="3">3/4</option>
-                        <option value="4" selected>4/4 (Default)</option>
-                        <option value="5">5/4</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label for="tone" class="form-label" align="center">Tone</label>
-                    <input type="range" class="form-range" id="tone" min="200" max="1000" value="600">
-                </div>
-            </div>
-            <div class="row g-3 mt-3">
-                <div class="col-md-4">
-                    <label for="bpmChange" class="form-label" align="center">Tempo Change (BPM)</label>
-                    <input type="number" class="form-control" id="bpmChange" min="0" max="50" value="0">
-                </div>
-                <div class="col-md-4">
-                    <label for="bars" class="form-label" align="center">Bars per Tempo Change</label>
-                    <input type="number" class="form-control" id="bars" min="1" value="4">
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label" align="center">Increase or Decrease Tempo?</label>
-                    <select class="form-select" id="direction">
-                        <option value="increase">Increase</option>
-                        <option value="decrease">Decrease</option>
-                    </select>
-                </div>
-            </div>
-            <div class="text-center mt-4">
-                <button id="startStop" class="btn btn-danger">Start</button>
-                <button id="reset" class="btn btn-danger ms-2">Reset</button>
-            </div>
-        </div>
-    </div>
-    <script>
-        $(document).ready(function() {
+
+            initCartomancyIntro();
+
+
+
+
+
+            // Metronome
             let isPlaying = false;
             let currentBeat = 0;
             let intervalId = null;
@@ -1020,13 +1201,13 @@
             let barCount = 0;
             let emphasisBeats = new Set();
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
             function createCircles(num) {
                 $('#circles').empty();
                 emphasisBeats.clear();
-                for (let i = 0; i < num; i++) {
-                    $('#circles').append(`<div class="circle" data-beat="${i}"></div>`);
-                }
+                for (let i = 0; i < num; i++) $('#circles').append(`<div class="circle" data-beat="${i}"></div>`);
             }
+
             function playClick(frequency, isEmphasis) {
                 const oscillator = audioContext.createOscillator();
                 const gainNode = audioContext.createGain();
@@ -1039,6 +1220,7 @@
                 oscillator.start(audioContext.currentTime);
                 oscillator.stop(audioContext.currentTime + 0.1);
             }
+
             function updateMetronome() {
                 $('.circle').removeClass('active');
                 const $currentCircle = $(`.circle[data-beat="${currentBeat}"]`);
@@ -1056,15 +1238,13 @@
                     }
                 }
             }
+
             function adjustBpm() {
                 const change = parseInt($('#bpmChange').val());
                 const direction = $('#direction').val();
                 if (change > 0) {
-                    if (direction === 'increase' && currentBpm + change <= 500) {
-                        currentBpm += change;
-                    } else if (direction === 'decrease' && currentBpm - change >= 20) {
-                        currentBpm -= change;
-                    }
+                    if (direction === 'increase' && currentBpm + change <= 500) currentBpm += change;
+                    else if (direction === 'decrease' && currentBpm - change >= 20) currentBpm -= change;
                     $('#bpm').val(currentBpm);
                     $('#bpmValue').text(currentBpm);
                     if (isPlaying) {
@@ -1073,17 +1253,18 @@
                     }
                 }
             }
+
             function resetMetronome() {
                 currentBeat = 0;
                 barCount = 0;
                 $('.circle').removeClass('active');
             }
+
             createCircles(beatsPerMeasure);
+
             $('#startStop').click(function() {
                 if (!isPlaying) {
-                    if (audioContext.state === 'suspended') {
-                        audioContext.resume();
-                    }
+                    if (audioContext.state === 'suspended') audioContext.resume();
                     isPlaying = true;
                     $(this).text('Stop');
                     intervalId = setInterval(updateMetronome, 60000 / currentBpm);
@@ -1093,11 +1274,11 @@
                     clearInterval(intervalId);
                 }
             });
+
             $('#reset').click(function() {
-                if (!isPlaying) {
-                    resetMetronome();
-                }
+                if (!isPlaying) resetMetronome();
             });
+
             $('#bpm').on('input', function() {
                 currentBpm = parseInt($(this).val());
                 $('#bpmValue').text(currentBpm);
@@ -1106,15 +1287,15 @@
                     intervalId = setInterval(updateMetronome, 60000 / currentBpm);
                 }
             });
+
             $('#timeSignature').change(function() {
                 beatsPerMeasure = parseInt($(this).val());
                 createCircles(beatsPerMeasure);
                 currentBeat = 0;
                 barCount = 0;
-                if (!isPlaying) {
-                    resetMetronome();
-                }
+                if (!isPlaying) resetMetronome();
             });
+
             $(document).on('click', '.circle', function() {
                 const beat = parseInt($(this).data('beat'));
                 if (emphasisBeats.has(beat)) {
@@ -1127,9 +1308,5 @@
             });
         });
     </script>
-    <hr class="glow animate-breathe">
-    <div class="container-fluid text-center footer">
-        Zyrnitra © <script>document.write(new Date().getUTCFullYear());</script>
-    </div>
 </body>
 </html>
