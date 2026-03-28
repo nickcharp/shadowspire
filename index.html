@@ -195,7 +195,9 @@
 		.scoundrel-output .sbs-names   { color: #32CD32; font-weight: bold; font-size: 20px; font-family: 'Metal Mania', Verdana, cursive; text-align: center; }
 		/* Green - Shade Blade Sorcery Cards Names */
 		
-        .scoundrel-output .sbs-aces   { color: #ffc107; font-weight: bold; font-size: 20px; font-family: 'Metal Mania', Verdana, cursive; text-align: center; }   /* Yellow - Aces */
+        .scoundrel-output .sbs-jokers   { color: #aaaaaa; font-weight: bold; font-size: 20px; font-family: 'Metal Mania', Verdana, cursive; text-align: center; }   /* Grey - Jokers */
+		
+		.scoundrel-output .sbs-aces   { color: #ffc107; font-weight: bold; font-size: 20px; font-family: 'Metal Mania', Verdana, cursive; text-align: center; }   /* Yellow - Aces */
 		
 		.scoundrel-output .blacks      { color: #32CD32; font-weight: bold; font-size: 20px; font-family: 'Metal Mania', Verdana, cursive; text-align: center; }   /* Green - Black Cards */
 		
@@ -1269,7 +1271,7 @@ Swords → Wraith of Swords]</span>
 
 		function initScoundrelIntro() {
             const scoundrelText = 
-`<ul><span class="sbs-aces">🃏Jokers🃏
+`<ul><span class="sbs-jokers">🃏Jokers🃏
 🔥🗝️Hermit of the Spire, Void Key Bearer, & Lurker of Hidden Passageways🗝️🔥:</span>
 <li>Jokers offer you an escape from a Chamber, when found, and an opportunity to find the Void Key. If you refuse, lose <span class="number">1 Life</span> Life. Can only refuse once. When you accept to follow him, he vanishes into the Abyss (discard pile), while the other <span class="number">3 cards</span> go to bottom of the Dungeon, and the Stairway is inverted (cut in half) and shuffled.</li>
 
@@ -1292,7 +1294,6 @@ Swords → Wraith of Swords]</span>
 👸🏻Q of C♣️
 👩🐍Devious Gorgons🐍👩🏿</span>
 <li>Deals base <span class="number">12</span> damage, but while alive in the Chamber, you are too distracted by her beauty and you drop your guard, causing your 🗡️ to deal <span class="number">1</span> less damage.</li>
-
 <span class="blacks">👸🏻Q of S♠️
 👩🏻‍🦳☣️Soulsucking Succubi🧪👩🏻‍🦳</span>
 <li>Deals <span class="number">12</span> damage total, but while alive in the Chamber, poisons your Chalices, causing them to hurt you rather than heal you. She does not affect A of H.</li>
@@ -1301,7 +1302,6 @@ Swords → Wraith of Swords]</span>
 🫅🏻K of C♣️
 ✴⚔️🐲Corrupt Emperor💀Black Dragon Lich🐉⚔️✴</span>
 <li>Deals <span class="number">13</span> damage + <span class="number">#</span> of Aces attached to K of D&H</li>
-
 <span class="blacks">🫅🏻K of S♠️
 ✴🧙🏻‍♂️🐲Chaotic Sorcerer💀Black Dragon Lich🐉🧙🏻‍♂️✴</span>
 <li>Deals <span class="number">13</span> damage + <span class="number">#</span> of Rotting Corpses (max <span class="number">+2</span> Damage) captured by your Sorcerer (K of H).</li>
