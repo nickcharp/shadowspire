@@ -190,14 +190,16 @@
             margin-bottom: 15px;
         }
 		
-		.scoundrel-output .sbs-names   { color: #32CD32; font-weight: bold; font-size: 20px; font-family: 'Metal Mania', Verdana, cursive; }
+		.scoundrel-output .gen-head { color: #dc3545; font-weight: bold; font-size: 30px; font-family: 'UnifrakturMaguntia', Verdana, cursive; text-align: center; } /* Red - General Header Text */
+		
+		.scoundrel-output .sbs-names   { color: #32CD32; font-weight: bold; font-size: 20px; font-family: 'Metal Mania', Verdana, cursive; text-align: center; }
 		/* Green - Shade Blade Sorcery Cards Names */
 		
-        .scoundrel-output .sbs-aces   { color: #ffc107; font-weight: bold; font-size: 20px; font-family: 'Metal Mania', Verdana, cursive; }   /* Yellow - Aces */
+        .scoundrel-output .sbs-aces   { color: #ffc107; font-weight: bold; font-size: 20px; font-family: 'Metal Mania', Verdana, cursive; text-align: center; }   /* Yellow - Aces */
 		
-		.scoundrel-output .blacks      { color: #32CD32; font-weight: bold; font-size: 20px; font-family: 'Metal Mania', Verdana, cursive; }   /* Green - Black Cards */
+		.scoundrel-output .blacks      { color: #32CD32; font-weight: bold; font-size: 20px; font-family: 'Metal Mania', Verdana, cursive; text-align: center; }   /* Green - Black Cards */
 		
-        .scoundrel-output .reds     { color: #dc3545; font-weight: bold; font-size: 20px; font-family: 'Metal Mania', Verdana, cursive; }   /* Red - Red Cards */
+        .scoundrel-output .reds     { color: #dc3545; font-weight: bold; font-size: 20px; font-family: 'Metal Mania', Verdana, cursive; text-align: center; }   /* Red - Red Cards */
 		
 		.scoundrel-output .sm-reds { color: #dc3545; font-weight: bold; font-size: 18px;} /* Red - Small Red Text */
 		
@@ -1260,16 +1262,16 @@ Swords → Wraith of Swords]</span>
 
 
 
+
+
+
 // Shade Blade Sorcery Instructions Text display
 
 		function initScoundrelIntro() {
             const scoundrelText = 
-`<ul><span class="sm-reds">Court Card Abilities
-(Full Rule Set will Follow):</span>
-
-<span class="sbs-aces">🃏Jokers🃏
+`<ul><span class="sbs-aces">🃏Jokers🃏
 🔥🗝️Hermit of the Spire, Void Key Bearer, & Lurker of Hidden Passageways🗝️🔥:</span>
-<li>Jokers offer you an escape from a Chamber, when found, and an opportunity to find the Void Key. If you refuse, lose <span class="number">1</span> Life. Can only refuse once. When you accept to follow him, he vanishes into the Abyss (discard pile), while the other <span class="number">3</span> cards go to bottom of the Dungeon, and the Stairway is inverted (cut in half) and shuffled.</li>
+<li>Jokers offer you an escape from a Chamber, when found, and an opportunity to find the Void Key. If you refuse, lose <span class="number">1 Life</span> Life. Can only refuse once. When you accept to follow him, he vanishes into the Abyss (discard pile), while the other <span class="number">3 cards</span> go to bottom of the Dungeon, and the Stairway is inverted (cut in half) and shuffled.</li>
 
 <span class="sbs-aces">ACES:</span>
 <span class="sbs-aces">⚡A of H♥️ = Scroll of Aura Purification: </span>
@@ -1315,7 +1317,7 @@ Swords → Wraith of Swords]</span>
 🗡️👩🏻‍🦰Shadow Maiden👩🏻‍🦰🛡️ &
 🍺👱🏻‍♀️Shadow Priestess👱🏻‍♀️🍷:</span><li>Function only as divider cards to keep your Kings at a reasonable distance from the Chamber cards.</li>
 
-<span class="sm-reds">Solitaire Card Game Instructions:</span>
+<span class="gen-head">solitaire card game instructions:</span>
 <li>Lord Wraith, born of Shadow Blood (K of D & K of H - representative of the bladed and sorcerous aspects of one Lord Wraith) searches for the Hermit of the Spire (Jokers) who bears the Void Key, while he battles his way to the throne room of the Spire, oft overcome by his scoundrel ways when crossing paths with Succubi and Gorgon alike. (Still trying to think of more to add to this intro narrative)
 <li><span class="sm-reds">Shade Blade Sorcery</span> is a variation of "Scoundrel" Solitaire, played with a full deck of poker cards (Jokers included) either on tabletop or in-hand.
 <li><span class="sm-reds">Red Kings & Red Queens</span> are removed and either set face-up on the table or atop your Draw Deck (Dungeon) in-hand after it's been shuffled.
@@ -1336,8 +1338,7 @@ Swords → Wraith of Swords]</span>
 Example: if 2 Jacks show up in the same Chamber, and you have a 7-power ♦️🗡️, you can only handle one of them. The next card you could face with that 🗡️ is a Black 10.</li>
 <li>Shattered Sword
 When a Black #2 Card is attached to your 🗡️, the 🗡️ shatters into the Abyss.</li>
-
-<li>Recommended Decks for Shade Blade Sorcery: Bicycle "Black Ghost", "Spellbound", "Aviary".</li></ul>`;
+</ul>`;
             document.getElementById("scoundrelOutput").innerHTML = scoundrelText + "\n\n";
         }
 
