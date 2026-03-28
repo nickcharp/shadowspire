@@ -62,6 +62,48 @@
         .text-limegreen { color: #32CD32; }
         .text-warning { color: #ffc107; }
         .roll-number, .number { color: #aaaaaa; }
+		
+		.form-select {
+            background-color: #ffffff;
+            color: #000000;
+            border: 1px solid #ced4da;
+        }
+        .form-select:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+        }
+        #player1Select, #player2Select {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        #player1Select option, #player2Select option {
+            background-color: #000000;
+            color: #ffffff;
+        }
+		
+		/* Danger red focus border for player dropdowns */
+		#player1Select:focus,
+		#player2Select:focus {
+			border-color: #dc3545 !important;           /* Bootstrap danger red border on focus */
+			box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;  /* matching red glow */
+		}
+		
+
+        .player-label {
+            color: #cccccc;
+            font-weight: 500;
+        }
+        #riddleModal .modal-content {
+            background-color: #111;
+            color: #ddd;
+            border: 1px solid #444;
+        }
+        #riddleModal .modal-header {
+            border-bottom: 1px solid #444;
+        }
+        #riddleModal .modal-footer {
+            border-top: 1px solid #444;
+        }
 
         /* Cartomancy Styling - Your latest request */
         .cartomancy-container { max-width: 600px; margin: 30px auto; padding: 20px; }
@@ -897,6 +939,14 @@
 
 
 
+
+
+
+
+
+
+
+
         // SHADOW CARTOMANCY 
         const suits = ["Chalices", "Discs", "Wands", "Swords"];
         const numbers = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
@@ -1061,7 +1111,7 @@ COLOR (Same / Opposite)
 <span class="meaning">Red (♥ ♦)</span> / <span class="number">Black (♣ ♠)</span>
 
 When:
-D = 0
+<span class="meaning">D = 0
 Same Color → The Sun
 Opposite Color → The Lovers
 
@@ -1113,7 +1163,7 @@ D = 12 (Wraiths)
 Chalices → Wraith of Chalices
 Discs → Wraith of Discs
 Wands → Wraith of Wands
-Swords → Wraith of Swords
+Swords → Wraith of Swords</span>
 `;
             document.getElementById("cartomancyOutput").innerHTML = placeholder + "\n\n";
         }
