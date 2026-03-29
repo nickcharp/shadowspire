@@ -641,7 +641,7 @@
             determineFirst() {
                 let lightRoll, shadowRoll;
                 while (true) {
-                    this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
+                    this.gameLog.push(`<hr class="glow animate-breathe">`);
                     lightRoll = this.rollDice().reduce((a, b) => a + b, 0);
                     shadowRoll = this.rollDice().reduce((a, b) => a + b, 0);
                     this.gameLog.push(`<span class="${this.getTeamClass('player1')}">${this.getPlayerName('player1')}</span> rolled: <span class="roll-number">${lightRoll}</span>`);
@@ -667,9 +667,9 @@
             }
             logDegreeStart() {
                 let startText = "The Trial of the Body now begins… You have no foundation without a strong, supple, resilient body. Raise your hood, unsheath your blade, FOCUS, MOVE, and STRIKE forth. Pain is both inevitable and necessary. Suffering is endless opportunity. Embrace it, endure it, be purified and hardened by it - and perpetually prove your might. Incipit Chaos!";
-                this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
+                this.gameLog.push(`<hr class="glow animate-breathe">`);
                 this.gameLog.push(startText);
-                this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
+                this.gameLog.push(`<hr class="glow animate-breathe">`);
             }
 
             // All other methods below are copied directly from your last working version
@@ -917,9 +917,9 @@
             switchHalf() {
                 const isTop = this.half_degree === "Top";
                 const prevTeam = this.current_team;
-                this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
+                this.gameLog.push(`<hr class="glow animate-breathe">`);
                 this.gameLog.push(" The Shadow Aspirant has reached one of the spire's inner Void Chambers, free from the merciless violence of the toilsome ascent, but unaware of the total count of ascensions. <br> While awaiting the judgement of the Shadow Elders, to obtain the coveted Key to the Inner Circle, here rejuvenation is found within volcanic steam, allowing one to indulge in a moment of healing - to briefly drop their guard, stretch aching muscles, breathe in unison with their increasingly glowing aura, and imbibe their potent brew while peering out through the cracks on a multitude of jagged architecture - hearing dark, empowering chants, chimes, rhythms, and strings in the distance... <br> Rival Shadows, and other ghastly wraiths, are surely not far away.");
-                this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
+                this.gameLog.push(`<hr class="glow animate-breathe">`);
                 this.gameLog.push(`<span class="${this.getTeamClass(prevTeam)}">${this.getPlayerName(prevTeam)}</span> attained <span class="number">${this.asc_this_degree[prevTeam]}</span> Ascensions.`);
                 if (isTop) {
                     if (this.degree >= 3 && this.asc_this_degree[prevTeam] === 0 && this.degree_wins[this.home_team] >= 2) {
@@ -931,7 +931,7 @@
                     this.half_degree = "Bottom";
                     this.current_team = this.home_team;
                     this.gameLog.push(`<span class="${this.getTeamClass(this.current_team)}">${this.getPlayerName(this.current_team)}</span> now seeks Ascension.`);
-                    this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
+                    this.gameLog.push(`<hr class="glow animate-breathe">`);
                     this.resetHalf();
                 } else {
                     const awayAsc = this.asc_this_degree[this.away_team];
