@@ -1166,7 +1166,7 @@
 
             const outputDiv = document.getElementById("cartomancyOutput");
             outputDiv.innerHTML += 
-`<span class="draw-header">*** DRAWING FROM THE DEPTHS OF THE SHADOW ***</span>\n
+`<span class="separator">***</span><span class="draw-header"> DRAWING FROM THE DEPTHS OF THE ASTRAL SHADOW </span><span class="separator">***</span>\n
 Situation: <span class="card-name">${c1.name}</span>
 → <span class="meaning">${minorMeaning(c1)}</span>\n
 Challenge: <span class="card-name">${c2.name}</span>
@@ -1175,7 +1175,7 @@ Absolute Difference Value: <span class="number">${d}</span>
 Color Relation: <span class="number">${sameColor ? "Same Colors" : "Opposite Colors"}</span>\n
 Archetype: <span class="card-name">${archetype}</span>
 → <span class="meaning">${interpret(archetype)}</span>
-<span class="separator">***********************</span>\n\n`;
+<hr class="glow animate-breathe">\n\n`;
 
             outputDiv.scrollTop = outputDiv.scrollHeight;
         }
@@ -1275,7 +1275,7 @@ Swords → Wraith of Swords]</span>
 <ul><span class="sbs-jokers">🃏Jokers🃏
 🔥🗝️Hermit of the Spire, Void Key Bearer, & Lurker of Hidden Passageways🗝️🔥:</span>
 <li>Jokers offer you an escape from a Chamber, when encountered, and an opportunity to uncovered hidden chambers, by way of the Void Key. If you refuse, lose <span class="number">1 Life</span>. Can only refuse once. Whether you accept or refuse to follow him, he quickly vanishes into the Abyss (discard pile), while the other <span class="number">3 cards</span> go to bottom of the Dungeon, and the Stairway is inverted (cut in half) and shuffled.</li>
-
+<hr class="glow animate-breathe">
 <span class="blacks">⚫BLACK KINGS⚫
 🫅🏻K of C♣️
 ✴⚔️🐲Black Dragon Emperor🐉⚔️✴</span>
@@ -1296,7 +1296,7 @@ Swords → Wraith of Swords]</span>
 ⚔️J of C♣️ &  ⚔️J of S♠️
 🩸🦇Bloodlusting Hybrids🐺🌒</span>
 <li>Deals <span class="number">11</span> damage when your 🫅🏻K of D♦️ has a durable enough 🗡️ to fight them with. They will vanish to the Abyss, but send your 🗡️ to the Dungeon, and force the Stairway to invert (cut draw deck). If battling 👊🏻 with your sorcerous 🫅🏻K of H♥️, the Vampire deals <span class="number">5</span> damage and disappears into the Dungeon, to later return again.</li>
-
+<hr class="glow animate-breathe">
 <span class="reds">🔴RED KINGS🔴
 🫅🏻K of D♦️
 ✴⚔️💀Lord Wraith, Noble King of Shadows💀⚔️✴</span><li>Functions ONLY as a card for Blades ♦️ & Aces ♦️♣️ to attach to, and the enemies you choose to battle. </li>
@@ -1315,7 +1315,7 @@ Swords → Wraith of Swords]</span>
 ⚔️J of H♥️
 🎭Shadow Mask Artisan🎭</span>
 <li>Both remove <span class="number">1 corpse</span> from the 🫅🏻K of D♦️’s trail of blood, restoring the durability of the King's blade, and/or fade away into the Abyss if there's.</li>
-
+<hr class="glow animate-breathe">
 <span class="sbs-aces">⚡ACES⚡</span>
 <span class="sbs-aces">⚡A of H♥️ = Scroll of Aura Purification</span>
 <li>Gain <span class="number">1 Life</span> instantly, unless Life is at <span class="number">20</span>. Must be first card used in its Chamber (unless Joker forces you to Escape from Chamber). Discard and Cut Draw deck after.</li>
@@ -1325,19 +1325,18 @@ Swords → Wraith of Swords]</span>
 <li>Equip to your 🫅🏻K of D♦️/H♥️ for their next duel. Take <span class="number">1</span> less Damage when fighting with 🗡️ or 👊🏻. Must be first card used in its Chamber (unless Joker forces you to Escape from Chamber). Discard and Cut Draw deck after.</li>
 <span class="sbs-aces">⚡A of S♠️ = Shade Blade</span>
 <li>Destroys your strongest, most-available enemy (in the shared Chamber) outright. Must be first card used in its Chamber (unless Joker forces you to Escape from Chamber). Discard and Cut Draw deck after.</li>
-
+<hr class="glow animate-breathe">
 <span class="gen-head">solitaire card game instructions:</span>
-<li>Lord Wraith, born of Shadow Blood (K of D & K of H - representative of the bladed and sorcerous aspects of one Lord Wraith) searches for the Hermit of the Spire (Jokers) who bears the Void Key, while he battles his way to the throne room of the Spire, oft overcome by his scoundrel ways when crossing paths with Succubi and Gorgon alike. (Still trying to think of more to add to this intro narrative)
+<li><span class="sm-reds">Storyline: </span>Lord Wraith, born of Shadow Blood (K of D & K of H - representative of the bladed and sorcerous aspects of one Lord Wraith) searches for the Hermit of the Spire (Jokers) who bears the Void Key, while he battles his way to the throne room of the Spire, oft overcome by his scoundrel ways when crossing paths with Succubi and Gorgon alike. (Still trying to think of more to add to this intro narrative)
 <li><span class="sm-reds">Shade Blade Sorcery</span> is a variation of "Scoundrel" Solitaire, played with a full deck of poker cards (Jokers included) either on tabletop or in-hand.
 <li><span class="sm-reds">Red Kings & Red Queens</span> are removed and either set face-up on the table or atop your Draw Deck (Dungeon) in-hand after it's been shuffled.
 <li>If playing entirely in-hand, hold the deck in this order: Discarded cards go face-up (into the "Abyss") beneath your Draw Deck which is always face down. 👸🏻Q of H♥️ face-up atop Draw Deck (used only as a divider card), then 🫅🏻K of H♥️, then 🫅🏻K of D♦️, then your 👸🏻Q of D♦️, and finally your 4 Chamber cards (with any combination of blades, chalices, and challengers) drawn from the Dungeon face-up at the very top of your deck.
-<li>Use a 20-sided to keep track of your life, a calculator, or however many brain cells you have left. Your life shall not exceed <span class="number">20</span>, and if it reaches <span class="number">0</span>, you have Fallen in Battle, and must Start Over.</li>
-<li>Order of Operation matters.</li>
+<li>Use a 20-sided die to keep track of your life, a calculator, or the few brain cells you have left. Your life shall not exceed <span class="number">20</span>, and if it reaches <span class="number">0</span>, you have Fallen in Battle, and must Start Over.</li>
+<li><span class="sm-reds">Order of Operation</span> matters.</li>
 <li>Chamber escapes (aka. Running from a Room) allowed, but not twice in a row.</li>
-<li>If you encounter a Black Jack at the very end, without any weapon durability to kill him, you lose the game.</li>
+<li>If you encounter a ⚫BLACK JACK⚫ at the very end, without any weapon durability to kill him, you lose the game.</li>
 <span class="sm-reds">Healing:</span>
-<li>Only 1 Chalice heals per turn. All others within that turn are ineffective. A of H, however, is a spell, not a chalice, and therefore it still takes effect.</li>
-<li>Only 1 Brew/Chalice can be used per Chamber. If multiple brews are drunk in one Chamber, only the first one takes effect, except when the Q of S poisons them all.</li>
+<li>Only 1 Chalice heals per turn. If multiple brews are drunk in one Chamber, only the first one takes effect, except when the Q of S poisons them all. A of H, however, is a spell, not a chalice, and therefore it still takes effect.</li>
 <span class="sm-reds">Running/Escaping Chambers:</span>
 <li>If Escaping a Chamber due to a Joker, you can still Escape the following Chamber if you choose, but otherwise you cannot escape twice in a row.</li>
 <span class="sm-reds">Blades:</span>
