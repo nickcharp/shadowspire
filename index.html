@@ -940,7 +940,7 @@
                     if (awayAsc > homeAsc) winner = this.away_team;
                     else if (homeAsc > awayAsc) winner = this.home_team;
                     else if (awayAsc === 3 && homeAsc === 3) {
-                        this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
+                        this.gameLog.push(`<hr class="glow animate-breathe">`);
                         this.gameLog.push("Ascensions tied at 3! The battle must be repeated from the stairway below.");
                         this.asc_this_degree = { player1: 0, player2: 0 };
                         this.resetHalf();
@@ -949,7 +949,7 @@
                         this.logDegreeStart();
                         return;
                     } else {
-                        this.gameLog.push(`<span class="text-limegreen">*****************************************************</span>`);
+                        this.gameLog.push(`<hr class="glow animate-breathe">`);
                         this.gameLog.push("Ascensions tied! The battle must be repeated.");
                         this.asc_this_degree = { player1: 0, player2: 0 };
                         this.resetHalf();
