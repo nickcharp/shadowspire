@@ -140,13 +140,53 @@
             margin-bottom: 15px;
         }
 
-        .cartomancy-output .draw-header { color: #888888; font-weight: bold; }
-        /* Grey - draw header */
-		.cartomancy-output .card-name   { color: #ffc107; }   /* Yellow - card names */
-        .cartomancy-output .number      { color: #aaaaaa; }   /* Grey - D-value and numbers */
-        .cartomancy-output .separator   { color: #32CD32; }
+		/* Grey - headers */
+        .cartomancy-output .carto-head { 
+			color: #888888; 
+			font-weight: bold;
+			font-size: 30px;
+            font-family: 'UnifrakturMaguntia', Verdana, cursive;
+            text-align: center;
+			letter-spacing: 5px;
+			text-transform: lowercase; 
+			}
+        
+		/* Green - card names */
+		.cartomancy-output .card-name   { 
+			color: #dc3545;
+			font-weight: bold; 
+			font-size: 20px; 
+			font-family: 'Metal Mania', Verdana, cursive; 
+			letter-spacing: 2px;
+			text-align: center;
+			}
+		
+		/* Green - sub headers */
+		.cartomancy-output .sub-head     { 
+			color: #32CD32; }
+			font-weight: bold; 
+			font-size: 20px; 
+			font-family: 'Metal Mania', Verdana, cursive; 
+			letter-spacing: 2px;
+			text-align: center;
+			}  
+			
+		/* Grey - D-value and numbers */
+		.cartomancy-output .number      { color: #aaaaaa; }   
+		
+		/* Red - card names */
+		.cartomancy-output .reds   { color: #dc3545; }   
+		
+		/* Yellow - card names */
+		.cartomancy-output .card-names   { color: #ffc107; }   
+		
 		/* Green - asterisks */
-        .cartomancy-output .meaning     { color: #dc3545; }   /* Red - meanings */
+        .cartomancy-output .separator   { color: #32CD32; }
+		
+		
+        
+
+
 
         .cartomancy-btn {
             padding: 12px 25px;
@@ -165,6 +205,9 @@
             transform: translateY(-2px);
             box-shadow: 0 0 15px rgba(220, 53, 69, 0.7);
         }
+		
+		
+		
 		
 		
 		
@@ -200,7 +243,7 @@
 		
 		.scoundrel-output .gen-head { color: #ffffff; font-weight: bold; font-size: 30px; font-family: 'UnifrakturMaguntia', Verdana, cursive; text-align: center; } /* Red - General Header Text */
 		
-		.scoundrel-output .sbs-names   { color: #32CD32; font-weight: bold; font-size: 20px; font-family: 'Metal Mania', Verdana, cursive; text-align: center; }
+		.scoundrel-output .sbs-names   { color: #32CD32; font-weight: bold; font-size: 20px; font-family: 'Metal Mania', Verdana, cursive; letter-spacing: 2px; text-align: center; }
 		/* Green - Shade Blade Sorcery Cards Names */
 		
         .scoundrel-output .sbs-jokers   { color: #ffc107; font-weight: bold; font-size: 20px; font-family: 'Metal Mania', Verdana, cursive; text-align: center; }   /* Green - Jokers */
@@ -1174,16 +1217,17 @@
 
             const outputDiv = document.getElementById("cartomancyOutput");
             outputDiv.innerHTML += 
-`<span class="separator">***</span><span class="draw-header"> DRAWING FROM THE DEPTHS OF THE ASTRAL SHADOW </span><span class="separator">***</span>\n
-Situation: <span class="card-name">${c1.name}</span>
+`<span class="carto-head">,;DRAWING FROM THE DEPTHS 
+OF THE ASTRAL SHADOW;,</span>\n
+<span class="sub-head">Situation: </span><span class="card-name">${c1.name}</span>
 → <span class="meaning">${minorMeaning(c1)}</span>\n
-Challenge: <span class="card-name">${c2.name}</span>
+<span class="sub-head">Challenge: </span><span class="card-name">${c2.name}</span>
 → <span class="meaning">${minorMeaning(c2)}</span>\n
-Absolute Difference Value: <span class="number">${d}</span>
-Color Relation: <span class="number">${sameColor ? "Same Colors" : "Opposite Colors"}</span>\n
-Archetype: <span class="card-name">${archetype}</span>
+<span class="sub-head">Absolute Difference Value: </span><span class="number">${d}</span>
+<span class="sub-head">Color Relation: </span><span class="number">${sameColor ? "Same Colors" : "Opposite Colors"}</span>\n
+<span class="sub-head">Archetype: </span><span class="card-name">${archetype}</span>
 → <span class="meaning">${interpret(archetype)}</span>
-<hr class="glow animate-breathe">\n\n`;
+<hr class="glow-box animate-breathe">\n`;
 
             outputDiv.scrollTop = outputDiv.scrollHeight;
         }
@@ -1194,26 +1238,30 @@ Archetype: <span class="card-name">${archetype}</span>
 
         function initCartomancyIntro() {
             const placeholder = 
-`<span class="number">52-Card Poker Draw Deck:</span> Consists of all Tarot Minor Arcana, including Pages, Queens, Kings, but Knights are determined as Wraiths through an Absolute Difference Value calculation. <span class="number">Example:</span> King = 13 (Card A) - Ace = 1 (Card B) = 12 (Wraith, but use the Suit of Card A)
+`<span class="card-name">Wraithianic Cartomancy</span> utilizes a standard 52-Card Poker Deck consisting of all traditional Tarot Minor Arcana (including Seekers, Queens, Kings), but Knights - referred to as Wraiths - are determined and revealed (along with all other Major Arcana cards and the addition of "The Shadow" and "The Underworld" Major Arcana) through an Absolute Difference Value calculation between the two cards drawn in the two-card spread. <span class="number">
+Example: King of Swords = 13 (Card A) - Ace of Discs = 1 (Card B) = 12 (Wraith of Swords, applying the Suit of Card A)</span>
 			
-🃏🃏 <span class="number">2 Jokers:</span> Removed from Draw Deck and used for a “rotation reveal” (rotating the jokers face-down and then flipping them up to reveal if they’re “upright or ill-disposed (upside-down)” to determine the orientation of each card.
+<span class="card-name">🃏Jokers🃏</span> are Removed from the Deck and used for a “rotation reveal” → <span class="number">rotating the face-down Jokers on a flat surface and then flipping them up to reveal if they’re upright or ill-dignified (upside-down) to determine the orientation of each card.</span>
 
-<span class="card-name">Draw 2 Minor Arcana cards to receive guidance from the Shadow, and reveal a Major Arcana card.</span>\n
-♠️⚔️Swords⚔️♠️ ♣️🔥Wands🔥♣️ 
-♦️🥏Discs🥏♦️ ♥️🍷Chalices🍷♥️ 
+<span class="card-name">Draw 2 cards to receive guidance from the Shadow, and in turn another shall be revealed.</span>\n
+<span class="carto-head">♠️⚔️Swords⚔️♠️
+♣️🔥Wands🔥♣️ 
+♦️🥏Discs🥏♦️
+♥️🍷Chalices🍷♥️</span>
 
-<hr class="glow animate-breathe">
-<span class="number">D-value Reference Table:</span>
-VALUES
-<span class="meaning">A=1, J=11, Q=12, K=13</span>
+<hr class="glow-box animate-breathe">
+<span class="carto-head">,;Difference Value
+Reference Table;,</span>
+<span class="sub-head">VALUES</span>
+D = [Card A - Card B]
 
-<span class="meaning">D = [Card A - Card B]</span>
+A=1, J=11, Q=12, K=13
 
-COLOR (Same / Opposite)
-<span class="meaning">Red (♥ ♦)</span> / <span class="number">Black (♣ ♠)</span>
+<span class="sub-head">COLOR (Same / Opposite)</span>
+<span class="reds">Red (♥ ♦)</span> / <span class="number">Black (♣ ♠)</span>
 
-When:
-<span class="meaning">D = 0
+<span class="sub-head">When:</span>
+D = 0
 Same Color → The Sun
 Opposite Color → The Lovers
 
@@ -1226,11 +1274,11 @@ Same → The Priestess
 Opp → The Moon
 
 D = 3
-Same → The Empress
+Same → The Empress👸
 Opp → The Tower
 
 D = 4
-Same → The Emperor
+Same → The Emperor🫅🏻
 Opp → Death
 
 D = 5
@@ -1261,146 +1309,145 @@ D = 11
 Same → The Shadow
 Opp → The Fool
 
-D = 12 (Wraiths)
-[If Card A =
+D = 12 (Wraiths → See Card A for Suit)
 Chalices → Wraith of Chalices
 Discs → Wraith of Discs
 Wands → Wraith of Wands
-Swords → Wraith of Swords]
+Swords → Wraith of Swords
 
-<hr class="glow animate-breathe">
-MAJOR ARCANA
-The Sun — (clarity, vitality, truth)
+<hr class="glow-box animate-breathe">
+<span class="carto-head">,;MAJOR ARCANA;,</span>
+<span class="card-name">The Sun — (clarity, vitality, truth)</span>
 Illumination reveals what is real without distortion. You are aligned with your higher nature and operating without internal resistance.
-The Lovers — (union, choice, alignment)
+<span class="card-name">The Lovers — (union, choice, alignment)</span>
 A defining choice must be made between paths or values. True union requires conscious alignment, not passive desire.
 
-The Magus — (will, creation, focus)
+<span class="card-name">The Magus — (will, creation, focus)</span>
 Your ability to shape reality is active. Direct your attention with precision or risk scattering your power.
-The Devil — (bondage, temptation, control)
+<span class="card-name">The Devil — (bondage, temptation, control)</span>
 You are bound by unconscious attachments. Awareness is required to reclaim autonomy.
 
-The Priestess — (intuition, silence, depth)
+<span class="card-name">The Priestess — (intuition, silence, depth)</span>
 Truth is hidden beneath surface noise. Stillness allows deeper knowing to emerge.
-The Moon — (illusion, fear, shadow)
+<span class="card-name">The Moon — (growth, nurture, creation)</span>
 Perception is distorted by fear or projection. You must confront the unknown within.
 
-The Empress — (growth, nurture, creation)
+<span class="card-name">👸🏻The Empress👸 — (growth, nurture, creation)</span>
 Life expands through receptivity and care. What you nourish will grow.
-The Tower — (collapse, shock, revelation)
+<span class="card-name">The Tower — (collapse, shock, revelation)</span>
 False constructs are destroyed suddenly. What falls was never stable.
 
-The Emperor — (order, authority, structure)
+<span class="card-name">🫅🏻The Emperor🫅🏻 — (order, authority, structure)</span>
 Control and discipline are required. Establish firm boundaries and direction.
-Death — (ending, transformation, rebirth)
+<span class="card-name">Death — (ending, transformation, rebirth)</span>
 A cycle is closing completely. Let go or be forced to release.
 
-The Hierophant — (tradition, belief, system)
+<span class="card-name">The Hierophant — (tradition, belief, system)</span>
 You are operating within an established structure. Question whether it still serves you.
-The Æon — (awakening, evolution, reckoning)
+<span class="card-name">The Æon — (awakening, evolution, reckoning)</span>
 A higher calling demands transformation. You are being pushed into a new phase of being.
 
-Art — (fusion, synthesis, balance)
+<span class="card-name">Art — (fusion, synthesis, balance)</span>
 Opposites must be combined consciously. True transformation occurs through integration.
-Adjustment — (balance, truth, precision)
+<span class="card-name">Adjustment — (balance, truth, precision)</span>
 Imbalance is corrected through truth. You must align with reality, not preference.
 
-The Chariot — (drive, control, direction)
+<span class="card-name">The Chariot — (drive, control, direction)</span>
 Momentum is strong but must be directed. Victory requires disciplined control.
-The Hanged Man — (surrender, pause, perspective)
+<span class="card-name">The Hanged Man — (surrender, pause, perspective)</span>
 Progress halts to force reflection. Let go of control to gain insight.
 
-Lust — (power, passion, expression)
+<span class="card-name">Lust — (power, passion, expression)</span>
 Raw life-force must be embraced and directed. Suppression leads to distortion.
-The Star — (hope, healing, renewal)
+<span class="card-name">The Star — (hope, healing, renewal)</span>
 Clarity returns after disruption. Trust in gradual restoration.
 
-The Hermit — (solitude, wisdom, search)
+<span class="card-name">The Hermit — (solitude, wisdom, search)</span>
 Withdrawal is necessary to gain understanding. Truth is found inwardly.
-Fortune — (cycles, change, inevitability)
+<span class="card-name">Fortune — (cycles, change, inevitability)</span>
 Events shift beyond control. Adaptation determines outcome.
 
-The Universe — (completion, integration, totality)
+<span class="card-name">The Universe — (completion, integration, totality)</span>
 All elements align into a unified whole. You are seeing the full system.
-The Underworld — (descent, shadow, depth)
+<span class="card-name">The Underworld — (descent, shadow, depth)</span>
 You are descending into hidden layers. Power lies in confronting what is buried.
 
-The Shadow — (integration, darkness, truth)
+<span class="card-name">The Shadow — (integration, darkness, truth)</span>
 What you deny controls you. Integration is required for wholeness.
-The Fool — (freedom, leap, beginning)
+<span class="card-name">The Fool — (freedom, leap, beginning)</span>
 A new path opens without certainty. Trust and act without attachment.
 
-<hr class="glow animate-breathe">
-🗡️WRAITHS🗡️
+<hr class="glow-box animate-breathe">
+<span class="carto-head">🗡️WRAITHS🗡</span>️
 
-♥️Wraith of Chalices🍷 — (emotional hunger, projection, longing)
+<span class="card-name">♥️Wraith of Chalices🍷 — (emotional hunger, projection, longing)</span>
 Unresolved feelings distort perception and attachment. Emotional awareness must replace reaction.
-♦️Wraith of Discs🥏 — (scarcity, greed, survival)
+<span class="card-name">♦️Wraith of Discs🥏 — (scarcity, greed, survival)</span>
 Fear of loss drives material fixation. Stability must be rebuilt internally.
-♣️Wraith of Wands🔥 — (impulse, chaos, aggression)
+<span class="card-name">♣️Wraith of Wands🔥 — (impulse, chaos, aggression)</span>
 Uncontrolled energy seeks expression. Direct it or be consumed by it.
-♠️Wraith of Swords⚔️ — (conflict, domination, force)
+<span class="card-name">♠️Wraith of Swords⚔️ — (conflict, domination, force)</span>
 The mind becomes weaponized. Truth must be wielded with awareness.
 
-<hr class="glow animate-breathe">
-MINOR ARCANA
-NUMBERED CARDS (APPLY TO ALL SUITS)
-(These apply universally across Chalices, Discs, Wands, Swords)
-Ace — (potential, origin, spark)
+<hr class="glow-box animate-breathe">
+<span class="carto-head">,;MINOR ARCANA;,</span>️
+<span class="number">(These interpretations apply universally across Chalices, Discs, Wands, Swords)</span>
+<span class="card-name">Ace — (potential, origin, spark)</span>
 A new force enters awareness. This is raw energy that requires direction.
-2 — (duality, tension, choice)
+<span class="card-name">2 — (duality, tension, choice)</span>
 Opposing forces emerge. A decision or balance must be found.
-3 — (growth, expansion, momentum)
+<span class="card-name">3 — (growth, expansion, momentum)</span>
 Energy begins to develop outwardly. Progress is underway.
-4 — (structure, stability, control)
+<span class="card-name">4 — (structure, stability, control)</span>
 Form stabilizes. This may support or restrict further growth.
-5 — (conflict, disruption, struggle)
+<span class="card-name">5 — (conflict, disruption, struggle)</span>
 Tension breaks stability. Change is forced through friction.
-6 — (harmony, flow, resolution)
+<span class="card-name">6 — (harmony, flow, resolution)</span>
 Balance returns after disruption. Integration occurs.
-7 — (test, resistance, challenge)
+<span class="card-name">7 — (test, resistance, challenge)</span>
 You are pushed beyond comfort. Growth requires effort.
-8 — (power, movement, intensity)
+<span class="card-name">8 — (power, movement, intensity)</span>
 Energy accelerates rapidly. Direction determines outcome.
-9 — (completion, strain, threshold)
+<span class="card-name">9 — (completion, strain, threshold)</span>
 You approach the end of a cycle. Pressure intensifies.
-10 — (overflow, burden, excess)
+<span class="card-name">10 — (overflow, burden, excess)</span>
 Energy exceeds capacity. Collapse or mastery follows.
 
-<hr class="glow animate-breathe">
-🫅🏻COURT CARDS👸🏻
+<hr class="glow-box animate-breathe">
+<span class="carto-head">🫅🏻👑COURT CARDS👑👸</span>
 
-♣️WANDS🔥
-Seeker of Wands — (curiosity, spark, exploration)
+<span class="carto-head">♣️WANDS🔥</span>
+<span class="card-name">🗡️Seeker of Wands — (curiosity, spark, exploration)</span>
  You are discovering new creative or action-based energy. Approach boldly but without recklessness.
-Queen of Wands — (confidence, magnetism, influence)
+<span class="card-name">👸🏻Queen of Wands — (confidence, magnetism, influence)</span>
  You embody strong presence and inner fire. Others respond to your energy.
-King of Wands — (authority, leadership, command)
+<span class="card-name">🫅🏻King of Wands — (authority, leadership, command)</span>
  You must take decisive action. Direct energy outward with clarity and purpose.
 
-♥️CHALICES🍷
-Seeker of Chalices — (sensitivity, curiosity, openness)
+<span class="carto-head">♥️CHALICES🍷</span>
+<span class="card-name">🗡️Seeker of Chalices — (sensitivity, curiosity, openness)</span>
  You are exploring emotional depth. Stay receptive without losing grounding.
-Queen of Chalices — (intuition, empathy, depth)
+<span class="card-name">👸Queen of Chalices — (intuition, empathy, depth)</span>
  You understand emotional currents deeply. Use this insight wisely.
-King of Chalices — (control, compassion, balance)
+<span class="card-name">🫅🏻King of Chalices — (control, compassion, balance)</span>
  You must regulate emotion while remaining compassionate. Stability comes from mastery.
 
-♦️DISCS🥏
-Seeker of Discs — (learning, effort, development)
+<span class="carto-head">♦️DISCS🥏</span>
+<span class="card-name">🗡️Seeker of Discs — (learning, effort, development)</span>
  You are building material skill or stability. Progress comes through patience.
-Queen of Discs — (nurture, security, practicality)
+<span class="card-name">👸Queen of Discs — (nurture, security, practicality)</span>
  You maintain and sustain resources effectively. Stability is your strength.
-King of Discs — (wealth, authority, mastery)
+<span class="card-name">🫅🏻King of Discs — (wealth, authority, mastery)</span>
  You control material systems. Responsibility and discipline are required.
 
-♠️SWORDS⚔️
-Seeker of Swords — (inquiry, curiosity, analysis)
+<span class="carto-head">♠️SWORDS⚔️</span>
+<span class="card-name">🗡️Seeker of Swords — (inquiry, curiosity, analysis)</span>
  You are seeking truth and clarity. Question everything.
-Queen of Swords — (perception, precision, independence)
+<span class="card-name">👸🏻Queen of Swords — (perception, precision, independence)</span>
  You see through illusion. Speak truth without distortion.
-King of Swords — (authority, logic, judgment)
- You must act with clarity and fairness. Truth must guide action.</span>`;
+<span class="card-name">🫅🏻King of Swords — (authority, logic, judgment)</span>
+ You must act with clarity and fairness. Truth must guide action.</span>
+ <hr class="glow-box animate-breathe">`;
             document.getElementById("cartomancyOutput").innerHTML = placeholder + "\n\n";
         }
 
@@ -1417,7 +1464,7 @@ King of Swords — (authority, logic, judgment)
 <ul><span class="sbs-jokers">🃏Jokers🃏
 🔥🗝️Hermit of the Spire, Void Key Bearer, & Lurker of Hidden Passageways🗝️🔥</span>
 <li>Jokers offer you an escape from a Chamber, when encountered, and an opportunity to uncovered hidden chambers, by way of the Void Key they possess. If you refuse to follow them, lose <span class="number">1 Life</span>. Can only refuse once. Whether you accept or refuse to follow, he quickly vanishes into the Abyss (discard pile), while the other <span class="number">3 cards</span> go to bottom of the Dungeon, and the Stairway is inverted (cut in half) and shuffled.</li>
-<hr class="glow animate-breathe">
+<hr class="glow-box animate-breathe">
 <span class="blacks">⚫BLACK KINGS⚫
 🫅🏻K of C♣️
 ✴⚔️🐲Black Dragon Emperor🐉⚔️✴</span>
@@ -1438,7 +1485,7 @@ King of Swords — (authority, logic, judgment)
 ⚔️J of C♣️ &  ⚔️J of S♠️
 🩸🦇Bloodlusting Hybrids🐺🌒</span>
 <li>Deals <span class="number">11</span> damage when your 🫅🏻K of D♦️ has a durable enough 🗡️ to fight them with. They will vanish to the Abyss, but send your 🗡️ to the Dungeon, and force the Stairway to invert (cut draw deck). If battling 👊🏻 with your sorcerous 🫅🏻K of H♥️, the Vampire deals <span class="number">5</span> damage and disappears into the Dungeon, to later return again.</li>
-<hr class="glow animate-breathe">
+<hr class="glow-box animate-breathe">
 <span class="reds">🔴RED KINGS🔴
 🫅🏻K of D♦️
 ✴⚔️💀Lord Wraith, Noble King of Shadows💀⚔️✴</span><li>Functions ONLY as a card for Blades ♦️ & Aces ♦️♣️ to attach to, and the enemies you choose to battle. </li>
@@ -1457,7 +1504,7 @@ King of Swords — (authority, logic, judgment)
 ⚔️J of H♥️
 🎭Shadow Mask Artisan🎭</span>
 <li>Both remove <span class="number">1 corpse</span> from the 🫅🏻K of D♦️’s trail of blood, restoring the durability of the King's blade, and/or fade away into the Abyss if there's.</li>
-<hr class="glow animate-breathe">
+<hr class="glow-box animate-breathe">
 <span class="sbs-aces">⚡ACES⚡</span>
 <span class="sbs-aces">⚡A of H♥️ = Scroll of Aura Purification</span>
 <li>Gain <span class="number">1 Life</span> instantly, unless Life is at <span class="number">20</span>. Must be first card used in its Chamber (unless Joker forces you to Escape from Chamber). Discard and Cut Draw deck after.</li>
@@ -1467,7 +1514,7 @@ King of Swords — (authority, logic, judgment)
 <li>Equip to your 🫅🏻K of D♦️/H♥️ for their next duel. Take <span class="number">1</span> less Damage when fighting with 🗡️ or 👊🏻. Must be first card used in its Chamber (unless Joker forces you to Escape from Chamber). Discard and Cut Draw deck after.</li>
 <span class="sbs-aces">⚡A of S♠️ = Shade Blade</span>
 <li>Destroys your strongest, most-available enemy (in the shared Chamber) outright. Must be first card used in its Chamber (unless Joker forces you to Escape from Chamber). Discard and Cut Draw deck after.</li>
-<hr class="glow animate-breathe">
+<hr class="glow-box animate-breathe">
 <span class="gen-head">solitaire card game instructions:</span>
 <li><span class="sm-reds">Storyline: </span>Lord Wraith, born of Shadow Blood (K of D & K of H - representative of the bladed and sorcerous aspects of one Lord Wraith) searches for the Hermit of the Spire (Jokers) who bears the Void Key, while he battles his way to the throne room of the Spire, oft overcome by his scoundrel ways when crossing paths with Succubi and Gorgon alike. (Still trying to think of more to add to this intro narrative)
 <li><span class="sm-reds">Shade Blade Sorcery</span> is a variation of "Scoundrel" Solitaire, played with a full deck of poker cards (Jokers included) either on tabletop or in-hand.
