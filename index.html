@@ -1146,7 +1146,7 @@ function getArchetype(d, sameColor, suit1) {
     if (d === 0) return sameColor ? "The Hierophant" : "The Fool";
     if (d === 1) return sameColor ? "The Magus" : "The Priestess";
     if (d === 2) return sameColor ? "The Emperor" : "The Empress";
-    if (d === 3) return sameColor ? "Lust" : "Fortune";
+    if (d === 3) return sameColor ? "Lust & Strength" : "Fortune";
     if (d === 4) return sameColor ? "Art" : "The Hermit";
     if (d === 5) return sameColor ? "Adjustment" : "The Hanged Man";
     if (d === 6) return sameColor ? "The Lovers" : "The Chariot";
@@ -1184,24 +1184,24 @@ function minorMeaning(card) {
 
     const court = {
         "Wands": {
-            "Jack": "(curiosity, spark, exploration)...",
-            "Queen": "(confidence, magnetism, influence)...",
-            "King": "(authority, leadership, command)..."
+            "Jack": "(curiosity, spark, exploration) You are discovering new creative energy. Act boldly but with awareness.",
+            "Queen": "(confidence, magnetism, influence) You radiate inner fire. Others respond to your presence.",
+            "King": "(authority, leadership, command) You must act decisively and direct energy with purpose."
         },
         "Chalices": {
-            "Jack": "(sensitivity, curiosity, openness)...",
-            "Queen": "(intuition, empathy, depth)...",
-            "King": "(control, compassion, balance)..."
+            "Jack": "(sensitivity, curiosity, openness) Emotional awareness expands. Stay receptive without losing grounding.",
+            "Queen": "(intuition, empathy, depth) You understand emotional currents deeply.",
+            "King": "(control, compassion, balance) Master emotional expression while remaining compassionate."
         },
         "Discs": {
-            "Jack": "(learning, effort, development)...",
-            "Queen": "(nurture, security, practicality)...",
-            "King": "(wealth, authority, mastery)..."
+            "Jack": "(learning, effort, development) Skill builds through effort. Stay consistent.",
+            "Queen": "(nurture, security, practicality) Stability is maintained through care and attention.",
+            "King": "(wealth, authority, mastery) You control material systems. Responsibility is required.."
         },
         "Swords": {
-            "Jack": "(inquiry, curiosity, analysis)...",
-            "Queen": "(perception, precision, independence)...",
-            "King": "(authority, logic, judgment)..."
+            "Jack": "(inquiry, curiosity, analysis) Seek truth relentlessly. Question everything.",
+            "Queen": "(perception, precision, independence) You see clearly through illusion.",
+            "King": "(authority, logic, judgment) Act with clarity and fairness. Truth must guide you."
         }
     };
 
@@ -1213,34 +1213,34 @@ function minorMeaning(card) {
 // INTERPRET
 function interpret(archetype) {
     const meanings = {
-        "The Sun": "(clarity, vitality, truth)...",
-        "The Lovers": "(union, choice, alignment)...",
-        "The Magus": "(will, creation, focus)...",
-        "The Devil": "(bondage, temptation, control)...",
-        "The Priestess": "(intuition, silence, depth)...",
-        "The Moon": "(illusion, fear, shadow)...",
-        "The Empress": "(growth, nurture, creation)...",
-        "The Tower": "(collapse, shock, revelation)...",
-        "The Emperor": "(order, authority, structure)...",
-        "Death": "(ending, transformation, rebirth)...",
-        "The Hierophant": "(tradition, belief, system)...",
-        "The Æon": "(awakening, evolution, reckoning)...",
-        "Art": "(fusion, synthesis, balance)...",
-        "Adjustment": "(balance, truth, precision)...",
-        "The Chariot": "(drive, control, direction)...",
-        "The Hanged Man": "(surrender, pause, perspective)...",
-        "Lust": "(power, passion, expression)...",
-        "The Star": "(hope, healing, renewal)...",
-        "The Hermit": "(solitude, wisdom, search)...",
-        "Fortune": "(cycles, change, inevitability)...",
-        "The Universe": "(completion, integration, totality)...",
-        "The Underworld": "(descent, shadow, depth)...",
-        "The Shadow": "(integration, darkness, truth)...",
-        "The Fool": "(freedom, leap, beginning)...",
-        "Wraith of Chalices": "(emotional hunger, projection, longing)...",
-        "Wraith of Discs": "(scarcity, greed, survival)...",
-        "Wraith of Wands": "(impulse, chaos, aggression)...",
-        "Wraith of Swords": "(conflict, domination, force)..."
+        "The Sun": "(clarity, vitality, truth) Illumination reveals what is real without distortion. You are aligned with your higher nature.",
+        "The Lovers": "(union, choice, alignment) A defining choice must be made. True union requires conscious alignment.",
+        "The Magus": "(will, creation, focus) Your ability to shape reality is active. Focus determines outcome.",
+        "The Devil": "(bondage, temptation, control) You are bound by unconscious attachments. Awareness is required.",
+        "The Priestess": "(intuition, silence, depth) Truth emerges through stillness and inner awareness.",
+        "The Moon": "(illusion, fear, shadow) Perception is distorted. Face what lies beneath.",
+        "The Empress": "(growth, nurture, creation) What you nourish expands into reality.",
+        "The Tower": "(collapse, shock, revelation) False structures fall suddenly. Truth remains.",
+        "The Emperor": "(order, authority, structure) Discipline and control must be established.",
+        "Death": "(ending, transformation, rebirth) Release is necessary for transformation.",
+        "The Hierophant": "(tradition, belief, system) Question inherited structures.",
+        "The Æon": "(awakening, evolution, reckoning) You are being called into transformation.",
+        "Art": "(fusion, synthesis, balance) Opposites must be integrated.",
+        "Adjustment": "(balance, truth, precision) Align with truth, not preference.",
+        "The Chariot": "(drive, control, direction) Direct your momentum consciously.",
+        "The Hanged Man": "(surrender, pause, perspective) Let go to gain insight.",
+        "Lust & Strength": "(power, passion, expression) Embrace and direct raw energy.",
+        "The Star": "(hope, healing, renewal) Restoration follows disruption.",
+        "The Hermit": "(solitude, wisdom, search) Seek truth inwardly.",
+        "Fortune": "(cycles, change, inevitability) Change is unavoidable—adapt.",
+        "The Universe": "(completion, integration, totality) All elements unify into wholeness.",
+        "The Underworld": "(descent, shadow, depth) Power lies in what is hidden below.",
+        "The Shadow": "(integration, darkness, truth) What you reject must be integrated.",
+        "The Fool": "(freedom, leap, beginning) Step forward into the unknown.",
+        "Wraith of Chalices": "(emotional hunger, projection, longing) Emotional distortion drives behavior. Awareness is required.",
+        "Wraith of Discs": "(scarcity, greed, survival) Material fear governs decisions.",
+        "Wraith of Wands": "(impulse, chaos, aggression) Uncontrolled energy seeks release.",
+        "Wraith of Swords": "(conflict, domination, force) The mind becomes weaponized."
     };
 
     return meanings[archetype] || "(no interpretation)";
