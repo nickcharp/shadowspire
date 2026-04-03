@@ -171,6 +171,16 @@
 			text-align: center;
 			}  
 			
+		/* Yellow - d values */
+		.cartomancy-output .dvalue     { 
+			color: #ffc107; 
+			font-weight: bold; 
+			font-size: 18px; 
+			font-family: 'Metal Mania', Verdana, cursive; 
+			letter-spacing: 2px;
+			text-align: center;
+			}  
+			
 		/* Grey - D-value and numbers */
 		.cartomancy-output .number      { color: #aaaaaa; }   
 		
@@ -183,10 +193,6 @@
 		/* Green - asterisks */
         .cartomancy-output .separator   { color: #32CD32; }
 		
-		
-        
-
-
 
         .cartomancy-btn {
             padding: 12px 25px;
@@ -1238,7 +1244,7 @@ OF THE ASTRAL SHADOW;,</span>\n
 
         function initCartomancyIntro() {
             const placeholder = 
-`<span class="card-name">Wraithianic Cartomancy</span> utilizes a standard 52-Card Poker Deck consisting of all traditional Tarot Minor Arcana (including Seekers, Queens, Kings), but Knights - referred to as Wraiths - are determined and revealed (along with all other Major Arcana cards and the addition of "The Shadow" and "The Underworld" Major Arcana) through an Absolute Difference Value calculation between the two cards drawn in the two-card spread. <span class="number">
+`<span class="card-name">🕯️Wraithianic Cartomancy🕯️</span> utilizes a standard 52-Card Poker Deck consisting of all traditional Tarot Minor Arcana (including Seekers, Queens, Kings), but Knights - referred to as Wraiths - are determined and revealed (along with all other Major Arcana cards and the addition of "The Shadow" and "The Underworld" Major Arcana) through an Absolute Difference Value calculation between the two cards drawn in the two-card spread. <span class="number">
 Example: King of Swords = 13 (Card A) - Ace of Discs = 1 (Card B) = 12 (Wraith of Swords, applying the Suit of Card A)</span>
 			
 <span class="card-name">🃏Jokers🃏</span> are Removed from the Deck and used for a “rotation reveal” → <span class="number">rotating the face-down Jokers on a flat surface and then flipping them up to reveal if they’re upright or ill-dignified (upside-down) to determine the orientation of each card.</span>
@@ -1278,141 +1284,112 @@ Identity / Potential
 <hr class="glow-box animate-breathe">
 <span class="carto-head">,;Difference Value
 Reference Table;,</span>
-<span class="sub-head">VALUES</span>
-D = [Card A - Card B]
 
-A=1, J=11, Q=12, K=13
+<span class="sub-head">VALUES</span>
+<span class="dvalue">D = [Card A - Card B]
+
+A=1, J=11, Q=12, K=13</span>
 
 <span class="sub-head">COLOR (Same / Opposite)</span>
 <span class="reds">Red (♥ ♦)</span> / <span class="number">Black (♣ ♠)</span>
 
-<span class="sub-head">When:</span>
-D = 0
-Same Color → The Sun
-Opposite Color → The Lovers
-
-D = 1
-Same → The Magus
-Opp → The Devil
-
-D = 2
-Same → The Priestess
-Opp → The Moon
-
-D = 3
-Same → The Empress👸
-Opp → The Tower
-
-D = 4
-Same → The Emperor🫅🏻
-Opp → Death
-
-D = 5
-Same → The Hierophant
-Opp → The Æon
-
-D = 6
-Same → Art
-Opp → Adjustment
-
-D = 7
-Same → The Chariot
-Opp → The Hanged Man
-
-D = 8
-Same → Lust
-Opp → The Star
-
-D = 9
-Same → The Hermit
-Opp → Fortune
-
-D = 10
-Same → The Universe
-Opp → The Underworld
-
-D = 11
-Same → The Shadow
-Opp → The Fool
-
-D = 12 (Wraiths → See Card A for Suit)
-Chalices → Wraith of Chalices
-Discs → Wraith of Discs
-Wands → Wraith of Wands
-Swords → Wraith of Swords
-
 <hr class="glow-box animate-breathe">
 <span class="carto-head">,;MAJOR ARCANA;,</span>
-<span class="card-name">The Sun — (clarity, vitality, truth)</span>
+
+<span class="sub-head">When:</span>
+<span class="dvalue">D = 0 {Same}</span>
+<span class="card-name">☀️The Sun☀️ — (clarity, vitality, truth)</span>
 Illumination reveals what is real without distortion. You are aligned with your higher nature and operating without internal resistance.
-<span class="card-name">The Lovers — (union, choice, alignment)</span>
+<span class="dvalue">D = 0 {Oppo}</span>
+<span class="card-name">💞The Lovers💞 — (union, choice, alignment)</span>
 A defining choice must be made between paths or values. True union requires conscious alignment, not passive desire.
 
-<span class="card-name">The Magus — (will, creation, focus)</span>
+<span class="dvalue">D = 1 {Same}</span>
+<span class="card-name">🪄The Magus🎩 — (will, creation, focus)</span>
 Your ability to shape reality is active. Direct your attention with precision or risk scattering your power.
-<span class="card-name">The Devil — (bondage, temptation, control)</span>
+<span class="dvalue">D = 1 {Oppo}</span>
+<span class="card-name">😈The Devil👹 — (bondage, temptation, control)</span>
 You are bound by unconscious attachments. Awareness is required to reclaim autonomy.
 
-<span class="card-name">The Priestess — (intuition, silence, depth)</span>
+<span class="dvalue">D = 2 {Same}</span>
+<span class="card-name">🧝️The Priestess🧝‍ — (intuition, silence, depth)</span>
 Truth is hidden beneath surface noise. Stillness allows deeper knowing to emerge.
-<span class="card-name">The Moon — (growth, nurture, creation)</span>
+<span class="dvalue">D = 2 {Oppo}</span>
+<span class="card-name">🌒The Moon🌘 — (growth, nurture, creation)</span>
 Perception is distorted by fear or projection. You must confront the unknown within.
 
+<span class="dvalue">D = 3 {Same}</span>
 <span class="card-name">👸🏻The Empress👸 — (growth, nurture, creation)</span>
 Life expands through receptivity and care. What you nourish will grow.
-<span class="card-name">The Tower — (collapse, shock, revelation)</span>
+<span class="dvalue">D = 3 {Oppo}</span>
+<span class="card-name">🏰The Tower🗼 — (collapse, shock, revelation)</span>
 False constructs are destroyed suddenly. What falls was never stable.
 
+<span class="dvalue">D = 4 {Same}</span>
 <span class="card-name">🫅🏻The Emperor🫅🏻 — (order, authority, structure)</span>
 Control and discipline are required. Establish firm boundaries and direction.
-<span class="card-name">Death — (ending, transformation, rebirth)</span>
+<span class="dvalue">D = 4 {Oppo}</span>
+<span class="card-name">💀⚱️Death⚰️🪦 — (ending, transformation, rebirth)</span>
 A cycle is closing completely. Let go or be forced to release.
 
-<span class="card-name">The Hierophant — (tradition, belief, system)</span>
+<span class="dvalue">D = 5 {Same}</span>
+<span class="card-name">🧙🏻‍♂️The Hierophant🧙🏻‍♂️ — (tradition, belief, system)</span>
 You are operating within an established structure. Question whether it still serves you.
-<span class="card-name">The Æon — (awakening, evolution, reckoning)</span>
+<span class="dvalue">D = 5 {Oppo}</span>
+<span class="card-name">🕰️The Æon⌛ — (awakening, evolution, reckoning)</span>
 A higher calling demands transformation. You are being pushed into a new phase of being.
 
-<span class="card-name">Art — (fusion, synthesis, balance)</span>
+<span class="dvalue">D = 6 {Same}</span>
+<span class="card-name">🎨🖌️Art📖🪶 — (fusion, synthesis, balance)</span>
 Opposites must be combined consciously. True transformation occurs through integration.
-<span class="card-name">Adjustment — (balance, truth, precision)</span>
+<span class="dvalue">D = 6 {Oppo}</span>
+<span class="card-name">⚖️Adjustment☯️🎯 — (balance, truth, precision)</span>
 Imbalance is corrected through truth. You must align with reality, not preference.
 
-<span class="card-name">The Chariot — (drive, control, direction)</span>
+<span class="dvalue">D = 7 {Same}</span>
+<span class="card-name">🐴🛸The Chariot🛸🐎 — (drive, control, direction)</span>
 Momentum is strong but must be directed. Victory requires disciplined control.
-<span class="card-name">The Hanged Man — (surrender, pause, perspective)</span>
+<span class="dvalue">D = 7 {Oppo}</span>
+<span class="card-name">🪢🧭The Hanged Man⚕️📿 — (surrender, pause, perspective)</span>
 Progress halts to force reflection. Let go of control to gain insight.
 
-<span class="card-name">Lust — (power, passion, expression)</span>
+<span class="dvalue">D = 8 {Same}</span>
+<span class="card-name">💪🏻Lust❤️‍🔥 — (power, passion, expression)</span>
 Raw life-force must be embraced and directed. Suppression leads to distortion.
-<span class="card-name">The Star — (hope, healing, renewal)</span>
+<span class="dvalue">D = 8 {Oppo}</span>
+<span class="card-name">⭐The Star✨ — (hope, healing, renewal)</span>
 Clarity returns after disruption. Trust in gradual restoration.
 
-<span class="card-name">The Hermit — (solitude, wisdom, search)</span>
+<span class="dvalue">D = 9 {Same}</span>
+<span class="card-name">🦉👽The Hermit👽🦉 — (solitude, wisdom, search)</span>
 Withdrawal is necessary to gain understanding. Truth is found inwardly.
-<span class="card-name">Fortune — (cycles, change, inevitability)</span>
+<span class="dvalue">D = 9 {Oppo}</span>
+<span class="card-name">🔮Fortune🪽☄️ — (cycles, change, inevitability)</span>
 Events shift beyond control. Adaptation determines outcome.
 
-<span class="card-name">The Universe — (completion, integration, totality)</span>
+<span class="dvalue">D = 10 {Same}</span>
+<span class="card-name">♾️🌌The Universe🌌♾️ — (completion, integration, totality)</span>
 All elements align into a unified whole. You are seeing the full system.
-<span class="card-name">The Underworld — (descent, shadow, depth)</span>
+<span class="dvalue">D = 10 {Oppo}</span>
+<span class="card-name">⚫The Underworld⚫ — (descent, shadow, depth)</span>
 You are descending into hidden layers. Power lies in confronting what is buried.
 
-<span class="card-name">The Shadow — (integration, darkness, truth)</span>
+<span class="dvalue">D = 11 {Same}</span>
+<span class="card-name">👥The Shadow👥 — (integration, darkness, truth)</span>
 What you deny controls you. Integration is required for wholeness.
-<span class="card-name">The Fool — (freedom, leap, beginning)</span>
+<span class="dvalue">D = 11 {Oppo}</span>
+<span class="card-name">🃏The Fool🃏 — (freedom, leap, beginning)</span>
 A new path opens without certainty. Trust and act without attachment.
 
-<hr class="glow-box animate-breathe">
-<span class="carto-head">🗡️WRAITHS🗡</span>️
+<span class="dvalue">D = 12 {See Card A for Suit}</span>
 
-<span class="card-name">♥️Wraith of Chalices🍷 — (emotional hunger, projection, longing)</span>
+<span class="card-name">🗡️♥️Wraith of Chalices🍷🗡️ — (emotional hunger, projection, longing)</span>
 Unresolved feelings distort perception and attachment. Emotional awareness must replace reaction.
-<span class="card-name">♦️Wraith of Discs🥏 — (scarcity, greed, survival)</span>
+<span class="card-name">🗡️♦️Wraith of Discs🥏🗡️ — (scarcity, greed, survival)</span>
 Fear of loss drives material fixation. Stability must be rebuilt internally.
-<span class="card-name">♣️Wraith of Wands🔥 — (impulse, chaos, aggression)</span>
+<span class="card-name">🗡️♣️Wraith of Wands🔥🗡️ — (impulse, chaos, aggression)</span>
 Uncontrolled energy seeks expression. Direct it or be consumed by it.
-<span class="card-name">♠️Wraith of Swords⚔️ — (conflict, domination, force)</span>
+<span class="card-name">🗡️♠️Wraith of Swords⚔️🗡️ — (conflict, domination, force)</span>
 The mind becomes weaponized. Truth must be wielded with awareness.
 
 <hr class="glow-box animate-breathe">
@@ -1536,7 +1513,7 @@ Energy exceeds capacity. Collapse or mastery follows.
 🛡️Shadow Forge Master🛡️
 ⚔️J of H♥️
 🎭Shadow Mask Artisan🎭</span>
-<li>Both remove <span class="number">1 corpse</span> from the 🫅🏻K of D♦️’s trail of blood, restoring the durability of the King's blade, and/or fade away into the Abyss if there's.</li>
+<li>Both remove <span class="number">1 corpse</span> from the 🫅🏻K of D♦️’s trail of blood, restoring the durability of the King's blade; if no corpses, then exchange J of D♦️/H♥️ with lowest-durability 🗡️♦️ available in Abyss; if neither, J of D♦️/H♥️ fades into the Abyss.</li>
 <hr class="glow-box animate-breathe">
 <span class="sbs-aces">⚡ACES⚡</span>
 <span class="sbs-aces">⚡A of H♥️ = Scroll of Aura Purification</span>
