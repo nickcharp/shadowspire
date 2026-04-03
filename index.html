@@ -1095,134 +1095,178 @@
 
 
 
-
-
         // SHADOW CARTOMANCY 
         const suits = ["Chalices", "Discs", "Wands", "Swords"];
-        const numbers = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
+		const numbers = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
 
-        function value(n) {
-            if (n === "Ace") return 1;
-            if (n === "Jack") return 11;
-            if (n === "Queen") return 12;
-            if (n === "King") return 13;
-            return parseInt(n);
-        }
-        function color(s) {
-            return (s === "Chalices" || s === "Discs") ? "Red" : "Black";
-        }
-        function randomCard() {
-            let s = suits[Math.floor(Math.random() * 4)];
-            let n = numbers[Math.floor(Math.random() * 13)];
-            return { name: n + " of " + s, suit: s, number: n };
-        }
-        function getArchetype(d, sameColor, suit1) {
-            if (d === 0) return sameColor ? "The Hierophant" : "The Fool";
-            if (d === 1) return sameColor ? "The Magus" : "The Priestess";
-            if (d === 2) return sameColor ? "The Emperor" : "The Empress";
-            if (d === 3) return sameColor ? "Lust" : "Fortune";
-            if (d === 4) return sameColor ? "Art" : "The Hermit";
-            if (d === 5) return sameColor ? "Adjustment" : "The Hanged Man";
-            if (d === 6) return sameColor ? "The Lovers" : "The Chariot";
-            if (d === 7) return sameColor ? "The Devil" : "Death";
-            if (d === 8) return sameColor ? "The Star" : "The Tower";
-            if (d === 9) return sameColor ? "The Sun" : "The Moon";
-            if (d === 10) return sameColor ? "The Universe" : "The Æon";
-            if (d === 11) return sameColor ? "The Shadow" : "The Underworld";
-            if (d === 12) {
-                if (suit1 === "Chalices") return "Wraith of Chalices";
-                if (suit1 === "Discs") return "Wraith of Discs";
-                if (suit1 === "Wands") return "Wraith of Wands";
-                if (suit1 === "Swords") return "Wraith of Swords";
-            }
-            return "The Fool";
-        }
-        function minorMeaning(card) {
-            const num = card.number;
-            const suit = card.suit;
-            const numberMeanings = {
-                "Ace": "(potential, origin, spark) A new force enters awareness. This is raw energy that requires direction.",
-                "2": "(duality, tension, choice) Opposing forces emerge. A decision or balance must be found.",
-                "3": "(growth, expansion, momentum) Energy begins to develop outwardly. Progress is underway.",
-                "4": "(structure, stability, control) Form stabilizes. This may support or restrict further growth.",
-                "5": "(conflict, disruption, struggle) Tension breaks stability. Change is forced through friction.",
-                "6": "(harmony, flow, resolution) Balance returns after disruption. Integration occurs.",
-                "7": "(test, resistance, challenge) You are pushed beyond comfort. Growth requires effort.",
-                "8": "(power, movement, intensity) Energy accelerates rapidly. Direction determines outcome.",
-                "9": "(completion, strain, threshold) You approach the end of a cycle. Pressure intensifies.",
-                "10": "(overflow, burden, excess) Energy exceeds capacity. Collapse or mastery follows."
-            };
-            const court = {
-                "Wands": {
-                    "Jack": "(curiosity, spark, exploration) You are discovering new creative energy. Act boldly but with awareness.",
-                    "Queen": "(confidence, magnetism, influence) You radiate inner fire. Others respond to your presence.",
-                    "King": "(authority, leadership, command) You must act decisively and direct energy with purpose."
-                },
-                "Chalices": {
-                    "Jack": "(sensitivity, curiosity, openness) Emotional awareness expands. Stay receptive without losing grounding.",
-                    "Queen": "(intuition, empathy, depth) You understand emotional currents deeply.",
-                    "King": "(control, compassion, balance) Master emotional expression while remaining compassionate."
-                },
-                "Discs": {
-                    "Jack": "(learning, effort, development) Skill builds through effort. Stay consistent.",
-                    "Queen": "(nurture, security, practicality) Stability is maintained through care and attention.",
-                    "King": "(wealth, authority, mastery) You control material systems. Responsibility is required."
-                },
-                "Swords": {
-                    "Jack": "(inquiry, curiosity, analysis) Seek truth relentlessly. Question everything.",
-                    "Queen": "(perception, precision, independence) You see clearly through illusion.",
-                    "King": "(authority, logic, judgment) Act with clarity and fairness. Truth must guide you."
-                }
-            };
-            if (numberMeanings[num]) return numberMeanings[num];
-            if (court[suit] && court[suit][num]) return court[suit][num];
-            return "(no specific meaning defined for this card)";
-        }
-        function interpret(archetype) {
-            const meanings = {
-                "The Sun": "(clarity, vitality, truth) Illumination reveals what is real without distortion. You are aligned with your higher nature.",
-                "The Lovers": "(union, choice, alignment) A defining choice must be made. True union requires conscious alignment.",
-                "The Magus": "(will, creation, focus) Your ability to shape reality is active. Focus determines outcome.",
-                "The Devil": "(bondage, temptation, control) You are bound by unconscious attachments. Awareness is required.",
-                "The Priestess": "(intuition, silence, depth) Truth emerges through stillness and inner awareness.",
-                "The Moon": "(illusion, fear, shadow) Perception is distorted. Face what lies beneath.",
-                "The Empress": "(growth, nurture, creation) What you nourish expands into reality.",
-                "The Tower": "(collapse, shock, revelation) False structures fall suddenly. Truth remains.",
-                "The Emperor": "(order, authority, structure) Discipline and control must be established.",
-                "Death": "(ending, transformation, rebirth) Release is necessary for transformation.",
-                "The Hierophant": "(tradition, belief, system) Question inherited structures.",
-                "The Æon": "(awakening, evolution, reckoning) You are being called into transformation.",
-                "Art": "(fusion, synthesis, balance) Opposites must be integrated.",
-                "Adjustment": "(balance, truth, precision) Align with truth, not preference.",
-                "The Chariot": "(drive, control, direction) Direct your momentum consciously.",
-                "The Hanged Man": "(surrender, pause, perspective) Let go to gain insight.",
-                "Lust": "(power, passion, expression) Embrace and direct raw energy.",
-                "The Star": "(hope, healing, renewal) Restoration follows disruption.",
-                "The Hermit": "(solitude, wisdom, search) Seek truth inwardly.",
-                "Fortune": "(cycles, change, inevitability) Change is unavoidable—adapt.",
-                "The Universe": "(completion, integration, totality) All elements unify into wholeness.",
-                "The Underworld": "(descent, shadow, depth) Power lies in what is hidden below.",
-                "The Shadow": "(integration, darkness, truth) What you reject must be integrated.",
-                "The Fool": "(freedom, leap, beginning) Step forward into the unknown.",
-                "Wraith of Chalices": "(emotional hunger, projection, longing) Emotional distortion drives behavior. Awareness is required.",
-                "Wraith of Discs": "(scarcity, greed, survival) Material fear governs decisions.",
-                "Wraith of Wands": "(impulse, chaos, aggression) Uncontrolled energy seeks release.",
-                "Wraith of Swords": "(conflict, domination, force) The mind becomes weaponized."
-            };
-            return meanings[archetype] || "(no interpretation available)";
-        }
+let deck = [];
 
-        function drawCartomancy() {
-            let c1 = randomCard();
-            let c2 = randomCard();
-            let v1 = value(c1.number);
-            let v2 = value(c2.number);
-            let d = Math.abs(v1 - v2);
-            let sameColor = (color(c1.suit) === color(c2.suit));
-            let archetype = getArchetype(d, sameColor, c1.suit);
+// BUILD DECK
+function buildDeck() {
+    deck = [];
+    for (let s of suits) {
+        for (let n of numbers) {
+            deck.push({
+                name: n + " of " + s,
+                suit: s,
+                number: n
+            });
+        }
+    }
+}
 
-            const outputDiv = document.getElementById("cartomancyOutput");
-            outputDiv.innerHTML += 
+// SHUFFLE (Fisher-Yates)
+function shuffleDeck() {
+    for (let i = deck.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+}
+
+// DRAW ONE CARD
+function drawCard() {
+    return deck.pop();
+}
+
+// VALUE + COLOR
+function value(n) {
+    if (n === "Ace") return 1;
+    if (n === "Jack") return 11;
+    if (n === "Queen") return 12;
+    if (n === "King") return 13;
+    return parseInt(n);
+}
+
+function color(s) {
+    return (s === "Chalices" || s === "Discs") ? "Red" : "Black";
+}
+
+// ARCHETYPE
+function getArchetype(d, sameColor, suit1) {
+    if (d === 0) return sameColor ? "The Hierophant" : "The Fool";
+    if (d === 1) return sameColor ? "The Magus" : "The Priestess";
+    if (d === 2) return sameColor ? "The Emperor" : "The Empress";
+    if (d === 3) return sameColor ? "Lust" : "Fortune";
+    if (d === 4) return sameColor ? "Art" : "The Hermit";
+    if (d === 5) return sameColor ? "Adjustment" : "The Hanged Man";
+    if (d === 6) return sameColor ? "The Lovers" : "The Chariot";
+    if (d === 7) return sameColor ? "The Devil" : "Death";
+    if (d === 8) return sameColor ? "The Star" : "The Tower";
+    if (d === 9) return sameColor ? "The Sun" : "The Moon";
+    if (d === 10) return sameColor ? "The Universe" : "The Æon";
+    if (d === 11) return sameColor ? "The Shadow" : "The Underworld";
+    if (d === 12) {
+        if (suit1 === "Chalices") return "Wraith of Chalices";
+        if (suit1 === "Discs") return "Wraith of Discs";
+        if (suit1 === "Wands") return "Wraith of Wands";
+        if (suit1 === "Swords") return "Wraith of Swords";
+    }
+    return "The Fool";
+}
+
+// MINOR ARCANA MEANING
+function minorMeaning(card) {
+    const num = card.number;
+    const suit = card.suit;
+
+    const numberMeanings = {
+        "Ace": "(potential, origin, spark) A new force enters awareness. This is raw energy that requires direction.",
+        "2": "(duality, tension, choice) Opposing forces emerge. A decision or balance must be found.",
+        "3": "(growth, expansion, momentum) Energy begins to develop outwardly. Progress is underway.",
+        "4": "(structure, stability, control) Form stabilizes. This may support or restrict further growth.",
+        "5": "(conflict, disruption, struggle) Tension breaks stability. Change is forced through friction.",
+        "6": "(harmony, flow, resolution) Balance returns after disruption. Integration occurs.",
+        "7": "(test, resistance, challenge) You are pushed beyond comfort. Growth requires effort.",
+        "8": "(power, movement, intensity) Energy accelerates rapidly. Direction determines outcome.",
+        "9": "(completion, strain, threshold) You approach the end of a cycle. Pressure intensifies.",
+        "10": "(overflow, burden, excess) Energy exceeds capacity. Collapse or mastery follows."
+    };
+
+    const court = {
+        "Wands": {
+            "Jack": "(curiosity, spark, exploration)...",
+            "Queen": "(confidence, magnetism, influence)...",
+            "King": "(authority, leadership, command)..."
+        },
+        "Chalices": {
+            "Jack": "(sensitivity, curiosity, openness)...",
+            "Queen": "(intuition, empathy, depth)...",
+            "King": "(control, compassion, balance)..."
+        },
+        "Discs": {
+            "Jack": "(learning, effort, development)...",
+            "Queen": "(nurture, security, practicality)...",
+            "King": "(wealth, authority, mastery)..."
+        },
+        "Swords": {
+            "Jack": "(inquiry, curiosity, analysis)...",
+            "Queen": "(perception, precision, independence)...",
+            "King": "(authority, logic, judgment)..."
+        }
+    };
+
+    if (numberMeanings[num]) return numberMeanings[num];
+    if (court[suit] && court[suit][num]) return court[suit][num];
+    return "(no specific meaning defined)";
+}
+
+// INTERPRET
+function interpret(archetype) {
+    const meanings = {
+        "The Sun": "(clarity, vitality, truth)...",
+        "The Lovers": "(union, choice, alignment)...",
+        "The Magus": "(will, creation, focus)...",
+        "The Devil": "(bondage, temptation, control)...",
+        "The Priestess": "(intuition, silence, depth)...",
+        "The Moon": "(illusion, fear, shadow)...",
+        "The Empress": "(growth, nurture, creation)...",
+        "The Tower": "(collapse, shock, revelation)...",
+        "The Emperor": "(order, authority, structure)...",
+        "Death": "(ending, transformation, rebirth)...",
+        "The Hierophant": "(tradition, belief, system)...",
+        "The Æon": "(awakening, evolution, reckoning)...",
+        "Art": "(fusion, synthesis, balance)...",
+        "Adjustment": "(balance, truth, precision)...",
+        "The Chariot": "(drive, control, direction)...",
+        "The Hanged Man": "(surrender, pause, perspective)...",
+        "Lust": "(power, passion, expression)...",
+        "The Star": "(hope, healing, renewal)...",
+        "The Hermit": "(solitude, wisdom, search)...",
+        "Fortune": "(cycles, change, inevitability)...",
+        "The Universe": "(completion, integration, totality)...",
+        "The Underworld": "(descent, shadow, depth)...",
+        "The Shadow": "(integration, darkness, truth)...",
+        "The Fool": "(freedom, leap, beginning)...",
+        "Wraith of Chalices": "(emotional hunger, projection, longing)...",
+        "Wraith of Discs": "(scarcity, greed, survival)...",
+        "Wraith of Wands": "(impulse, chaos, aggression)...",
+        "Wraith of Swords": "(conflict, domination, force)..."
+    };
+
+    return meanings[archetype] || "(no interpretation)";
+}
+
+
+function drawCartomancy() {
+
+    // rebuild + shuffle deck for each reading
+    buildDeck();
+    shuffleDeck();
+
+    let c1 = drawCard();
+    let c2 = drawCard();
+
+    let v1 = value(c1.number);
+    let v2 = value(c2.number);
+
+    let d = Math.abs(v1 - v2);
+    let sameColor = (color(c1.suit) === color(c2.suit));
+
+    let archetype = getArchetype(d, sameColor, c1.suit);
+
+    const outputDiv = document.getElementById("cartomancyOutput");
+
+    outputDiv.innerHTML += 
 `<span class="carto-head">,;DRAWING FROM THE DEPTHS 
 OF THE ASTRAL SHADOW;,</span>\n
 <span class="sub-head">Situation: </span><span class="card-name">${c1.name}</span>
@@ -1391,7 +1435,22 @@ Fear of loss drives material fixation. Stability must be rebuilt internally.
 Uncontrolled energy seeks expression. Direct it or be consumed by it.
 <span class="card-name">🗡️♠️Wraith of Swords⚔️🗡️ — (conflict, domination, force)</span>
 The mind becomes weaponized. Truth must be wielded with awareness.
-
+<hr class="glow-box animate-breathe">
+D-Value Probabilites:
+D - # of combinations - Relative likelihood
+0 - 78 - Medium
+1 - 144 - Highest
+2 - 132 - Very high
+3 - 120 - High
+4 - 108 - Above average
+5 - 96 - Slightly above average
+6 - 84 - Average
+7 - 72 - Below average
+8 - 60 - Lower
+9 - 48 - Low
+10 - 36 - Very low
+11 - 24 - Extremely low
+12 - 12 - Rarest
 <hr class="glow-box animate-breathe">
 <span class="carto-head">,;MINOR ARCANA;,</span>️
 <span class="number">(These interpretations apply universally across Chalices, Discs, Wands, Swords)</span>
@@ -1450,25 +1509,18 @@ Energy exceeds capacity. Collapse or mastery follows.
  You see through illusion. Speak truth without distortion.
 <span class="card-name">🫅🏻King of Swords — (authority, logic, judgment)</span>
  You must act with clarity and fairness. Truth must guide action.</span>
-<hr class="glow-box animate-breathe">
-D-Value Probabilites:
-D - # of combinations - Relative likelihood
-0 - 78 - Medium
-1 - 144 - Highest
-2 - 132 - Very high
-3 - 120 - High
-4 - 108 - Above average
-5 - 96 - Slightly above average
-6 - 84 - Average
-7 - 72 - Below average
-8 - 60 - Lower
-9 - 48 - Low
-10 - 36 - Very low
-11 - 24 - Extremely low
-12 - 12 - Rarest
 <hr class="glow-box animate-breathe">`;
             document.getElementById("cartomancyOutput").innerHTML = placeholder + "\n\n";
         }
+
+
+
+
+
+
+
+
+
 
 
 
