@@ -248,7 +248,99 @@
         }
 		
 		
-		
+
+
+
+/* ==================== I CHING DIVINATION ==================== */
+.iching-container { max-width: 600px; margin: 30px auto; padding: 20px; }
+
+.iching-output {
+    font-family: monospace;
+    background-color: #000000;
+    padding: 15px;
+    border-radius: 6px;
+    height: 670px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    text-align: left;
+    color: #ffffff;
+    border: 1px solid #444;
+    line-height: 1.6;
+}
+
+.iching-output .iching-head {
+    color: #888888;
+    font-weight: bold;
+    font-size: 30px;
+    font-family: 'UnifrakturMaguntia', Verdana, cursive;
+    text-align: center;
+    letter-spacing: 5px;
+    text-transform: lowercase;
+    display: block;
+}
+
+.iching-output .iching-hexagram-symbol {
+    font-size: 48px;
+    display: block;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.iching-output .iching-hexagram-name {
+    color: #dc3545;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: 'Metal Mania', Verdana, cursive;
+    letter-spacing: 2px;
+    text-align: center;
+    display: block;
+}
+
+.iching-output .iching-subhead {
+    color: #32CD32;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: 'Metal Mania', Verdana, cursive;
+    letter-spacing: 2px;
+    text-align: center;
+    display: block;
+}
+
+.iching-output .iching-dice-label {
+    color: #ffc107;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: 'Metal Mania', Verdana, cursive;
+    letter-spacing: 1px;
+    display: block;
+}
+
+.iching-output .iching-number { color: #aaaaaa; }
+.iching-output .iching-meaning { color: #cccccc; }
+.iching-output .iching-separator { color: #32CD32; }
+
+.iching-btn {
+    padding: 12px 25px;
+    margin: 8px;
+    font-size: 16px;
+    background: #333;
+    color: white;
+    border: 1px solid #ffc107;
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(255, 193, 7, 0.4);
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.iching-btn:hover {
+    background: #ffc107;
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.7);
+}
+
+
+
 		
 		
 		
@@ -369,6 +461,9 @@
                         <a class="nav-link" href="#wraithcarto">wraithianic cartomancy</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="#yijing-dice">yijing</a>
+                    </li>
+					<li class="nav-item">
                         <a class="nav-link" href="#sbs-solitaire">shade blade sorcery</a>
                     </li>
                     <li class="nav-item">
@@ -547,8 +642,27 @@
         </div>
     </div>
 
-    <hr class="glow animate-breathe" id="sbs-solitaire">
+    <hr class="glow animate-breathe" id="yijing-dice">
 	
+	
+	
+	
+	<!-- I Ching Divination -->
+<div class="iching-container text-center" id="iching">
+    <div class="container-fluid text-center">
+        <img src="images/shadedeathmask-303030.png" width="115" height="auto" alt="Shade Deathmask">
+    </div>
+    <h1 style="color:#bfbfbf; font-size:50px; font-family:'UnifrakturMaguntia',Verdana,cursive; text-align:center; margin-bottom:15px;">
+        yijing divination
+    </h1>
+    <div id="ichingOutput" class="iching-output"></div>
+    <div class="mt-3">
+        <button onclick="rollIching()" class="iching-btn">Cast the Oracle</button>
+        <button onclick="resetIching()" class="iching-btn">Clear Reading</button>
+    </div>
+</div>
+	
+	<hr class="glow animate-breathe" id="sbs-solitaire">
 	
 	
 	
@@ -1688,6 +1802,133 @@ Energy exceeds capacity. Collapse or mastery follows.
 
 
 
+// ==================== I CHING DIVINATION ====================
+
+const ichingHexagrams = {
+    "1,1":  { num: 1,  name: "The Creative",                        symbol: "䷀", meaning: "Pure creative force and primal power. Heaven acts through perseverance and strength. Initiate boldly — this is a time of dynamic origination and leadership." },
+    "1,2":  { num: 2,  name: "The Receptive",                       symbol: "䷁", meaning: "Pure receptive force and primal yielding. Earth sustains through stillness and devotion. Nurture what has been initiated — strength lies in quiet endurance." },
+    "1,3":  { num: 3,  name: "Difficulty at the Beginning",         symbol: "䷂", meaning: "Chaos precedes order at every new beginning. Like a seed pushing through soil, initial obstacles are natural. Persist with care; do not force progress." },
+    "1,4":  { num: 4,  name: "Youthful Folly",                      symbol: "䷃", meaning: "Inexperience seeks guidance. The student must approach the teacher with sincerity. Correct your course through humility, not stubbornness." },
+    "1,5":  { num: 5,  name: "Waiting",                             symbol: "䷄", meaning: "Nourishment comes through patient waiting. Do not rush into danger; cultivate inner strength while circumstances mature. The right moment will arrive." },
+    "1,6":  { num: 6,  name: "Conflict",                            symbol: "䷅", meaning: "Opposition creates tension. Seek mediation rather than escalation. Partial retreat is wisdom — not all battles should be fought to the end." },
+    "1,7":  { num: 7,  name: "The Army",                            symbol: "䷆", meaning: "Disciplined collective force under righteous leadership. Organize your resources and efforts. Victory requires structure, loyalty, and moral authority." },
+    "1,8":  { num: 8,  name: "Holding Together",                    symbol: "䷇", meaning: "Unity and mutual support build lasting bonds. Seek alignment with others of shared purpose. The center must be strong for the whole to cohere." },
+    "2,1":  { num: 9,  name: "Small Accumulating",                  symbol: "䷈", meaning: "Gentle, persistent effort accumulates power over time. Small restraints and careful cultivation precede major breakthroughs. Do not force what must grow slowly." },
+    "2,2":  { num: 10, name: "Treading",                            symbol: "䷉", meaning: "Walk carefully upon the tiger's tail. Conduct yourself with awareness and propriety. Correct behavior in delicate situations brings success without harm." },
+    "2,3":  { num: 11, name: "Peace",                               symbol: "䷊", meaning: "Heaven and Earth are in harmonious exchange. All forces align in flourishing balance. This is a fertile time — act decisively to make full use of harmony." },
+    "2,4":  { num: 12, name: "Standstill",                          symbol: "䷋", meaning: "Heaven and Earth are out of communion. Stagnation prevails. Withdraw from unworthy entanglements and cultivate your inner resources in silence." },
+    "2,5":  { num: 13, name: "Fellowship with Men",                 symbol: "䷌", meaning: "Open-hearted union with others achieves great things. Shared vision and honest communication build lasting alliances. Avoid cliques and hidden motives." },
+    "2,6":  { num: 14, name: "Great Possession",                    symbol: "䷍", meaning: "Abundance flows from inner clarity and proper conduct. You hold great power — wield it without arrogance. Share freely and remain aligned with higher truth." },
+    "2,7":  { num: 15, name: "Modesty",                             symbol: "䷎", meaning: "Genuine humility elevates the noble and diminishes excess. True modesty is not self-deprecation but accurate self-knowledge. It brings enduring success." },
+    "2,8":  { num: 16, name: "Enthusiasm",                          symbol: "䷏", meaning: "Inspired action aligned with the natural order energizes all. Music, ritual, and collective purpose harmonize the group. Lead with joy and authentic vision." },
+    "3,1":  { num: 17, name: "Following",                           symbol: "䷐", meaning: "Adapt to the needs of the time by yielding appropriately. True leadership sometimes means following the flow of events. Align with what is natural and seasonable." },
+    "3,2":  { num: 18, name: "Work on the Decayed",                 symbol: "䷑", meaning: "Inherited corruption or decay must be corrected. Face what has spoiled through neglect. Remediation is difficult but leads to renewal if approached with diligence." },
+    "3,3":  { num: 19, name: "Approach",                            symbol: "䷒", meaning: "Favorable conditions for advance are present now but will not last. Move purposefully toward your goals. Be aware that the window of opportunity is finite." },
+    "3,4":  { num: 20, name: "Contemplation",                       symbol: "䷓", meaning: "Step back and observe deeply before acting. True understanding requires perspective. Let others observe your conduct and reflect on your own inner state." },
+    "3,5":  { num: 21, name: "Biting Through",                      symbol: "䷔", meaning: "Obstacles must be forcefully removed to reestablish order. Justice requires decisive action against what blocks progress. Do not allow obstruction to linger." },
+    "3,6":  { num: 22, name: "Grace",                               symbol: "䷕", meaning: "Beauty and adornment illuminate but do not replace substance. Cultivate outer refinement in harmony with inner truth. Grace enhances but should not deceive." },
+    "3,7":  { num: 23, name: "Splitting Apart",                     symbol: "䷖", meaning: "Erosion from below weakens the foundation. The time is unfavorable for action. Retreat, observe, and preserve what is essential until conditions improve." },
+    "3,8":  { num: 24, name: "Return",                              symbol: "䷗", meaning: "The turning point has arrived. Light returns after darkness. The movement is small but significant. Nurture the seed of renewal with patience and care." },
+    "4,1":  { num: 25, name: "Innocence",                           symbol: "䷘", meaning: "Act from pure, uncontaminated intention aligned with heaven's will. Innocence is not naivety — it is action free from hidden agendas. Expect unexpected disruption if you stray." },
+    "4,2":  { num: 26, name: "Great Accumulating",                  symbol: "䷙", meaning: "Great stored energy awaits the right moment of release. Firm restraint builds tremendous power. Study the wisdom of the past to prepare for an extraordinary future." },
+    "4,3":  { num: 27, name: "Nourishment",                         symbol: "䷚", meaning: "Attend carefully to what you take in and what you offer to others. Physical and spiritual nourishment both require discernment. Choose your sustenance wisely." },
+    "4,4":  { num: 28, name: "Preponderance of the Great",          symbol: "䷛", meaning: "The great beam is overburdened and bends. An extraordinary situation demands extraordinary measures. Act swiftly and decisively before collapse occurs." },
+    "4,5":  { num: 29, name: "The Abysmal",                         symbol: "䷜", meaning: "Danger upon danger — the abyss of water. Do not resist; flow through obstruction with sincerity and an unwavering heart. Repetition of the danger teaches mastery." },
+    "4,6":  { num: 30, name: "The Clinging",                        symbol: "䷝", meaning: "Fire clings to what it illuminates and consumes. Clarity depends on what you attach to. Tend your inner flame with care, and let it radiate outward appropriately." },
+    "4,7":  { num: 31, name: "Influence",                           symbol: "䷞", meaning: "Mutual attraction and genuine receptivity create powerful union. Influence flows through emptying yourself of ego. Open-minded responsiveness draws the right connections." },
+    "4,8":  { num: 32, name: "Duration",                            symbol: "䷟", meaning: "Enduring constancy in character ensures lasting achievement. Movement must be consistent with inner nature. Do not change course impulsively — sustained effort prevails." },
+    "5,1":  { num: 33, name: "Retreat",                             symbol: "䷠", meaning: "Strategic withdrawal preserves strength against overwhelming force. Retreat is not defeat — it is mastery of timing. Disengage from what drains, and regroup in stillness." },
+    "5,2":  { num: 34, name: "The Power of the Great",              symbol: "䷡", meaning: "Great power must be exercised with righteousness, not brute force. The ram butting the hedge gets its horns caught. Strength aligned with correctness moves mountains." },
+    "5,3":  { num: 35, name: "Progress",                            symbol: "䷢", meaning: "Confident advance brings recognition and reward. Like the sun rising, progress is steady and illuminating. Align with those in authority and act with transparent sincerity." },
+    "5,4":  { num: 36, name: "Darkening of the Light",              symbol: "䷣", meaning: "Inner light must be veiled to survive hostile conditions. Maintain clarity and integrity inwardly while outwardly adapting. Do not extinguish your flame — conceal it wisely." },
+    "5,5":  { num: 37, name: "The Family",                          symbol: "䷤", meaning: "Right relationships within the household create order in the world. Each person fulfills their role with sincerity. Begin with self-discipline before seeking to influence others." },
+    "5,6":  { num: 38, name: "Opposition",                          symbol: "䷥", meaning: "Polarity and difference create tension, yet in small matters this can be useful. Seek the underlying unity beneath apparent contradiction. Avoid major undertakings while opposition persists." },
+    "5,7":  { num: 39, name: "Obstruction",                         symbol: "䷦", meaning: "Difficulties block the forward path. Turn inward and reflect — the obstacle may point to a flaw in your approach. Seek counsel and realign before proceeding." },
+    "5,8":  { num: 40, name: "Deliverance",                         symbol: "䷧", meaning: "Release from tension and obstruction. Move swiftly to resolve lingering issues now that the pressure eases. Return to simplicity and forgive what does not need correction." },
+    "6,1":  { num: 41, name: "Decrease",                            symbol: "䷨", meaning: "Joyful decrease of the lower for the benefit of the higher. Simplify, reduce excess, and offer your best with sincerity. Voluntary decrease in the right spirit brings increase in return." },
+    "6,2":  { num: 42, name: "Increase",                            symbol: "䷩", meaning: "Wind and thunder increase each other — a time of expansion and benefit. Act boldly and benevolently. Cross great waters now. What you give to others returns multiplied." },
+    "6,3":  { num: 43, name: "Breakthrough",                        symbol: "䷪", meaning: "Resolution of tension through decisive, public action. Speak truth to power with firmness and without aggression. A single corrupt influence must be removed for clarity to prevail." },
+    "6,4":  { num: 44, name: "Coming to Meet",                      symbol: "䷫", meaning: "A seductive or inferior force rises and must not be welcomed. Remain alert to what approaches uninvited. One small transgression, left unchecked, can undermine all that has been built." },
+    "6,5":  { num: 45, name: "Gathering Together",                  symbol: "䷬", meaning: "Collective assembly around a strong center creates security. This is the time for gathering people and resources toward a shared purpose. Prepare for unforeseen events." },
+    "6,6":  { num: 46, name: "Pushing Upward",                      symbol: "䷭", meaning: "Gradual, effortless ascent through steady inner growth. Like wood growing from the earth, advance without forcing. Seek out those who can guide your development." },
+    "6,7":  { num: 47, name: "Oppression",                          symbol: "䷮", meaning: "Exhaustion and confinement test the strength of the superior person. Words carry no weight here — act through inner resolve. This trial, endured with integrity, leads to eventual liberation." },
+    "6,8":  { num: 48, name: "The Well",                            symbol: "䷯", meaning: "The inexhaustible source nourishes all who draw from it. Cultivate your inner well — your essential nature cannot be moved or changed. Neglect leads to stagnation; tending leads to renewal." },
+    "7,1":  { num: 49, name: "Revolution",                          symbol: "䷰", meaning: "Fundamental transformation of the existing order. Revolution is only justified when the time is ripe and the cause is true. Act from inner clarity, and the people will follow." },
+    "7,2":  { num: 50, name: "The Cauldron",                        symbol: "䷱", meaning: "The sacred vessel transforms raw material into refined nourishment. Align yourself as an instrument of higher will. Cultural and spiritual transformation occurs through proper vessels." },
+    "7,3":  { num: 51, name: "The Arousing",                        symbol: "䷲", meaning: "Thunder shocks and awakens. Sudden disruption jolts you from complacency. Maintain inner composure through the shock — those who do not lose themselves emerge wiser and stronger." },
+    "7,4":  { num: 52, name: "Keeping Still",                       symbol: "䷳", meaning: "Stillness of the mountain — perfect rest in the right place. Know when to stop. Inner stillness that is free from ego allows clarity to arise. Do not move against the natural time." },
+    "7,5":  { num: 53, name: "Development",                         symbol: "䷴", meaning: "Gradual, organic progress like a tree growing on a mountain. Advance step by step without haste. Proper development cannot be forced — it follows the natural sequence of growth." },
+    "7,6":  { num: 54, name: "The Marrying Maiden",                 symbol: "䷵", meaning: "A subordinate position entered with mixed motives. Relationships formed outside proper order breed misfortune. Know your place, act without expectation, and do not force outcomes." },
+    "7,7":  { num: 55, name: "Abundance",                           symbol: "䷶", meaning: "Fullness and brilliance at the peak of power. This moment of abundance cannot last — use it wisely and act now. Do not grieve when the cycle turns; fullness is itself a gift." },
+    "7,8":  { num: 56, name: "The Wanderer",                        symbol: "䷷", meaning: "The traveler in a foreign land must be cautious and modest. Without roots, rely on inner clarity and careful conduct. Do not become attached to what cannot last." },
+    "8,1":  { num: 57, name: "The Gentle",                          symbol: "䷸", meaning: "Gentle, penetrating wind achieves what force cannot. Persist in the same direction with quiet, consistent effort. Clarify your intentions before acting, then proceed without deviation." },
+    "8,2":  { num: 58, name: "The Joyous",                          symbol: "䷹", meaning: "True joy arises from inner harmony, not outer stimulation. Encourage and uplift others through genuine warmth. Shared joy is multiplied; persevere in what brings authentic gladness." },
+    "8,3":  { num: 59, name: "Dispersion",                          symbol: "䷺", meaning: "Dissolve rigidity, selfishness, and separation. Like wind dispersing stagnant water, breakthrough comes through yielding and renewal. Dissolve ego-hardness before approaching spiritual work." },
+    "8,4":  { num: 60, name: "Limitation",                          symbol: "䷻", meaning: "Wise limitation conserves energy and creates structure. Not all restraint is oppressive — joyful acceptance of appropriate limits enables mastery. Do not impose painful limits on others." },
+    "8,5":  { num: 61, name: "Inner Truth",                         symbol: "䷼", meaning: "Sincerity penetrates to the core of all beings. When your inner truth is genuine, even animals and adversaries respond. Empty yourself of preconceptions and act from the center of your nature." },
+    "8,6":  { num: 62, name: "Small Exceeding",                     symbol: "䷽", meaning: "A time for small actions, not grand ambitions. Fly below the height of the wind. Attend to minor details and small kindnesses. Excess in any direction invites misfortune now." },
+    "8,7":  { num: 63, name: "After Completion",                    symbol: "䷾", meaning: "Order achieved — yet the seeds of disorder are already present. After completion comes the greatest danger: complacency. Remain vigilant, attend to details, and maintain what has been built." },
+    "8,8":  { num: 64, name: "Before Completion",                   symbol: "䷿", meaning: "The threshold before the crossing. All the elements are present but not yet in place. Move carefully — a single misstep at this critical juncture undoes all prior effort. The end is near; do not rush." }
+};
+
+function rollIching() {
+    const d1 = Math.floor(Math.random() * 8) + 1;
+    const d2 = Math.floor(Math.random() * 8) + 1;
+    const key = d1 + "," + d2;
+    const hex = ichingHexagrams[key];
+
+    const outputDiv = document.getElementById("ichingOutput");
+
+    outputDiv.innerHTML +=
+`<span class="iching-head">,; the oracle speaks ;,</span>
+
+<span class="iching-dice-label">Dice 1: <span class="iching-number">${d1}</span>   |   Dice 2: <span class="iching-number">${d2}</span></span>
+
+<span class="iching-hexagram-symbol">${hex.symbol}</span>
+<span class="iching-hexagram-name">Hexagram ${hex.num} — ${hex.name}</span>
+
+<span class="iching-meaning">${hex.meaning}</span>
+<hr class="glow-box animate-breathe">
+`;
+
+    outputDiv.scrollTop = outputDiv.scrollHeight;
+}
+
+function resetIching() {
+    const outputDiv = document.getElementById("ichingOutput");
+    outputDiv.innerHTML = ichingIntroText();
+    outputDiv.scrollTop = 0;
+}
+
+function ichingIntroText() {
+    return `<span class="iching-head">,; The Oracle of Change ;,</span>
+
+<span class="iching-subhead">The Oracle of Change</span>
+
+<span class="iching-meaning">Cast two eight-sided dice to reveal one of the 64 Hexagrams of the Yijing, the ancient Oracle of Change. Each hexagram reflects a dynamic pattern of the cosmos; a living symbol pointing to the nature of your present moment and the path ahead.
+
+The 64 hexagrams arise from the interplay of 8 trigrams (Pa Kua), each representing a fundamental force of nature:
+
+☰ Heaven — Creative, strong, initiating
+☷ Earth — Receptive, yielding, nurturing
+☶ Mountain — Still, arresting, meditative
+☳ Thunder — Arousing, shocking, awakening
+☵ Water — Abysmal, flowing, dangerous
+☲ Fire — Clinging, illuminating, consuming
+☱ Lake — Joyous, open, reflective
+☴ Wind — Gentle, penetrating, dispersing
+
+The Oracle does not predict; it reflects. Bring your question to stillness before you cast.</span>
+
+<span class="iching-subhead">Cast the Oracle to receive your reading.</span>
+<hr class="glow-box animate-breathe">
+`;
+}
+
+
+
+
+
 
 
 
@@ -1868,7 +2109,7 @@ When a Black #2 Card is attached to your 🗡️, the 🗡️ shatters into the 
 			initScoundrelIntro();
 
 
-
+document.getElementById("ichingOutput").innerHTML = ichingIntroText();
 
 
             // Metronome
