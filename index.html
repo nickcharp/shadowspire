@@ -259,7 +259,7 @@
     background-color: #000000;
     padding: 15px;
     border-radius: 6px;
-    height: 670px;
+    height: 600px;
     overflow-y: auto;
     white-space: pre-wrap;
     text-align: left;
@@ -1880,9 +1880,9 @@ function rollIching() {
     const outputDiv = document.getElementById("ichingOutput");
 
     outputDiv.innerHTML +=
-`<span class="iching-head">,; the oracle speaks ;,</span>
+`<span class="iching-head">,; the oracle reveals ;,</span>
 
-<span class="iching-dice-label">Dice 1: <span class="iching-number">${d1}</span>   |   Dice 2: <span class="iching-number">${d2}</span></span>
+<span class="iching-dice-label">Dice 1: <span class="iching-number">${d1}</span>   &   Dice 2: <span class="iching-number">${d2}</span></span>
 
 <span class="iching-hexagram-symbol">${hex.symbol}</span>
 <span class="iching-hexagram-name">Hexagram ${hex.num} — ${hex.name}</span>
@@ -1902,8 +1902,6 @@ function resetIching() {
 
 function ichingIntroText() {
     return `<span class="iching-head">,; The Oracle of Change ;,</span>
-
-<span class="iching-subhead">The Oracle of Change</span>
 
 <span class="iching-meaning">Cast two eight-sided dice to reveal one of the 64 Hexagrams of the Yijing, the ancient Oracle of Change. Each hexagram reflects a dynamic pattern of the cosmos; a living symbol pointing to the nature of your present moment and the path ahead.
 
