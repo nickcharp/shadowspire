@@ -1390,7 +1390,7 @@ $(document).ready(function() {
 
 // SHADOW CARTOMANCY 
 const suits = ["Chalices", "Discs", "Wands", "Swords"];
-const numbers = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
+const numbers = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Rogue", "Queen", "King"];
 
 let deck = [];
 
@@ -1451,7 +1451,7 @@ function getArchetype(d, sameColor, suit1) {
     if (d === 7) return sameColor ? "Shade Blade" : "The Hanged Man";
     if (d === 8) return sameColor ? "The Black Sun" : "The Eclipse";
     if (d === 9) return sameColor ? "The Two Paths" : "Equilibrium";
-    if (d === 10) return sameColor ? "The Universe" : "The Æon";
+    if (d === 10) return sameColor ? "The Universe" : "The Æon Portal";
     if (d === 11) return sameColor ? "Bloodlust & Fortitude" : "Fate";
     if (d === 12) return sameColor ? "The Shadow" : "The Underworld";
     return "The Fool";
@@ -1544,30 +1544,30 @@ function minorMeaning(card) {
 // INTERPRET
 function interpret(archetype) {
     const meanings = {
-        "The Black Sun": "(clarity, vitality, truth) Illumination reveals what is real without distortion. You are aligned with your higher nature.",
-        "The Two Paths": "(union, choice, alignment) A defining choice must be made. True union requires conscious alignment.",
-        "The Magus": "(will, creation, focus) Your ability to shape reality is active. Focus determines outcome.",
-        "The Devil": "(bondage, temptation, control) You are bound by unconscious attachments. Awareness is required.",
-        "The Priestess": "(intuition, silence, depth) Truth emerges through stillness and inner awareness.",
-        "The Eclipse": "(illusion, fear, shadow) Perception is distorted. Face what lies beneath.",
-        "The Empress": "(growth, nurture, creation) What you nourish expands into reality.",
-        "The Spire": "(collapse, shock, revelation) False structures fall suddenly. Truth remains.",
-        "The Emperor": "(order, authority, structure) Discipline and control must be established.",
-        "Death": "(ending, transformation, rebirth) Release is necessary for transformation.",
-        "The Hierophant": "(tradition, belief, system) Question inherited structures.",
-        "The Æon": "(awakening, evolution, reckoning) You are being called into transformation.",
-        "Mastery of Art": "(fusion, synthesis, balance) Opposites must be integrated.",
-        "Equilibrium": "(balance, adjustment, truth, precision) Align with truth, not preference.",
-        "Shade Blade": "(drive, control, direction) Direct your momentum consciously.",
-        "The Hanged Man": "(surrender, pause, perspective) Let go to gain insight.",
-        "Bloodlust & Fortitude": "(power, passion, expression) Embrace and direct raw energy.",
-        "Chaos Star": "(expansion, continuity, healing, renewal) Restoration follows disruption.",
-        "The Hermit": "(solitude, wisdom, search) Seek truth inwardly.",
-        "Fate": "(cycles, change, inevitability) Change is unavoidable—adapt.",
-        "The Universe": "(completion, integration, totality) All elements unify into wholeness.",
-        "The Underworld": "(descent, shadow, depth) Power lies in what is hidden below.",
-        "The Shadow": "(integration, darkness, truth) What you reject must be integrated.",
-        "The Fool": "(freedom, leap, beginning) Step forward into the unknown.",
+        "The Black Sun": "(clarity, vitality, truth, gnosis) Illumination reveals what is real without distortion. You are aligned with your higher nature and operating without internal resistance.",
+        "The Two Paths": "(opportunity, strategy, duality, union, choice, alignment) A defining choice must be made between paths or values. True union requires conscious alignment, not passive desire.",
+        "The Magus": "(will, focus, intent, spellcraft, transformation, transcendence) Your ability to shape reality is active. Direct your attention with precision or risk scattering your power.",
+        "The Devil": "(bondage, temptation, addiction, perversion) You are bound by unconscious attachments. Awareness is required to reclaim autonomy.",
+        "The Priestess": "(intuition, silence, depth, conductivity, initiation, sacrifice) Truth is hidden beneath surface noise. Stillness allows deeper knowing to emerge.",
+        "The Eclipse": "(meditation, confrontation, reflection, insight, novelty, illusion, fear) Perception is distorted by fear or projection. You must confront the unknown within.",
+        "The Empress": "(patience, observation, experience, foresight, guidance, growth, nurturing) Life expands through receptivity and care. What you nourish will grow.",
+        "The Spire": "(collapse, shock, terror, revelation) False constructs are destroyed suddenly. What falls was never stable.",
+        "The Emperor": "(crown, apex, order, structure, authority, war, conquest, dominion) Control and discipline are required. Establish firm boundaries and direction.",
+        "Death": "(ending, transformation, rebirth) A cycle is closing completely. Let go or be forced to release.",
+        "The Hierophant": "(tradition, belief, purpose, system, devotion, rigidity) You are operating within an established structure. Question whether it still serves you.",
+        "The Æon Portal": "(awakening, evolution, reckoning, merciless march of time) A higher calling demands transformation. You are being pushed into a new phase of being.",
+        "Mastery of Art": "(repetition, flow, obsession, fusion, synthesis) Opposites must be combined consciously. True transformation occurs through integration.",
+        "Equilibrium": "(balance, truth, necessity, precision) Imbalance is corrected through truth. You must align with reality, not preference.",
+        "Shade Blade": "(mastery, drive, extension, execution, singular focus, intensity, energetics, aura) Momentum is strong but must be directed. Victory requires disciplined control.",
+        "The Hanged Man": "(surrender, pause, perspective) Progress halts to force reflection. Let go of control to gain insight.",
+        "Bloodlust & Fortitude": "(power, passion, expression) Raw life-force must be embraced and directed. Suppression leads to distortion.",
+        "Chaos Star": "(expansion, radiance, aspiration, determination, renewal) Clarity returns after disruption. Trust in gradual restoration.",
+        "The Hermit": "(cloaked, silence, solitude, wisdom, reconnaissance, defence) Withdrawal is necessary to gain understanding. Truth is found inwardly.",
+        "Fate": "(cycles, change, inevitability) Events shift beyond control. Adaptation determines outcome.",
+        "The Universe": "(completion, source, mystery, acceptance, totality) All elements align into a unified whole. You are seeing the full system.",
+        "The Underworld": "(descent, purgatory, burial, depth) You are descending into hidden layers. Power lies in confronting what is buried.",
+        "The Shadow": "(integration, darkness, indifference, truth) What you deny controls you. Integration is required for wholeness.",
+        "The Fool": "(inhibitions, ignorance, carefree beginning, living in the moment, leaping forward with reckless abandon) A new path opens without certainty. Trust and act without attachment.",
         "Wraith of Chalices": "(emotional hunger, projection, longing) Emotional distortion drives behavior. Awareness is required.",
         "Wraith of Discs": "(scarcity, greed, survival) Material fear governs decisions.",
         "Wraith of Wands": "(impulse, chaos, aggression) Uncontrolled energy seeks release.",
@@ -1727,7 +1727,7 @@ You are bound by unconscious attachments. Awareness is required to reclaim auton
 A cycle is closing completely. Let go or be forced to release.
 
 <span class="dvalue">D = 7 {Same}</span>
-<span class="card-name">🐴🗡️Shade Blade🗡️🐎 — (mastery, drive, thrusting, execution, singular focus, intensity, energetics, aura)</span>
+<span class="card-name">🐴🗡️Shade Blade🗡️🐎 — (mastery, drive, extension, execution, singular focus, intensity, energetics, aura)</span>
 Momentum is strong but must be directed. Victory requires disciplined control.
 <span class="dvalue">D = 7 {Oppo}</span>
 <span class="card-name">🪢🧭The Hanged Man⚕️📿 — (surrender, pause, perspective)</span>
@@ -1741,7 +1741,7 @@ Illumination reveals what is real without distortion. You are aligned with your 
 Perception is distorted by fear or projection. You must confront the unknown within.
 
 <span class="dvalue">D = 9 {Same}</span>
-<span class="card-name">💞The Two Paths💞 — (opportunity, strategy, union, choice, alignment)</span>
+<span class="card-name">💞The Two Paths💞 — (opportunity, strategy, duality, union, choice, alignment)</span>
 A defining choice must be made between paths or values. True union requires conscious alignment, not passive desire.
 <span class="dvalue">D = 9 {Oppo}</span>
 <span class="card-name">🎯⚖️Equilibrium☯️🎯 — (balance, truth, necessity, precision)</span>
@@ -1751,7 +1751,7 @@ Imbalance is corrected through truth. You must align with reality, not preferenc
 <span class="card-name">♾️🪐The Universe🌌♾️ — (completion, source, mystery, acceptance, totality)</span>
 All elements align into a unified whole. You are seeing the full system.
 <span class="dvalue">D = 10 {Oppo}</span>
-<span class="card-name">🕰️The Æon⌛ — (awakening, evolution, reckoning, merciless march of time)</span>
+<span class="card-name">🕰️The Æon Portal⌛ — (awakening, evolution, reckoning, merciless march of time)</span>
 A higher calling demands transformation. You are being pushed into a new phase of being.
 
 <span class="dvalue">D = 11 {Same}</span>
@@ -1762,9 +1762,9 @@ Raw life-force must be embraced and directed. Suppression leads to distortion.
 Events shift beyond control. Adaptation determines outcome.
 
 <span class="dvalue">D = 12 {Same}</span>
-<span class="card-name">👥The Shadow👥 — (integration, darkness, truth)</span>
+<span class="card-name">👥The Shadow👥 — (integration, darkness, indifference, truth)</span>
 What you deny controls you. Integration is required for wholeness.
-<span class="dvalue">D = 11 {Oppo}</span>
+<span class="dvalue">D = 12 {Oppo}</span>
 <span class="card-name">⚫The Underworld⚫ — (descent, purgatory, burial, depth)</span>
 You are descending into hidden layers. Power lies in confronting what is buried.
 <hr class="glow-box animate-breathe">
