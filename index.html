@@ -824,7 +824,7 @@ $(document).ready(function() {
           ||</span>
  You have been summoned by the Order of the Ashen Blood to ascend the monumental spire before you, symbolic of your life and the ritualistic work you are here to undertake, to establish a legacy as one of the few Shadow elite perfected through perseverance of a painful rite of passage of corporeal alchemy.
  Beginning in the shadow haze of the circle surrounding the spire, you will approach the spiral staircase to heights signifying the disciplines of Body, Mind, and Spirit, in order to embody the Shadow Triumvirate.
- Each Seeker must conceal themselves, cast multiple shadows forward, and proceed lurking about the flights of the spire with blade in hand and lycanthropic forces primed to attack, for the cultivation of their grey-blooded essence and, with that, the pursuit of 3 vital Keys to secure their deathmask, known as a "Crown of Shade", while confronting obstacles within themselves and challengers at the serrated edges of the colossal tower.
+ Each Seeker must conceal themselves, cast multiple shadows forward, and proceed lurking about the flights of the spire with blade in hand and lycanthropic forces primed to attack, for the cultivation of their grey-blooded essence and, with that, the pursuit of 3 vital Keys to acquire their deathmask, known as a "Crown of Shade", while confronting obstacles within themselves and challengers at the serrated edges of the colossal tower. For whatever may lie ahead... THIS PAIN IS NECESSARY!
 <span class="number">                        ||
   --==//////////////////]}}xxxxxx(
                         ||</span>`;
@@ -1016,7 +1016,7 @@ $(document).ready(function() {
                 this.current_team = this.away_team;
             }
             logDegreeStart() {
-                let startText = "The Trial of the Body now begins… You have no foundation without a strong, supple, resilient body. Raise your hood, unsheath your blade, FOCUS, MOVE, and STRIKE forth. Pain is both inevitable and necessary. Suffering is endless opportunity. Embrace it, endure it, be purified and hardened by it - and perpetually prove your might. Incipit Chaos!";
+                let startText = "The Trial of the Body now begins… You have no foundation without a strong, supple, resilient body. Raise your hood, unsheath your blade, FOCUS, MOVE, and STRIKE forth. Pain is both inevitable and necessary. Suffering is endless opportunity. Embrace it, endure it, be purified and hardened by it - and perpetually prove your might. Memento mori ut memineris vivere... INCIPIT CHAOS!";
                 this.gameLog.push(`<hr class="glow-box animate-breathe">`);
                 this.gameLog.push(startText);
                 this.gameLog.push(`<hr class="glow-box animate-breathe">`);
@@ -1388,8 +1388,16 @@ $(document).ready(function() {
 
 
 
+
+
+
+
+
+
+
+
 // SHADOW CARTOMANCY 
-const suits = ["Chalices", "Discs", "Wands", "Swords"];
+const suits = ["Chalices", "Discs", "Staves", "Swords"];
 const numbers = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Rogue", "Queen", "King"];
 
 let deck = [];
@@ -1440,7 +1448,7 @@ function getArchetype(d, sameColor, suit1) {
     if (d === 1)  {
         if (suit1 === "Chalices") return "Wraith of Chalices";
         if (suit1 === "Discs") return "Wraith of Discs";
-        if (suit1 === "Wands") return "Wraith of Wands";
+        if (suit1 === "Staves") return "Wraith of Staves";
         if (suit1 === "Swords") return "Wraith of Swords";
     }
     if (d === 2) return sameColor ? "The Magus" : "The Priestess";
@@ -1459,7 +1467,7 @@ function getArchetype(d, sameColor, suit1) {
 
 // MINOR ARCANA — TITLES (2-10 only; Ace and Court cards carry their identity in their name)
 const minorArcanaTitles = {
-    "Wands":    { "2": "Dominion", "3": "Virtue", "4": "Completion", "5": "Strife", "6": "Victory", "7": "Valour", "8": "Swiftness", "9": "Strength", "10": "Oppression" },
+    "Staves":    { "2": "Dominion", "3": "Virtue", "4": "Completion", "5": "Strife", "6": "Victory", "7": "Valour", "8": "Swiftness", "9": "Strength", "10": "Oppression" },
     "Chalices": { "2": "Love", "3": "Abundance", "4": "Luxury", "5": "Disappointment", "6": "Pleasure", "7": "Debauch", "8": "Indolence", "9": "Happiness", "10": "Satiety" },
     "Swords":   { "2": "Peace", "3": "Sorrow", "4": "Truth", "5": "Defeat", "6": "Science", "7": "Futility", "8": "Interference", "9": "Cruelty", "10": "Ruin" },
     "Discs":    { "2": "Change", "3": "Work", "4": "Power", "5": "Worry", "6": "Success", "7": "Failure", "8": "Prudence", "9": "Gain", "10": "Wealth" }
@@ -1472,7 +1480,7 @@ function minorArcanaTitle(card) {
 
 // MINOR ARCANA — FULL SUIT-SPECIFIC MEANINGS (Ace through King, unique per suit)
 const minorArcanaMeanings = {
-    "Wands": {
+    "Staves": {
         "Ace":   "(ignition, primal will, the spark of becoming) The first ember of Fire tears through the dark — raw, undirected, and hungry to become. This is potential before it has chosen a shape. Command it, or be consumed by what you fail to direct.",
         "2":     "(command, territorial will, ambition) You claim the ground before you, staff in hand, gazing toward what lies beyond the horizon. Power is seized through vision, not granted through waiting.",
         "3":     "(established strength, tempered will, integrity) The fire no longer merely burns — it illuminates with purpose. What you have built now radiates outward, tested and true.",
@@ -1570,7 +1578,7 @@ function interpret(archetype) {
         "The Fool": "(inhibitions, ignorance, carefree beginning, living in the moment, leaping forward with reckless abandon) A new path opens without certainty. Trust and act without attachment.",
         "Wraith of Chalices": "(emotional hunger, projection, longing) Emotional distortion drives behavior. Awareness is required.",
         "Wraith of Discs": "(scarcity, greed, survival) Material fear governs decisions.",
-        "Wraith of Wands": "(impulse, chaos, aggression) Uncontrolled energy seeks release.",
+        "Wraith of Staves": "(impulse, chaos, aggression) Uncontrolled energy seeks release.",
         "Wraith of Swords": "(conflict, domination, force) The mind becomes weaponized."
     };
 
@@ -1621,13 +1629,13 @@ OF THE ASTRAL SHADOW;,</span>\n
             const placeholder = 
 `<span class="card-name">🕯️Wraithianic Cartomancy🕯️</span> utilizes a standard 52-Card Poker Deck consisting of all traditional Tarot Minor Arcana, including Rogues (Jacks/Pages), Queens, and Kings. Knights (referred to here as Wraiths), however, are determined and revealed (along with all other Major Arcana card equivalents and the addition of "The Shadow" and "The Underworld" Major Arcana) through an Absolute Difference Value calculation between the two cards drawn in the two-card spread. <span class="number">
 Example i: King of Swords (Card A = 13) - Queen of Discs (Card B = 12) = 1 (Wraith of Swords, applying the Suit of Card A)</span><span class="number">
-Example ii: Seven of Wands (Card A = 7; Black Suit) - Rogue of Swords (Card B = 12; Black Suit) = Difference of 5 (Chaos Star; Same Color Suits)</span>
+Example ii: Seven of Staves (Card A = 7; Black Suit) - Rogue of Swords (Card B = 12; Black Suit) = Difference of 5 (Chaos Star; Same Color Suits)</span>
 			
-<span class="card-name">🃏Jokers🃏</span> are Removed from the Deck and used for a “rotation reveal” → <span class="number">rotating the face-down Jokers on a flat surface and then flipping them up to reveal whether they’re upright or upside-down (ill-dignified) to determine the orientation of Card A & Card B. In the Shade Blade Sorcery Solitaire game, the Jokers can also be used for a Cartomantic reading when drawn with two other cards.</span>
+<span class="card-name">🃏Mystics🃏 (Jokers)</span> are Removed from the Deck and used for a “rotation reveal” → <span class="number">rotating the face-down Mystics on a flat surface and then flipping them up to reveal whether they’re upright or upside-down (ill-dignified) to determine the orientation of Card A & Card B. In the Shade Blade Sorcery Solitaire game, the Mystics can also be used for a Cartomantic reading when drawn with two other cards.</span>
 
 <span class="card-name">Draw 2 cards to receive guidance from the Shadow, and in turn another shall be revealed.</span>\n
 <span class="carto-head">♠️⚔️Swords⚔️♠️
-♣️🔥Wands🔥♣️ 
+♣️🔥Staves🔥♣️ 
 ♦️🥏Discs🥏♦️
 ♥️🍷Chalices🍷♥️</span>
 
@@ -1686,7 +1694,7 @@ A new path opens without certainty. Trust and act without attachment.
 Unresolved feelings distort perception and attachment. Emotional awareness must replace reaction.
 <span class="card-name">🗡️♦️Wraith of Discs🥏🗡️ — (scarcity, greed, survival)</span>
 Fear of loss drives material fixation. Stability must be rebuilt internally.
-<span class="card-name">🗡️♣️Wraith of Wands🔥🗡️ — (impulse, chaos, aggression)</span>
+<span class="card-name">🗡️♣️Wraith of Staves🔥🗡️ — (impulse, chaos, aggression)</span>
 Uncontrolled energy seeks expression. Direct it or be consumed by it.
 <span class="card-name">🗡️♠️Wraith of Swords⚔️🗡️ — (conflict, domination, force)</span>
 The mind becomes weaponized. Truth must be wielded with awareness.
@@ -1787,50 +1795,6 @@ D - # of combinations - Relative likelihood
 <span class="carto-head">,;MINOR ARCANA;,</span>️
 <span class="number">(Each suit carries its own shadowed reading of the same numbered current — Fire, Water, Air, and Earth each answer differently)</span>
 
-<span class="carto-head">♣️WANDS🔥 — Fire</span>
-<span class="card-name">Ace — (ignition, primal will, the spark of becoming)</span>
-The first ember of Fire tears through the dark, hungry to become. Command it, or be consumed.
-<span class="card-name">2 — Dominion (command, territorial will, ambition)</span>
-You claim the ground before you, gazing toward what lies beyond the horizon.
-<span class="card-name">3 — Virtue (established strength, tempered will, integrity)</span>
-The fire no longer merely burns — it illuminates with purpose.
-<span class="card-name">4 — Completion (settlement, the fire contained, order)</span>
-A hearth has been raised from the wildfire's chaos. Rest, though the flame beneath still stirs.
-<span class="card-name">5 — Strife (competing wills, friction, contest)</span>
-Many fires clash within a single confined space — the forge in which will proves itself against will.
-<span class="card-name">6 — Victory (triumph, recognition, the flame acknowledged)</span>
-The contest is won. Wear this victory with vigilance; pride is the kindling of the next battle.
-<span class="card-name">7 — Valour (defiance, courage under siege, unyielding will)</span>
-Outnumbered and encircled, you hold the high ground still.
-<span class="card-name">8 — Swiftness (acceleration, sudden motion, momentum)</span>
-The fire outruns thought itself. Act with the speed of flame, or be overtaken.
-<span class="card-name">9 — Strength (wary resilience, hard endurance, guarded power)</span>
-Scarred but unbroken, you stand the final watch, weapon still raised.
-<span class="card-name">10 — Oppression (overextension, the fire that consumes its bearer)</span>
-You carry more flame than your hands can hold. Release what cannot be sustained.
-
-<span class="carto-head">♥️CHALICES🍷 — Water</span>
-<span class="card-name">Ace — (the first depth, primal feeling, the wellspring)</span>
-A single drop falls into the void and ripples outward without end.
-<span class="card-name">2 — Love (union, mutual current, communion)</span>
-Two vessels tip toward one another and the water between them becomes one.
-<span class="card-name">3 — Abundance (overflow, shared joy, generosity)</span>
-The vessels brim and spill into each other freely.
-<span class="card-name">4 — Luxury (indulgence, stillness, the gilded cup)</span>
-Comfort settles like still water, beautiful and unmoving.
-<span class="card-name">5 — Disappointment (spilled water, loss, grief)</span>
-Some vessels lie overturned — yet something still holds.
-<span class="card-name">6 — Pleasure (nostalgia, gentle memory, sweetness)</span>
-A quiet, sun-warmed remembrance rises from still water.
-<span class="card-name">7 — Debauch (excess, seductive illusion, false plenty)</span>
-Too many cups are raised at once, each promising a different intoxication.
-<span class="card-name">8 — Indolence (withdrawal, apathy, the stagnant well)</span>
-The water grows still and stagnant from disuse.
-<span class="card-name">9 — Happiness (fulfillment, contentment, the full cup)</span>
-Every vessel stands upright and brimming — genuine satisfaction, earned.
-<span class="card-name">10 — Satiety (saturation, the overfull vessel, excess of feeling)</span>
-All the cups overflow at once, joy tipping toward exhaustion.
-
 <span class="carto-head">♠️SWORDS⚔️ — Air</span>
 <span class="card-name">Ace — (first clarity, the cutting edge, unadorned truth)</span>
 A blade of pure intellect pierces the fog. What is cut away now cannot be unmade.
@@ -1852,6 +1816,28 @@ Crossed blades form a cage of your own uncertainty.
 The sharpest blade is the one drawn inward, in the dark hours.
 <span class="card-name">10 — Ruin (finality, total collapse, the last blow struck)</span>
 Every blade has found its mark; nothing remains to be cut.
+
+<span class="carto-head">♣️STAVES🔥 — Fire</span>
+<span class="card-name">Ace — (ignition, primal will, the spark of becoming)</span>
+The first ember of Fire tears through the dark, hungry to become. Command it, or be consumed.
+<span class="card-name">2 — Dominion (command, territorial will, ambition)</span>
+You claim the ground before you, gazing toward what lies beyond the horizon.
+<span class="card-name">3 — Virtue (established strength, tempered will, integrity)</span>
+The fire no longer merely burns — it illuminates with purpose.
+<span class="card-name">4 — Completion (settlement, the fire contained, order)</span>
+A hearth has been raised from the wildfire's chaos. Rest, though the flame beneath still stirs.
+<span class="card-name">5 — Strife (competing wills, friction, contest)</span>
+Many fires clash within a single confined space — the forge in which will proves itself against will.
+<span class="card-name">6 — Victory (triumph, recognition, the flame acknowledged)</span>
+The contest is won. Wear this victory with vigilance; pride is the kindling of the next battle.
+<span class="card-name">7 — Valour (defiance, courage under siege, unyielding will)</span>
+Outnumbered and encircled, you hold the high ground still.
+<span class="card-name">8 — Swiftness (acceleration, sudden motion, momentum)</span>
+The fire outruns thought itself. Act with the speed of flame, or be overtaken.
+<span class="card-name">9 — Strength (wary resilience, hard endurance, guarded power)</span>
+Scarred but unbroken, you stand the final watch, weapon still raised.
+<span class="card-name">10 — Oppression (overextension, the fire that consumes its bearer)</span>
+You carry more flame than your hands can hold. Release what cannot be sustained.
 
 <span class="carto-head">♦️DISCS🥏 — Earth</span>
 <span class="card-name">Ace — (primal ground, the seed of matter, patient inevitability)</span>
@@ -1875,24 +1861,46 @@ Achievement stands alone here, needing no witness.
 <span class="card-name">10 — Wealth (material culmination, legacy, the full inheritance)</span>
 All that has been built now stands complete and enduring.
 
+<span class="carto-head">♥️CHALICES🍷 — Water</span>
+<span class="card-name">Ace — (the first depth, primal feeling, the wellspring)</span>
+A single drop falls into the void and ripples outward without end.
+<span class="card-name">2 — Love (union, mutual current, communion)</span>
+Two vessels tip toward one another and the water between them becomes one.
+<span class="card-name">3 — Abundance (overflow, shared joy, generosity)</span>
+The vessels brim and spill into each other freely.
+<span class="card-name">4 — Luxury (indulgence, stillness, the gilded cup)</span>
+Comfort settles like still water, beautiful and unmoving.
+<span class="card-name">5 — Disappointment (spilled water, loss, grief)</span>
+Some vessels lie overturned — yet something still holds.
+<span class="card-name">6 — Pleasure (nostalgia, gentle memory, sweetness)</span>
+A quiet, sun-warmed remembrance rises from still water.
+<span class="card-name">7 — Debauch (excess, seductive illusion, false plenty)</span>
+Too many cups are raised at once, each promising a different intoxication.
+<span class="card-name">8 — Indolence (withdrawal, apathy, the stagnant well)</span>
+The water grows still and stagnant from disuse.
+<span class="card-name">9 — Happiness (fulfillment, contentment, the full cup)</span>
+Every vessel stands upright and brimming — genuine satisfaction, earned.
+<span class="card-name">10 — Satiety (saturation, the overfull vessel, excess of feeling)</span>
+All the cups overflow at once, joy tipping toward exhaustion.
+
 <hr class="glow-box animate-breathe">
 <span class="carto-head">🫅🏻👑COURT CARDS👑👸</span>
 
-<span class="carto-head">♣️WANDS🔥</span>
-<span class="card-name">🗡️Rogue of Wands — (restless spark, bold curiosity, the untested flame)</span>
+<span class="carto-head">♠️SWORDS⚔️</span>
+<span class="card-name">🗡️Rogue of Swords — (sharp inquiry, restless intellect, the untested blade)</span>
+ A new mind cuts toward truth, quick but not yet disciplined.
+<span class="card-name">👸🏻Queen of Swords — (piercing perception, unclouded judgment, solitary clarity)</span>
+ She sees through pretense without flinching.
+<span class="card-name">🫅🏻King of Swords — (rational authority, impartial judgment, the tempered blade)</span>
+ His mind rules absolutely, tempered by fairness rather than emotion.</span>
+ 
+ <span class="carto-head">♣️STAVES🔥</span>
+<span class="card-name">🗡️Rogue of Staves — (restless spark, bold curiosity, the untested flame)</span>
  A new fire catches, eager and untamed. Passion before mastery.
-<span class="card-name">👸🏻Queen of Wands — (radiant will, magnetic presence, command through charisma)</span>
+<span class="card-name">👸🏻Queen of Staves — (radiant will, magnetic presence, command through charisma)</span>
  Her flame draws others toward her without need for force.
-<span class="card-name">🫅🏻King of Wands — (directed will, mastery of fire, decisive command)</span>
+<span class="card-name">🫅🏻King of Staves — (directed will, mastery of fire, decisive command)</span>
  The flame answers fully to his hand. Creation or destruction, entirely by choice.
-
-<span class="carto-head">♥️CHALICES🍷</span>
-<span class="card-name">🗡️Rogue of Chalices — (tender curiosity, emotional openness, the untested heart)</span>
- A new current stirs, gentle and unguarded.
-<span class="card-name">👸Queen of Chalices — (deep empathy, intuitive depth, quiet knowing)</span>
- She reads what lies beneath the surface without needing it spoken.
-<span class="card-name">🫅🏻King of Chalices — (emotional command, compassionate control, the steady tide)</span>
- He holds vast feeling without being ruled by it.
 
 <span class="carto-head">♦️DISCS🥏</span>
 <span class="card-name">🗡️Rogue of Discs — (patient apprenticeship, careful ambition, the untested hand)</span>
@@ -1902,13 +1910,13 @@ All that has been built now stands complete and enduring.
 <span class="card-name">🫅🏻King of Discs — (material mastery, disciplined authority, the unshaken foundation)</span>
  He commands the material world through discipline rather than desire.
 
-<span class="carto-head">♠️SWORDS⚔️</span>
-<span class="card-name">🗡️Rogue of Swords — (sharp inquiry, restless intellect, the untested blade)</span>
- A new mind cuts toward truth, quick but not yet disciplined.
-<span class="card-name">👸🏻Queen of Swords — (piercing perception, unclouded judgment, solitary clarity)</span>
- She sees through pretense without flinching.
-<span class="card-name">🫅🏻King of Swords — (rational authority, impartial judgment, the tempered blade)</span>
- His mind rules absolutely, tempered by fairness rather than emotion.</span>
+<span class="carto-head">♥️CHALICES🍷</span>
+<span class="card-name">🗡️Rogue of Chalices — (tender curiosity, emotional openness, the untested heart)</span>
+ A new current stirs, gentle and unguarded.
+<span class="card-name">👸Queen of Chalices — (deep empathy, intuitive depth, quiet knowing)</span>
+ She reads what lies beneath the surface without needing it spoken.
+<span class="card-name">🫅🏻King of Chalices — (emotional command, compassionate control, the steady tide)</span>
+ He holds vast feeling without being ruled by it.
 <hr class="glow-box animate-breathe">`;
             document.getElementById("cartomancyOutput").innerHTML = placeholder + "\n\n";
         }
@@ -1956,7 +1964,7 @@ All that has been built now stands complete and enduring.
 👩🏻‍🦳☣️Soulsucking Succubus of Blinding Deceit🧪👩🏻‍🦳</span>
 <li>Deals <span class="number">12 damage</span>, but while alive in the Chamber, this sultry harlot beguiles you and <span class="number">poisons all Chalices, causing what would otherwise heal you - to diminish your Life.</span></li>
 
-<span class="blacks">⚫BLACK JACKS⚫
+<span class="blacks">⚫BLACK ROGUES⚫ (BLACK JACKS)
 
 ⚔️J of C♣️ 
 🌒🐺Bloodlusting Beast of Necrosophic Might🐺🌘
@@ -1969,7 +1977,7 @@ All that has been built now stands complete and enduring.
 
 <span class="sbs-aces">⚡A of D♦️ = 🗡️Shade Blade🗡️</span>
 <li>Equip to your 🫅🏻K of D♦️ for his next duel. Destroys the next immediate opponent outright. The opponent is discarded to the Abyss immediately, along with your Shade Blade. 🫅🏻K of D♦️ can intervene on a ⚫Black Ace⚫ with the Shade Blade alone. You take no damage. Cut Draw Deck after both cards have been discarded.</li>
-<span class="sbs-aces">⚡A of H♥️ = 👕Shade Cloak👕</span>
+<span class="sbs-aces">⚡A of H♥️ = 👕Shade Cloak & Deathmask🎭</span>
 <li>Equip to your 🫅🏻K of D♦️/H♥️ for their next duel. Take <span class="number">2</span> less Damage when fighting with 🗡️ or 👊🏻. Discard and Cut Draw deck after use.</li>
 
 <span class="reds">🔴RED KINGS🔴
@@ -1988,28 +1996,28 @@ All that has been built now stands complete and enduring.
 🍺👱🏻‍♀️Sacrificial Shadow Priestess👱🏻‍♀️🍷</span>
 <li>Begin the game with her behind your 🫅🏻K of H♥️. She may offer an additional Chalice from the Chamber at any point during the battle. Her Chalice will heal even after drinking from another Chalice in the same turn. When the Chalice is offered to her Master, she is sacrificed and cast to the Abyss. While 👸🏻Q of S♠️ is alive in the current Chamber, her chalice is poisoned.</li>
 
-<span class="reds">🔴RED JACKS🔴
+<span class="reds">🔴RED ROGUES🔴 (RED JACKS)
 
 ⚔️J of D♦️
 🛡️Shadow Forge Master🛡️
        &
 ⚔️J of H♥️
 🎭Shadow Deathmask Artisan🎭</span>
-<li>Both remove <span class="number">1 corpse</span> from the 🫅🏻K of D♦️'s trail of blood, restoring the durability of Lord Wraith's blade; if there's no blade equipped or in Chamber, then exchange J of D♦️/H♥️ with lowest-durability 🗡️♦️ available in the Abyss; J of D♦️/H♥️ fades into the Abyss without further effect. 
+<li>Both remove <span class="number">1 corpse</span> from the 🫅🏻K of D♦️'s trail of blood, restoring the durability of Lord Wraith's blade and recovering materials needed for their craft; if there's no blade equipped or in Chamber, then exchange J of D♦️/H♥️ with lowest-durability 🗡️♦️ available in the Abyss; J of D♦️/H♥️ fades into the Abyss without further effect. 
 If neither applies, J of D♦️/H♥️ fades into the Abyss while pulling a hidden lever - inverting the spiral stairway. 
 Note: J of D♦️/H♥ cannot remove a "2" from any 🗡️♦️ blade, as the "2" will instantly break the 🗡️♦️ blade.</li>
 <hr class="glow-box animate-breathe">
 <span class="sbs-jokers">🃏Jokers🃏
-🔥🗝️Hermit of the Spire, Void Key Bearer, & Lurker of Hidden Passageways🗝️🔥</span>
-<li>Jokers, when encountered, urge you to follow them up a darkened stairway, primarily offering you an escape, but also a brief moment of internal reflection (via cartomantic reading - see below), and an opportunity to uncovered other hidden chambers, helping you blaze your way upward through the spire, by way of the Void Key they possess. <span class="number">If you refuse to follow them, lose 1 Life</span>. You can only refuse once. Upon accepting or refusing to follow, <span class="number">they quickly vanish into the Abyss</span> (discard pile), while the <span class="number">other 3 cards go to bottom of the Dungeon (draw deck)</span>, and the stairway is inverted (cut the draw deck) [and optionally reconstructed (shuffled)].
+🔥🗝️Mystic of the Spire, Void Key Bearer, & Lurker of Hidden Passageways🗝️🔥</span>
+<li>Mystics (Jokers), when encountered, urge you to follow them up a darkened stairway, primarily offering you an escape, but also a brief moment of internal reflection (via cartomantic reading - see below), and an opportunity to uncovered other hidden chambers, helping you blaze your way upward through the spire, by way of the Void Key they possess. <span class="number">If you refuse to follow them, lose 1 Life</span>. You can only refuse once. Upon accepting or refusing to follow, <span class="number">they quickly vanish into the Abyss</span> (discard pile), while the <span class="number">other 3 cards go to bottom of the Dungeon (draw deck)</span>, and the stairway is inverted (cut the draw deck) [and optionally reconstructed (shuffled)].
 
-<li><span class="sm-reds">The Hermit offers an optional Cartomantic Reading:</span>
-When a Joker is drawn with two new cards from the Dungeon (Draw Deck), the left-most card is Card A, and the right-most card is Card B. All necessary cartomantic elements can be derived from these two cards. Refer to Wraithianic Cartomancy section above. When a Joker is drawn along with 3 other cards (after "running from a chamber" or being forced to re-draw after following a Hermit up the darkened stairway), a cartomantic reading can still be conducted by using the left-most/right-most cards as described above. The extra card will have no effect.
-<li><span class="sm-reds">Cartomancy Considerations: </span>With the Red Kings & Red Queens removed from the Dungeon, the K&Q of Discs&Chalices are now missing from the deck (also further reducing the probability of a D=11 or D=12 Outcome), but if a K or Q of Swords or Wands is drawn, the Joker is then spun face-down, flipped up, and revealed in an inverted orientation, then K or Q of Swords becomes Discs, while Wands would become Chalices. "The Shadow" and "The Underworld" are new additions not found among traditional Tarot trump cards, so these will be rare. You may also give the Joker a spin face-down to determine the orientation of the trump card, before continuing with the game. </li>
+<li><span class="sm-reds">The Mystic offers an optional Cartomantic Reading:</span>
+When a Mystic (Joker) is drawn with two new cards from the Dungeon (Draw Deck), the left-most card is Card A, and the right-most card is Card B. All necessary cartomantic elements can be derived from these two cards. Refer to Wraithianic Cartomancy section above. When a Mystic is drawn along with 3 other cards (after "running from a chamber" or being forced to re-draw after following a Mystic up the darkened stairway), a cartomantic reading can still be conducted by using the left-most/right-most cards as described above. The extra card will have no effect.
+<li><span class="sm-reds">Cartomancy Considerations: </span>With the Red Kings & Red Queens removed from the Dungeon, the K&Q of Discs&Chalices are now missing from the deck (also further reducing the probability of a D=11 or D=12 Outcome), but if a K or Q of Swords or Staves/Clubs is drawn, the Joker is then spun face-down, flipped up, and revealed in an inverted orientation, then K or Q of Swords becomes Discs, while Staves would become Chalices. "The Shadow" and "The Underworld" are new additions not found among traditional Tarot trump cards, so these will be rare. You may also give the Mystic a spin face-down to determine the orientation of the trump card, before continuing with the game. </li>
 <hr class="glow-box animate-breathe">
 <span class="gen-head">,;shade blade sorcery
 solitaire instructions;,</span>
-<li><span class="sm-reds">Storyline: </span>Lord Wraith, born of Shadow Blood (K of D♦️ & K of H♥️ combined are representative of the blade-wielding and sorcerous aspects of one Lord Wraith) searches for the Hermit of the Spire (Jokers) who bear the Void Keys, while he battles his way to the throne room, crossing paths with all manners and forms of anti-cosmic terrors and psychic disturbances. With blades, spirit, and wits kept sharp, Lord Wraith navigates his way to the heart of the shining Void in an endeavour to confront and assimilate all powers rooted in Lawless Chaos, usurp the demiurge, and ascend to the absolute power and ultimate state of the Astral Shadow - preceding the beginning of All.</li>
+<li><span class="sm-reds">Storyline: </span>Lord Wraith, born of Shadow Blood (K of D♦️ & K of H♥️ combined are representative of the blade-wielding and sorcerous aspects of one Lord Wraith) searches for the Mystic of the Spire (Jokers) who bear the Void Keys, while he battles his way to the throne room, crossing paths with all manners and forms of anti-cosmic terrors and psychic disturbances. With blades, spirit, and wits kept sharp, Lord Wraith navigates his way to the heart of the shining Void in an endeavour to confront and assimilate all powers rooted in Lawless Chaos, usurp the demiurge, and ascend to the absolute power and ultimate state of the Astral Shadow - preceding the beginning of All.</li>
 <li><span class="sm-reds">Shade Blade Sorcery</span> is a variation of "Scoundrel" Solitaire, played with a full standard 54-card poker deck (including Jokers) either on tabletop or in-hand.</li>
 <li><span class="sm-reds">Red Kings & Red Queens</span> are removed and either set face-up on the table or atop your Draw Deck (Dungeon) in-hand after it's been shuffled.</li>
 <li>If playing entirely in-hand, hold the deck in this order: Discarded cards go face-up (into the "Abyss") beneath your Draw Deck which is always face-down. 👸🏻Q of H♥️ face-up atop Draw Deck (used only as a divider card), then 🫅🏻K of H♥️, then 🫅🏻K of D♦️, then your 👸🏻Q of D♦️, and finally your 4 Chamber cards (with any combination of blades, chalices, and challengers) drawn from the Dungeon face-up at the very top of your deck.</li>
@@ -2021,7 +2029,7 @@ solitaire instructions;,</span>
 <span class="sm-reds">Healing:</span>
 <li>Only 1 Chalice heals per turn. If multiple brews are drunk in one Chamber, only the first one takes effect, except when the Q of S poisons them all. A of H, however, is a spell, not a chalice, and therefore it still takes effect.</li>
 <span class="sm-reds">Running/Escaping Chambers:</span>
-<li>If Escaping a Chamber due to a Joker, you can still Escape the following Chamber if you choose, but otherwise you cannot escape twice in a row.</li>
+<li>If Escaping a Chamber due to "following a Mystic (Joker)", you can still Escape the following Chamber if you choose, but otherwise you cannot escape twice in a row.</li>
 <span class="sm-reds">Blades:</span>
 <li>If a Chamber has more than 1 Blade, and your King is already wielding a Blade, unless you choose to Escape from the Chamber, you must use a new weapon, and then perhaps re-equip another one (cycling through your blades) until you have 1 card left in your Chamber.</li>
 <span class="sm-reds">Defense:</span>
