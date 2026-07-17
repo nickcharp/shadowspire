@@ -1397,7 +1397,7 @@ $(document).ready(function() {
 
 
 // SHADOW CARTOMANCY 
-const suits = ["Chalices", "Discs", "Staves", "Swords"];
+const suits = ["Chalices ♥", "Discs ♦", "Staves ♣", "Swords ♠"];
 const numbers = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Rogue", "Queen", "King"];
 
 let deck = [];
@@ -1439,21 +1439,21 @@ function value(n) {
 }
 
 function color(s) {
-    return (s === "Chalices" || s === "Discs") ? "Red" : "Black";
+    return (s === "Chalices ♥" || s === "Discs ♦") ? "Red" : "Black";
 }
 
 // ARCHETYPE
 function getArchetype(d, sameColor, suit1) {
     if (d === 0) return sameColor ? "The Hierophant" : "The Fool";
     if (d === 1)  {
-        if (suit1 === "Chalices") return "Wraith of Chalices";
-        if (suit1 === "Discs") return "Wraith of Discs";
-        if (suit1 === "Staves") return "Wraith of Staves";
-        if (suit1 === "Swords") return "Wraith of Swords";
+        if (suit1 === "Chalices ♥") return "Wraith of Chalices";
+        if (suit1 === "Discs ♦") return "Wraith of Discs";
+        if (suit1 === "Staves ♣") return "Wraith of Staves";
+        if (suit1 === "Swords ♠") return "Wraith of Swords";
     }
-    if (d === 2) return sameColor ? "The Magus" : "The Priestess";
+    if (d === 2) return sameColor ? "The Magus" : "The High Priestess";
     if (d === 3) return sameColor ? "The Emperor" : "The Empress";
-    if (d === 4) return sameColor ? "Mastery of Art" : "The Hermit";
+    if (d === 4) return sameColor ? "Mastery & Art" : "The Hermit";
     if (d === 5) return sameColor ? "Chaos Star" : "The Spire";
     if (d === 6) return sameColor ? "The Devil" : "Death";
     if (d === 7) return sameColor ? "Shade Blade" : "The Hanged Man";
@@ -1467,10 +1467,10 @@ function getArchetype(d, sameColor, suit1) {
 
 // MINOR ARCANA — TITLES (2-10 only; Ace and Court cards carry their identity in their name)
 const minorArcanaTitles = {
-    "Staves":    { "2": "Dominion", "3": "Virtue", "4": "Completion", "5": "Strife", "6": "Victory", "7": "Valour", "8": "Swiftness", "9": "Strength", "10": "Oppression" },
-    "Chalices": { "2": "Love", "3": "Abundance", "4": "Luxury", "5": "Disappointment", "6": "Pleasure", "7": "Debauch", "8": "Indolence", "9": "Happiness", "10": "Satiety" },
-    "Swords":   { "2": "Peace", "3": "Sorrow", "4": "Truth", "5": "Defeat", "6": "Science", "7": "Futility", "8": "Interference", "9": "Cruelty", "10": "Ruin" },
-    "Discs":    { "2": "Change", "3": "Work", "4": "Power", "5": "Worry", "6": "Success", "7": "Failure", "8": "Prudence", "9": "Gain", "10": "Wealth" }
+    "Swords ♠":   { "2": "Peace", "3": "Sorrow", "4": "Truth", "5": "Defeat", "6": "Science", "7": "Futility", "8": "Interference", "9": "Cruelty", "10": "Ruin" },
+	"Staves ♣":    { "2": "Dominion", "3": "Virtue", "4": "Completion", "5": "Strife", "6": "Victory", "7": "Valour", "8": "Swiftness", "9": "Strength", "10": "Oppression" },
+    "Discs ♦":    { "2": "Change", "3": "Work", "4": "Power", "5": "Worry", "6": "Success", "7": "Failure", "8": "Prudence", "9": "Gain", "10": "Wealth" },
+	"Chalices ♥": { "2": "Love", "3": "Abundance", "4": "Luxury", "5": "Disappointment", "6": "Pleasure", "7": "Debauch", "8": "Indolence", "9": "Happiness", "10": "Satiety" }
 };
 
 function minorArcanaTitle(card) {
@@ -1480,37 +1480,7 @@ function minorArcanaTitle(card) {
 
 // MINOR ARCANA — FULL SUIT-SPECIFIC MEANINGS (Ace through King, unique per suit)
 const minorArcanaMeanings = {
-    "Staves": {
-        "Ace":   "(ignition, primal will, the spark of becoming) The first ember of Fire tears through the dark — raw, undirected, and hungry to become. This is potential before it has chosen a shape. Command it, or be consumed by what you fail to direct.",
-        "2":     "(command, territorial will, ambition) You claim the ground before you, staff in hand, gazing toward what lies beyond the horizon. Power is seized through vision, not granted through waiting.",
-        "3":     "(established strength, tempered will, integrity) The fire no longer merely burns — it illuminates with purpose. What you have built now radiates outward, tested and true.",
-        "4":     "(settlement, the fire contained, order) A hearth has been raised from the wildfire's chaos. Rest within what has rightly been built — though the flame beneath still stirs.",
-        "5":     "(competing wills, friction, contest) Many fires clash within a single confined space. This is not ruin but trial — the forge in which will proves itself against will.",
-        "6":     "(triumph, recognition, the flame acknowledged) The contest is won, the banner raised. Wear this victory with vigilance; pride is the kindling of the next battle.",
-        "7":     "(defiance, courage under siege, unyielding will) Outnumbered and encircled, you hold the high ground still. Valour is the fire that will not be smothered, even in the dark.",
-        "8":     "(acceleration, sudden motion, momentum) The fire outruns thought itself. Events now move beyond deliberation — act with the speed of flame, or be overtaken by what you failed to direct in time.",
-        "9":     "(wary resilience, hard endurance, guarded power) Scarred but unbroken, you stand the final watch, weapon still raised. This is strength earned through repeated trial, never fully at ease.",
-        "10":    "(overextension, the fire that consumes its bearer, burden) You carry more flame than your hands can hold. What once empowered now scorches your own grip. Release what cannot be sustained.",
-        "Rogue":  "(restless spark, bold curiosity, the untested flame) A new fire catches, eager and untamed. This is passion before mastery — bold, but not yet wise enough to temper its own heat.",
-        "Queen": "(radiant will, magnetic presence, command through charisma) Her flame draws others toward her without need for force. This is influence born of inner conviction, not performance.",
-        "King":  "(directed will, mastery of fire, decisive command) The flame answers fully to his hand now. This is power exercised with purpose — creation or destruction, entirely by choice."
-    },
-    "Chalices": {
-        "Ace":   "(the first depth, primal feeling, the wellspring) A single drop falls into the void and ripples outward without end. This is emotion before language, feeling before form — the source from which all bonds and sorrows will one day rise.",
-        "2":     "(union, mutual current, communion) Two vessels tip toward one another and the water between them becomes one. This is connection freely given, without demand — rare, and easily poisoned by possession.",
-        "3":     "(overflow, shared joy, generosity) The vessels brim and spill into each other freely. What is given in true celebration returns multiplied — but abundance shared carelessly can just as easily drown.",
-        "4":     "(indulgence, stillness, the gilded cup) Comfort settles like still water, beautiful and unmoving. Take care that luxury does not become a slow tide pulling you from feeling itself.",
-        "5":     "(spilled water, loss, grief) Some vessels lie overturned, their contents lost to the ground. What remains standing is easily forgotten while grieving what has spilled — yet something still holds.",
-        "6":     "(nostalgia, gentle memory, sweetness) A quiet, sun-warmed remembrance rises from still water. This is pleasure untainted by urgency — the comfort of something familiar and kind.",
-        "7":     "(excess, seductive illusion, false plenty) Too many cups are raised at once, each promising a different intoxication. Not every vessel offered contains what it seems — discernment drowns first in indulgence.",
-        "8":     "(withdrawal, apathy, the stagnant well) The water grows still and stagnant from disuse. What once stirred you no longer moves the surface — a quiet warning that feeling itself is beginning to dim.",
-        "9":     "(fulfillment, contentment, the full cup) Every vessel stands upright and brimming. This is genuine satisfaction, earned rather than assumed — savor it before the tide inevitably turns.",
-        "10":    "(saturation, the overfull vessel, excess of feeling) All the cups overflow at once, joy tipping toward exhaustion. Even the sweetest water, taken past its measure, begins to sour.",
-        "Rogue":  "(tender curiosity, emotional openness, the untested heart) A new current stirs, gentle and unguarded. Feeling here is honest but untested — vulnerable to both connection and disappointment.",
-        "Queen": "(deep empathy, intuitive depth, quiet knowing) She reads what lies beneath the surface without needing it spoken. This is emotional mastery — receptive, but never lost in what she perceives.",
-        "King":  "(emotional command, compassionate control, the steady tide) He holds vast feeling without being ruled by it. This is the mastery of the heart — depth without drowning."
-    },
-    "Swords": {
+    "Swords ♠": {
         "Ace":   "(first clarity, the cutting edge, unadorned truth) A blade of pure intellect pierces the fog. Before understanding comes only truth, severe and unadorned. What is cut away now cannot be unmade.",
         "2":     "(uneasy truce, guarded stillness, tension held) Two blades rest crossed but undrawn. This is not harmony but a fragile balance, maintained only by mutual restraint.",
         "3":     "(piercing grief, betrayal, the wound accepted) A blade finds its mark and the truth of the wound cannot be denied. Sorrow, once witnessed clearly, becomes bearable — concealment only festers.",
@@ -1525,7 +1495,22 @@ const minorArcanaMeanings = {
         "Queen": "(piercing perception, unclouded judgment, solitary clarity) She sees through pretense without flinching. This is intellect sharpened by experience — exacting, and sometimes merciless.",
         "King":  "(rational authority, impartial judgment, the tempered blade) His mind rules absolutely, tempered by fairness rather than emotion. Truth is his only allegiance."
     },
-    "Discs": {
+	"Staves ♣": {
+        "Ace":   "(ignition, primal will, the spark of becoming) The first ember of Fire tears through the dark — raw, undirected, and hungry to become. This is potential before it has chosen a shape. Command it, or be consumed by what you fail to direct.",
+        "2":     "(command, territorial will, ambition) You claim the ground before you, staff in hand, gazing toward what lies beyond the horizon. Power is seized through vision, not granted through waiting.",
+        "3":     "(established strength, tempered will, integrity) The fire no longer merely burns — it illuminates with purpose. What you have built now radiates outward, tested and true.",
+        "4":     "(settlement, the fire contained, order) A hearth has been raised from the wildfire's chaos. Rest within what has rightly been built — though the flame beneath still stirs.",
+        "5":     "(competing wills, friction, contest) Many fires clash within a single confined space. This is not ruin but trial — the forge in which will proves itself against will.",
+        "6":     "(triumph, recognition, the flame acknowledged) The contest is won, the banner raised. Wear this victory with vigilance; pride is the kindling of the next battle.",
+        "7":     "(defiance, courage under siege, unyielding will) Outnumbered and encircled, you hold the high ground still. Valour is the fire that will not be smothered, even in the dark.",
+        "8":     "(acceleration, sudden motion, momentum) The fire outruns thought itself. Events now move beyond deliberation — act with the speed of flame, or be overtaken by what you failed to direct in time.",
+        "9":     "(wary resilience, hard endurance, guarded power) Scarred but unbroken, you stand the final watch, weapon still raised. This is strength earned through repeated trial, never fully at ease.",
+        "10":    "(overextension, the fire that consumes its bearer, burden) You carry more flame than your hands can hold. What once empowered now scorches your own grip. Release what cannot be sustained.",
+        "Rogue":  "(restless spark, bold curiosity, the untested flame) A new fire catches, eager and untamed. This is passion before mastery — bold, but not yet wise enough to temper its own heat.",
+        "Queen": "(radiant will, magnetic presence, command through charisma) Her flame draws others toward her without need for force. This is influence born of inner conviction, not performance.",
+        "King":  "(directed will, mastery of fire, decisive command) The flame answers fully to his hand now. This is power exercised with purpose — creation or destruction, entirely by choice."
+    },
+    "Discs ♦": {
         "Ace":   "(primal ground, the seed of matter, patient inevitability) From the void, a single seed of Earth takes form — dense, patient, and inevitable. All that will be built, hoarded, or lost begins here, in silence beneath the surface.",
         "2":     "(flux, adaptation, the turning wheel) Two forms circle one another in ceaseless exchange. Nothing solid here remains solid for long — stability is found only in the rhythm of change itself.",
         "3":     "(diligent labor, skilled craft, foundation) Hands shape raw material into something enduring. This is not glorious, but it is honest — mastery is built one disciplined action at a time.",
@@ -1539,6 +1524,21 @@ const minorArcanaMeanings = {
         "Rogue":  "(patient apprenticeship, careful ambition, the untested hand) A new hand takes up the work, deliberate and diligent. Mastery has not yet arrived, but the foundation is being laid, stone by stone.",
         "Queen": "(grounded nurture, practical care, quiet stewardship) She tends what has been given with patient devotion. This is abundance sustained through steady, unglamorous care.",
         "King":  "(material mastery, disciplined authority, the unshaken foundation) He commands the material world through discipline rather than desire. What he builds endures long after ambition fades."
+    },
+	"Chalices ♥": {
+        "Ace":   "(the first depth, primal feeling, the wellspring) A single drop falls into the void and ripples outward without end. This is emotion before language, feeling before form — the source from which all bonds and sorrows will one day rise.",
+        "2":     "(union, mutual current, communion) Two vessels tip toward one another and the water between them becomes one. This is connection freely given, without demand — rare, and easily poisoned by possession.",
+        "3":     "(overflow, shared joy, generosity) The vessels brim and spill into each other freely. What is given in true celebration returns multiplied — but abundance shared carelessly can just as easily drown.",
+        "4":     "(indulgence, stillness, the gilded cup) Comfort settles like still water, beautiful and unmoving. Take care that luxury does not become a slow tide pulling you from feeling itself.",
+        "5":     "(spilled water, loss, grief) Some vessels lie overturned, their contents lost to the ground. What remains standing is easily forgotten while grieving what has spilled — yet something still holds.",
+        "6":     "(nostalgia, gentle memory, sweetness) A quiet, sun-warmed remembrance rises from still water. This is pleasure untainted by urgency — the comfort of something familiar and kind.",
+        "7":     "(excess, seductive illusion, false plenty) Too many cups are raised at once, each promising a different intoxication. Not every vessel offered contains what it seems — discernment drowns first in indulgence.",
+        "8":     "(withdrawal, apathy, the stagnant well) The water grows still and stagnant from disuse. What once stirred you no longer moves the surface — a quiet warning that feeling itself is beginning to dim.",
+        "9":     "(fulfillment, contentment, the full cup) Every vessel stands upright and brimming. This is genuine satisfaction, earned rather than assumed — savor it before the tide inevitably turns.",
+        "10":    "(saturation, the overfull vessel, excess of feeling) All the cups overflow at once, joy tipping toward exhaustion. Even the sweetest water, taken past its measure, begins to sour.",
+        "Rogue":  "(tender curiosity, emotional openness, the untested heart) A new current stirs, gentle and unguarded. Feeling here is honest but untested — vulnerable to both connection and disappointment.",
+        "Queen": "(deep empathy, intuitive depth, quiet knowing) She reads what lies beneath the surface without needing it spoken. This is emotional mastery — receptive, but never lost in what she perceives.",
+        "King":  "(emotional command, compassionate control, the steady tide) He holds vast feeling without being ruled by it. This is the mastery of the heart — depth without drowning."
     }
 };
 
@@ -1556,7 +1556,7 @@ function interpret(archetype) {
         "The Two Paths": "(opportunity, strategy, duality, union, choice, alignment) A defining choice must be made between paths or values. True union requires conscious alignment, not passive desire.",
         "The Magus": "(will, focus, intent, spellcraft, transformation, transcendence) Your ability to shape reality is active. Direct your attention with precision or risk scattering your power.",
         "The Devil": "(bondage, temptation, addiction, perversion) You are bound by unconscious attachments. Awareness is required to reclaim autonomy.",
-        "The Priestess": "(intuition, silence, depth, conductivity, initiation, sacrifice) Truth is hidden beneath surface noise. Stillness allows deeper knowing to emerge.",
+        "The High Priestess": "(intuition, silence, depth, conductivity, initiation, sacrifice) Truth is hidden beneath surface noise. Stillness allows deeper knowing to emerge.",
         "The Eclipse": "(meditation, confrontation, reflection, insight, novelty, illusion, fear) Perception is distorted by fear or projection. You must confront the unknown within.",
         "The Empress": "(patience, observation, experience, foresight, guidance, growth, nurturing) Life expands through receptivity and care. What you nourish will grow.",
         "The Spire": "(collapse, shock, terror, revelation) False constructs are destroyed suddenly. What falls was never stable.",
@@ -1564,7 +1564,7 @@ function interpret(archetype) {
         "Death": "(ending, transformation, rebirth) A cycle is closing completely. Let go or be forced to release.",
         "The Hierophant": "(tradition, belief, purpose, system, devotion, rigidity) You are operating within an established structure. Question whether it still serves you.",
         "The Æon Portal": "(awakening, evolution, reckoning, merciless march of time) A higher calling demands transformation. You are being pushed into a new phase of being.",
-        "Mastery of Art": "(repetition, flow, obsession, fusion, synthesis) Opposites must be combined consciously. True transformation occurs through integration.",
+        "Mastery & Art": "(repetition, flow, obsession, fusion, synthesis) Opposites must be combined consciously. True transformation occurs through integration.",
         "Equilibrium": "(balance, truth, necessity, precision) Imbalance is corrected through truth. You must align with reality, not preference.",
         "Shade Blade": "(mastery, drive, extension, execution, singular focus, intensity, energetics, aura) Momentum is strong but must be directed. Victory requires disciplined control.",
         "The Hanged Man": "(surrender, pause, perspective) Progress halts to force reflection. Let go of control to gain insight.",
@@ -1703,7 +1703,7 @@ The mind becomes weaponized. Truth must be wielded with awareness.
 <span class="card-name">🪄The Magus💥 — (will, focus, intent, spellcraft, transformation, transcendence)</span>
 Your ability to shape reality is active. Direct your attention with precision or risk scattering your power.
 <span class="dvalue">D = 2 {Oppo}</span>
-<span class="card-name">🧝️The Priestess🧝‍ — (intuition, silence, depth, conductivity, initiation, sacrifice)</span>
+<span class="card-name">🧝️The High Priestess🧝‍ — (intuition, silence, depth, conductivity, initiation, sacrifice)</span>
 Truth is hidden beneath surface noise. Stillness allows deeper knowing to emerge.
 
 <span class="dvalue">D = 3 {Same}</span>
@@ -1714,7 +1714,7 @@ Control and discipline are required. Establish firm boundaries and direction.
 Life expands through receptivity and care. What you nourish will grow.
 
 <span class="dvalue">D = 4 {Same}</span>
-<span class="card-name">🎸🎨🖌️Mastery of Art📖🪶🎸 — (repetition, flow, obsession, fusion, synthesis)</span>
+<span class="card-name">🎸🎨🖌️Mastery & Art📖🪶🎸 — (repetition, flow, obsession, fusion, synthesis)</span>
 Opposites must be combined consciously. True transformation occurs through integration.
 <span class="dvalue">D = 4 {Oppo}</span>
 <span class="card-name">🦉👽The Hermit👽🦉 — (cloaked, silence, solitude, wisdom, reconnaissance, defence)</span>
