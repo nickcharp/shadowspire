@@ -1397,7 +1397,7 @@ $(document).ready(function() {
 
 
 // SHADOW CARTOMANCY 
-const suits = ["Chalices ♥", "Discs ♦", "Staves ♣", "Swords ♠"];
+const suits = ["Chalices ♥", "Discs ♦", "Scepters ♣", "Swords ♠"];
 const numbers = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Rogue", "Queen", "King"];
 
 let deck = [];
@@ -1448,7 +1448,7 @@ function getArchetype(d, sameColor, suit1) {
     if (d === 1)  {
         if (suit1 === "Chalices ♥") return "Wraith of Chalices";
         if (suit1 === "Discs ♦") return "Wraith of Discs";
-        if (suit1 === "Staves ♣") return "Wraith of Staves";
+        if (suit1 === "Scepters ♣") return "Wraith of Scepters";
         if (suit1 === "Swords ♠") return "Wraith of Swords";
     }
     if (d === 2) return sameColor ? "The Magus" : "The High Priestess";
@@ -1468,7 +1468,7 @@ function getArchetype(d, sameColor, suit1) {
 // MINOR ARCANA — TITLES (2-10 only; Ace and Court cards carry their identity in their name)
 const minorArcanaTitles = {
     "Swords ♠":   { "2": "Peace", "3": "Sorrow", "4": "Truth", "5": "Defeat", "6": "Science", "7": "Futility", "8": "Interference", "9": "Cruelty", "10": "Ruin" },
-	"Staves ♣":    { "2": "Dominion", "3": "Virtue", "4": "Completion", "5": "Strife", "6": "Victory", "7": "Valour", "8": "Swiftness", "9": "Strength", "10": "Oppression" },
+	"Scepters ♣":    { "2": "Dominion", "3": "Virtue", "4": "Completion", "5": "Strife", "6": "Victory", "7": "Valour", "8": "Swiftness", "9": "Strength", "10": "Oppression" },
     "Discs ♦":    { "2": "Change", "3": "Work", "4": "Power", "5": "Worry", "6": "Success", "7": "Failure", "8": "Prudence", "9": "Gain", "10": "Wealth" },
 	"Chalices ♥": { "2": "Love", "3": "Abundance", "4": "Luxury", "5": "Disappointment", "6": "Pleasure", "7": "Debauch", "8": "Indolence", "9": "Happiness", "10": "Satiety" }
 };
@@ -1495,7 +1495,7 @@ const minorArcanaMeanings = {
         "Queen": "(piercing perception, unclouded judgment, solitary clarity) She sees through pretense without flinching. This is intellect sharpened by experience — exacting, and sometimes merciless.",
         "King":  "(rational authority, impartial judgment, the tempered blade) His mind rules absolutely, tempered by fairness rather than emotion. Truth is his only allegiance."
     },
-	"Staves ♣": {
+	"Scepters ♣": {
         "Ace":   "(ignition, primal will, the spark of becoming) The first ember of Fire tears through the dark — raw, undirected, and hungry to become. This is potential before it has chosen a shape. Command it, or be consumed by what you fail to direct.",
         "2":     "(command, territorial will, ambition) You claim the ground before you, staff in hand, gazing toward what lies beyond the horizon. Power is seized through vision, not granted through waiting.",
         "3":     "(established strength, tempered will, integrity) The fire no longer merely burns — it illuminates with purpose. What you have built now radiates outward, tested and true.",
@@ -1578,7 +1578,7 @@ function interpret(archetype) {
         "The Fool": "(inhibitions, ignorance, carefree beginning, living in the moment, leaping forward with reckless abandon) A new path opens without certainty. Trust and act without attachment.",
         "Wraith of Chalices": "(emotional hunger, projection, longing) Emotional distortion drives behavior. Awareness is required.",
         "Wraith of Discs": "(scarcity, greed, survival) Material fear governs decisions.",
-        "Wraith of Staves": "(impulse, chaos, aggression) Uncontrolled energy seeks release.",
+        "Wraith of Scepters": "(impulse, chaos, aggression) Uncontrolled energy seeks release.",
         "Wraith of Swords": "(conflict, domination, force) The mind becomes weaponized."
     };
 
@@ -1629,13 +1629,13 @@ OF THE ASTRAL SHADOW;,</span>\n
             const placeholder = 
 `<span class="card-name">🕯️Wraithianic Cartomancy🕯️</span> utilizes a standard 52-Card Poker Deck consisting of all traditional Tarot Minor Arcana, including Rogues (Jacks/Pages), Queens, and Kings. Knights (referred to here as Wraiths), however, are determined and revealed (along with all other Major Arcana card equivalents and the addition of "The Shadow" and "The Underworld" Major Arcana) through an Absolute Difference Value calculation between the two cards drawn in the two-card spread. <span class="number">
 Example i: King of Swords (Card A = 13) - Queen of Discs (Card B = 12) = 1 (Wraith of Swords, applying the Suit of Card A)</span><span class="number">
-Example ii: Seven of Staves (Card A = 7; Black Suit) - Rogue of Swords (Card B = 12; Black Suit) = Difference of 5 (Chaos Star; Same Color Suits)</span>
+Example ii: Seven of Scepters (Card A = 7; Black Suit) - Rogue of Swords (Card B = 12; Black Suit) = Difference of 5 (Chaos Star; Same Color Suits)</span>
 			
 <span class="card-name">🃏Mystics🃏 (Jokers)</span> are Removed from the Deck and used for a “rotation reveal” → <span class="number">rotating the face-down Mystics on a flat surface and then flipping them up to reveal whether they’re upright or upside-down (ill-dignified) to determine the orientation of Card A & Card B. In the Shade Blade Sorcery Solitaire game, the Mystics can also be used for a Cartomantic reading when drawn with two other cards.</span>
 
 <span class="card-name">Draw 2 cards to receive guidance from the Shadow, and in turn another shall be revealed.</span>\n
 <span class="carto-head">♠️⚔️Swords⚔️♠️
-♣️🔥Staves🔥♣️ 
+♣️🔥Scepters🔥♣️ 
 ♦️🥏Discs🥏♦️
 ♥️🍷Chalices🍷♥️</span>
 
@@ -1694,7 +1694,7 @@ A new path opens without certainty. Trust and act without attachment.
 Unresolved feelings distort perception and attachment. Emotional awareness must replace reaction.
 <span class="card-name">🗡️♦️Wraith of Discs🥏🗡️ — (scarcity, greed, survival)</span>
 Fear of loss drives material fixation. Stability must be rebuilt internally.
-<span class="card-name">🗡️♣️Wraith of Staves🔥🗡️ — (impulse, chaos, aggression)</span>
+<span class="card-name">🗡️♣️Wraith of Scepters🔥🗡️ — (impulse, chaos, aggression)</span>
 Uncontrolled energy seeks expression. Direct it or be consumed by it.
 <span class="card-name">🗡️♠️Wraith of Swords⚔️🗡️ — (conflict, domination, force)</span>
 The mind becomes weaponized. Truth must be wielded with awareness.
@@ -1817,7 +1817,7 @@ The sharpest blade is the one drawn inward, in the dark hours.
 <span class="card-name">10 — Ruin (finality, total collapse, the last blow struck)</span>
 Every blade has found its mark; nothing remains to be cut.
 
-<span class="carto-head">♣️STAVES🔥 — Fire</span>
+<span class="carto-head">♣️SCEPTERS🔥 — Fire</span>
 <span class="card-name">Ace — (ignition, primal will, the spark of becoming)</span>
 The first ember of Fire tears through the dark, hungry to become. Command it, or be consumed.
 <span class="card-name">2 — Dominion (command, territorial will, ambition)</span>
@@ -1884,7 +1884,7 @@ Every vessel stands upright and brimming — genuine satisfaction, earned.
 All the cups overflow at once, joy tipping toward exhaustion.
 
 <hr class="glow-box animate-breathe">
-<span class="carto-head">🫅🏻👑COURT CARDS👑👸</span>
+<span class="carto-head">🫅🏻👑SHADOW COURT CARDS👑👸</span>
 
 <span class="carto-head">♠️SWORDS⚔️</span>
 <span class="card-name">🗡️Rogue of Swords — (sharp inquiry, restless intellect, the untested blade)</span>
@@ -1894,12 +1894,12 @@ All the cups overflow at once, joy tipping toward exhaustion.
 <span class="card-name">🫅🏻King of Swords — (rational authority, impartial judgment, the tempered blade)</span>
  His mind rules absolutely, tempered by fairness rather than emotion.</span>
  
- <span class="carto-head">♣️STAVES🔥</span>
-<span class="card-name">🗡️Rogue of Staves — (restless spark, bold curiosity, the untested flame)</span>
+ <span class="carto-head">♣️SCEPTERS🔥</span>
+<span class="card-name">🗡️Rogue of Scepters — (restless spark, bold curiosity, the untested flame)</span>
  A new fire catches, eager and untamed. Passion before mastery.
-<span class="card-name">👸🏻Queen of Staves — (radiant will, magnetic presence, command through charisma)</span>
+<span class="card-name">👸🏻Queen of Scepters — (radiant will, magnetic presence, command through charisma)</span>
  Her flame draws others toward her without need for force.
-<span class="card-name">🫅🏻King of Staves — (directed will, mastery of fire, decisive command)</span>
+<span class="card-name">🫅🏻King of Scepters — (directed will, mastery of fire, decisive command)</span>
  The flame answers fully to his hand. Creation or destruction, entirely by choice.
 
 <span class="carto-head">♦️DISCS🥏</span>
@@ -2013,7 +2013,7 @@ Note: J of D♦️/H♥️ cannot remove a "2" from any 🗡️♦️ blade, as 
 
 <li><span class="sm-reds">The Mystic offers an optional Cartomantic Reading:</span>
 When a Mystic (Joker) is drawn with two new cards from the Dungeon (Draw Deck), the left-most card is Card A, and the right-most card is Card B. All necessary cartomantic elements can be derived from these two cards. Refer to Wraithianic Cartomancy section above. When a Mystic is drawn along with 3 other cards (after "running from a chamber" or being forced to re-draw after following a Mystic up the darkened stairway), a cartomantic reading can still be conducted by using the left-most/right-most cards as described above. The extra card will have no effect.
-<li><span class="sm-reds">Cartomancy Considerations: </span>With the Red Kings & Red Queens removed from the Dungeon, the K&Q of Discs&Chalices are now missing from the deck (also further reducing the probability of a D=11 or D=12 Outcome), but if a K or Q of Swords or Staves/Clubs is drawn, the Joker is then spun face-down, flipped up, and revealed in an inverted orientation, then K or Q of Swords becomes Discs, while Staves would become Chalices. "The Shadow" and "The Underworld" are new additions not found among traditional Tarot trump cards, so these will be rare. You may also give the Mystic a spin face-down to determine the orientation of the trump card, before continuing with the game. </li>
+<li><span class="sm-reds">Cartomancy Considerations: </span>With the Red Kings & Red Queens removed from the Dungeon, the K&Q of Discs&Chalices are now missing from the deck (also further reducing the probability of a D=11 or D=12 Outcome), but if a K or Q of Swords or Scepters/Clubs is drawn, the Joker is then spun face-down, flipped up, and revealed in an inverted orientation, then K or Q of Swords becomes Discs, while Scepters would become Chalices. "The Shadow" and "The Underworld" are new additions not found among traditional Tarot trump cards, so these will be rare. You may also give the Mystic a spin face-down to determine the orientation of the trump card, before continuing with the game. </li>
 <hr class="glow-box animate-breathe">
 <span class="gen-head">,;shade blade sorcery
 solitaire instructions;,</span>
