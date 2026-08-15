@@ -445,9 +445,9 @@
 .th-purp  {--acc:#622eaa;--acc-b:#9258e0;--acc-d:#371560;--acc-g:rgba(98,46,170,0.38);--acc-s:rgba(98,46,170,0.10);}
 .th-blue  {--acc:#1650a0;--acc-b:#3688e8;--acc-d:#0c2e5a;--acc-g:rgba(22,80,160,0.38);--acc-s:rgba(22,80,160,0.10);}
 .swp-wrap,.swp-wrap *{margin:0;padding:0;box-sizing:border-box;}
-.swp-wrap{background:var(--bg0);color:var(--tp);font-family:'Raleway',sans-serif;display:flex;flex-direction:column;align-items:center;overflow-x:hidden;position:relative;padding:20px 0;}
+.swp-wrap{background:transparent;color:var(--tp);font-family:'Raleway',sans-serif;display:flex;flex-direction:column;align-items:center;overflow-x:hidden;position:relative;padding:20px 0;}
 .swp-wrap::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
-  background:radial-gradient(ellipse at 18% 38%,var(--acc-s) 0%,transparent 52%),radial-gradient(ellipse at 82% 68%,rgba(0,0,0,0.35) 0%,transparent 48%);transition:background .55s;}
+  background:none;transition:background .55s;}
 #app{position:relative;z-index:1;width:100%;max-width:1200px;padding:16px 18px;display:flex;flex-direction:column;align-items:center;gap:14px;}
 /* TITLE */
 .tb{text-align:center;padding:4px 0 0;}
@@ -455,8 +455,8 @@
   background:linear-gradient(135deg,#d8d8d8 0%,var(--acc-b) 40%,var(--acc) 72%,#c8902a 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
   filter:drop-shadow(0 0 14px var(--acc-g));transition:filter .5s;line-height:1.1;}
-.tb .sub{font-family:'Metal Mania',cursive;font-size:clamp(0.6rem,1.4vw,0.82rem);letter-spacing:.1em;color:var(--td);margin-top:5px;
-  background:linear-gradient(90deg,var(--td),var(--ts),var(--td));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.tb .sub{font-family:'Metal Mania',cursive;font-size:clamp(0.6rem,1.4vw,0.82rem);letter-spacing:.1em;color:#888888;margin-top:5px;
+  background:linear-gradient(90deg,#666666,#aaaaaa,#666666);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 /* CYCLE BUTTONS (theme + glyphs) */
 .cycle-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
 .cycle-btn{display:flex;align-items:center;gap:7px;padding:5px 14px;background:var(--bg2);border:1px solid var(--br0);border-radius:2px;
