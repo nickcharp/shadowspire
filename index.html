@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800">
     <link rel="stylesheet" type="text/css" href="CSS/all.css">
     <link rel="stylesheet" type="text/css" href="CSS/w3.css">
@@ -423,6 +424,158 @@
         }
 
         .footer { margin-top: 0; font-size: 14px; padding-bottom: 25px; color: #666; }
+
+
+/* ==================== SHADOW WARPATH (embedded chess game) ==================== */
+:root{
+  --acc:#cc2222;--acc-b:#ff5555;--acc-d:#7a1111;
+  --acc-g:rgba(204,34,34,0.38);--acc-s:rgba(204,34,34,0.10);
+  --bg0:#080808;--bg1:#111111;--bg2:#181818;--bg3:#1e1e1e;
+  --br0:#2a2a2a;--br1:#3c3c3c;
+  --sqdk:#141414;--sqlt:#1d1d1d;--sqhv:#252525;--sqsl:#303030;
+  --vmb:rgba(55,175,75,0.20);--vmbo:rgba(55,175,75,0.70);
+  --vcb:rgba(195,40,40,0.28);--vcbo:rgba(195,40,40,0.82);
+  --ckb:rgba(255,55,0,0.36);
+  --tzb:rgba(155,15,15,0.20);--tzbo:rgba(185,35,35,0.50);
+  --tp:#e6e6e6;--ts:#848484;--td:#404040;
+  --gold:#c8902a;--grn:#48a868;
+}
+.th-gold  {--acc:#b07c08;--acc-b:#d4a030;--acc-d:#5a3e02;--acc-g:rgba(176,124,8,0.38);--acc-s:rgba(176,124,8,0.10);}
+.th-green {--acc:#177832;--acc-b:#24b84c;--acc-d:#0b4a1c;--acc-g:rgba(23,120,50,0.38);--acc-s:rgba(23,120,50,0.10);}
+.th-purp  {--acc:#622eaa;--acc-b:#9258e0;--acc-d:#371560;--acc-g:rgba(98,46,170,0.38);--acc-s:rgba(98,46,170,0.10);}
+.th-blue  {--acc:#1650a0;--acc-b:#3688e8;--acc-d:#0c2e5a;--acc-g:rgba(22,80,160,0.38);--acc-s:rgba(22,80,160,0.10);}
+.swp-wrap,.swp-wrap *{margin:0;padding:0;box-sizing:border-box;}
+.swp-wrap{background:var(--bg0);color:var(--tp);font-family:'Raleway',sans-serif;display:flex;flex-direction:column;align-items:center;overflow-x:hidden;position:relative;padding:20px 0;}
+.swp-wrap::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse at 18% 38%,var(--acc-s) 0%,transparent 52%),radial-gradient(ellipse at 82% 68%,rgba(0,0,0,0.35) 0%,transparent 48%);transition:background .55s;}
+#app{position:relative;z-index:1;width:100%;max-width:1200px;padding:16px 18px;display:flex;flex-direction:column;align-items:center;gap:14px;}
+/* TITLE */
+.tb{text-align:center;padding:4px 0 0;}
+.tb h1{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(2rem,6vw,3.8rem);font-weight:400;
+  background:linear-gradient(135deg,#d8d8d8 0%,var(--acc-b) 40%,var(--acc) 72%,#c8902a 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 14px var(--acc-g));transition:filter .5s;line-height:1.1;}
+.tb .sub{font-family:'Metal Mania',cursive;font-size:clamp(0.6rem,1.4vw,0.82rem);letter-spacing:.1em;color:var(--td);margin-top:5px;
+  background:linear-gradient(90deg,var(--td),var(--ts),var(--td));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+/* CYCLE BUTTONS (theme + glyphs) */
+.cycle-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.cycle-btn{display:flex;align-items:center;gap:7px;padding:5px 14px;background:var(--bg2);border:1px solid var(--br0);border-radius:2px;
+  color:var(--ts);font-family:'Cinzel',serif;font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.cycle-btn:hover{border-color:var(--acc);color:var(--acc-b);}
+.sw{width:9px;height:9px;border-radius:50%;background:var(--acc);box-shadow:0 0 6px var(--acc-g);transition:background .4s,box-shadow .4s;flex-shrink:0;}
+.glyph-preview{font-size:1rem;line-height:1;display:flex;gap:3px;align-items:center;}
+.glyph-preview .gw{color:#f0f0ff;text-shadow:0 0 6px rgba(255,255,255,.7);}
+.glyph-preview .gb{color:#080808;text-shadow:0 0 5px rgba(200,200,200,.8);}
+/* SETUP */
+#setup{display:flex;flex-direction:column;align-items:center;gap:22px;padding:32px 24px;
+  background:var(--bg1);border:1px solid var(--br0);border-radius:3px;width:100%;max-width:520px;
+  box-shadow:0 0 28px var(--acc-g);transition:box-shadow .5s;}
+#setup h2{font-family:'Cinzel',serif;font-size:.88rem;color:var(--ts);letter-spacing:.22em;text-transform:uppercase;}
+.ss{width:100%;display:flex;flex-direction:column;gap:9px;}
+.sl{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.24em;color:var(--td);text-transform:uppercase;text-align:center;}
+.bg{display:flex;gap:8px;justify-content:center;}
+.tog{flex:1;max-width:155px;padding:11px 14px;background:var(--bg2);border:1px solid var(--br0);border-radius:2px;
+  color:var(--ts);font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.07em;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.tog::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--acc-s),transparent);opacity:0;transition:opacity .2s;}
+.tog:hover::before{opacity:1;}.tog:hover{border-color:var(--br1);color:var(--tp);}
+.tog.on{background:var(--bg3);border-color:var(--acc);color:var(--acc-b);box-shadow:0 0 10px var(--acc-g),inset 0 0 14px var(--acc-s);}
+.tog .ic{font-size:1.25rem;display:block;margin-bottom:3px;}
+.opt-row{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg2);border:1px solid var(--br0);border-radius:2px;width:100%;cursor:pointer;}
+.opt-row:hover{border-color:var(--br1);}
+.opt-chk{width:16px;height:16px;border:1px solid var(--br1);border-radius:2px;background:var(--bg0);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.75rem;color:var(--acc-b);}
+.opt-lbl{font-family:'Cinzel',serif;font-size:.72rem;color:var(--ts);letter-spacing:.06em;flex:1;}
+.opt-sub{font-size:.62rem;color:var(--td);}
+.start-btn{width:100%;max-width:265px;padding:13px 34px;
+  background:linear-gradient(135deg,var(--acc-d),var(--acc));border:1px solid var(--acc);border-radius:2px;
+  color:#fff;font-family:'Metal Mania',cursive;font-size:1.05rem;letter-spacing:.1em;cursor:pointer;transition:all .25s;
+  box-shadow:0 4px 18px var(--acc-g);}
+.start-btn:hover{filter:brightness(1.15);box-shadow:0 4px 28px var(--acc-g);transform:translateY(-1px);}
+.start-btn:active{transform:translateY(0);}
+/* GAME */
+#game{display:none;width:100%;flex-direction:column;align-items:center;gap:12px;}
+.gl{display:flex;gap:16px;align-items:flex-start;width:100%;justify-content:center;flex-wrap:wrap;}
+/* STATUS */
+.sbar{width:100%;max-width:860px;display:flex;align-items:center;justify-content:space-between;
+  padding:8px 12px;background:var(--bg1);border:1px solid var(--br0);border-radius:2px;gap:8px;flex-wrap:wrap;}
+.str{font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:.1em;color:var(--ts);}
+.str span{color:var(--acc-b);}
+#smsg{font-size:.78rem;color:var(--gold);font-family:'Cinzel',serif;letter-spacing:.05em;flex:1;text-align:center;min-width:80px;}
+.mreq{font-family:'Cinzel',serif;font-size:.67rem;letter-spacing:.09em;color:var(--td);padding:3px 8px;border:1px solid var(--br0);border-radius:2px;white-space:nowrap;}
+.mreq.mk{color:var(--acc-b);border-color:var(--acc);}
+.mreq.mp{color:var(--grn);border-color:var(--grn);}
+.thi{display:none;align-items:center;gap:5px;font-family:'Cinzel',serif;font-size:.67rem;color:var(--td);letter-spacing:.1em;}
+.thi.on{display:flex;}
+.td2{width:5px;height:5px;border-radius:50%;background:var(--acc);animation:pu 1.2s ease-in-out infinite;}
+.td2:nth-child(2){animation-delay:.2s}.td2:nth-child(3){animation-delay:.4s}
+@keyframes pu{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+/* BOARD */
+.bwrap{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.crow{display:flex;gap:0;padding-left:20px;}
+.cc{width:72px;height:15px;display:flex;align-items:center;justify-content:center;font-size:.57rem;color:var(--td);font-family:'Cinzel',serif;}
+.rw{display:flex;align-items:center;gap:3px;}
+.rl{width:18px;height:72px;display:flex;align-items:center;justify-content:center;font-size:.57rem;color:var(--td);font-family:'Cinzel',serif;}
+#board{display:grid;grid-template-columns:repeat(8,72px);grid-template-rows:repeat(8,72px);border:2px solid var(--br0);
+  box-shadow:0 0 55px rgba(0,0,0,.92),0 0 80px var(--acc-g);transition:box-shadow .5s;}
+.sq{width:72px;height:72px;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;transition:background .1s;user-select:none;}
+.sq.dk{background:var(--sqdk);}.sq.lt{background:var(--sqlt);}
+.sq:hover{background:var(--sqhv);}
+.sq.sel{background:var(--sqsl)!important;}
+.sq.vm{background:var(--vmb)!important;}
+.sq.vm::after{content:'';position:absolute;inset:0;border:2px solid var(--vmbo);pointer-events:none;}
+.sq.vc{background:var(--vcb)!important;}
+.sq.vc::after{content:'';position:absolute;inset:0;border:2px solid var(--vcbo);pointer-events:none;}
+.sq.ck{background:var(--ckb)!important;}
+.sq.tz{background:var(--tzb)!important;}
+.sq.tz::before{content:'';position:absolute;inset:0;border:1px solid var(--tzbo);pointer-events:none;z-index:1;}
+.sq.tz.sel{background:var(--sqsl)!important;}.sq.tz.vm{background:var(--vmb)!important;}
+.sq.tz.vc{background:var(--vcb)!important;}.sq.tz:hover{background:var(--sqhv)!important;}
+/* PIECES */
+.piece{width:64px;height:64px;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;pointer-events:none;}
+.psym{font-size:2.55rem;line-height:1;display:block;}
+.pw .psym{color:#f0f0ff;text-shadow:0 0 8px rgba(255,255,255,.9),0 0 18px rgba(255,255,255,.5),0 2px 5px rgba(0,0,0,.95);}
+.pb .psym{color:#080808;text-shadow:-1px -1px 0 #111,1px -1px 0 #111,-1px 1px 0 #111,1px 1px 0 #111,0 0 6px rgba(200,200,200,.90),0 0 12px rgba(180,180,180,.70),0 0 22px rgba(150,150,150,.45);}
+.kp .psym{font-size:2.75rem;}
+/* SIDEBAR GRID — left col: legend+captured, right col: battle log */
+.sb{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;gap:9px;width:340px;}
+.sb .pan-log{grid-column:2;grid-row:1/4;display:flex;flex-direction:column;}
+.pan{background:var(--bg1);border:1px solid var(--br0);border-radius:2px;padding:10px;}
+.pan-log{background:var(--bg1);border:1px solid var(--br0);border-radius:2px;padding:10px;}
+.pt{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.19em;color:var(--td);text-transform:uppercase;margin-bottom:6px;border-bottom:1px solid var(--br0);padding-bottom:5px;}
+.cl{display:flex;flex-wrap:wrap;gap:3px;min-height:25px;font-size:1.3rem;}
+#mlog{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:2px;max-height:320px;}
+#mlog::-webkit-scrollbar{width:3px}#mlog::-webkit-scrollbar-thumb{background:var(--br1)}
+.le{font-size:.67rem;color:var(--ts);padding:2px 5px;border-left:2px solid var(--br0);font-family:'Raleway',sans-serif;}
+.le.wm{border-color:rgba(200,200,200,.3);}.le.bm{border-color:var(--acc-d);}.le.sp{color:var(--gold);border-color:var(--gold);}
+.le .mc{color:var(--td);font-size:.6rem;margin-right:3px;}
+.li{display:flex;align-items:center;gap:7px;margin-bottom:4px;font-size:.71rem;color:var(--ts);}
+.ls{font-size:1.15rem;width:20px;text-align:center;}
+/* BTNS */
+.gbtns{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
+.gbtn{padding:7px 15px;background:var(--bg2);border:1px solid var(--br0);border-radius:2px;color:var(--ts);font-family:'Cinzel',serif;font-size:.67rem;letter-spacing:.1em;cursor:pointer;transition:all .2s;text-transform:uppercase;}
+.gbtn:hover{border-color:var(--br1);color:var(--tp);}
+.gbtn.d{border-color:rgba(150,25,25,.45);color:#bb3333;}
+.gbtn.d:hover{border-color:#cc3333;background:rgba(150,25,25,.10);}
+/* MODALS */
+.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.mo.on{display:flex;}
+.mb{background:var(--bg1);border:1px solid var(--acc);border-radius:3px;padding:32px;text-align:center;box-shadow:0 0 60px var(--acc-g);max-width:420px;width:92%;}
+.mb h2{font-family:'Metal Mania',cursive;font-size:1.5rem;background:linear-gradient(135deg,#d4d4d4,var(--acc-b));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;}
+.mb p{color:var(--ts);font-size:.85rem;margin-bottom:18px;line-height:1.75;}
+.mb .start-btn{max-width:100%;}
+.pbtn{width:100%;padding:10px;margin:4px 0;background:var(--bg2);border:1px solid var(--br0);border-radius:2px;color:var(--tp);font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.09em;cursor:pointer;transition:all .2s;}
+.pbtn:hover{border-color:var(--acc);color:var(--acc-b);background:var(--bg3);}
+.rb{color:var(--ts);font-size:.78rem;line-height:1.88;max-height:56vh;overflow-y:auto;padding-right:6px;text-align:left;}
+.rb::-webkit-scrollbar{width:3px}.rb::-webkit-scrollbar-thumb{background:var(--br1)}
+.rb strong{color:var(--gold);}
+@media(max-width:720px){
+  #board{grid-template-columns:repeat(8,44px);grid-template-rows:repeat(8,44px);}
+  .sq{width:44px;height:44px;}.piece{width:38px;height:38px;}.psym{font-size:1.55rem;}.kp .psym{font-size:1.75rem;}
+  .cc{width:44px;}.rl{height:44px;}
+  .sb{grid-template-columns:1fr;width:100%;max-width:420px;}
+  .sb .pan-log{grid-column:1;grid-row:auto;}
+  #mlog{max-height:150px;}
+}
+
     </style>
 </head>
 <body>
@@ -468,6 +621,9 @@
                     </li>
 					<li class="nav-item">
                         <a class="nav-link" href="#sbs-solitaire">shade blade sorcery</a>
+                    </li>
+					<li class="nav-item">
+                        <a class="nav-link" href="#warpath">shadow warpath</a>
                     </li>
 					<li class="nav-item">
                         <a class="nav-link" href="#yijing-dice">yijing</a>
@@ -664,7 +820,776 @@
         <div id="scoundrelOutput" class="scoundrel-output"></div>
     </div>
 
-    <hr class="glow animate-breathe" id="yijing-dice">
+<hr class="glow animate-breathe" id="warpath">
+
+
+
+
+	<!-- Shadow Warpath -->
+	<div class="swp-wrap">
+		<div class="container-fluid text-center" id="deathmask">
+			<img src="images/shadedeathmask-303030.png" width="115" height="auto" alt="Shade Deathmask">
+		</div>
+<div id="app">
+<div class="tb">
+  <h1>shadow warpath</h1>
+  <div class="sub">A Chess Game of Swords, Sorcery, Chaos &amp; Dominion</div>
+</div>
+
+<!-- SETUP -->
+<div id="setup">
+  <h2>Choose Your Allegiance</h2>
+  <div class="cycle-row">
+    <button class="cycle-btn" onclick="cycleTheme()">
+      <span class="sw" id="sw"></span><span id="tlbl">Theme: Crimson</span>
+    </button>
+  </div>
+  <div class="ss">
+    <div class="sl">Play As</div>
+    <div class="bg">
+      <button class="tog on" id="btn-white" onclick="selSide('white')"><span class="ic" id="side-w-ic">♔</span>White Forces</button>
+      <button class="tog" id="btn-black" onclick="selSide('black')"><span class="ic" id="side-b-ic">♚</span>Black Forces</button>
+    </div>
+  </div>
+  <div class="ss">
+    <div class="sl">Difficulty</div>
+    <div class="bg">
+      <button class="tog" id="btn-easy" onclick="selDiff('easy')"><span class="ic">🕯</span>Shade</button>
+      <button class="tog on" id="btn-medium" onclick="selDiff('medium')"><span class="ic">🗡</span>Wraith</button>
+      <button class="tog" id="btn-hard" onclick="selDiff('hard')"><span class="ic">☠</span>Lich</button>
+    </div>
+  </div>
+  <div class="ss">
+    <div class="sl">Optional Rules</div>
+    <div class="opt-row" onclick="toggleOpt('wraithWind')" id="opt-wraithWind">
+      <div class="opt-chk" id="chk-wraithWind"></div>
+      <div>
+        <div class="opt-lbl">Wraith Wind Flightpath</div>
+        <div class="opt-sub">King may leap orthogonally over one own Wraith to the square beyond</div>
+      </div>
+    </div>
+  </div>
+  <button class="start-btn" onclick="startGame()">Begin the War</button>
+</div>
+
+<!-- GAME -->
+<div id="game">
+  <div class="sbar">
+    <div class="str">Turn: <span id="tlbl2">White</span></div>
+    <div id="smsg"></div>
+    <div class="mreq mp" id="mreq">Move a Piece</div>
+    <div class="thi" id="thi">
+      <div class="td2"></div><div class="td2"></div><div class="td2"></div>
+      <span>Lich Thinking…</span>
+    </div>
+  </div>
+  <div class="gl">
+    <div class="bwrap">
+      <div class="crow" id="tc"></div>
+      <div id="rw"></div>
+      <div class="crow" id="bc"></div>
+    </div>
+    <!-- SIDEBAR GRID -->
+    <div class="sb">
+      <!-- Left col row 1: Legend -->
+      <div class="pan">
+        <div class="pt">Legend</div>
+        <div class="li"><span class="ls" id="leg-K-w"></span><span id="leg-K-lbl">Lich King</span></div>
+        <div class="li"><span class="ls" id="leg-T-w"></span><span>Spire (Fixed)</span></div>
+        <div class="li"><span class="ls" id="leg-W-w"></span><span>Wraith</span></div>
+        <div class="li"><span class="ls" id="leg-S-w"></span><span>Shadow</span></div>
+      </div>
+      <!-- Left col row 2: Captured White -->
+      <div class="pan"><div class="pt">Captured — White</div><div class="cl" id="cw"></div></div>
+      <!-- Left col row 3: Captured Black -->
+      <div class="pan"><div class="pt">Captured — Black</div><div class="cl" id="cb"></div></div>
+      <!-- Right col rows 1-3: Battle Log (spans all 3 rows) -->
+      <div class="pan pan-log">
+        <div class="pt">Battle Log</div>
+        <div id="mlog"></div>
+      </div>
+    </div>
+  </div>
+  <div class="gbtns">
+    <button class="gbtn" onclick="showR()">⚔ Codex</button>
+    <button class="gbtn d" onclick="toMenu()">✕ Abandon</button>
+  </div>
+</div>
+</div>
+
+<!-- GAME OVER -->
+<div class="mo" id="go-mo"><div class="mb">
+  <h2 id="go-t">Victory!</h2><p id="go-m"></p>
+  <button class="start-btn" onclick="toMenu()">Return to Shadows</button>
+</div></div>
+
+<!-- PROMOTION -->
+<div class="mo" id="pr-mo"><div class="mb" style="max-width:320px">
+  <h2>Shadow Ascension</h2>
+  <p>A Shadow reached the enemy back rank.<br>Ascend to a Wraith?</p>
+  <button class="pbtn" id="pr-yes">⚔ Ascend to Wraith</button>
+  <button class="pbtn" id="pr-no" style="color:var(--ts)">✕ Remain a Shadow</button>
+</div></div>
+
+<!-- RULES -->
+<div class="mo" id="ru-mo"><div class="mb" style="max-width:560px;text-align:left">
+  <h2 style="text-align:center;margin-bottom:12px">War Codex</h2>
+  <div class="rb" id="rules-text"></div><br>
+  <button class="start-btn" onclick="closeR()" style="max-width:100%">Close</button>
+</div></div>
+	</div>
+
+	<script>
+'use strict';
+
+// ─── RULES TEXT ───────────────────────────────────────────────────
+const RULES_HTML = `
+<p><strong>Goal:</strong> Move your Lich King into any of the 5 Throne Zone squares surrounding the enemy Shadow Spire, OR have your Wraith capture the enemy Lich King.</p><br>
+<p><strong>Turn Order:</strong> White moves first. Both players begin on a "Piece turn." After moving a non-King piece your turn flips to "King turn," and vice versa. Each player's phase is independent. If you have no legal moves on your required turn, you lose (stalemate).</p><br>
+<p><strong>♔ Lich King of Chaos</strong><br>
+• Moves and attacks 1 square in any direction (orthogonal or diagonal).<br>
+• Captures any enemy Shadow or Wraith it can legally reach. Cannot capture the Spire or the enemy King.<br>
+• Cannot step onto any square attacked by an enemy Shadow or Wraith.<br>
+• Cannot enter a Throne Zone square that is defended by an enemy piece.<br>
+• Kings may move freely adjacent to each other — neither threatens nor captures the other.<br>
+<em>Optional (Wraith Wind Flightpath):</em> King may leap orthogonally over one own Wraith to the square beyond.</p><br>
+<p><strong>♖ Shadow Spire Palace</strong><br>
+• Never moves. Its 5 surrounding squares form the Throne Zone (highlighted red).<br>
+• Move your Lich King into any undefended Throne Zone square to win.</p><br>
+<p><strong>♘ Wraith</strong><br>
+• Moves in an L-shape (2+1 squares, any orientation), leaping over all pieces.<br>
+• The ONLY piece that can capture the enemy Lich King — doing so wins the game.<br>
+• Also captures enemy Shadows and Wraiths.<br>
+• Can be captured by any single enemy piece (Shadow, Wraith, or King).</p><br>
+<p><strong>♙ Shadow</strong><br>
+• <em>Restricted phase:</em> While either corner Shadow (a1 or h1 for White; a8 or h8 for Black) occupies the back rank — all Shadows move forward 1 square only.<br>
+• <em>Free phase:</em> Once both corner Shadows have left the back rank — Shadows move orthogonally 1 square in any direction. Reverts to restricted if any Shadow re-enters the back rank.<br>
+• <em>Blade paths:</em> Shadows always attack forward diagonals only (1 square each direction), regardless of phase.<br>
+• Captures enemy Shadows and Wraiths only. Cannot capture the King or Spire.<br>
+• A Shadow whose blade path reaches the enemy King's square puts the King in check — the King must move.<br>
+• <em>Shadow Ascension:</em> A Shadow reaching the enemy back rank may promote to a Wraith — only if you have 1 or fewer Wraiths remaining.</p>
+`;
+
+// ─── PIECE GLYPHS — Ornate set ────────────────────────────────────
+// wK  wT  wW  wS  bK  bT  bW  bS
+const ORNATE = ['♕','♖','♘','♙','♛','♜','♞','♟'];
+let PD = {};
+function buildPD() {
+  const g = ORNATE;
+  PD = {
+    wK:{sym:g[0],cls:'pw',kp:true},  bK:{sym:g[4],cls:'pb',kp:true},
+    wT:{sym:g[1],cls:'pw',kp:false}, bT:{sym:g[5],cls:'pb',kp:false},
+    wW:{sym:g[2],cls:'pw',kp:false}, bW:{sym:g[6],cls:'pb',kp:false},
+    wS:{sym:g[3],cls:'pw',kp:false}, bS:{sym:g[7],cls:'pb',kp:false},
+  };
+  // Update legend icons
+  ['K','T','W','S'].forEach((id,i)=>{
+    const el=document.getElementById('leg-'+id+'-w');
+    if(el)el.textContent=PD[['wK','wT','wW','wS'][i]].sym;
+  });
+  // Update side-select button icons
+  const sw=document.getElementById('side-w-ic');
+  const sb=document.getElementById('side-b-ic');
+  if(sw)sw.textContent=PD.wK.sym;
+  if(sb)sb.textContent=PD.bK.sym;
+}
+
+// ─── THEME ────────────────────────────────────────────────────────
+const THEMES=[
+  {cls:null,    lbl:'Crimson',  hex:'#cc2222'},
+  {cls:'th-gold', lbl:'Gold',    hex:'#b07c08'},
+  {cls:'th-green',lbl:'Emerald', hex:'#177832'},
+  {cls:'th-purp', lbl:'Amethyst',hex:'#622eaa'},
+  {cls:'th-blue', lbl:'Azure',   hex:'#1650a0'},
+];
+let thIdx=0;
+function applyTheme(i){
+  THEMES.forEach(t=>{if(t.cls)document.body.classList.remove(t.cls);});
+  const t=THEMES[i];
+  if(t.cls)document.body.classList.add(t.cls);
+  document.getElementById('tlbl').textContent='Theme: '+t.lbl;
+  document.getElementById('sw').style.cssText='background:'+t.hex+';box-shadow:0 0 6px '+t.hex+'88';
+}
+function cycleTheme(){thIdx=(thIdx+1)%THEMES.length;applyTheme(thIdx);}
+
+// ─── OPTIONAL RULES ───────────────────────────────────────────────
+const OPTS={wraithWind:false};
+function toggleOpt(k){
+  OPTS[k]=!OPTS[k];
+  document.getElementById('chk-'+k).textContent=OPTS[k]?'✓':'';
+  document.getElementById('opt-'+k).style.borderColor=OPTS[k]?'var(--acc)':'var(--br0)';
+}
+
+// ─── CONSTANTS ────────────────────────────────────────────────────
+const FILES=['a','b','c','d','e','f','g','h'];
+const PN={K:'Lich King',T:'Spire',W:'Wraith',S:'Shadow'};
+
+// ─── COORD HELPERS ────────────────────────────────────────────────
+function sq(c,r){return FILES[c]+r;}
+function parse(s){return[FILES.indexOf(s[0]),parseInt(s[1])];}
+function ob(c,r){return c>=0&&c<=7&&r>=1&&r<=8;}
+
+// ─── GAME STATE ───────────────────────────────────────────────────
+let G={};
+let moveCounter=0; // global half-move counter
+
+function initState(side,diff){
+  const board={};
+  [
+    ['e1','wK'],['d1','wT'],['c1','wW'],['f1','wW'],
+    ['a1','wS'],['h1','wS'],['b2','wS'],['g2','wS'],
+    ['c3','wS'],['d3','wS'],['e3','wS'],['f3','wS'],
+    ['d8','bK'],['e8','bT'],['c8','bW'],['f8','bW'],
+    ['a8','bS'],['h8','bS'],['b7','bS'],['g7','bS'],
+    ['c6','bS'],['d6','bS'],['e6','bS'],['f6','bS'],
+  ].forEach(([s,p])=>board[s]=p);
+  moveCounter=0;
+  return{
+    board, turn:'w',
+    wPhase:'piece', bPhase:'piece',
+    side, diff,
+    selected:null, validMoves:[],
+    capW:[], capB:[],
+    gameOver:false, pendingPromo:null,
+    opts:{...OPTS},
+  };
+}
+// ─── PHASE HELPERS ────────────────────────────────────────────────
+function getPhase(g,c){return c==='w'?g.wPhase:g.bPhase;}
+function flipPhase(g,c){
+  if(c==='w')g.wPhase=g.wPhase==='piece'?'king':'piece';
+  else g.bPhase=g.bPhase==='piece'?'king':'piece';
+}
+
+// Does this player still have any non-King, non-Spire pieces on the board?
+function hasNonKingPieces(board,color){
+  return Object.values(board).some(p=>p&&p[0]===color&&p[1]!=='K'&&p[1]!=='T');
+}
+
+// Effective phase: if player has no Shadows or Wraiths left, they may always move their King
+// (phase alternation is suspended — King moves every turn)
+function effectivePhase(state,color){
+  if(!hasNonKingPieces(state.board,color))return'king';
+  return getPhase(state,color);
+}
+
+// ─── SHADOW MOBILITY ─────────────────────────────────────────────
+function shadowRestricted(board,color){
+  const corners=color==='w'?['a1','h1']:['a8','h8'];
+  return corners.some(s=>board[s]===color+'S');
+}
+
+// ─── THRONE ZONE ─────────────────────────────────────────────────
+function throneZone(board,spireColor){
+  const e=Object.entries(board).find(([,p])=>p===spireColor+'T');
+  if(!e)return[];
+  const[cc,cr]=parse(e[0]);
+  const z=[];
+  for(let dc=-1;dc<=1;dc++)for(let dr=-1;dr<=1;dr++){
+    if(dc===0&&dr===0)continue;
+    if(ob(cc+dc,cr+dr))z.push(sq(cc+dc,cr+dr));
+  }
+  return z;
+}
+function findKing(board,color){
+  const e=Object.entries(board).find(([,p])=>p===color+'K');
+  return e?e[0]:null;
+}
+
+// ─── ATTACK MAPS ─────────────────────────────────────────────────
+function allAttacked(board,color){
+  const set=new Set();
+  for(const[s,p]of Object.entries(board)){
+    if(!p||p[0]!==color)continue;
+    const[fc,fr]=parse(s),t=p[1];
+    if(t==='K'){
+      for(let dc=-1;dc<=1;dc++)for(let dr=-1;dr<=1;dr++){
+        if(dc===0&&dr===0)continue;
+        if(ob(fc+dc,fr+dr))set.add(sq(fc+dc,fr+dr));
+      }
+    }else if(t==='W'){
+      [[2,1],[2,-1],[-2,1],[-2,-1],[1,2],[1,-2],[-1,2],[-1,-2]]
+        .forEach(([dc,dr])=>{if(ob(fc+dc,fr+dr))set.add(sq(fc+dc,fr+dr));});
+    }else if(t==='S'){
+      const fwd=color==='w'?1:-1;
+      [[-1,fwd],[1,fwd]].forEach(([dc,dr])=>{if(ob(fc+dc,fr+dr))set.add(sq(fc+dc,fr+dr));});
+    }
+  }
+  return set;
+}
+
+// Only Shadows+Wraiths threaten the King (not the enemy King)
+function allAttackedByPieces(board,color){
+  const set=new Set();
+  for(const[s,p]of Object.entries(board)){
+    if(!p||p[0]!==color||p[1]==='K'||p[1]==='T')continue;
+    const[fc,fr]=parse(s),t=p[1];
+    if(t==='W'){
+      [[2,1],[2,-1],[-2,1],[-2,-1],[1,2],[1,-2],[-1,2],[-1,-2]]
+        .forEach(([dc,dr])=>{if(ob(fc+dc,fr+dr))set.add(sq(fc+dc,fr+dr));});
+    }else if(t==='S'){
+      const fwd=color==='w'?1:-1;
+      [[-1,fwd],[1,fwd]].forEach(([dc,dr])=>{if(ob(fc+dc,fr+dr))set.add(sq(fc+dc,fr+dr));});
+    }
+  }
+  return set;
+}
+
+function isInCheck(board,color){
+  const k=findKing(board,color);
+  if(!k)return false;
+  return allAttacked(board,color==='w'?'b':'w').has(k);
+}
+
+function isDefended(board,square,byColor){
+  return allAttackedByPieces(board,byColor).has(square);
+}
+
+// ─── LEGAL MOVES ─────────────────────────────────────────────────
+function legalMoves(state,from){
+  const{board}=state;
+  const piece=board[from];
+  if(!piece)return[];
+  const color=piece[0],type=piece[1],opp=color==='w'?'b':'w';
+  const[fc,fr]=parse(from);
+  let moves=[];
+
+  if(type==='T')return[];
+
+  if(type==='K'){
+    const oppAtk=allAttackedByPieces(board,opp);
+    for(let dc=-1;dc<=1;dc++)for(let dr=-1;dr<=1;dr++){
+      if(dc===0&&dr===0)continue;
+      const nc=fc+dc,nr=fr+dr;
+      if(!ob(nc,nr))continue;
+      const ns=sq(nc,nr),target=board[ns];
+      if(target&&target[0]===color)continue;
+      if(target&&target[1]==='T')continue;
+      if(target&&target[1]==='K')continue;  // kings don't capture each other
+      if(oppAtk.has(ns))continue;
+      if(throneZone(board,opp).includes(ns)&&isDefended(board,ns,opp))continue;
+      moves.push(ns);
+    }
+    // Optional: Wraith Wind Flightpath — leap orthogonally over own Wraith
+    if(state.opts&&state.opts.wraithWind){
+      [[0,1],[0,-1],[1,0],[-1,0]].forEach(([dc,dr])=>{
+        const mc=fc+dc,mr=fr+dr;
+        if(!ob(mc,mr))return;
+        if(board[sq(mc,mr)]!==color+'W')return;
+        const lc=fc+2*dc,lr=fr+2*dr;
+        if(!ob(lc,lr))return;
+        const ls=sq(lc,lr),ltgt=board[ls];
+        if(ltgt&&ltgt[0]===color)return;
+        if(ltgt&&ltgt[1]==='T')return;
+        if(ltgt&&ltgt[1]==='K')return;
+        if(oppAtk.has(ls))return;
+        if(throneZone(board,opp).includes(ls)&&isDefended(board,ls,opp))return;
+        moves.push(ls);
+      });
+    }
+  }
+
+  if(type==='W'){
+    [[2,1],[2,-1],[-2,1],[-2,-1],[1,2],[1,-2],[-1,2],[-1,-2]].forEach(([dc,dr])=>{
+      const nc=fc+dc,nr=fr+dr;
+      if(!ob(nc,nr))return;
+      const target=board[sq(nc,nr)];
+      if(target&&target[0]===color)return;
+      if(target&&target[1]==='T')return;
+      // Wraith CAN capture the enemy King — that's a win condition
+      moves.push(sq(nc,nr));
+    });
+  }
+
+  if(type==='S'){
+    const restricted=shadowRestricted(board,color);
+    if(restricted){
+      const fwd=color==='w'?1:-1,ns=sq(fc,fr+fwd);
+      if(ob(fc,fr+fwd)&&!board[ns])moves.push(ns);
+    }else{
+      [[0,1],[0,-1],[1,0],[-1,0]].forEach(([dc,dr])=>{
+        const ns=sq(fc+dc,fr+dr);
+        if(ob(fc+dc,fr+dr)&&!board[ns])moves.push(ns);
+      });
+    }
+    // Diagonal captures — Shadows/Wraiths only, not King/Spire
+    const fwdDir=color==='w'?1:-1;
+    [[-1,fwdDir],[1,fwdDir]].forEach(([dc,dr])=>{
+      const nc=fc+dc,nr=fr+dr;
+      if(!ob(nc,nr))return;
+      const target=board[sq(nc,nr)];
+      if(!target||target[0]!==opp)return;
+      if(target[1]==='T'||target[1]==='K')return;
+      moves.push(sq(nc,nr));
+    });
+  }
+
+  // Filter: must not leave own King in check
+  return moves.filter(to=>{
+    const nb={...board};
+    nb[to]=nb[from];delete nb[from];
+    return!isInCheck(nb,color);
+  });
+}
+
+// ─── STALEMATE CHECK ─────────────────────────────────────────────
+// Returns true if the current player has NO legal moves on their required phase
+// A player is stalemated only if they have NO legal moves across BOTH phases.
+// Being stuck on the current phase (e.g. piece turn with no piece moves) is NOT
+// stalemate if the King has escape moves available on the next (King) turn.
+function isStalemate(state){
+  const color=state.turn;
+
+  // If player has no non-King pieces, they only ever move their King — check that alone
+  if(!hasNonKingPieces(state.board,color)){
+    return!Object.entries(state.board).some(([s,p])=>
+      p===color+'K'&&legalMoves(state,s).length>0
+    );
+  }
+
+  // Otherwise check whether ANY move exists across EITHER phase
+  // Piece phase: can any non-King piece move?
+  const hasPieceMove=Object.entries(state.board).some(([s,p])=>{
+    if(!p||p[0]!==color||p[1]==='K'||p[1]==='T')return false;
+    return legalMoves(state,s).length>0;
+  });
+
+  // King phase: can the King move?
+  const kSq=findKing(state.board,color);
+  const hasKingMove=kSq&&legalMoves(state,kSq).length>0;
+
+  // Stalemate only if BOTH are impossible
+  return!hasPieceMove&&!hasKingMove;
+}
+
+// ─── SETUP UI ─────────────────────────────────────────────────────
+let setupSide='white',setupDiff='medium';
+function selSide(s){
+  setupSide=s;
+  document.getElementById('btn-white').classList.toggle('on',s==='white');
+  document.getElementById('btn-black').classList.toggle('on',s==='black');
+}
+function selDiff(d){
+  setupDiff=d;
+  ['easy','medium','hard'].forEach(x=>document.getElementById('btn-'+x).classList.remove('on'));
+  document.getElementById('btn-'+d).classList.add('on');
+}
+function startGame(){
+  G=initState(setupSide,setupDiff);
+  document.getElementById('setup').style.display='none';
+  document.getElementById('game').style.display='flex';
+  buildBoard();
+  setStatus('');
+  renderAll();
+  if(G.side==='black')setTimeout(doAI,600);
+}
+function toMenu(){
+  document.getElementById('go-mo').classList.remove('on');
+  document.getElementById('game').style.display='none';
+  document.getElementById('setup').style.display='flex';
+}
+function showR(){
+  document.getElementById('rules-text').innerHTML=RULES_HTML;
+  document.getElementById('ru-mo').classList.add('on');
+}
+function closeR(){document.getElementById('ru-mo').classList.remove('on');}
+
+// ─── BOARD BUILD ─────────────────────────────────────────────────
+function buildBoard(){
+  const wrap=document.getElementById('rw');
+  wrap.innerHTML='';
+  document.getElementById('tc').innerHTML='';
+  document.getElementById('bc').innerHTML='';
+  const flip=G.side==='black';
+  const cols=flip?[...FILES].reverse():[...FILES];
+  const rows=flip?[1,2,3,4,5,6,7,8]:[8,7,6,5,4,3,2,1];
+  cols.forEach(f=>{
+    ['tc','bc'].forEach(id=>{const el=document.createElement('div');el.className='cc';el.textContent=f;document.getElementById(id).appendChild(el);});
+  });
+  rows.forEach(r=>{
+    const rw=document.createElement('div');rw.className='rw';
+    const rl=document.createElement('div');rl.className='rl';rl.textContent=r;rw.appendChild(rl);
+    cols.forEach(f=>{
+      const s=f+r,ci=FILES.indexOf(f);
+      const cell=document.createElement('div');
+      cell.className='sq '+((ci+r)%2===1?'dk':'lt');
+      cell.id='sq-'+s;
+      cell.onclick=()=>handleClick(s);
+      rw.appendChild(cell);
+    });
+    const rr=document.createElement('div');rr.className='rl';rr.textContent=r;rw.appendChild(rr);
+    wrap.appendChild(rw);
+  });
+}
+
+function renderAll(){
+  document.querySelectorAll('.sq').forEach(el=>{
+    el.innerHTML='';
+    el.className=el.className.replace(/\s*(sel|vm|vc|ck|tz)\s*/g,' ').trim();
+  });
+  ['w','b'].forEach(c=>throneZone(G.board,c).forEach(s=>document.getElementById('sq-'+s)?.classList.add('tz')));
+  for(const[s,p]of Object.entries(G.board)){
+    const el=document.getElementById('sq-'+s);
+    if(!el||!p)continue;
+    const pd=PD[p];if(!pd)continue;
+    const pe=document.createElement('div');
+    pe.className='piece '+pd.cls+(pd.kp?' kp':'');
+    const sym=document.createElement('span');sym.className='psym';sym.textContent=pd.sym;
+    pe.appendChild(sym);el.appendChild(pe);
+  }
+  const kSq=findKing(G.board,G.turn);
+  if(kSq&&isInCheck(G.board,G.turn))document.getElementById('sq-'+kSq)?.classList.add('ck');
+  if(G.selected){
+    document.getElementById('sq-'+G.selected)?.classList.add('sel');
+    G.validMoves.forEach(s=>{
+      const el=document.getElementById('sq-'+s);
+      if(!el)return;
+      el.classList.add(G.board[s]?'vc':'vm');
+    });
+  }
+  document.getElementById('tlbl2').textContent=G.turn==='w'?'White':'Black';
+  const phase=effectivePhase(G,G.turn);
+  const req=document.getElementById('mreq');
+  if(phase==='king'){req.textContent='Move the Lich King';req.className='mreq mk';}
+  else{req.textContent='Move a Piece';req.className='mreq mp';}
+  document.getElementById('cw').innerHTML=G.capW.map(p=>`<span>${PD[p]?.sym||'?'}</span>`).join('');
+  document.getElementById('cb').innerHTML=G.capB.map(p=>`<span>${PD[p]?.sym||'?'}</span>`).join('');
+}
+
+function setStatus(m,c){
+  const el=document.getElementById('smsg');
+  el.textContent=m||'';el.style.color=c||'var(--gold)';
+}
+function addLog(txt,sp){
+  moveCounter++;
+  const el=document.createElement('div');
+  el.className='le '+(G.turn==='w'?'wm':'bm')+(sp?' sp':'');
+  el.innerHTML=`<span class="mc">#${moveCounter}</span>${txt}`;
+  const log=document.getElementById('mlog');log.appendChild(el);log.scrollTop=log.scrollHeight;
+}
+
+// ─── PLAYER INPUT ─────────────────────────────────────────────────
+function handleClick(s){
+  if(G.gameOver||G.pendingPromo)return;
+  const isP=(G.turn==='w'&&G.side==='white')||(G.turn==='b'&&G.side==='black');
+  if(!isP)return;
+  const piece=G.board[s];
+  if(G.selected){
+    if(G.validMoves.includes(s)){execMove(G.selected,s);return;}
+    G.selected=null;G.validMoves=[];renderAll();
+    if(!piece||piece[0]!==G.turn)return;
+  }
+  if(!piece||piece[0]!==G.turn)return;
+  const isK=piece[1]==='K',isSp=piece[1]==='T';
+  const phase=effectivePhase(G,G.turn);
+  if(isSp){setStatus('The Spire cannot move.');return;}
+  if(phase==='king'&&!isK){setStatus('Move your Lich King this turn!');return;}
+  if(phase==='piece'&&isK){setStatus('Move a non-King piece this turn!');return;}
+  const mv=legalMoves(G,s);
+  if(!mv.length){setStatus('No legal moves for this piece.');return;}
+  G.selected=s;G.validMoves=mv;setStatus('');renderAll();
+}
+
+// ─── EXECUTE MOVE ─────────────────────────────────────────────────
+function execMove(from,to){
+  const piece=G.board[from],captured=G.board[to];
+  const color=piece[0],opp=color==='w'?'b':'w',type=piece[1];
+  if(captured)(color==='w'?G.capW:G.capB).push(captured);
+  G.board[to]=piece;delete G.board[from];
+  addLog(`${color==='w'?'☐':'■'} ${PN[type]}: ${from}→${to}${captured?' ×'+PN[captured[1]]:''}`);
+  // Win: Wraith captures King
+  if(captured&&captured[1]==='K'){G.gameOver=true;G.selected=null;G.validMoves=[];renderAll();endGame(color,'capture');return;}
+  // Win: King enters throne zone
+  if(type==='K'&&throneZone(G.board,opp).includes(to)){G.gameOver=true;G.selected=null;G.validMoves=[];renderAll();endGame(color,'throne');return;}
+  // Shadow Ascension
+  if(type==='S'){
+    const br=color==='w'?8:1;
+    if(parseInt(to[1])===br){
+      const wc=Object.values(G.board).filter(p=>p===color+'W').length;
+      if(wc<=1){
+        if(hasNonKingPieces(G.board,color))flipPhase(G,color);
+        G.turn=opp;G.selected=null;G.validMoves=[];
+        G.pendingPromo={sq:to,color};renderAll();openPromo(color);return;
+      }
+    }
+  }
+  finishTurn(color,opp);
+}
+
+function finishTurn(color,opp){
+  // Only flip phase if this player still has non-King pieces to alternate with
+  if(hasNonKingPieces(G.board,color))flipPhase(G,color);
+  G.turn=opp;
+  G.selected=null;G.validMoves=[];
+
+  // Check for stalemate BEFORE announcing check
+  if(isStalemate(G)){
+    G.gameOver=true;
+    renderAll();
+    // The player who just moved wins — opponent has no moves
+    endGame(color,'stalemate');
+    return;
+  }
+
+  if(isInCheck(G.board,opp)){
+    setStatus(`${opp==='w'?'White':'Black'} Lich King — CHECK!`,'var(--acc-b)');
+    addLog('⚠ CHECK!',true);
+  }else{setStatus('');}
+  renderAll();scheduleAI();
+}
+
+function scheduleAI(){
+  if(G.gameOver||G.pendingPromo)return;
+  const isAI=(G.turn==='w'&&G.side==='black')||(G.turn==='b'&&G.side==='white');
+  if(!isAI)return;
+  document.getElementById('thi').classList.add('on');
+  const d=G.diff==='easy'?380:G.diff==='medium'?700:1100;
+  setTimeout(()=>{document.getElementById('thi').classList.remove('on');doAI();},d);
+}
+
+// ─── PROMOTION ───────────────────────────────────────────────────
+function openPromo(color){
+  const isP=(color==='w'&&G.side==='white')||(color==='b'&&G.side==='black');
+  if(isP){
+    document.getElementById('pr-mo').classList.add('on');
+    document.getElementById('pr-yes').onclick=()=>resolvePromo(true);
+    document.getElementById('pr-no').onclick=()=>resolvePromo(false);
+  }else{resolvePromo(G.diff!=='easy'||Math.random()>.3);}
+}
+function resolvePromo(promote){
+  document.getElementById('pr-mo').classList.remove('on');
+  if(!G.pendingPromo)return;
+  const{sq:pSq,color}=G.pendingPromo;
+  if(promote){G.board[pSq]=color+'W';addLog('✦ Shadow Ascends at '+pSq+'!',true);}
+  G.pendingPromo=null;renderAll();scheduleAI();
+}
+
+// ─── GAME OVER ───────────────────────────────────────────────────
+function endGame(winner,reason){
+  G.gameOver=true;
+  const wn=winner==='w'?'White':'Black';
+  const loser=winner==='w'?'Black':'White';
+  const isP=(winner==='w'&&G.side==='white')||(winner==='b'&&G.side==='black');
+  document.getElementById('go-t').textContent=isP?'⚔ Victory! ⚔':'☠ Defeat ☠';
+  const msgs={
+    throne:`${wn}'s Lich King seized the Throne Zone!`,
+    capture:`${wn}'s Wraith consumed the enemy Lich King!`,
+    stalemate:`${loser} has no legal moves — ${wn} wins by stalemate!`,
+  };
+  document.getElementById('go-m').textContent=msgs[reason]||'';
+  document.getElementById('go-mo').classList.add('on');
+  addLog(`🏆 ${wn} wins — ${reason}!`,true);
+}
+
+// ─── AI ENGINE ───────────────────────────────────────────────────
+function doAI(){
+  if(G.gameOver||G.pendingPromo)return;
+  const color=G.turn;
+  const move=getBest(G,color);
+  if(!move){
+    // AI has no moves — human wins
+    endGame(G.side==='white'?'w':'b','stalemate');
+    return;
+  }
+  execMove(move.from,move.to);
+}
+
+function allMoves(state,color){
+  const phase=effectivePhase(state,color);
+  const mv=[];
+  for(const[s,p]of Object.entries(state.board)){
+    if(!p||p[0]!==color||p[1]==='T')continue;
+    if(phase==='king'&&p[1]!=='K')continue;
+    if(phase==='piece'&&p[1]==='K')continue;
+    legalMoves(state,s).forEach(to=>mv.push({from:s,to}));
+  }
+  return mv;
+}
+
+function evalB(board,color){
+  const opp=color==='w'?'b':'w';
+  const V={K:9000,T:0,W:60,S:18};
+  let sc=0;
+  for(const[,p]of Object.entries(board)){if(!p)continue;sc+=p[0]===color?(V[p[1]]||0):-(V[p[1]]||0);}
+  const k=findKing(board,color);
+  const te=Object.entries(board).find(([,p])=>p===opp+'T');
+  if(k&&te){
+    const[kc,kr]=parse(k),[tc,tr]=parse(te[0]);
+    const d=Math.max(Math.abs(kc-tc),Math.abs(kr-tr));
+    sc+=(8-d)*9;
+    if(throneZone(board,opp).includes(k))sc+=700;
+  }
+  if(isInCheck(board,color))sc-=90;
+  if(isInCheck(board,opp))sc+=45;
+  for(const[s,p]of Object.entries(board)){
+    if(p!==color+'S')continue;
+    const[,r]=parse(s);sc+=color==='w'?(r-1)*2:(8-r)*2;
+  }
+  return sc;
+}
+
+function cloneG(state){return{...state,board:{...state.board},opts:{...state.opts}};}
+
+function applyM(state,from,to){
+  const ns=cloneG(state);
+  const piece=ns.board[from],color=piece[0],opp=color==='w'?'b':'w';
+  ns.board[to]=piece;delete ns.board[from];
+  if(hasNonKingPieces(ns.board,color))flipPhase(ns,color);
+  ns.turn=opp;
+  if(piece[1]==='S'){
+    const br=color==='w'?8:1;
+    if(parseInt(to[1])===br){
+      const wc=Object.values(ns.board).filter(p=>p===color+'W').length;
+      if(wc<=1)ns.board[to]=color+'W';
+    }
+  }
+  return ns;
+}
+
+function minimax(state,depth,alpha,beta,maxing,aiCol){
+  if(!findKing(state.board,'w')||!findKing(state.board,'b')){
+    const wa=!!findKing(state.board,'w');
+    return{score:(wa?'w':'b')===aiCol?100000:-100000};
+  }
+  for(const c of['w','b']){
+    const opp=c==='w'?'b':'w',k=findKing(state.board,c);
+    if(k&&throneZone(state.board,opp).includes(k))return{score:c===aiCol?100000:-100000};
+  }
+  if(depth===0)return{score:evalB(state.board,aiCol)};
+  const mv=allMoves(state,state.turn);
+  if(!mv.length)return{score:maxing?-50000:50000};
+  let best={score:maxing?-Infinity:Infinity};
+  for(const m of mv){
+    const ns=applyM(state,m.from,m.to);
+    const res=minimax(ns,depth-1,alpha,beta,!maxing,aiCol);
+    if(maxing?res.score>best.score:res.score<best.score)best={score:res.score,from:m.from,to:m.to};
+    if(maxing)alpha=Math.max(alpha,best.score);else beta=Math.min(beta,best.score);
+    if(beta<=alpha)break;
+  }
+  return best;
+}
+
+function getBest(state,color){
+  const mv=allMoves(state,color);
+  if(!mv.length)return null;
+  if(state.diff==='easy'){
+    const caps=mv.filter(m=>state.board[m.to]);
+    if(caps.length&&Math.random()<.65)return caps[Math.floor(Math.random()*caps.length)];
+    return mv[Math.floor(Math.random()*mv.length)];
+  }
+  const depth=state.diff==='medium'?2:3;
+  const res=minimax(state,depth,-Infinity,Infinity,true,color);
+  return res.from?res:mv[0];
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────
+document.getElementById('game').style.display='none';
+applyTheme(0);
+buildPD();
+	</script>
+
+	<hr class="glow animate-breathe" id="yijing-dice">
+
 	
 	
 	
@@ -1019,7 +1944,12 @@ $(document).ready(function() {
                 this.current_team = this.away_team;
             }
             logDegreeStart() {
-                let startText = "The Trial of the Body now begins… You have no foundation without a strong, supple, resilient body. Raise your hood, unsheath your blade, FOCUS, MOVE, and STRIKE forth. Pain is both inevitable and necessary. Suffering is endless opportunity. Embrace it, endure it, be purified and hardened by it - and perpetually prove your might. Memento mori ut memineris vivere... INCIPIT CHAOS!";
+                const degreeIntros = {
+                    1: "The Trial of the Body now begins… You have no foundation without a strong, supple, resilient body. Raise your hood, unsheath your blade, FOCUS, MOVE, and STRIKE forth. Pain is both inevitable and necessary. Suffering is endless opportunity. Embrace it, endure it, be purified and hardened by it - and perpetually prove your might. Memento mori ut memineris vivere... INCIPIT CHAOS!",
+                    2: "The Tribunal of the Mind now begins… No blade holds a true edge without a mind honed sharp enough to wield it. Clear your thoughts, narrow your focus, DISCERN, ADAPT, and OUTLAST. Confusion is both inevitable and necessary. Doubt is endless opportunity. Embrace it, endure it, be clarified and sharpened by it - and perpetually prove your cunning. Memento mori ut memineris vivere... INCIPIT CHAOS!",
+                    3: "The Ritual of the Spirit now begins… Body and mind alone cannot carry you past the final veil; only spirit completes the Triumvirate. Surrender your remaining pride, unshroud your grey-blooded essence, TRANSCEND, ENDURE, and ASCEND. Isolation is both inevitable and necessary. Solitude is endless opportunity. Embrace it, endure it, be hollowed and remade by it - and perpetually prove your will. Memento mori ut memineris vivere... INCIPIT CHAOS!"
+                };
+                let startText = degreeIntros[this.degree] || degreeIntros[3];
                 this.gameLog.push(`<hr class="glow-box animate-breathe">`);
                 this.gameLog.push(startText);
                 this.gameLog.push(`<hr class="glow-box animate-breathe">`);
@@ -1464,7 +2394,7 @@ function getArchetype(d, sameColor, suit1) {
     if (d === 9) return sameColor ? "The Two Paths" : "Equilibrium";
     if (d === 10) return sameColor ? "The Universe" : "The Æon Portal";
     if (d === 11) return sameColor ? "Bloodlust & Fortitude" : "Fate";
-    if (d === 12) return sameColor ? "The Shadow" : "The Underworld";
+    if (d === 12) return sameColor ? "The Shadow" : "Pain Embraced";
     return "The Fool";
 }
 
@@ -1552,40 +2482,153 @@ function minorMeaning(card) {
     return "(no specific meaning defined)";
 }
 
-// INTERPRET
-function interpret(archetype) {
-    const meanings = {
-        "The Black Sun": "(clarity, vitality, truth, gnosis) Illumination reveals what is real without distortion. You are aligned with your higher nature and operating without internal resistance.",
-        "The Two Paths": "(opportunity, strategy, duality, union, choice, alignment) A defining choice must be made between paths or values. True union requires conscious alignment, not passive desire.",
-        "The Magus": "(will, focus, intent, spellcraft, transformation, transcendence) Your ability to shape reality is active. Direct your attention with precision or risk scattering your power.",
-        "The Devil": "(bondage, temptation, addiction, perversion) You are bound by unconscious attachments. Awareness is required to reclaim autonomy.",
-        "The High Priestess": "(intuition, silence, depth, conductivity, initiation, sacrifice) Truth is hidden beneath surface noise. Stillness allows deeper knowing to emerge.",
-        "The Eclipse": "(meditation, confrontation, reflection, insight, novelty, illusion, fear) Perception is distorted by fear or projection. You must confront the unknown within.",
-        "The Empress": "(patience, observation, experience, foresight, guidance, growth, nurturing) Life expands through receptivity and care. What you nourish will grow.",
-        "The Spire": "(collapse, shock, terror, revelation) False constructs are destroyed suddenly. What falls was never stable.",
-        "The Emperor": "(crown, apex, order, structure, authority, war, conquest, dominion) Control and discipline are required. Establish firm boundaries and direction.",
-        "Death": "(ending, transformation, rebirth) A cycle is closing completely. Let go or be forced to release.",
-        "The Hierophant": "(tradition, belief, purpose, system, devotion, rigidity) You are operating within an established structure. Question whether it still serves you.",
-        "The Æon Portal": "(awakening, evolution, reckoning, merciless march of time) A higher calling demands transformation. You are being pushed into a new phase of being.",
-        "The Maestro": "(repetition, flow, obsession, fusion, synthesis) Opposites must be combined consciously. True transformation occurs through integration.",
-        "Equilibrium": "(balance, truth, necessity, precision) Imbalance is corrected through truth. You must align with reality, not preference.",
-        "Shade Blade": "(mastery, drive, extension, execution, singular focus, intensity, energetics, aura) Momentum is strong but must be directed. Victory requires disciplined control.",
-        "The Hanged Man": "(surrender, pause, perspective) Progress halts to force reflection. Let go of control to gain insight.",
-        "Bloodlust & Fortitude": "(power, passion, expression) Raw life-force must be embraced and directed. Suppression leads to distortion.",
-        "Chaos Star": "(expansion, radiance, aspiration, determination, renewal) Clarity returns after disruption. Trust in gradual restoration.",
-        "The Hermit": "(cloaked, silence, solitude, wisdom, reconnaissance, defence) Withdrawal is necessary to gain understanding. Truth is found inwardly.",
-        "Fate": "(cycles, change, inevitability) Events shift beyond control. Adaptation determines outcome.",
-        "The Universe": "(completion, source, mystery, acceptance, totality) All elements align into a unified whole. You are seeing the full system.",
-        "The Underworld": "(descent, purgatory, burial, depth) You are descending into hidden layers. Power lies in confronting what is buried.",
-        "The Shadow": "(integration, darkness, indifference, truth) What you deny controls you. Integration is required for wholeness.",
-        "The Fool": "(inhibitions, ignorance, carefree beginning, living in the moment, leaping forward with reckless abandon) A new path opens without certainty. Trust and act without attachment.",
-        "Wraith of Chalices": "(emotional hunger, projection, longing) Emotional distortion drives behavior. Awareness is required.",
-        "Wraith of Daggers": "(scarcity, greed, survival) Material fear governs decisions.",
-        "Wraith of Torches": "(impulse, chaos, aggression) Uncontrolled energy seeks release.",
-        "Wraith of Swords": "(conflict, domination, force) The mind becomes weaponized."
-    };
+// MAJOR ARCANA — KEYWORDS, LONG-FORM DESCRIPTION, AFFIRMATION
+const majorArcanaMeanings = {
+    "The Hierophant": {
+        keywords: "tradition, doctrine, belief, dogma, purpose, system, devotion, rigidity, teaching",
+        description: "Every discipline you now carry was forged by hands that came before yours, passed down through ritual, repetition, and rule. There is real power in doctrine kept faithfully; a teaching, however old, still cuts true when practiced with devotion. But dogma left unquestioned hardens into a cage of its own making. Test what you have inherited against your own blade. Keep what still serves your ascent, and let the rest turn to ash behind you.",
+        affirmation: "I keep what serves me and bury or incinerate the rest."
+    },
+    "The Fool": {
+        keywords: "initiation, innocence, spontaneity, recklessness, new beginnings, unbound potential, trust, first step, comedy, indiscriminate laughter",
+        description: "Before the cloak is earned or the blade proven, there is only the first step taken into the obscurity of the shadows, with no elder's blessing and no map drawn by another hand. Initiation like this offers no guarantee. Recklessness resembles something like folly from a distance, yet every true ascent begins exactly here, in a leap made on trust alone, not evidence. Innocence is not ignorance; it is unarmored, liberated will, good enough to move before you've earned the right to.",
+        affirmation: "I begin before I am ready, for readiness is a myth."
+    },
+    "Wraith of Swords": {
+        keywords: "conflict, domination, force, ruthlessness, provocation, contempt, cunning, malice, lycanthropy",
+        description: "A blade sharpened only to maim and destroy becomes consumed by the lycanthropic hunger to sink its gleaming, serrated edge into anything soft enough to sever. This wraith needs conquest more than clarity, contempt more than truth, and will provoke a fight out of stillness itself rather than sit with an unresolved question. Its cunning is real, but cunning spent proving superiority is cunning wasted. What was meant to defend the mind instead turns the mind into a weapon aimed at everyone, including its bearer.",
+        affirmation: "My mind is a blade for truth, not a weapon for pride, in my perpetual mission to attain the power and majesty of the almighty Archwraith."
+    },
+    "Wraith of Torches": {
+        keywords: "impulse, chaos, attack, aggression, recklessness, conquest, momentum, misanthropy",
+        description: "Fire given no target consumes whatever stands nearest to it. This wraith is driven to strike before it has finished deciding what it's striking at, mistaking speed for strength and aggression for purpose. Its momentum is genuine, its misanthropic hunger for conquest even more so, but neither has been aimed at anything worth burning for. What forges a weapon, left unchecked, only reduces its bearer to ash.",
+        affirmation: "I move with purpose, not with hunger alone, in my perpetual mission to attain the power and majesty of the almighty Archwraith."
+    },
+    "Wraith of Daggers": {
+        keywords: "scarcity, greed, survival, acquisition, exploitation, taking without asking, hoarding, possessiveness",
+        description: "This wraith still believes the famine has not ended, long after the ground has grown green again. It takes, and takes again, hoarding against a threat that already passed, certain the next acquisition will finally be enough. It never is. What is seized through exploitation weighs heavier than it satisfies, and any stability built this way collapses the moment the hoard is threatened.",
+        affirmation: "My security comes from within, not from what I hoard. True freedom is found in holding on to and utilizing only that which serves me in my perpetual mission to attain the power and majesty of the almighty Archwraith."
+    },
+    "Wraith of Chalices": {
+        keywords: "emotional hunger, projection, longing, fantasy, infatuation, escapism, idealization",
+        description: "This wraith falls for a shape it painted onto someone or something that was never quite real to begin with, then grieves a loss that only exists in its own projection. Longing becomes more comfortable than the thing itself, because longing asks nothing of you and delivers an idealized fantasy on command. Escapism dressed as devotion is still escapism, and infatuation this untethered feeds on nothing but its own reflection.",
+        affirmation: "I value what is tangible above the distant figments of my imagination in my perpetual mission to attain the power and majesty of the almighty Archwraith."
+    },
+    "The Magus": {
+        keywords: "will, focus, intent, spellcraft, manifestation, transcendence, completion of goals, craft, cunning",
+        description: "Nothing here becomes real by accident. This is will pressed into form through repetition and intent until it presses back against the world and yields; spellcraft, in its oldest sense, is nothing more than concentrated attention aimed with total purpose. The Archwraith does not wait for circumstance to arrange itself. It manifests the outcome through disciplined focus, treating imagination itself as a forge and intent as the hammer.",
+        affirmation: "What I focus on with intent, I bring into being. My will is a tool and shall not let it idle. One working, finished, outweighs ten left undone."
+    },
+    "The High Priestess": {
+        keywords: "intuition, receptivity, mystery, depth, channeling, sacrifice, veiled knowledge, silence",
+        description: "Not every truth can be reasoned into being through will alone. Some knowledge only rises out of deep quiet, after the noise of your own certainty finally goes still. Channeled through silence rather than declared outright, this depth sacrifices the comfort of a swift answer for one that's actually true. Hold stillness on purpose, not by accident, and the clearest answers surface on their own.",
+        affirmation: "My stillness is where my clearest answers live. Therein I trust what I sense before it can be explained."
+    },
+    "The Emperor": {
+        keywords: "order, structure, authority, war, conquest, reign, dominion, apex, command, sovereignty, discipline, strategy, success",
+        description: "A throne left unguarded becomes rubble within a season. What you claim as your domain, over your own body, your own hours, your own blade, you must keep claiming, day upon disciplined day, or watch it erode back into chaos. Sovereignty here is not granted by rank or bloodline; it is built through daily war waged against your own weaker impulses, strategy applied ruthlessly to every hour you're given. Command what is yours to command, and command it first in yourself.",
+        affirmation: "Discipline is the Crown of Shade, the coveted deathmask donned with the awareness that my life force and vitality must never be taken for granted. I build my authority daily, not once. What I command, I must first master within myself."
+    },
+    "The Empress": {
+        keywords: "patience, experience, foresight, guidance, growth, nurturing, cultivation, abundance, nutrition",
+        description: "Nothing seized by force grows roots as deep as what is tended over time. This is the slower power: cultivating your own craft, your own strength, your own inner ground, with a patience the reckless never manage to hold onto. What you nurture within yourself compounds quietly while others chase quick harvests, and abundance earned this way outlasts anything simply taken.",
+        affirmation: "My patience is where my abundance is rooted. I grow what I tend, not what I grasp."
+    },
+    "The Maestro": {
+        keywords: "imagination, creativity, construction, repetition, flow, obsession, ritual, craft, synthesis, poetry, music, world building",
+        description: "Execute and repeat a movement, a phrase, a strike, enough times with total attention and it ceases to be a toilsome effort. It becomes instinct, then becomes art. This is the fusion point where discipline and imagination synthesize into something that flows without needing thought behind it any longer, where repetition performed as ritual builds an entire world out of raw, unglamorous practice. What looks like obsession from outside is, from within, simply the craft finally taking hold.",
+        affirmation: "What I practice daily, I eventually become. I repeat until it becomes instinct. My obsession is the engine of my craft, and I will be possessed by it with utmost focus and exultant abandon."
+    },
+    "The Hermit": {
+        keywords: "cloaked, silence, solitude, withdrawal, concealment, disengagement, wisdom, introspection, reconnaissance, observation, defence, quiet vigilance",
+        description: "Wisdom rarely announces itself in a crowded chamber. It moves cloaked, alone, watching from the edges of the scene while the noise around it is too loud to notice what's actually happening. This solitude is a chosen weapon, not an exile forced upon you; reconnaissance conducted in silence, before the strike or the decision, is how ground is truly won. What is studied alone in stillness gets carried back out, sharpened, when it's needed.",
+        affirmation: "I watch quietly while waiting to strike, emerging with sharpened blade and discerning tongue, guided by superior intent. My solitude is a tool of extraordinary refinement, not a place to hide in vain. Speak only when necessary. With Silence, Creativity, and Pain Embraced, the master key will be realized."
+    },
+    "Chaos Star": {
+        keywords: "expansion, radiance, aspiration, determination, renewal, resilience, propagation, infinite possibility",
+        description: "Something that should have stayed extinguished catches an ember again anyway, and does not wait for permission before it spreads. Renewal radiates outward here in every direction at once, propagating from wreckage precisely because it already survived what was meant to end it for good. Determination built from ruin burns cleaner, and further, than anything that never had to prove it could survive the all-enveloping fire.",
+        affirmation: "I radiate in every direction, tapping into the internal shadow fire which is my authentic birthright, and issue forth power carefully crafted by daily actions and determination. The hallowed eight-pointed star signifies infinite possibility in the limitless expansion of all paths of power through the charged oscillations of light and sound, sensation and perception, matter and anti-matter, and the genesis of terrestrial constructs through imagination made manifest… consciousness altered, to enhance probabilities and transform all manners of existence."
+    },
+    "The Spire": {
+        keywords: "collapse, upheaval, shock, terror, exposure, revelation, instability, awakening through crisis, sudden downfall",
+        description: "A structure trusted without ever being tested gives way all at once, leaving what stood on it exposed to exactly how much of its footing was real. Upheaval like this strips false ground from true faster than careful observation ever could, revealing in an instant what might have taken years to notice otherwise. Terrifying while it happens. Clarifying in everything that follows, once the dust finally settles.",
+        affirmation: "I let the shock reveal what needed revealing… and all weakness and falsehoods to be destroyed."
+    },
+    "The Devil": {
+        keywords: "bondage, temptation, addiction, attachment, perversion, self-deception, chains disguised as comfort and satisfaction, complacency, procrastination, needless distraction",
+        description: "Chains rarely look like chains while they're being fastened on. They look like comfort, like a reward you've earned, like the thing that will finally quiet the restlessness for one more night. Complacency and procrastination are this bondage in its most patient form, distraction dressed up as rest, self-deception convincing enough that you stop noticing the weight until it's already fully settled around you. Name what is quietly costing you before it names what you are.",
+        affirmation: "I choose the harder thing before it becomes a habit not to, and name the comfort that is quietly costing me. My discipline doesn't leave space for my vices."
+    },
+    "Death": {
+        keywords: "ending, transformation, release, rebirth, loss, severance, finality",
+        description: "Nothing new gets built on ground the old form still occupies. An ending like this does not negotiate and does not wait for you to feel finished with what it's taking; resistance only prolongs the same outcome while adding damage to it. What gets released here clears the exact space rebirth requires. Fight it, and you delay your own becoming.",
+        affirmation: "I release what has already ended. My rebirth requires the old form to disappear before I can force the new one into existence."
+    },
+    "Shade Blade": {
+        keywords: "speed, ambition, combat, mastery, ascendancy, decisiveness, extension, execution, wielding, singular focus, aura, urgency, resolve",
+        description: "A will honed enough requires only a single motion to resolve what it's aimed at, not ten uncommitted swings that only announce the intention without finishing it. This is the blade as an extension of your own aura, wielded with total urgency the instant the decision is already made somewhere upstream of the moment it's needed. Mastery here is not force thrown wide in every direction; it is singular focus driven through with total resolve.",
+        affirmation: "I strike when the decision is made. My focus is narrow. My resolve is total. I decide once, and execute completely."
+    },
+    "The Hanged Man": {
+        keywords: "surrender, pause, suspension, perspective, release of control, detachment, recalibration",
+        description: "Progress halts, and what looks like failure from where you're standing looks entirely different once the fight against your own position finally stops. Surrender here isn't weakness. It's the deliberate release of a grip that was distorting everything you thought you could see clearly. Suspended long enough over the void of the abyss, without struggle, stillness rearranges what forward motion never could have shown you.",
+        affirmation: "I suspend the fight and see what changes. My stillness is doing work my effort couldn't. I must let go of the grip of preconceived notions that was distorting my view."
+    },
+    "The Black Sun": {
+        keywords: "illumination, vitality, truth, clarity, gnosis, worship, revelation without mercy, the sun behind the sun, primordial power, esoteric knowledge",
+        description: "Not the light that comforts. This is the sun behind the sun, the black flame that reveals with no interest in flattery. Gnosis is not belief handed down through doctrine; it's knowledge seized directly, seen with your own eyes, standing fully inside a radiance which annihilates all but the Few. Vitality returns to those who stop shielding themselves from merciless, unadulterated, unforgiving truth.",
+        affirmation: "I soar within mystical rays of Black Light, seeing exactly what I am, illuminated by the auroral disc of the Shadow Circle, transcending treacherous heights with sorcerous fire and dragon wings, persisting in my ascent beyond the confines of the demiurge, to the towering, grandiose realm of the Astral Wraith."
+    },
+    "The Eclipse": {
+        keywords: "meditation, urgent confrontation with self and enemies, reflection, insight, transition, reverence, illusion, fear, unveiling",
+        description: "What forces normally hide in the corners of an ancient, dark wilderness step forward the instant the familiar light is taken away. The confrontation you've been circling arrives now, whether it's convenient or not. Illusion and fear both lose the bulk of their grip the moment they're finally looked at directly instead of merely sensed sideways, in meditation held with reverence rather than dread.",
+        affirmation: "I unveil what the darkness was hiding, looking directly at what I've been avoiding, without hesitation. My fear loses power the moment I face it."
+    },
+    "The Two Paths": {
+        keywords: "openness, opportunity, duality, decisive union, choice, alignment, divergence, crossroads, the golden path",
+        description: "Two directions stand open, and freezing between them is its own kind of choice, usually the worst one available. The crossroads demands decisive union with whichever path actually matches what you want, not the one that's simply easier to defend to no one but yourself. No clear path exists in either direction; that has never been reason enough to stop walking. It is never too late to divert your course, or to cut one where none existed before.",
+        affirmation: "My alignment matters more than my comfort, choosing the path that matches my true needs and desires. It is never too late to divert your path or to blaze your own trail where no clear paths exist."
+    },
+    "Equilibrium": {
+        keywords: "balance, truth, necessity, precision, justesse, impartiality, adjustment",
+        description: "When two forces stand genuinely equal, wanting one of them to win harder does not make it so. Balance here is restored through precision and honest reckoning, not convenience, an adjustment demanded by necessity rather than chosen out of preference. What's true rarely flatters either side completely, and that's exactly how you know it's true.",
+        affirmation: "My balance comes from precision, not preference. I let necessity determine what preference cannot. I align with what's true, not allowing myself to be misled by what's easier."
+    },
+    "The Universe": {
+        keywords: "completion, source, cosmic order, acceptance, totality, wholeness, unity, crystallization, perseverance, inertia",
+        description: "Every fragment carried separately finally locks into place, and what was once a hundred disconnected efforts crystallizes into a single, coherent whole. Completion here asks to be accepted rather than picked apart and re-explained. The source of the pattern owes you no full account of itself to be real. Wholeness, once earned through enough perseverance, simply is.",
+        affirmation: "My completion doesn't require a perfect explanation. I accept the whole, even the parts I don't fully understand."
+    },
+    "The Æon Portal": {
+        keywords: "awakening, evolution, reckoning, threshold, judgement of time, irreversible change, merciless march of time, remembrance",
+        description: "A portal opens, and there is no path back to who stood on the other side of it before you crossed. Time keeps its own reckoning regardless of whether you feel prepared for the judgment it brings, and evolution here is not offered, it's demanded. Part of that reckoning is memory: how much of your life has slipped past unspent while the dead who came before you paid for the hours you're still wasting. Remember them, and spend what remains of your own time like it actually matters.",
+        affirmation: "I remember the dead, spending every moment of this life with purpose and intention, showing no mercy to all obstacles in my path."
+    },
+    "Bloodlust & Fortitude": {
+        keywords: "power, passion, intensity, expression, courage, grand passion, magick",
+        description: "A current this raw wants to be felt in full, not managed down into something more polite and easier to forget. Power curdles into something far more corrosive when suppressed than it would ever have been if simply given honest, deliberate expression. Passion aimed with courage becomes fortitude; passion buried out of shame becomes a wound that festers quietly until it isn't quiet anymore. Direct the fire. Do not extinguish it to make it easier to carry.",
+        affirmation: "I express my intensity instead of burying it. My passion, directed through mindfulness, is true strength. Suppressed, it's a wound. I let the fire out on my own terms."
+    },
+    "Fate": {
+        keywords: "cycles, change, inevitability, fortune's turn",
+        description: "Some patterns turn regardless of how thoroughly you prepared for them or how hard you push back against their arrival. This is not surrender so much as an honest accounting of which battles are actually worth spending yourself on, and which ones were only ever going to turn the way they turn no matter what you did. Save your strength for where it can still change something.",
+        affirmation: "I move with what I cannot change and my effort is invested in what actually matters."
+    },
+    "The Shadow": {
+        keywords: "integration, darkness, truth, denial, repression, hidden self, the unconscious",
+        description: "What gets denied does not vanish. It moves underground and keeps steering from down there, unseen, indifferent to whether it's ever acknowledged. The unconscious, the hidden self kept beneath whatever mask gets worn day to day, shapes every choice made while you insist you're deciding freely. Integration, not suppression, is what finally brings it fully into your own hands.",
+        affirmation: "My hidden self doesn't need to stay hidden from me. I see my Shadow, acknowledge it, and embody and integrate it into every daily pursuit, infusing its subtle power into every breath taken, word spoken, and movement of the body, mind, and shade-born spirit."
+    },
+    "Pain Embraced": {
+        keywords: "necessary suffering, endurance, tempering, sanctification, corporeal alchemy, forging, purification through trial, willful hardship, no excuses",
+        description: "Pain arrives in two kinds, and only one of them is worth keeping. There is pain inflicted on you to serve someone else's design, weight you never chose, carried toward a destination that was never yours. And there is pain you deliberately walk toward, endurance sought on your own terms, because comfort alone forges nothing of lasting value. This is corporeal alchemy in its rawest form, the trial that passes body and will through fire until what remains is sanctified, hardened, and entirely your own. Refuse all pain, and you refuse the very thing that would have made you formidable.",
+        affirmation: "I choose to harness and be forged by all forms of pain, inflicted internally, externally, upon oneself, by others, and by the holographic space-time continuum and bio-electric matrices within which we are bound. I will pursue with ferocity challenges of great weight and endurance, and mental difficulty, in order to grow daily in corporeal strength and mental acuity, diligently passing the mortal body through the fire until it becomes a living blade, emanating with the essence of the Shadow."
+    }
+};
 
-    return meanings[archetype] || "(no interpretation)";
+// MAJOR ARCANA LOOKUP
+function interpret(archetype) {
+    return majorArcanaMeanings[archetype] || { keywords: "", description: "(no interpretation)", affirmation: "" };
 }
 
 
@@ -1617,8 +2660,9 @@ OF THE ASTRAL SHADOW;,</span>\n
 → <span class="meaning">${minorMeaning(c2)}</span>\n
 <span class="sub-head">Absolute Difference Value: </span><span class="number">${d}</span>
 <span class="sub-head">Color Relation: </span><span class="number">${sameColor ? "Same Colors" : "Opposite Colors"}</span>\n
-<span class="sub-head">Archetype: </span><span class="card-name">${archetype}</span>
-→ <span class="meaning">${interpret(archetype)}</span>
+<span class="sub-head">Archetype: </span><span class="card-name">${archetype} — (${interpret(archetype).keywords})</span>
+→ <span class="meaning">${interpret(archetype).description}</span>
+✦ <span class="dvalue">"${interpret(archetype).affirmation}"</span>
 <hr class="glow-box animate-breathe">\n`;
 
             outputDiv.scrollTop = outputDiv.scrollHeight;
@@ -1630,7 +2674,7 @@ OF THE ASTRAL SHADOW;,</span>\n
 
         function initCartomancyIntro() {
             const placeholder = 
-`<span class="card-name">🕯️Wraithianic Cartomancy🕯️</span> utilizes a standard 52-Card Poker Deck consisting of all traditional Tarot Minor Arcana, including Disciples (Jacks/Pages), Queens, and Kings. Knights (referred to here as Wraiths), however, are determined and revealed (along with all other Major Arcana card equivalents and the addition of "The Shadow" and "The Underworld" Major Arcana) through an Absolute Difference Value calculation between the two cards drawn in the two-card spread. <span class="number">
+`<span class="card-name">🕯️Wraithianic Cartomancy🕯️</span> utilizes a standard 52-Card Poker Deck consisting of all traditional Tarot Minor Arcana, including Disciples (Jacks/Pages), Queens, and Kings. Knights (referred to here as Wraiths), however, are determined and revealed (along with all other Major Arcana card equivalents and the addition of "The Shadow" and "Pain Embraced" Major Arcana) through an Absolute Difference Value calculation between the two cards drawn in the two-card spread. <span class="number">
 Example i: King of Swords (Card A = 13) - Queen of Daggers (Card B = 12) = 1 (Wraith of Swords, applying the Suit of Card A)</span><span class="number">
 Example ii: Seven of Torches (Card A = 7; Black Suit) - Disciple of Swords (Card B = 12; Black Suit) = Difference of 5 (Chaos Star; Same Color Suits)</span>
 			
@@ -1686,98 +2730,98 @@ A=1, J=11, Q=12, K=13</span>
 <span class="sub-head">WHEN:</span>
 
 <span class="dvalue">D = 0 {Same Suits}</span>
-<span class="card-name">🧙🏻‍♂️The Hierophant🧙🏻‍♂️ — (tradition, belief, purpose, system, devotion, rigidity)</span>
-You are operating within an established structure. Question whether it still serves you.
+<span class="card-name">🧙🏻‍♂️The Hierophant🧙🏻‍♂️ — (tradition, doctrine, belief, dogma, purpose, system, devotion, rigidity, teaching)</span>
+"I keep what serves me and bury or incinerate the rest."
 <span class="dvalue">D = 0 {Opposite Suits}</span>
-<span class="card-name">🃏The Fool🃏 — (inhibitions, ignorance, carefree beginning, living in the moment, leaping forward with reckless abandon)</span>
-A new path opens without certainty. Trust and act without attachment.
+<span class="card-name">🃏The Fool🃏 — (initiation, innocence, spontaneity, recklessness, new beginnings, unbound potential, trust, first step, comedy, indiscriminate laughter)</span>
+"I begin before I am ready, for readiness is a myth."
 
 <span class="dvalue">D = 1 {See Card A for Suit}</span>
-<span class="card-name">🐲♠️Wraith of Swords⚔️🐺 — (conflict, domination, force)</span>
-The mind becomes weaponized. Truth must be wielded with awareness.
-<span class="card-name">🐲♣️Wraith of Torches🔥🐺 — (impulse, chaos, aggression)</span>
-Uncontrolled energy seeks expression. Direct it or be consumed by it.
-<span class="card-name">🐲♦️Wraith of Daggers🗡️🐺 — (scarcity, greed, survival)</span>
-Fear of loss drives material fixation. Stability must be rebuilt internally.
-<span class="card-name">🐲♥️Wraith of Chalices🍷🐺 — (emotional hunger, projection, longing)</span>
-Unresolved feelings distort perception and attachment. Emotional awareness must replace reaction.
+<span class="card-name">🐲♠️Wraith of Swords⚔️🐺 — (conflict, domination, force, ruthlessness, provocation, contempt, cunning, malice, lycanthropy)</span>
+"My mind is a blade for truth, not a weapon for pride."
+<span class="card-name">🐲♣️Wraith of Torches🔥🐺 — (impulse, chaos, attack, aggression, recklessness, conquest, momentum, misanthropy)</span>
+"I move with purpose, not with hunger alone."
+<span class="card-name">🐲♦️Wraith of Daggers🗡️🐺 — (scarcity, greed, survival, acquisition, exploitation, taking without asking, hoarding, possessiveness)</span>
+"My security comes from within, not from what I hoard."
+<span class="card-name">🐲♥️Wraith of Chalices🍷🐺 — (emotional hunger, projection, longing, fantasy, infatuation, escapism, idealization)</span>
+"I value what is tangible above the distant figments of my imagination."
 
 <span class="dvalue">D = 2 {Same}</span>
-<span class="card-name">🪄The Magus💥 — (will, focus, intent, spellcraft, transformation, transcendence)</span>
-Your ability to shape reality is active. Direct your attention with precision or risk scattering your power.
+<span class="card-name">🪄The Magus💥 — (will, focus, intent, spellcraft, manifestation, transcendence, completion of goals, craft, cunning)</span>
+"What I focus on with intent, I bring into being."
 <span class="dvalue">D = 2 {Oppo}</span>
-<span class="card-name">🧝️The High Priestess🧝‍ — (intuition, silence, depth, conductivity, initiation, sacrifice)</span>
-Truth is hidden beneath surface noise. Stillness allows deeper knowing to emerge.
+<span class="card-name">🧝️The High Priestess🧝‍ — (intuition, receptivity, mystery, depth, channeling, sacrifice, veiled knowledge, silence)</span>
+"My stillness is where my clearest answers live."
 
 <span class="dvalue">D = 3 {Same}</span>
-<span class="card-name">🫅🏻The Emperor🫅🏻 — (crown, apex, order, structure, authority, war, conquest, dominion)</span>
-Control and discipline are required. Establish firm boundaries and direction.
+<span class="card-name">🫅🏻The Emperor🫅🏻 — (order, structure, authority, war, conquest, reign, dominion, apex, command, sovereignty, discipline, strategy, success)</span>
+"Discipline is the Crown of Shade. I build my authority daily, not once."
 <span class="dvalue">D = 3 {Oppo}</span>
-<span class="card-name">👸🏻The Empress👸 — (patience, observation, experience, foresight, guidance, growth, nurturing)</span>
-Life expands through receptivity and care. What you nourish will grow.
+<span class="card-name">👸🏻The Empress👸 — (patience, experience, foresight, guidance, growth, nurturing, cultivation, abundance, nutrition)</span>
+"My patience is where my abundance is rooted."
 
 <span class="dvalue">D = 4 {Same}</span>
-<span class="card-name">🎸🎨🖌️The Maestro📖🪶🎸 — (repetition, flow, obsession, fusion, synthesis)</span>
-Opposites must be combined consciously. True transformation occurs through integration.
+<span class="card-name">🎸🎨🖌️The Maestro📖🪶🎸 — (imagination, creativity, construction, repetition, flow, obsession, ritual, craft, synthesis, poetry, music, world building)</span>
+"What I practice daily, I eventually become."
 <span class="dvalue">D = 4 {Oppo}</span>
-<span class="card-name">🦉👽The Hermit👽🦉 — (cloaked, silence, solitude, wisdom, reconnaissance, defence)</span>
-Withdrawal is necessary to gain understanding. Truth is found inwardly.
+<span class="card-name">🦉👽The Hermit👽🦉 — (cloaked, silence, solitude, withdrawal, concealment, disengagement, wisdom, introspection, reconnaissance, observation, defence, quiet vigilance)</span>
+"My solitude is a tool of extraordinary refinement, not a place to hide in vain."
 
 <span class="dvalue">D = 5 {Same}</span>
-<span class="card-name">✴⭐Chaos Star✨✴ — (expansion, radiance, aspiration, determination, renewal)</span>
-Clarity returns after disruption. Trust in gradual restoration.
+<span class="card-name">✴⭐Chaos Star✨✴ — (expansion, radiance, aspiration, determination, renewal, resilience, propagation, infinite possibility)</span>
+"I radiate in every direction, issuing forth power carefully crafted by daily actions and determination."
 <span class="dvalue">D = 5 {Oppo}</span>
-<span class="card-name">🏰The Spire🗼 — (collapse, shock, terror, revelation)</span>
-False constructs are destroyed suddenly. What falls was never stable.
+<span class="card-name">🏰The Spire🗼 — (collapse, upheaval, shock, terror, exposure, revelation, instability, awakening through crisis, sudden downfall)</span>
+"I let the shock reveal what needed revealing."
 
 <span class="dvalue">D = 6 {Same}</span>
-<span class="card-name">👹The Devil👹 — (bondage, temptation, addiction, perversion)</span>
-You are bound by unconscious attachments. Awareness is required to reclaim autonomy.
+<span class="card-name">👹The Devil👹 — (bondage, temptation, addiction, attachment, perversion, self-deception, chains disguised as comfort and satisfaction, complacency, procrastination, needless distraction)</span>
+"I name the comfort that is quietly costing me. My discipline doesn't leave space for my vices."
 <span class="dvalue">D = 6 {Oppo}</span>
-<span class="card-name">💀⚱️Death⚰️🪦 — (ending, transformation, rebirth)</span>
-A cycle is closing completely. Let go or be forced to release.
+<span class="card-name">💀⚱️Death⚰️🪦 — (ending, transformation, release, rebirth, loss, severance, finality)</span>
+"I release what has already ended."
 
 <span class="dvalue">D = 7 {Same}</span>
-<span class="card-name">🐴🗡️Shade Blade🗡️🐎 — (mastery, drive, extension, execution, singular focus, intensity, energetics, aura)</span>
-Momentum is strong but must be directed. Victory requires disciplined control.
+<span class="card-name">🐴🗡️Shade Blade🗡️🐎 — (speed, ambition, combat, mastery, ascendancy, decisiveness, extension, execution, wielding, singular focus, aura, urgency, resolve)</span>
+"I decide once, and execute completely."
 <span class="dvalue">D = 7 {Oppo}</span>
-<span class="card-name">🪢🧭The Hanged Man⚕️📿 — (surrender, pause, perspective)</span>
-Progress halts to force reflection. Let go of control to gain insight.
+<span class="card-name">🪢🧭The Hanged Man⚕️📿 — (surrender, pause, suspension, perspective, release of control, detachment, recalibration)</span>
+"I suspend the fight and see what changes."
 
 <span class="dvalue">D = 8 {Same}</span>
-<span class="card-name">☀️⚫The Black Sun⚫☀️ — (clarity, vitality, truth, gnosis)</span>
-Illumination reveals what is real without distortion. You are aligned with your higher nature and operating without internal resistance.
+<span class="card-name">☀️⚫The Black Sun⚫☀️ — (illumination, vitality, truth, clarity, gnosis, worship, revelation without mercy, the sun behind the sun, primordial power, esoteric knowledge)</span>
+"I stand within rays of Black Light, seeing exactly what I am."
 <span class="dvalue">D = 8 {Oppo}</span>
-<span class="card-name">🌒The Eclipse🌘 — (meditation, confrontation, reflection, insight, novelty)</span>
-Perception is distorted by fear or projection. You must confront the unknown within.
+<span class="card-name">🌒The Eclipse🌘 — (meditation, urgent confrontation with self and enemies, reflection, insight, transition, reverence, illusion, fear, unveiling)</span>
+"My fear loses power the moment I face it."
 
 <span class="dvalue">D = 9 {Same}</span>
-<span class="card-name">💞The Two Paths💞 — (opportunity, strategy, duality, union, choice, alignment)</span>
-A defining choice must be made between paths or values. True union requires conscious alignment, not passive desire.
+<span class="card-name">💞The Two Paths💞 — (openness, opportunity, duality, decisive union, choice, alignment, divergence, crossroads, the golden path)</span>
+"It is never too late to blaze your own trail where no clear paths exist."
 <span class="dvalue">D = 9 {Oppo}</span>
-<span class="card-name">🎯⚖️Equilibrium☯️🎯 — (balance, truth, necessity, precision)</span>
-Imbalance is corrected through truth. You must align with reality, not preference.
+<span class="card-name">🎯⚖️Equilibrium☯️🎯 — (balance, truth, necessity, precision, justesse, impartiality, adjustment)</span>
+"My balance comes from precision, not preference."
 
 <span class="dvalue">D = 10 {Same}</span>
-<span class="card-name">♾️🪐The Universe🌌♾️ — (completion, source, mystery, acceptance, totality)</span>
-All elements align into a unified whole. You are seeing the full system.
+<span class="card-name">♾️🪐The Universe🌌♾️ — (completion, source, cosmic order, acceptance, totality, wholeness, unity, crystallization, perseverance, inertia)</span>
+"I accept the whole, even the parts I don't fully understand."
 <span class="dvalue">D = 10 {Oppo}</span>
-<span class="card-name">🕰️The Æon Portal⌛ — (awakening, evolution, reckoning, merciless march of time)</span>
-A higher calling demands transformation. You are being pushed into a new phase of being.
+<span class="card-name">🕰️The Æon Portal⌛ — (awakening, evolution, reckoning, threshold, judgement of time, irreversible change, merciless march of time, remembrance)</span>
+"I remember the dead, spending every moment of this life with purpose and intention."
 
 <span class="dvalue">D = 11 {Same}</span>
-<span class="card-name">💪🏻Bloodlust & Fortitude❤️‍🔥 — (power, passion, expression)</span>
-Raw life-force must be embraced and directed. Suppression leads to distortion.
+<span class="card-name">💪🏻Bloodlust & Fortitude❤️‍🔥 — (power, passion, intensity, expression, courage, grand passion, magick)</span>
+"I let the fire out on my own terms."
 <span class="dvalue">D = 11 {Oppo}</span>
-<span class="card-name">☄️🔮Fate🪽☄️ — (cycles, change, inevitability)</span>
-Events shift beyond control. Adaptation determines outcome.
+<span class="card-name">☄️🔮Fate🪽☄️ — (cycles, change, inevitability, fortune's turn)</span>
+"I move with what I cannot change, and my effort is invested in what actually matters."
 
 <span class="dvalue">D = 12 {Same}</span>
-<span class="card-name">👥The Shadow👥 — (integration, darkness, indifference, truth)</span>
-What you deny controls you. Integration is required for wholeness.
+<span class="card-name">👥The Shadow👥 — (integration, darkness, truth, denial, repression, hidden self, the unconscious)</span>
+"My hidden self doesn't need to stay hidden from me."
 <span class="dvalue">D = 12 {Oppo}</span>
-<span class="card-name">⚫The Underworld⚫ — (descent, purgatory, burial, depth)</span>
-You are descending into hidden layers. Power lies in confronting what is buried.
+<span class="card-name">⚫Pain Embraced⚫ — (necessary suffering, endurance, tempering, sanctification, corporeal alchemy, forging, purification through trial, willful hardship, no excuses)</span>
+"I choose to harness and be forged by all forms of pain."
 <hr class="glow-box animate-breathe">
 D-Value Probabilites:
 D - # of combinations - Relative likelihood
@@ -2024,7 +3068,8 @@ When a Mystic (Joker) is drawn with two new cards from the Dungeon (Draw Deck), 
 <hr class="glow-box animate-breathe">
 <span class="gen-head">,;shade blade sorcery
 solitaire instructions;,</span>
-<li><span class="sm-reds">Storyline: </span>Lord Wraith, born of Shadow Blood (K of D♦️ & K of H♥️ combined are representative of the blade-wielding and sorcerous aspects of one Lord Wraith) searches for the Mystic of the Spire (Jokers) who bear the Void Keys, while he battles his way to the throne room, crossing paths with all manners and forms of anti-cosmic terrors and psychic disturbances. With blades, spirit, and wits kept sharp, Lord Wraith navigates his way to the heart of the shining Void in an endeavour to confront and assimilate all powers rooted in Lawless Chaos, usurp the demiurge, and ascend to the absolute power and ultimate state of the Astral Shadow - preceding the beginning of All.</li>
+<span class="sm-reds">Storyline:</span>
+<li>Lord Wraith, born of Shadow Blood (K of D♦️ & K of H♥️ combined are representative of the blade-wielding and sorcerous aspects of one Lord Wraith) searches for the Mystic of the Spire (Jokers) who bear the Void Keys, while he battles his way to the throne room, crossing paths with all manners and forms of anti-cosmic terrors and psychic disturbances. With blades, spirit, and wits kept sharp, Lord Wraith navigates his way to the heart of the shining Void in an endeavour to confront and assimilate all powers rooted in Lawless Chaos, usurp the demiurge, and ascend to the absolute power and ultimate state of the Astral Shadow - preceding the beginning of All.</li>
 <li><span class="sm-reds">Shade Blade Sorcery</span> is a variation of "Scoundrel" Solitaire, played with a full standard 54-card poker deck (including Jokers) either on tabletop or in-hand.</li>
 <li><span class="sm-reds">Red Kings & Red Queens</span> are removed and either set face-up on the table or atop your Draw Deck (Dungeon) in-hand after it's been shuffled.</li>
 <li>If playing entirely in-hand, hold the deck in this order: Discarded cards go face-up (into the "Abyss") beneath your Draw Deck which is always face-down. 👸🏻Q of H♥️ face-up atop Draw Deck (used only as a divider card), then 🫅🏻K of H♥️, then 🫅🏻K of D♦️, then your 👸🏻Q of D♦️, and finally your 4 Chamber cards (with any combination of blades, chalices, and challengers) drawn from the Dungeon face-up at the very top of your deck.</li>
@@ -2046,7 +3091,8 @@ Example: if 2 Jacks show up in the same Chamber, and you have a 7-power ♦️�
 When a Black #2 Card is attached to your 🗡️, the 🗡️ shatters into the Abyss.</li>
 <span class="sm-reds">Other Optional Rules:</span>
 <li>Instead of using a 20-sided die, you can instead bring four 6-sided dice (which can also be used to play the Shadow Spire Ascension dice game), where each die is only worth a value of 5. Start each die at “5”, and eventually turn it to "6" to indicate when it has reached “0”.</li>
-<li><span class="sm-reds">Torch Timer for Blitzkrieg games:</span> Set a real-world timer to <span class="number">10 minutes</span>. When the 10 minutes is up, your torch light fades and the least powerful enemy in the Abyss is resurrected to your current chamber.</li>
+<span class="sm-reds">Hourglass of Desperation & Death (Torch Timer for Blitzkrieg rounds):</span> 
+<li>Set a real-world timer to <span class="number">10 minutes</span> or physical hourglass of chosen duration. When the 10 minutes is up, your torch light fades and the least powerful enemy in the Abyss is resurrected to your current chamber.</li>
 <span class="sm-reds">Recommended Decks: </span>
 <li>Bicycle Spellbound & Black Ghost</ul>`;
             document.getElementById("scoundrelOutput").innerHTML = scoundrelText + "";
