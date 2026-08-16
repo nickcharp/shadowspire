@@ -576,6 +576,161 @@
   #mlog{max-height:150px;}
 }
 
+
+
+/* ==================== SHADE BLADE SORCERY: INTERACTIVE ==================== */
+.sbsi-wrap,.sbsi-wrap *{box-sizing:border-box;}
+.sbsi-wrap{
+  max-width:960px;margin:30px auto;padding:20px;
+  font-family:'Open Sans',sans-serif;color:#ddd;position:relative;
+}
+.sbsi-title{
+  color:#bfbfbf;font-size:50px;font-family:'UnifrakturMaguntia',Verdana,cursive;
+  text-align:center;margin-bottom:6px;
+}
+.sbsi-subtitle{
+  color:#888;font-family:'Metal Mania',cursive;font-size:16px;letter-spacing:2px;
+  text-align:center;margin-bottom:20px;text-transform:lowercase;
+}
+.sbsi-panel{
+  background:#000;border:1px solid #444;border-radius:6px;padding:18px;
+  box-shadow:0 0 8px rgba(220,53,69,0.15);
+}
+
+/* ---- Main Menu ---- */
+.sbsi-menu{display:flex;flex-direction:column;gap:14px;align-items:center;padding:10px 0;}
+.sbsi-menu-btn{
+  width:100%;max-width:420px;background:#1a1a1a;border:1px solid #dc3545;border-radius:6px;
+  color:#eee;padding:18px 20px;font-family:'Metal Mania',cursive;font-size:22px;
+  letter-spacing:1px;cursor:pointer;transition:all .2s;text-align:left;
+  display:flex;align-items:center;gap:14px;
+}
+.sbsi-menu-btn .icon{font-size:28px;}
+.sbsi-menu-btn .desc{display:block;font-family:'Open Sans',sans-serif;font-size:12px;color:#999;margin-top:4px;letter-spacing:0;}
+.sbsi-menu-btn:hover{background:#dc3545;color:#fff;box-shadow:0 0 15px rgba(220,53,69,0.6);transform:translateY(-2px);}
+.sbsi-menu-btn:hover .desc{color:#fce4e6;}
+
+/* ---- Shared top bar / back button ---- */
+.sbsi-topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+.sbsi-back-btn{
+  background:#222;border:1px solid #666;color:#ccc;padding:6px 14px;border-radius:4px;
+  cursor:pointer;font-family:'Open Sans',sans-serif;font-size:13px;
+}
+.sbsi-back-btn:hover{background:#333;border-color:#999;}
+.sbsi-life{
+  font-family:'Metal Mania',cursive;font-size:18px;color:#ffc107;letter-spacing:1px;
+}
+.sbsi-life .heart{color:#dc3545;}
+
+/* ---- Playing cards ---- */
+.sbsi-card{
+  width:76px;height:106px;border-radius:7px;position:relative;display:inline-flex;
+  flex-direction:column;justify-content:space-between;padding:5px 6px;cursor:pointer;
+  user-select:none;transition:transform .15s,box-shadow .15s;flex-shrink:0;
+  font-family:'Cinzel',serif;
+  background:linear-gradient(160deg,#f3f0e8 0%,#e8e2d3 100%);
+  border:1px solid #55483a;
+  box-shadow:0 2px 6px rgba(0,0,0,0.5);
+}
+.sbsi-card:hover{transform:translateY(-6px);box-shadow:0 8px 14px rgba(220,53,69,0.4);}
+.sbsi-card.sbsi-disabled{opacity:.4;cursor:not-allowed;transform:none;}
+.sbsi-card.sbsi-disabled:hover{transform:none;box-shadow:0 2px 6px rgba(0,0,0,0.5);}
+.sbsi-card.red{color:#a3182a;}
+.sbsi-card.black{color:#1a1a1a;}
+.sbsi-card .corner{font-size:15px;font-weight:700;line-height:1;text-align:center;}
+.sbsi-card .corner .suit{display:block;font-size:13px;margin-top:1px;}
+.sbsi-card .corner.br{align-self:flex-end;transform:rotate(180deg);}
+.sbsi-card .center{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  font-size:30px;text-align:center;line-height:1;
+}
+.sbsi-card .center.face{font-size:26px;}
+.sbsi-card-mini-label{
+  position:absolute;bottom:2px;left:0;right:0;text-align:center;font-size:7px;
+  font-family:'Open Sans',sans-serif;letter-spacing:.5px;color:#666;text-transform:uppercase;
+}
+
+/* Card back — black eight-pointed chaos star on dark grey */
+.sbsi-card.back{
+  background:radial-gradient(ellipse at center,#3a3a3a 0%,#232323 100%);
+  border:1px solid #555;cursor:default;
+  display:flex;align-items:center;justify-content:center;
+}
+.sbsi-card.back:hover{transform:none;box-shadow:0 2px 6px rgba(0,0,0,0.5);}
+.sbsi-card.back svg{width:46px;height:46px;}
+
+/* ---- Chamber / hand row ---- */
+.sbsi-chamber{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding:14px 0;min-height:120px;}
+
+/* ---- Character stack (K♦ / K♥ / Q♥ display) ---- */
+.sbsi-stack{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:14px 0;padding:12px;
+  background:#0a0a0a;border:1px solid #333;border-radius:6px;}
+.sbsi-stack-slot{text-align:center;font-size:11px;color:#999;min-width:80px;}
+.sbsi-stack-slot .who{font-size:26px;display:block;}
+.sbsi-stack-slot .label{font-family:'Metal Mania',cursive;color:#ccc;font-size:13px;display:block;margin:2px 0;}
+.sbsi-stack-slot .info{color:#888;}
+.sbsi-stack-slot .info.good{color:#32CD32;}
+.sbsi-stack-slot .info.warn{color:#ffc107;}
+
+/* ---- Action buttons ---- */
+.sbsi-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px;}
+.sbsi-btn{
+  background:#333;color:#eee;border:1px solid #dc3545;border-radius:4px;padding:9px 16px;
+  cursor:pointer;font-size:14px;transition:all .2s;
+}
+.sbsi-btn:hover{background:#dc3545;box-shadow:0 0 10px rgba(220,53,69,.6);}
+.sbsi-btn:disabled{opacity:.35;cursor:not-allowed;background:#222;box-shadow:none;}
+.sbsi-btn.alt{border-color:#ffc107;}
+.sbsi-btn.alt:hover{background:#ffc107;color:#000;}
+.sbsi-btn.mystic{border-color:#9932CC;}
+.sbsi-btn.mystic:hover{background:#9932CC;}
+
+/* ---- Log ---- */
+.sbsi-log{
+  background:#000;border:1px solid #444;border-radius:6px;padding:12px;
+  height:180px;overflow-y:auto;font-family:monospace;font-size:13px;line-height:1.55;
+  white-space:pre-wrap;margin-top:14px;
+}
+.sbsi-log .l-dmg{color:#dc3545;}
+.sbsi-log .l-heal{color:#32CD32;}
+.sbsi-log .l-note{color:#ffc107;}
+.sbsi-log .l-mystic{color:#c77dff;}
+.sbsi-log .l-dim{color:#666;}
+
+/* ---- End state ---- */
+.sbsi-end{text-align:center;padding:30px 10px;}
+.sbsi-end h2{font-family:'UnifrakturMaguntia',cursive;font-size:36px;color:#dc3545;margin-bottom:10px;}
+.sbsi-end.win h2{color:#ffc107;}
+.sbsi-end p{color:#aaa;margin-bottom:16px;}
+
+/* ==================== ROGUELIKE ==================== */
+.sbsi-rl-layout{display:flex;gap:14px;flex-wrap:wrap;}
+.sbsi-rl-mapwrap{flex:1 1 460px;overflow:auto;background:#000;border:1px solid #444;border-radius:6px;padding:10px;}
+.sbsi-rl-map{
+  font-family:'Courier New',monospace;font-size:15px;line-height:16px;letter-spacing:2px;
+  white-space:pre;color:#666;
+}
+.sbsi-rl-map .fw{color:#3a3a3a;}       /* wall */
+.sbsi-rl-map .fl{color:#4a4a4a;}       /* floor */
+.sbsi-rl-map .dr{color:#8a6d3b;}       /* door */
+.sbsi-rl-map .pc{color:#dc3545;font-weight:700;}  /* player segment */
+.sbsi-rl-map .en{color:#ff8c8c;}       /* enemy marker */
+.sbsi-rl-side{flex:0 0 200px;}
+.sbsi-rl-dpad{display:grid;grid-template-columns:repeat(3,44px);grid-template-rows:repeat(3,44px);gap:4px;justify-content:center;margin:10px auto;}
+.sbsi-rl-dpad button{background:#222;border:1px solid #666;color:#ccc;font-size:18px;border-radius:4px;cursor:pointer;}
+.sbsi-rl-dpad button:hover{background:#dc3545;color:#fff;}
+.sbsi-rl-dpad button:disabled{opacity:.25;cursor:default;}
+.sbsi-rl-dpad button:disabled:hover{background:#222;color:#ccc;}
+
+@media (max-width:640px){
+  .sbsi-card{width:60px;height:84px;}
+  .sbsi-card .center{font-size:22px;}
+  .sbsi-card .corner{font-size:12px;}
+  .sbsi-card .corner .suit{font-size:10px;}
+  .sbsi-rl-map{font-size:12px;line-height:13px;letter-spacing:1px;}
+  .sbsi-rl-layout{flex-direction:column;}
+}
+
     </style>
 </head>
 <body>
@@ -621,6 +776,9 @@
                     </li>
 					<li class="nav-item">
                         <a class="nav-link" href="#sbs-solitaire">shade blade sorcery</a>
+                    </li>
+					<li class="nav-item">
+                        <a class="nav-link" href="#sbs-interactive">shade blade sorcery: descent</a>
                     </li>
 					<li class="nav-item">
                         <a class="nav-link" href="#warpath">shadow warpath</a>
@@ -819,6 +977,23 @@
 		<h1 class="scoundrel-subtitle">scoundrel solitaire variation</h1>
         <div id="scoundrelOutput" class="scoundrel-output"></div>
     </div>
+
+<hr class="glow animate-breathe" id="sbs-interactive">
+
+
+
+
+	<!-- Shade Blade Sorcery: Interactive -->
+	<div class="sbsi-wrap">
+		<div class="container-fluid text-center" id="deathmask">
+			<img src="images/shadedeathmask-303030.png" width="115" height="auto" alt="Shade Deathmask">
+		</div>
+		<h1 class="sbsi-title">shade blade sorcery: descent</h1>
+		<div class="sbsi-subtitle">choose your trial</div>
+		<div class="sbsi-panel">
+			<div id="sbsiRoot"></div>
+		</div>
+	</div>
 
 <hr class="glow animate-breathe" id="warpath">
 
@@ -3486,5 +3661,1188 @@ document.getElementById("ichingOutput").innerHTML = ichingIntroText();
             });
         });
     </script>
+
+    <script>
+
+// ---- core.js ----
+// ==================== SHADE BLADE SORCERY: SHARED CORE LOGIC ====================
+// Deck, value/color, and combat resolution shared by the Card Game and the Roguelike.
+
+const SBSI_SUITS = ["Swords ♠", "Torches ♣", "Daggers ♦", "Chalices ♥"];
+const SBSI_RANKS = ["Ace","2","3","4","5","6","7","8","9","10","Rogue","Queen","King"];
+
+function sbsiValue(rank) {
+    if (rank === "Ace") return 1;
+    if (rank === "Rogue") return 11;
+    if (rank === "Queen") return 12;
+    if (rank === "King") return 13;
+    return parseInt(rank, 10);
+}
+function sbsiColor(suit) {
+    return (suit === "Chalices ♥" || suit === "Daggers ♦") ? "Red" : "Black";
+}
+function sbsiSymbol(suit) {
+    if (suit === "Swords ♠") return "♠";
+    if (suit === "Torches ♣") return "♣";
+    if (suit === "Daggers ♦") return "♦";
+    if (suit === "Chalices ♥") return "♥";
+    return "";
+}
+function sbsiSuitGlyph(suit) {
+    // decorative glyph used in card center art for number cards
+    if (suit === "Swords ♠") return "⚔️";
+    if (suit === "Torches ♣") return "🔥";
+    if (suit === "Daggers ♦") return "🗡️";
+    if (suit === "Chalices ♥") return "🍷";
+    return "";
+}
+
+// Named black special-card encounters (flavor text drawn directly from the Shade Blade Sorcery rules)
+const SBSI_BLACK_NAMES = {
+    "Ace":  { "Swords ♠": "Sulphuric Dragon of Internal Fire", "Torches ♣": "Obsidian Dragon of Wrathful Chaos" },
+    "King": { "Torches ♣": "Undead Emperor of Nothingness & Nocturnal Light", "Swords ♠": "Sorcerer Lich of Black Stars & Silent Daggers" },
+    "Queen":{ "Torches ♣": "Seductive Gorgon of Serpentine Gnosis", "Swords ♠": "Soulsucking Succubus of Blinding Deceit" },
+    "Rogue":{ "Torches ♣": "Bloodlusting Beast of Necrosophic Might", "Swords ♠": "Fanged Reaper of the Antithetic Elite" }
+};
+const SBSI_RED_ACE_NAMES = { "Daggers ♦": "Shade Blade", "Chalices ♥": "Shade Cloak & Deathmask" };
+const SBSI_RED_ROGUE_NAMES = { "Daggers ♦": "Shadow Forge Master", "Chalices ♥": "Shadow Deathmask Artisan" };
+
+let sbsiCardSeq = 0;
+function sbsiMakeCard(suit, rank) {
+    sbsiCardSeq += 1;
+    return { id: "c" + sbsiCardSeq, suit, rank, isMystic: false };
+}
+function sbsiMakeMystic() {
+    sbsiCardSeq += 1;
+    return { id: "c" + sbsiCardSeq, suit: "Mystic", rank: null, isMystic: true };
+}
+
+// Build the Dungeon draw pile: full 52-card deck plus 2 Mystics (Jokers), MINUS the
+// Red Kings and Red Queens, which are pulled out to become the player's own
+// character cards rather than drawable monsters.
+function sbsiBuildDungeon() {
+    const cards = [];
+    for (const suit of SBSI_SUITS) {
+        for (const rank of SBSI_RANKS) {
+            const isRedRoyalRemoved = (suit === "Daggers ♦" || suit === "Chalices ♥") && (rank === "King" || rank === "Queen");
+            if (isRedRoyalRemoved) continue;
+            cards.push(sbsiMakeCard(suit, rank));
+        }
+    }
+    cards.push(sbsiMakeMystic());
+    cards.push(sbsiMakeMystic());
+    return cards;
+}
+
+function sbsiShuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+// Classify a card's role for interaction purposes.
+function sbsiClassify(card) {
+    if (card.isMystic) return "mystic";
+    const c = sbsiColor(card.suit);
+    if (c === "Black") return "monster";
+    if (card.suit === "Daggers ♦" && card.rank === "Ace") return "equip-blade";
+    if (card.suit === "Chalices ♥" && card.rank === "Ace") return "equip-cloak";
+    if (card.rank === "Rogue") return "red-rogue";
+    if (card.suit === "Chalices ♥") return "chalice";
+    if (card.suit === "Daggers ♦") return "new-blade";
+    return "other";
+}
+
+
+// ---- engine.js ----
+// ==================== SHADE BLADE SORCERY: GAME ENGINE (pure logic) ====================
+
+function sbsiNewGame() {
+    return {
+        dungeon: sbsiShuffle(sbsiBuildDungeon()),
+        abyss: [],
+        chamber: [],
+        life: 20, maxLife: 20,
+        fledLastChamber: false,
+        hasRefusedMystic: false,
+        blade: { durability: null, corpses: 0 },   // durability===null => no ceiling yet reached (fresh/undulled blade), but must be picked up first
+        hasBlade: false,
+        cloakCharge: false,
+        bladeChargeInstant: false,
+        kingHeartsCorpses: 0,
+        queenHeartsAlive: true,
+        queenHeartsStored: null,
+        gorgonActive: false,
+        succubusActive: false,
+        log: [],
+        gameOver: false,
+        won: false,
+        pendingMystic: null   // {mystic, drawnA, drawnB} awaiting follow/refuse decision
+    };
+}
+
+function sbsiLog(state, msg, cls) {
+    state.log.push({ msg, cls: cls || "" });
+}
+
+function sbsiDrawOne(state) {
+    return state.dungeon.shift() || null;
+}
+
+function sbsiFillChamber(state) {
+    while (state.chamber.length < 4 && state.dungeon.length > 0) {
+        state.chamber.push(sbsiDrawOne(state));
+    }
+    if (state.dungeon.length === 0 && state.chamber.length === 0) {
+        state.gameOver = true;
+        state.won = true;
+        sbsiLog(state, "The Dungeon lies fully emptied. You have survived the descent.", "l-heal");
+    }
+}
+
+function sbsiCanFightWithBlade(state, monsterValue) {
+    if (!state.hasBlade) return false;
+    if (state.blade.durability === null) return true; // fresh blade, no ceiling yet
+    return monsterValue <= state.blade.durability;
+}
+
+function sbsiRemoveFromChamber(state, cardId) {
+    const idx = state.chamber.findIndex(c => c && c.id === cardId);
+    if (idx >= 0) state.chamber.splice(idx, 1);
+}
+
+function sbsiApplyDamage(state, amount) {
+    state.life = Math.max(0, state.life - amount);
+    if (state.life <= 0) {
+        state.gameOver = true;
+        state.won = false;
+        sbsiLog(state, "Your life force gutters out. You have Fallen in Battle.", "l-dmg");
+    }
+}
+
+function sbsiApplyHeal(state, amount) {
+    const before = state.life;
+    state.life = Math.min(state.maxLife, state.life + amount);
+    return state.life - before;
+}
+
+// ---- Fight a black monster (plain number 2-10, or a named special) ----
+function sbsiFight(state, card, mode) {
+    const val = sbsiValue(card.rank);
+    const isSpecial = SBSI_BLACK_NAMES[card.rank] && SBSI_BLACK_NAMES[card.rank][card.suit];
+
+    if (card.rank === "Ace") {
+        // Dragon: half current life (rounded up), unless instant blade or cloak reduces it
+        if (state.bladeChargeInstant) {
+            sbsiLog(state, `${SBSI_BLACK_NAMES.Ace[card.suit]} is slain outright by your Shade Blade before it can exhale its ruin.`, "l-note");
+            state.bladeChargeInstant = false;
+        } else {
+            let dmg = Math.ceil(state.life / 2);
+            if (state.cloakCharge) {
+                dmg = Math.max(0, dmg - 2);
+                state.cloakCharge = false;
+                sbsiLog(state, `Your Shade Cloak shields you from the worst of the ${SBSI_BLACK_NAMES.Ace[card.suit]}'s black flame.`, "l-note");
+            }
+            sbsiApplyDamage(state, dmg);
+            sbsiLog(state, `${SBSI_BLACK_NAMES.Ace[card.suit]} vomits forth catastrophic fire. You take ${dmg} damage.`, "l-dmg");
+        }
+        sbsiRemoveFromChamber(state, card.id);
+        state.abyss.push(card);
+        return;
+    }
+
+    if (card.rank === "King") {
+        const bonus = Math.min(2, state.kingHeartsCorpses);
+        const dmg = 13 + bonus;
+        sbsiApplyDamage(state, dmg);
+        sbsiLog(state, `${SBSI_BLACK_NAMES.King[card.suit]} annihilates without mercy. You take ${dmg} damage.`, "l-dmg");
+        sbsiRemoveFromChamber(state, card.id);
+        state.abyss.push(card);
+        return;
+    }
+
+    if (card.rank === "Queen") {
+        sbsiApplyDamage(state, 12);
+        sbsiLog(state, `${SBSI_BLACK_NAMES.Queen[card.suit]} strikes for 12 damage before being cast down.`, "l-dmg");
+        if (card.suit === "Torches ♣") state.gorgonActive = false;
+        if (card.suit === "Swords ♠") state.succubusActive = false;
+        sbsiRemoveFromChamber(state, card.id);
+        state.abyss.push(card);
+        return;
+    }
+
+    if (card.rank === "Rogue") {
+        if (mode === "blade" && sbsiCanFightWithBlade(state, val)) {
+            sbsiApplyDamage(state, 11);
+            sbsiLog(state, `${SBSI_BLACK_NAMES.Rogue[card.suit]} is felled with your blade for 11 damage, but the blade itself is spent in the exchange.`, "l-dmg");
+            state.hasBlade = false;
+            state.blade = { durability: null, corpses: 0 };
+        } else {
+            sbsiApplyDamage(state, 5);
+            sbsiLog(state, `Battled bare-handed, ${SBSI_BLACK_NAMES.Rogue[card.suit]} deals 5 damage and slips back into the Dungeon to return again.`, "l-dmg");
+            state.dungeon.push(card);
+            sbsiShuffle(state.dungeon);
+            sbsiRemoveFromChamber(state, card.id);
+            return;
+        }
+        sbsiRemoveFromChamber(state, card.id);
+        state.abyss.push(card);
+        return;
+    }
+
+    // Plain number monster (2-10)
+    if (mode === "blade" && sbsiCanFightWithBlade(state, val)) {
+        state.blade.durability = val;
+        state.blade.corpses += 1;
+        if (val === 2) {
+            sbsiLog(state, `The blade shatters upon so base a foe. Your dagger is lost.`, "l-note");
+            state.hasBlade = false;
+            state.blade = { durability: null, corpses: 0 };
+        } else {
+            sbsiLog(state, `Your blade cuts down the ${val}-value foe cleanly. No damage taken.`, "l-note");
+        }
+    } else {
+        let dmg = val;
+        if (state.gorgonActive) dmg += 0; // gorgon affects blade dmg output, not incoming - no change here
+        if (state.cloakCharge) {
+            dmg = Math.max(0, dmg - 2);
+            state.cloakCharge = false;
+            sbsiLog(state, `Your Shade Cloak absorbs some of the blow.`, "l-note");
+        }
+        sbsiApplyDamage(state, dmg);
+        state.kingHeartsCorpses += 1;
+        sbsiLog(state, `Battled bare-handed, the foe deals ${dmg} damage.`, "l-dmg");
+        if (state.kingHeartsCorpses >= 3) {
+            state.kingHeartsCorpses -= 3;
+            sbsiApplyHeal(state, 1);
+            sbsiLog(state, `Three corpses are given to the flame. You gain 1 life.`, "l-heal");
+        }
+    }
+    sbsiRemoveFromChamber(state, card.id);
+    state.abyss.push(card);
+}
+
+// ---- Chalice: drink now or store with the Priestess ----
+function sbsiChalice(state, card, choice, alreadyDrankThisChamber) {
+    if (choice === "store" && state.queenHeartsAlive && !state.queenHeartsStored) {
+        sbsiRemoveFromChamber(state, card.id);
+        state.queenHeartsStored = card;
+        sbsiLog(state, `The Priestess accepts the chalice, held in trust for later need.`, "l-note");
+        return;
+    }
+    if (state.succubusActive) {
+        const val = sbsiValue(card.rank);
+        sbsiApplyDamage(state, val);
+        sbsiLog(state, `The Succubus's poison turns the draught venomous. You take ${val} damage.`, "l-dmg");
+    } else if (!alreadyDrankThisChamber) {
+        const healed = sbsiApplyHeal(state, sbsiValue(card.rank));
+        sbsiLog(state, `You drink deep. Life restored by ${healed}.`, "l-heal");
+    } else {
+        sbsiLog(state, `A second draught this chamber does nothing but wet the throat.`, "l-dim");
+    }
+    sbsiRemoveFromChamber(state, card.id);
+    state.abyss.push(card);
+}
+
+function sbsiRedeemStoredChalice(state) {
+    if (!state.queenHeartsStored) return;
+    sbsiApplyHeal(state, 1);
+    state.abyss.push(state.queenHeartsStored);
+    state.queenHeartsStored = null;
+    state.queenHeartsAlive = false;
+    sbsiLog(state, `The Priestess offers her final chalice, and is sacrificed to the Abyss. Life +1.`, "l-heal");
+}
+
+// ---- Equip red aces ----
+function sbsiEquip(state, card) {
+    if (card.suit === "Daggers ♦") {
+        state.bladeChargeInstant = true;
+        sbsiLog(state, `${SBSI_RED_ACE_NAMES["Daggers ♦"]} is raised, ready to destroy your next foe outright.`, "l-note");
+    } else {
+        state.cloakCharge = true;
+        sbsiLog(state, `${SBSI_RED_ACE_NAMES["Chalices ♥"]} is donned, ready to soften the next blow.`, "l-note");
+    }
+    sbsiRemoveFromChamber(state, card.id);
+    state.abyss.push(card);
+}
+
+// ---- Plain Daggers number card: find a new blade ----
+function sbsiNewBlade(state, card) {
+    if (state.hasBlade && state.blade.corpses > 0) {
+        sbsiLog(state, `Your old blade is set aside, its corpses given rest.`, "l-dim");
+    }
+    state.hasBlade = true;
+    state.blade = { durability: null, corpses: 0 };
+    sbsiLog(state, `A new dagger is found, its edge unproven and eager.`, "l-note");
+    sbsiRemoveFromChamber(state, card.id);
+    state.abyss.push(card);
+}
+
+// ---- Red Rogue: repair or cut the deck ----
+function sbsiRedRogueRepair(state, card) {
+    if (state.hasBlade && state.blade.corpses > 0 && state.blade.durability !== 2) {
+        state.blade.corpses -= 1;
+        sbsiLog(state, `${SBSI_RED_ROGUE_NAMES[card.suit]} restores the blade's durability by one fallen foe.`, "l-note");
+    } else if (state.abyss.some(c => c.suit === "Daggers ♦" && c.rank === "Ace")) {
+        state.hasBlade = true;
+        state.blade = { durability: null, corpses: 0 };
+        sbsiLog(state, `${SBSI_RED_ROGUE_NAMES[card.suit]} recovers a blade from the Abyss.`, "l-note");
+    } else {
+        const mid = Math.floor(state.dungeon.length / 2);
+        state.dungeon = state.dungeon.slice(mid).concat(state.dungeon.slice(0, mid));
+        sbsiLog(state, `${SBSI_RED_ROGUE_NAMES[card.suit]} pulls a hidden lever. The stairway inverts.`, "l-dim");
+    }
+    sbsiRemoveFromChamber(state, card.id);
+    state.abyss.push(card);
+}
+
+// ---- Mystic (Joker) ----
+function sbsiTriggerMystic(state, mysticCard) {
+    const a = sbsiDrawOne(state);
+    const b = sbsiDrawOne(state);
+    state.pendingMystic = { mystic: mysticCard, drawnA: a, drawnB: b };
+    return state.pendingMystic;
+}
+
+function sbsiResolveMystic(state, follow) {
+    const pm = state.pendingMystic;
+    if (!pm) return;
+    if (!follow) {
+        if (state.hasRefusedMystic) {
+            // already refused once before - refusing again still costs life (only first refusal was free of extra note, but per rules, any refusal costs 1 life; "only refuse once" means you may only decline the *escape offer* once before... actually rule: lose 1 life on refusal, can only refuse once total)
+        }
+        sbsiApplyDamage(state, 1);
+        state.hasRefusedMystic = true;
+        sbsiLog(state, "You refuse the Mystic's beckoning stair. Life -1.", "l-dmg");
+    } else {
+        sbsiLog(state, "You follow the Mystic up the darkened stair, leaving a reading in your wake.", "l-mystic");
+    }
+    // remaining (up to 3) chamber cards return to bottom of dungeon, stairway inverted
+    const remaining = state.chamber.filter(c => c && c.id !== pm.mystic.id);
+    state.dungeon = state.dungeon.concat(remaining);
+    const mid = Math.floor(state.dungeon.length / 2);
+    state.dungeon = state.dungeon.slice(mid).concat(state.dungeon.slice(0, mid));
+    state.abyss.push(pm.mystic);
+    if (pm.drawnA) state.abyss.push(pm.drawnA);
+    if (pm.drawnB) state.abyss.push(pm.drawnB);
+    state.chamber = [];
+    state.pendingMystic = null;
+    state.fledLastChamber = false; // mystic passage does not block a future flee
+}
+
+// ---- Flee the chamber ----
+function sbsiFlee(state) {
+    if (state.fledLastChamber) return false;
+    state.dungeon = state.dungeon.concat(state.chamber);
+    state.chamber = [];
+    state.fledLastChamber = true;
+    sbsiLog(state, "You flee this Chamber. The stairway remembers.", "l-dim");
+    return true;
+}
+
+
+// ---- roguelike_gen.js ----
+// ==================== ROGUELIKE: DUNGEON GENERATOR ====================
+// Classic Rogue-style: grid divided into sectors, one room per sector (most of the
+// time), rooms connected to their sector-neighbors via L-shaped corridors, with a
+// guaranteed-connectivity pass at the end so no room is ever unreachable.
+
+const SBSI_RL_COLS = 3, SBSI_RL_ROWS = 3;
+const SBSI_RL_W = 66, SBSI_RL_H = 27;
+
+function sbsiRlRand(min, max) { return min + Math.floor(Math.random() * (max - min + 1)); }
+
+function sbsiGenerateDungeon() {
+    const sectorW = Math.floor(SBSI_RL_W / SBSI_RL_COLS);
+    const sectorH = Math.floor(SBSI_RL_H / SBSI_RL_ROWS);
+    const grid = [];
+    for (let y = 0; y < SBSI_RL_H; y++) grid.push(new Array(SBSI_RL_W).fill("#"));
+
+    const rooms = []; // { id, x,y,w,h, cx,cy, sectorRow, sectorCol }
+    const sectorHasRoom = {};
+
+    for (let sr = 0; sr < SBSI_RL_ROWS; sr++) {
+        for (let sc = 0; sc < SBSI_RL_COLS; sc++) {
+            const placeRoom = Math.random() < 0.88;
+            if (!placeRoom) continue;
+            const sx0 = sc * sectorW + 1, sy0 = sr * sectorH + 1;
+            const maxW = sectorW - 3, maxH = sectorH - 3;
+            const w = sbsiRlRand(4, Math.max(4, maxW));
+            const h = sbsiRlRand(3, Math.max(3, maxH));
+            const x = sx0 + sbsiRlRand(0, Math.max(0, sectorW - w - 2));
+            const y = sy0 + sbsiRlRand(0, Math.max(0, sectorH - h - 2));
+            const id = rooms.length;
+            for (let yy = y; yy < y + h; yy++) {
+                for (let xx = x; xx < x + w; xx++) {
+                    if (yy >= 0 && yy < SBSI_RL_H && xx >= 0 && xx < SBSI_RL_W) grid[yy][xx] = ".";
+                }
+            }
+            const room = { id, x, y, w, h, cx: Math.floor(x + w / 2), cy: Math.floor(y + h / 2), sr, sc };
+            rooms.push(room);
+            sectorHasRoom[sr + "," + sc] = id;
+        }
+    }
+
+    // Ensure at least one room exists
+    if (rooms.length === 0) {
+        const x = 2, y = 2, w = 6, h = 4;
+        for (let yy = y; yy < y + h; yy++) for (let xx = x; xx < x + w; xx++) grid[yy][xx] = ".";
+        rooms.push({ id: 0, x, y, w, h, cx: x + 3, cy: y + 2, sr: 0, sc: 0 });
+        sectorHasRoom["0,0"] = 0;
+    }
+
+    function carveCorridor(x1, y1, x2, y2) {
+        let x = x1, y = y1;
+        const horizFirst = Math.random() < 0.5;
+        if (horizFirst) {
+            while (x !== x2) { grid[y][x] = (grid[y][x] === "#") ? "." : grid[y][x]; x += x < x2 ? 1 : -1; }
+            while (y !== y2) { grid[y][x] = (grid[y][x] === "#") ? "." : grid[y][x]; y += y < y2 ? 1 : -1; }
+        } else {
+            while (y !== y2) { grid[y][x] = (grid[y][x] === "#") ? "." : grid[y][x]; y += y < y2 ? 1 : -1; }
+            while (x !== x2) { grid[y][x] = (grid[y][x] === "#") ? "." : grid[y][x]; x += x < x2 ? 1 : -1; }
+        }
+        grid[y2][x2] = (grid[y2][x2] === "#") ? "." : grid[y2][x2];
+    }
+
+    const edges = []; // pairs of room ids that got connected
+    function connect(a, b) {
+        carveCorridor(a.cx, a.cy, b.cx, b.cy);
+        edges.push([a.id, b.id]);
+    }
+
+    // connect horizontally-adjacent sector rooms
+    for (let sr = 0; sr < SBSI_RL_ROWS; sr++) {
+        for (let sc = 0; sc < SBSI_RL_COLS - 1; sc++) {
+            const a = sectorHasRoom[sr + "," + sc], b = sectorHasRoom[sr + "," + (sc + 1)];
+            if (a !== undefined && b !== undefined) connect(rooms[a], rooms[b]);
+        }
+    }
+    // connect vertically-adjacent sector rooms
+    for (let sc = 0; sc < SBSI_RL_COLS; sc++) {
+        for (let sr = 0; sr < SBSI_RL_ROWS - 1; sr++) {
+            const a = sectorHasRoom[sr + "," + sc], b = sectorHasRoom[(sr + 1) + "," + sc];
+            if (a !== undefined && b !== undefined) connect(rooms[a], rooms[b]);
+        }
+    }
+
+    // Guarantee full connectivity: flood-fill from room 0 over the room-graph;
+    // any unreached room gets force-connected to its nearest reached room.
+    function roomGraphConnectivity() {
+        const adj = {};
+        rooms.forEach(r => adj[r.id] = []);
+        edges.forEach(([a, b]) => { adj[a].push(b); adj[b].push(a); });
+        const seen = new Set([rooms[0].id]);
+        const queue = [rooms[0].id];
+        while (queue.length) {
+            const cur = queue.shift();
+            for (const n of adj[cur]) if (!seen.has(n)) { seen.add(n); queue.push(n); }
+        }
+        return seen;
+    }
+
+    let guard = 0;
+    while (guard < 50) {
+        guard++;
+        const seen = roomGraphConnectivity();
+        if (seen.size === rooms.length) break;
+        const unseen = rooms.filter(r => !seen.has(r.id));
+        const seenRooms = rooms.filter(r => seen.has(r.id));
+        // connect nearest unseen room to nearest seen room
+        let best = null, bestDist = Infinity;
+        for (const u of unseen) {
+            for (const s of seenRooms) {
+                const dist = Math.abs(u.cx - s.cx) + Math.abs(u.cy - s.cy);
+                if (dist < bestDist) { bestDist = dist; best = [u, s]; }
+            }
+        }
+        if (best) connect(best[0], best[1]);
+        else break;
+    }
+
+    return { grid, rooms, w: SBSI_RL_W, h: SBSI_RL_H, edges };
+}
+
+function sbsiRlIsWalkable(dungeon, x, y) {
+    if (y < 0 || y >= dungeon.h || x < 0 || x >= dungeon.w) return false;
+    return dungeon.grid[y][x] === "." || dungeon.grid[y][x] === "+";
+}
+
+function sbsiRlRoomAt(dungeon, x, y) {
+    for (const r of dungeon.rooms) {
+        if (x >= r.x && x < r.x + r.w && y >= r.y && y < r.y + r.h) return r;
+    }
+    return null;
+}
+
+
+// ---- cardgame_ui.js ----
+// ==================== SHADE BLADE SORCERY: CARD GAME UI ====================
+// Depends on: sbsiValue, sbsiColor, sbsiSymbol, sbsiSuitGlyph, sbsiClassify (core.js)
+//             sbsi* engine functions (engine.js)
+// This file assumes those are already in the shared global scope, matching how
+// the rest of this site's inline scripts work.
+
+const SBSI_CARD_BACK_SVG = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="50,4 61,35 94,35 67,55 78,88 50,68 22,88 33,55 6,35 39,35"
+    fill="#0a0a0a" stroke="#555" stroke-width="1.5"/>
+</svg>`;
+
+function sbsiRankDisplay(rank) {
+    if (rank === "Rogue") return "R";
+    if (rank === "Queen") return "Q";
+    if (rank === "King") return "K";
+    if (rank === "Ace") return "A";
+    return rank;
+}
+
+function sbsiCenterArt(card) {
+    if (card.rank === "King") return card.suit === "Swords ♠" || card.suit === "Torches ♣" ? "💀" : "🫅🏻";
+    if (card.rank === "Queen") return card.suit === "Swords ♠" || card.suit === "Torches ♣" ? "🐍" : "👸";
+    if (card.rank === "Rogue") return card.suit === "Swords ♠" || card.suit === "Torches ♣" ? "🐺" : "🗡️";
+    if (card.rank === "Ace" && card.suit === "Daggers ♦") return "🗡️";
+    if (card.rank === "Ace" && card.suit === "Chalices ♥") return "👕";
+    return sbsiSuitGlyph(card.suit);
+}
+
+function sbsiCardFrontHTML(card) {
+    const colorCls = sbsiColor(card.suit) === "Red" ? "red" : "black";
+    const rd = sbsiRankDisplay(card.rank);
+    const sym = sbsiSymbol(card.suit);
+    const centerCls = (card.rank === "King" || card.rank === "Queen" || card.rank === "Rogue") ? "center face" : "center";
+    return `<div class="sbsi-card ${colorCls}" data-card-id="${card.id}">
+      <div class="corner tl">${rd}<span class="suit">${sym}</span></div>
+      <div class="${centerCls}">${sbsiCenterArt(card)}</div>
+      <div class="corner br">${rd}<span class="suit">${sym}</span></div>
+    </div>`;
+}
+
+function sbsiCardBackHTML() {
+    return `<div class="sbsi-card back">${SBSI_CARD_BACK_SVG}</div>`;
+}
+
+function sbsiMysticFrontHTML(card) {
+    return `<div class="sbsi-card black" data-card-id="${card.id}" style="align-items:center;justify-content:center;">
+      <div class="center" style="position:static;transform:none;font-size:30px;">🃏</div>
+      <div class="sbsi-card-mini-label">mystic</div>
+    </div>`;
+}
+
+// ---- Main controller ----
+const SBSICardGame = (function () {
+    let state = null;
+    let root = null;
+    let onExit = null;
+    let leftBehindDrankFlag = false;
+
+    function init(rootEl, exitCallback) {
+        root = rootEl;
+        onExit = exitCallback;
+        newGame();
+    }
+
+    function newGame() {
+        state = sbsiNewGame();
+        leftBehindDrankFlag = false;
+        sbsiFillChamber(state);
+        render();
+    }
+
+    function drankAlreadyThisTurn() {
+        return leftBehindDrankFlag;
+    }
+
+    function handleCardClick(cardId) {
+        if (state.gameOver || state.pendingMystic) return;
+        const card = state.chamber.find(c => c && c.id === cardId);
+        if (!card) return;
+        const cls = sbsiClassify(card);
+
+        if (cls === "mystic") {
+            sbsiTriggerMystic(state, card);
+            render();
+            return;
+        }
+        if (cls === "monster") {
+            const val = sbsiValue(card.rank);
+            const canBlade = sbsiCanFightWithBlade(state, val);
+            renderMonsterChoice(card, canBlade);
+            return;
+        }
+        if (cls === "chalice") {
+            renderChaliceChoice(card);
+            return;
+        }
+        if (cls === "equip-blade" || cls === "equip-cloak") {
+            sbsiEquip(state, card);
+            afterAction();
+            return;
+        }
+        if (cls === "new-blade") {
+            sbsiNewBlade(state, card);
+            afterAction();
+            return;
+        }
+        if (cls === "red-rogue") {
+            sbsiRedRogueRepair(state, card);
+            afterAction();
+            return;
+        }
+        sbsiRemoveFromChamber(state, card.id);
+        state.abyss.push(card);
+        afterAction();
+    }
+
+    function afterAction() {
+        if (state.chamber.length === 0 && !state.gameOver) {
+            leftBehindDrankFlag = false;
+            sbsiFillChamber(state);
+        }
+        render();
+    }
+
+    function doFlee() {
+        if (state.gameOver || state.pendingMystic) return;
+        const ok = sbsiFlee(state);
+        if (ok) {
+            leftBehindDrankFlag = false;
+            sbsiFillChamber(state);
+        }
+        render();
+    }
+
+    function doRedeemChalice() {
+        if (state.gameOver || !state.queenHeartsStored) return;
+        sbsiRedeemStoredChalice(state);
+        render();
+    }
+
+    function resolveMystic(follow) {
+        sbsiResolveMystic(state, follow);
+        leftBehindDrankFlag = false;
+        sbsiFillChamber(state);
+        render();
+    }
+
+    function renderMonsterChoice(card, canBlade) {
+        const val = sbsiValue(card.rank);
+        const actionsEl = root.querySelector(".sbsi-actions-dynamic");
+        let html = `<div class="sbsi-btn-row" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">`;
+        html += `<button class="sbsi-btn" ${canBlade ? "" : "disabled"} id="sbsi-act-blade">⚔️ Fight with Blade</button>`;
+        html += `<button class="sbsi-btn alt" id="sbsi-act-bare">👊 Fight Bare-Handed</button>`;
+        html += `<button class="sbsi-btn" id="sbsi-act-cancel" style="border-color:#666;">Cancel</button>`;
+        html += `</div>`;
+        actionsEl.innerHTML = html;
+        root.querySelector("#sbsi-act-blade")?.addEventListener("click", () => {
+            sbsiFight(state, card, "blade"); afterAction();
+        });
+        root.querySelector("#sbsi-act-bare").addEventListener("click", () => {
+            sbsiFight(state, card, "barehanded"); afterAction();
+        });
+        root.querySelector("#sbsi-act-cancel").addEventListener("click", render);
+    }
+
+    function renderChaliceChoice(card) {
+        const actionsEl = root.querySelector(".sbsi-actions-dynamic");
+        const canStore = state.queenHeartsAlive && !state.queenHeartsStored;
+        let html = `<div class="sbsi-btn-row" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">`;
+        html += `<button class="sbsi-btn" id="sbsi-act-drink">🍷 Drink</button>`;
+        html += `<button class="sbsi-btn alt" ${canStore ? "" : "disabled"} id="sbsi-act-store">🫙 Store with the Priestess</button>`;
+        html += `<button class="sbsi-btn" id="sbsi-act-cancel" style="border-color:#666;">Cancel</button>`;
+        html += `</div>`;
+        actionsEl.innerHTML = html;
+        root.querySelector("#sbsi-act-drink").addEventListener("click", () => {
+            sbsiChalice(state, card, "drink", drankAlreadyThisTurn());
+            leftBehindDrankFlag = true;
+            afterAction();
+        });
+        root.querySelector("#sbsi-act-store")?.addEventListener("click", () => {
+            sbsiChalice(state, card, "store", drankAlreadyThisTurn());
+            afterAction();
+        });
+        root.querySelector("#sbsi-act-cancel").addEventListener("click", render);
+    }
+
+    function renderLog() {
+        const logEl = root.querySelector(".sbsi-log");
+        if (!logEl) return;
+        logEl.innerHTML = state.log.slice(-60).map(e => `<div class="${e.cls}">${e.msg}</div>`).join("");
+        logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    function render() {
+        if (!root) return;
+
+        if (state.gameOver) {
+            root.innerHTML = renderEndScreen();
+            root.querySelector("#sbsi-cg-again").addEventListener("click", newGame);
+            root.querySelector("#sbsi-cg-exit").addEventListener("click", () => onExit && onExit());
+            return;
+        }
+
+        if (state.pendingMystic) {
+            root.innerHTML = renderMysticScreen();
+            root.querySelector("#sbsi-myst-follow").addEventListener("click", () => resolveMystic(true));
+            root.querySelector("#sbsi-myst-refuse").addEventListener("click", () => resolveMystic(false));
+            return;
+        }
+
+        const bladeInfo = state.hasBlade
+            ? `<span class="info good">${state.blade.durability === null ? "Fresh" : "≤" + state.blade.durability} · ${state.blade.corpses} corpse${state.blade.corpses === 1 ? "" : "s"}</span>`
+            : `<span class="info warn">Unarmed</span>`;
+        const cloakInfo = state.cloakCharge ? `<span class="info good">Charged</span>` : `<span class="info">—</span>`;
+        const bladeChargeInfo = state.bladeChargeInstant ? `<span class="info good">Charged</span>` : "";
+
+        root.innerHTML = `
+      <div class="sbsi-topbar">
+        <button class="sbsi-back-btn" id="sbsi-cg-back">← Menu</button>
+        <div class="sbsi-life"><span class="heart">❤</span> ${state.life} / ${state.maxLife}</div>
+      </div>
+
+      <div class="sbsi-stack">
+        <div class="sbsi-stack-slot"><span class="who">👸🏻♦️</span><span class="label">Shield Maiden</span><span class="info">${bladeChargeInfo}</span></div>
+        <div class="sbsi-stack-slot"><span class="who">🫅🏻♦️</span><span class="label">Lord Wraith</span>${bladeInfo}</div>
+        <div class="sbsi-stack-slot"><span class="who">🫅🏻♥️</span><span class="label">Sorcerer</span><span class="info">${state.kingHeartsCorpses}/3 corpses</span></div>
+        <div class="sbsi-stack-slot"><span class="who">👸♥️</span><span class="label">Priestess</span>${
+            state.queenHeartsAlive
+                ? (state.queenHeartsStored
+                    ? `<span class="info good" style="cursor:pointer;" id="sbsi-redeem">Chalice ready — tap to drink</span>`
+                    : `<span class="info">Awaiting</span>`)
+                : `<span class="info warn">Sacrificed</span>`
+        }</div>
+        <div class="sbsi-stack-slot"><span class="who">🧥</span><span class="label">Cloak</span><span class="info">${cloakInfo}</span></div>
+      </div>
+
+      <div class="sbsi-chamber" id="sbsi-chamber"></div>
+
+      <div class="sbsi-actions-dynamic" style="min-height:44px;"></div>
+
+      <div class="sbsi-actions">
+        <button class="sbsi-btn" id="sbsi-flee" ${state.fledLastChamber ? "disabled" : ""}>🏃 Flee this Chamber</button>
+      </div>
+
+      <div class="sbsi-log"></div>
+
+      <div style="text-align:center;color:#555;font-size:11px;margin-top:8px;">
+        Dungeon: ${state.dungeon.length} · Abyss: ${state.abyss.length}
+      </div>
+    `;
+
+        const chamberEl = root.querySelector("#sbsi-chamber");
+        state.chamber.forEach(card => {
+            const cardHtml = card.isMystic ? sbsiMysticFrontHTML(card) : sbsiCardFrontHTML(card);
+            chamberEl.insertAdjacentHTML("beforeend", cardHtml);
+        });
+        chamberEl.querySelectorAll(".sbsi-card").forEach(el => {
+            el.addEventListener("click", () => handleCardClick(el.getAttribute("data-card-id")));
+        });
+
+        root.querySelector("#sbsi-cg-back").addEventListener("click", () => onExit && onExit());
+        root.querySelector("#sbsi-flee").addEventListener("click", doFlee);
+        const redeemEl = root.querySelector("#sbsi-redeem");
+        if (redeemEl) redeemEl.addEventListener("click", doRedeemChalice);
+
+        renderLog();
+    }
+
+    function sbsiToCartoCard(card) {
+        // Adapter: the cartomancy engine expects {suit, number} with rank "Disciple"
+        // for the court value 11, where this game's own rules call that rank "Rogue".
+        return { suit: card.suit, number: card.rank === "Rogue" ? "Disciple" : card.rank };
+    }
+
+    function renderMysticScreen() {
+        const pm = state.pendingMystic;
+        const a = pm.drawnA, b = pm.drawnB;
+        let readingHtml = "";
+        if (a && b) {
+            const va = sbsiValue(a.rank), vb = sbsiValue(b.rank);
+            const d = Math.abs(va - vb);
+            const sameColor = sbsiColor(a.suit) === sbsiColor(b.suit);
+            const archetype = getArchetype(d, sameColor, a.suit);
+            const info = interpret(archetype);
+            const cardA = sbsiToCartoCard(a), cardB = sbsiToCartoCard(b);
+            const titleA = minorArcanaTitle(cardA), titleB = minorArcanaTitle(cardB);
+            readingHtml = `
+        <div class="sbsi-chamber" style="margin-bottom:4px;">
+          ${sbsiCardFrontHTML(a)}
+          ${sbsiCardFrontHTML(b)}
+        </div>
+        <div style="color:#999;font-size:12px;max-width:520px;margin:0 auto 10px;text-align:center;">
+          <strong style="color:#ccc;">${a.rank}${titleA ? " — " + titleA : ""}:</strong> ${minorMeaning(cardA)}<br><br>
+          <strong style="color:#ccc;">${b.rank}${titleB ? " — " + titleB : ""}:</strong> ${minorMeaning(cardB)}
+        </div>
+        <div style="text-align:center;color:#ffc107;font-family:'Metal Mania',cursive;font-size:18px;margin:8px 0 2px;">${archetype}</div>
+        <div style="text-align:center;color:#999;font-size:11px;margin-bottom:6px;">(${info.keywords})</div>
+        <div style="color:#ccc;font-size:13px;max-width:520px;margin:0 auto 8px;text-align:center;">${info.description}</div>
+        <div style="text-align:center;color:#c77dff;font-style:italic;">"${info.affirmation}"</div>
+      `;
+        }
+        return `
+      <div class="sbsi-topbar">
+        <div class="sbsi-life"><span class="heart">❤</span> ${state.life} / ${state.maxLife}</div>
+      </div>
+      <div style="text-align:center;font-family:'Metal Mania',cursive;color:#c77dff;font-size:22px;margin-bottom:6px;">🃏 A Mystic Beckons 🃏</div>
+      <div style="text-align:center;color:#999;font-size:13px;margin-bottom:14px;">A hidden stair opens before you, offering both escape and a reading of the shadow.</div>
+      ${readingHtml}
+      <div class="sbsi-actions" style="margin-top:14px;">
+        <button class="sbsi-btn mystic" id="sbsi-myst-follow">Follow the Mystic</button>
+        <button class="sbsi-btn" id="sbsi-myst-refuse" ${state.hasRefusedMystic ? "disabled" : ""}>Refuse (−1 life)</button>
+      </div>
+      <div class="sbsi-log"></div>
+    `;
+    }
+
+    function renderEndScreen() {
+        const cls = state.won ? "win" : "";
+        const title = state.won ? "The Dungeon Yields" : "Fallen in Battle";
+        const msg = state.won
+            ? "The Abyss is full, and you still draw breath. The Crown of Shade is yours to claim."
+            : "Your grey blood spills upon the stones. The Dungeon claims another Seeker.";
+        return `
+      <div class="sbsi-end ${cls}">
+        <h2>${title}</h2>
+        <p>${msg}</p>
+        <div class="sbsi-actions">
+          <button class="sbsi-btn" id="sbsi-cg-again">⚔️ Descend Again</button>
+          <button class="sbsi-btn alt" id="sbsi-cg-exit">← Return to Menu</button>
+        </div>
+      </div>
+    `;
+    }
+
+    return { init, newGame };
+})();
+
+
+// ---- roguelike_ui.js ----
+// ==================== SHADE BLADE SORCERY: ROGUELIKE UI ====================
+// Depends on: core.js, engine.js, roguelike_gen.js, and the site's cartomancy
+// globals (getArchetype, interpret, minorArcanaTitle, minorMeaning) for Mystic readings.
+
+const SBSIRoguelike = (function () {
+    let root = null;
+    let onExit = null;
+    let dungeonMap = null;
+    let party = null;       // [{x,y}, {x,y}, {x,y}]  head..tail
+    let visitedRooms = null;
+    let gs = null;          // shared sbsi engine game state
+    let inChamber = false;
+    let leftBehindDrankFlag = false;
+    let keyHandler = null;
+
+    function init(rootEl, exitCallback) {
+        root = rootEl;
+        onExit = exitCallback;
+        newGame();
+        keyHandler = function (e) {
+            const map = { ArrowUp: [0, -1], ArrowDown: [0, 1], ArrowLeft: [-1, 0], ArrowRight: [1, 0],
+                w: [0, -1], s: [0, 1], a: [-1, 0], d: [1, 0], W: [0, -1], S: [0, 1], A: [-1, 0], D: [1, 0] };
+            if (map[e.key]) { e.preventDefault(); tryMove(map[e.key][0], map[e.key][1]); }
+        };
+        document.addEventListener("keydown", keyHandler);
+    }
+
+    function teardown() {
+        if (keyHandler) document.removeEventListener("keydown", keyHandler);
+        keyHandler = null;
+    }
+
+    function newGame() {
+        dungeonMap = sbsiGenerateDungeon();
+        const start = dungeonMap.rooms[0];
+        party = [{ x: start.cx, y: start.cy }, { x: start.cx, y: start.cy }, { x: start.cx, y: start.cy }];
+        visitedRooms = new Set([start.id]);
+        gs = sbsiNewGame();
+        inChamber = false;
+        leftBehindDrankFlag = false;
+        render();
+    }
+
+    function tryMove(dx, dy) {
+        if (inChamber || gs.gameOver) return;
+        const head = party[0];
+        const nx = head.x + dx, ny = head.y + dy;
+        if (!sbsiRlIsWalkable(dungeonMap, nx, ny)) return;
+        party.unshift({ x: nx, y: ny });
+        party.pop();
+
+        const room = sbsiRlRoomAt(dungeonMap, nx, ny);
+        if (room && !visitedRooms.has(room.id)) {
+            visitedRooms.add(room.id);
+            if (gs.dungeon.length > 0 || gs.chamber.length > 0) {
+                enterChamber();
+                return;
+            } else if (visitedRooms.size >= dungeonMap.rooms.length) {
+                gs.gameOver = true;
+                gs.won = true;
+            }
+        }
+        render();
+    }
+
+    function enterChamber() {
+        leftBehindDrankFlag = false;
+        sbsiFillChamber(gs);
+        inChamber = gs.chamber.length > 0;
+        render();
+    }
+
+    function afterChamberAction() {
+        if (gs.chamber.length === 0 && !gs.gameOver) {
+            inChamber = false;
+        }
+        render();
+    }
+
+    function handleCardClick(cardId) {
+        if (gs.gameOver || gs.pendingMystic) return;
+        const card = gs.chamber.find(c => c && c.id === cardId);
+        if (!card) return;
+        const cls = sbsiClassify(card);
+        if (cls === "mystic") { sbsiTriggerMystic(gs, card); render(); return; }
+        if (cls === "monster") {
+            const val = sbsiValue(card.rank);
+            renderMonsterChoice(card, sbsiCanFightWithBlade(gs, val));
+            return;
+        }
+        if (cls === "chalice") { renderChaliceChoice(card); return; }
+        if (cls === "equip-blade" || cls === "equip-cloak") { sbsiEquip(gs, card); afterChamberAction(); return; }
+        if (cls === "new-blade") { sbsiNewBlade(gs, card); afterChamberAction(); return; }
+        if (cls === "red-rogue") { sbsiRedRogueRepair(gs, card); afterChamberAction(); return; }
+        sbsiRemoveFromChamber(gs, card.id);
+        gs.abyss.push(card);
+        afterChamberAction();
+    }
+
+    function renderMonsterChoice(card, canBlade) {
+        const actionsEl = root.querySelector(".sbsi-rl-actions-dynamic");
+        actionsEl.innerHTML = `
+      <button class="sbsi-btn" ${canBlade ? "" : "disabled"} id="sbsi-rl-blade">⚔️ Blade</button>
+      <button class="sbsi-btn alt" id="sbsi-rl-bare">👊 Bare-Handed</button>
+      <button class="sbsi-btn" id="sbsi-rl-cancel" style="border-color:#666;">Cancel</button>`;
+        root.querySelector("#sbsi-rl-blade")?.addEventListener("click", () => { sbsiFight(gs, card, "blade"); afterChamberAction(); });
+        root.querySelector("#sbsi-rl-bare").addEventListener("click", () => { sbsiFight(gs, card, "barehanded"); afterChamberAction(); });
+        root.querySelector("#sbsi-rl-cancel").addEventListener("click", render);
+    }
+
+    function renderChaliceChoice(card) {
+        const actionsEl = root.querySelector(".sbsi-rl-actions-dynamic");
+        const canStore = gs.queenHeartsAlive && !gs.queenHeartsStored;
+        actionsEl.innerHTML = `
+      <button class="sbsi-btn" id="sbsi-rl-drink">🍷 Drink</button>
+      <button class="sbsi-btn alt" ${canStore ? "" : "disabled"} id="sbsi-rl-store">🫙 Store</button>
+      <button class="sbsi-btn" id="sbsi-rl-cancel" style="border-color:#666;">Cancel</button>`;
+        root.querySelector("#sbsi-rl-drink").addEventListener("click", () => {
+            sbsiChalice(gs, card, "drink", leftBehindDrankFlag); leftBehindDrankFlag = true; afterChamberAction();
+        });
+        root.querySelector("#sbsi-rl-store")?.addEventListener("click", () => {
+            sbsiChalice(gs, card, "store", leftBehindDrankFlag); afterChamberAction();
+        });
+        root.querySelector("#sbsi-rl-cancel").addEventListener("click", render);
+    }
+
+    function doFlee() {
+        if (gs.gameOver || gs.pendingMystic) return;
+        if (sbsiFlee(gs)) { inChamber = false; }
+        render();
+    }
+
+    function resolveMystic(follow) {
+        sbsiResolveMystic(gs, follow);
+        leftBehindDrankFlag = false;
+        sbsiFillChamber(gs);
+        inChamber = gs.chamber.length > 0;
+        render();
+    }
+
+    function toCartoCard(card) {
+        return { suit: card.suit, number: card.rank === "Rogue" ? "Disciple" : card.rank };
+    }
+
+    function renderMap() {
+        const rows = [];
+        const partyMap = {};
+        const glyphs = ["👑", "🫅", "👸"];
+        party.forEach((p, i) => { partyMap[p.x + "," + p.y] = glyphs[Math.min(i, glyphs.length - 1)]; });
+        for (let y = 0; y < dungeonMap.h; y++) {
+            let line = "";
+            for (let x = 0; x < dungeonMap.w; x++) {
+                const key = x + "," + y;
+                if (partyMap[key]) { line += `<span class="pc">${partyMap[key]}</span>`; continue; }
+                const c = dungeonMap.grid[y][x];
+                if (c === "#") line += `<span class="fw">#</span>`;
+                else if (c === ".") line += `<span class="fl">·</span>`;
+                else line += c;
+            }
+            rows.push(line);
+        }
+        return rows.join("\n");
+    }
+
+    function render() {
+        if (!root) return;
+
+        if (gs.gameOver) {
+            const cls = gs.won ? "win" : "";
+            const title = gs.won ? "The Dungeon Yields" : "Fallen in Battle";
+            const msg = gs.won
+                ? "Every chamber lies cleared, every corridor walked. The Crown of Shade is yours."
+                : "Your grey blood spills upon the stones of an unfinished descent.";
+            root.innerHTML = `
+        <div class="sbsi-end ${cls}">
+          <h2>${title}</h2>
+          <p>${msg}</p>
+          <div class="sbsi-actions">
+            <button class="sbsi-btn" id="sbsi-rl-again">🗺️ Descend Again</button>
+            <button class="sbsi-btn alt" id="sbsi-rl-exit">← Return to Menu</button>
+          </div>
+        </div>`;
+            root.querySelector("#sbsi-rl-again").addEventListener("click", newGame);
+            root.querySelector("#sbsi-rl-exit").addEventListener("click", () => { teardown(); onExit && onExit(); });
+            return;
+        }
+
+        if (gs.pendingMystic) {
+            renderMysticPanel();
+            return;
+        }
+
+        const bladeInfo = gs.hasBlade
+            ? `<span class="info good">${gs.blade.durability === null ? "Fresh" : "≤" + gs.blade.durability} · ${gs.blade.corpses}c</span>`
+            : `<span class="info warn">Unarmed</span>`;
+
+        root.innerHTML = `
+      <div class="sbsi-topbar">
+        <button class="sbsi-back-btn" id="sbsi-rl-back">← Menu</button>
+        <div class="sbsi-life"><span class="heart">❤</span> ${gs.life} / ${gs.maxLife}</div>
+      </div>
+      <div style="text-align:center;color:#777;font-size:12px;margin-bottom:8px;">
+        Rooms explored: ${visitedRooms.size} / ${dungeonMap.rooms.length} &nbsp;·&nbsp; Blade: ${bladeInfo} &nbsp;·&nbsp; Dungeon: ${gs.dungeon.length}
+      </div>
+      <div class="sbsi-rl-layout">
+        <div class="sbsi-rl-mapwrap"><div class="sbsi-rl-map">${renderMap()}</div></div>
+        <div class="sbsi-rl-side">
+          <div class="sbsi-rl-dpad">
+            <span></span><button id="sbsi-rl-up">▲</button><span></span>
+            <button id="sbsi-rl-left">◀</button><span></span><button id="sbsi-rl-right">▶</button>
+            <span></span><button id="sbsi-rl-down">▼</button><span></span>
+          </div>
+          <div style="text-align:center;color:#666;font-size:10px;margin-bottom:8px;">arrows / wasd</div>
+          <button class="sbsi-btn" id="sbsi-rl-flee" style="width:100%;" ${(!inChamber || gs.fledLastChamber) ? "disabled" : ""}>🏃 Flee Chamber</button>
+        </div>
+      </div>
+      <div id="sbsi-rl-chamber-panel"></div>
+      <div class="sbsi-rl-actions-dynamic" style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;min-height:40px;margin-top:8px;"></div>
+      <div class="sbsi-log"></div>
+    `;
+
+        ["up", "down", "left", "right"].forEach(dir => {
+            const btn = root.querySelector("#sbsi-rl-" + dir);
+            const deltas = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
+            btn.disabled = inChamber;
+            btn.addEventListener("click", () => tryMove(deltas[dir][0], deltas[dir][1]));
+        });
+        root.querySelector("#sbsi-rl-back").addEventListener("click", () => { teardown(); onExit && onExit(); });
+        root.querySelector("#sbsi-rl-flee").addEventListener("click", doFlee);
+
+        if (inChamber && gs.chamber.length > 0) {
+            const panel = root.querySelector("#sbsi-rl-chamber-panel");
+            panel.innerHTML = `<div class="sbsi-chamber" id="sbsi-rl-chamber"></div>`;
+            const chamberEl = panel.querySelector("#sbsi-rl-chamber");
+            gs.chamber.forEach(card => {
+                chamberEl.insertAdjacentHTML("beforeend", card.isMystic ? sbsiMysticFrontHTML(card) : sbsiCardFrontHTML(card));
+            });
+            chamberEl.querySelectorAll(".sbsi-card").forEach(el => {
+                el.addEventListener("click", () => handleCardClick(el.getAttribute("data-card-id")));
+            });
+        }
+
+        const logEl = root.querySelector(".sbsi-log");
+        logEl.innerHTML = gs.log.slice(-40).map(e => `<div class="${e.cls}">${e.msg}</div>`).join("");
+        logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    function renderMysticPanel() {
+        const pm = gs.pendingMystic;
+        const a = pm.drawnA, b = pm.drawnB;
+        let readingHtml = "";
+        if (a && b) {
+            const d = Math.abs(sbsiValue(a.rank) - sbsiValue(b.rank));
+            const sameColor = sbsiColor(a.suit) === sbsiColor(b.suit);
+            const archetype = getArchetype(d, sameColor, a.suit);
+            const info = interpret(archetype);
+            readingHtml = `
+        <div class="sbsi-chamber" style="margin-bottom:4px;">${sbsiCardFrontHTML(a)}${sbsiCardFrontHTML(b)}</div>
+        <div style="text-align:center;color:#ffc107;font-family:'Metal Mania',cursive;font-size:16px;">${archetype}</div>
+        <div style="color:#ccc;font-size:12px;max-width:480px;margin:6px auto;text-align:center;">${info.description}</div>
+        <div style="text-align:center;color:#c77dff;font-style:italic;font-size:13px;">"${info.affirmation}"</div>`;
+        }
+        root.innerHTML = `
+      <div class="sbsi-topbar"><div class="sbsi-life"><span class="heart">❤</span> ${gs.life} / ${gs.maxLife}</div></div>
+      <div style="text-align:center;font-family:'Metal Mania',cursive;color:#c77dff;font-size:20px;">🃏 A Mystic Beckons 🃏</div>
+      ${readingHtml}
+      <div class="sbsi-actions" style="margin-top:12px;">
+        <button class="sbsi-btn mystic" id="sbsi-rl-myst-follow">Follow</button>
+        <button class="sbsi-btn" id="sbsi-rl-myst-refuse" ${gs.hasRefusedMystic ? "disabled" : ""}>Refuse (−1 life)</button>
+      </div>`;
+        root.querySelector("#sbsi-rl-myst-follow").addEventListener("click", () => resolveMystic(true));
+        root.querySelector("#sbsi-rl-myst-refuse").addEventListener("click", () => resolveMystic(false));
+    }
+
+    return { init, teardown };
+})();
+
+
+// ---- router.js ----
+// ==================== SHADE BLADE SORCERY: INTERACTIVE — ROUTER ====================
+(function () {
+    function sbsiShowMenu() {
+        const container = document.getElementById("sbsiRoot");
+        if (SBSIRoguelike && SBSIRoguelike.teardown) SBSIRoguelike.teardown();
+        container.innerHTML = `
+      <div class="sbsi-menu">
+        <button class="sbsi-menu-btn" id="sbsi-go-cardgame">
+          <span class="icon">🃏</span>
+          <span>The Card Game
+            <span class="desc">Draw the Chamber, wield the blade or bare-handed sorcery, and descend through a shuffled Dungeon in the spirit of Scoundrel.</span>
+          </span>
+        </button>
+        <button class="sbsi-menu-btn" id="sbsi-go-roguelike">
+          <span class="icon">🗺️</span>
+          <span>The Roguelike Descent
+            <span class="desc">Guide the connected train of Lord Wraith, the Sorcerer, and the Priestess through a procedurally-carved dungeon of rooms and corridors.</span>
+          </span>
+        </button>
+      </div>
+    `;
+        document.getElementById("sbsi-go-cardgame").addEventListener("click", sbsiShowCardGame);
+        document.getElementById("sbsi-go-roguelike").addEventListener("click", sbsiShowRoguelike);
+    }
+
+    function sbsiShowCardGame() {
+        const container = document.getElementById("sbsiRoot");
+        container.innerHTML = "";
+        SBSICardGame.init(container, sbsiShowMenu);
+    }
+
+    function sbsiShowRoguelike() {
+        const container = document.getElementById("sbsiRoot");
+        container.innerHTML = "";
+        SBSIRoguelike.init(container, sbsiShowMenu);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        if (document.getElementById("sbsiRoot")) sbsiShowMenu();
+    });
+    // In case DOMContentLoaded already fired (script placed after the container markup)
+    if (document.readyState !== "loading" && document.getElementById("sbsiRoot")) {
+        sbsiShowMenu();
+    }
+})();
+
+    </script>
+
 </body>
 </html>
