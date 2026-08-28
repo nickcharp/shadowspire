@@ -643,6 +643,11 @@
   font-family:'Metal Mania',cursive;font-size:18px;color:#ffc107;letter-spacing:1px;
 }
 .sbsi-life .heart{color:#dc3545;}
+.sbsi-life-centered{
+  font-family:'Metal Mania',cursive;font-size:26px;color:#ffc107;letter-spacing:1px;
+  text-align:center;margin:2px 0 10px;
+}
+.sbsi-life-centered .heart{color:#dc3545;}
 
 /* ---- Playing cards ---- */
 .sbsi-card{
@@ -657,6 +662,15 @@
 .sbsi-card:hover{transform:translateY(-6px);box-shadow:0 8px 14px rgba(220,53,69,0.4);}
 .sbsi-card.sbsi-disabled{opacity:.4;cursor:not-allowed;transform:none;}
 .sbsi-card.sbsi-disabled:hover{transform:none;box-shadow:0 2px 6px rgba(0,0,0,0.5);}
+.sbsi-card.sbsi-selected{
+  outline:3px solid #ff2d3d;outline-offset:2px;
+  box-shadow:0 0 16px 4px rgba(255,45,61,0.85),0 0 4px rgba(255,45,61,0.9);
+  animation:sbsiSelectedPulse 1.4s ease-in-out infinite;
+}
+@keyframes sbsiSelectedPulse{
+  0%,100%{box-shadow:0 0 16px 4px rgba(255,45,61,0.85),0 0 4px rgba(255,45,61,0.9);}
+  50%{box-shadow:0 0 22px 7px rgba(255,45,61,0.55),0 0 6px rgba(255,45,61,0.7);}
+}
 .sbsi-card.red{color:#a3182a;}
 .sbsi-card.black{color:#1a1a1a;}
 .sbsi-card .corner{font-size:15px;font-weight:700;line-height:1;text-align:center;}
@@ -1056,9 +1070,9 @@
 		<div class="sbsi-subtitle">choose your trial</div>
 		<div class="sbsi-panel" id="sbsiPanel">
 			<button id="sbsiFullscreenBtn" class="sbsi-fullscreen-btn" title="Fullscreen">⛶</button>
+			<button id="sbsiFullscreenClose" class="sbsi-fullscreen-close" title="Exit Fullscreen">✕</button>
 			<div id="sbsiRoot"></div>
 		</div>
-		<button id="sbsiFullscreenClose" class="sbsi-fullscreen-close" title="Exit Fullscreen">✕</button>
 	</div>
 
 <hr class="glow animate-breathe" id="warpath">
@@ -3232,7 +3246,7 @@ All the cups overflow at once, joy tipping toward exhaustion.
        &
 ⚡A of T♣️
 🔥🐲Obsidian Dragon of Wrathful Chaos🐉🔥</span>
-<li>Attacks your 🫅🏻K of C♥️ with blazing winds of black flame and <span class="number">cuts your Life in Half (if Life is an Odd #, damage is half and rounded up) as you and your loyal companions dive for cover</span>. Having vomitted forth their vast swath of catastrophic conflagration, they become wilted in ruins upon the sacrificial grounds before your Sorcerer.⚡A of D♦️ 🗡️Shade Blade🗡️ can be used to slay a Dragon outright, and ⚡A of C♥️ 👕Shade Cloak & Deathmask🎭 can be used to take 2 less than Half the damage.</li>
+<li>Attacks your 🫅🏻K of C♥️ with blazing winds of black flame and <span class="number">cuts your Life in Half (if Life is an Odd #, damage is half and rounded up) as you and your loyal companions dive for cover</span>. Having vomitted forth their vast swath of catastrophic conflagration, they collapse wilted at your Sorcerer's feet, <span class="number">counted as a corpse in his tally</span>, and only swept to the Abyss once three such corpses have gathered there. ⚡A of D♦️ 🗡️Shade Blade🗡️ can be used to slay a Dragon outright, sending it directly to the Abyss instead, and ⚡A of C♥️ 👕Shade Cloak & Deathmask🎭 can be used to take 2 less than Half the damage.</li>
 
 <span class="blacks">⚫BLACK KINGS⚫
 
@@ -3241,16 +3255,16 @@ All the cups overflow at once, joy tipping toward exhaustion.
        &
 🫅🏻K of S♠️
 💥💀Sorcerer Lich of Black Stars & Silent Daggers💀💥️</span>
-<li>Deals <span class="number">base 13 damage</span> + <span class="number"># of rotting Corpses</span> (max <span class="number">+2</span> Damage) captured by your 🫅🏻K of C♥️, on the Warpath of the Inverse Enlightened, in pursuit of indiscriminate total annihilation of the demiurge and all creation within the perpetuated imprisonment of the illusory matrix construct.</li>
+<li>You may choose to Confront him with your 🗡️♦️ or bare-handed 👊🏻. He deals <span class="number">base 13 damage</span> + <span class="number"># of rotting Corpses</span> (max <span class="number">+2</span> Damage) captured by your 🫅🏻K of C♥️, on the Warpath of the Inverse Enlightened, in pursuit of indiscriminate total annihilation of the demiurge and all creation within the perpetuated imprisonment of the illusory matrix construct. <span class="number">If battled bare-handed</span>, the full toll is taken and he is laid at your Sorcerer's feet as a corpse. <span class="number">If battled by blade</span>, your 🗡️♦️ blocks damage equal to its current sharpness — only the remainder gets through — and he is stacked instead upon Lord Wraith's own trail of corpses, swept away only when that blade is replaced, shattered, or broken by a Black Rogue's fall.</li>
 
 <span class="blacks">⚫BLACK QUEENS⚫
 
 👸🏻Q of T♣️
 👩🐍Seductive Gorgon of Serpentine Gnosis🐍👩🏿</span>
-<li>Deals <span class="number">12 damage</span>, but while she is alive in the Chamber, you are too distracted by her otherworldly beauty and you drop your guard, <span class="number">causing your 🗡️♦️ to deal 1 less damage to her and all other opponents.</span> This has no effect on an equipped ⚡A of C♥️ 👕Shade Cloak & Deathmask🎭.</li>
+<li>You may choose to Confront her with your 🗡️♦️ or bare-handed 👊🏻. She deals <span class="number">12 damage</span>, but while she is alive in the Chamber, you are too distracted by her otherworldly beauty and you drop your guard, <span class="number">causing your 🗡️♦️ to deal 1 less damage to her and all other opponents</span> for as long as she remains unresolved. This has no effect on an equipped ⚡A of C♥️ 👕Shade Cloak & Deathmask🎭. <span class="number">If battled bare-handed</span>, the full toll is taken and she is laid at your Sorcerer's feet as a corpse. <span class="number">If battled by blade</span>, your 🗡️♦️ blocks damage equal to its (Gorgon-diminished) sharpness, and she is stacked instead upon Lord Wraith's trail.</li>
 <span class="blacks">👸🏻Q of S♠️
 👩🏻‍🦳☣️Soulsucking Succubus of Blinding Deceit🧪👩🏻‍🦳</span>
-<li>Deals <span class="number">12 damage</span>, but while alive in the Chamber, this sultry harlot beguiles you and <span class="number">poisons all Chalices, causing what would otherwise heal you - to diminish your Life.</span></li>
+<li>You may choose to Confront her with your 🗡️♦️ or bare-handed 👊🏻. She deals <span class="number">12 damage</span>, but while alive in the Chamber, this sultry harlot beguiles you and <span class="number">poisons all Chalices sharing her Chamber, causing what would otherwise heal you to diminish your Life instead</span> — unless she is battled and resolved before any of those Chalices are consumed. <span class="number">If battled bare-handed</span>, she is laid at your Sorcerer's feet as a corpse. <span class="number">If battled by blade</span>, your 🗡️♦️ blocks damage equal to its current sharpness, and she is stacked instead upon Lord Wraith's trail.</li>
 
 <span class="blacks">⚫BLACK ROGUES⚫ (BLACK JACKS)
 
@@ -3259,7 +3273,7 @@ All the cups overflow at once, joy tipping toward exhaustion.
        &
 ⚔️R of S♠️
 🩸🦇Fanged Reaper of the Antithetic Elite🦇🩸</span>
-<li>Deals <span class="number">11 damage, minus the value of your equipped 🗡️♦️,</span> when your 🫅🏻K of D♦️ has a durable enough dagger to fight them with. They will vanish to the Abyss, but send your 🗡️♦️, and every corpse stacked upon it, to the bottom of the Dungeon, which is then cut at its approximate middle. If battling "bare-handed" 👊🏻 with your sorcerous 🫅🏻K of C♥️, the Misanthropic Lycanthrope deals <span class="number">5 damage</span> and slips away to the bottom of the Dungeon, which is then cut at its approximate middle, to later return again.</li>
+<li>You may Confront him with your 🗡️♦️ whenever K of D♦️ is armed, no matter how dull the blade. He deals <span class="number">11 damage</span>, but your 🗡️♦️ blocks damage equal to its current sharpness — only the remainder gets through. He and your blade's entire trail of corpses will vanish to the Abyss together, but your 🗡️♦️ itself is sent alone to the bottom of the Dungeon, which is then cut at its approximate middle. If battling "bare-handed" 👊🏻 with your sorcerous 🫅🏻K of C♥️, the Misanthropic Lycanthrope deals <span class="number">5 damage</span> and slips away to the bottom of the Dungeon, which is then cut at its approximate middle, to later return again.</li>
 <hr class="glow-box animate-breathe">
 <span class="reds">🔴RED ACES🔴</span>
 
@@ -3832,9 +3846,11 @@ function sbsiNewGame() {
         chamber: [],                 // strictly left-to-right visual order; never reorder in place
         life: 20, maxLife: 20,
         fledLastChamber: false,
+        justFled: false,       // true only for the single refill immediately following a flee
         hasRefusedMystic: false,
 
         bladeCard: null,             // the Dagger number-card (or emergency Rogue) equipped to K of Daggers
+        bladeSharpness: null,        // proven damage-blocking value; only updates on a clean (0-dmg) kill
         bladeStack: [],              // black cards slain by that blade, chronological (push = newest)
         bladeIsEmergencyRogue: false,
 
@@ -3878,11 +3894,16 @@ function sbsiFillChamber(state) {
 function sbsiMaybeRefill(state) {
     if (state.gameOver || state.pendingMystic) return;
     const threshold = state.qodShieldActiveThisChamber ? 2 : 1;
-    if (state.chamber.length <= threshold && state.chamber.length > 0) {
-        state.qodShieldActiveThisChamber = false;
-        state.qodHeldCardId = null;
-        sbsiFillChamber(state);
-    } else if (state.chamber.length === 0 && !state.gameOver) {
+    const shouldRefill = (state.chamber.length <= threshold && state.chamber.length > 0) || state.chamber.length === 0;
+    if (shouldRefill) {
+        if (state.justFled) {
+            // this refill is the direct continuation of the flee itself - the
+            // cooldown must still apply to this newly-dealt round.
+            state.justFled = false;
+        } else {
+            // a full round has now been played out since the flee (if any) - cooldown clears.
+            state.fledLastChamber = false;
+        }
         state.qodShieldActiveThisChamber = false;
         state.qodHeldCardId = null;
         sbsiFillChamber(state);
@@ -3919,23 +3940,31 @@ function sbsiSuccubusActive(state) {
     return state.chamber.some(c => c && c.suit === "Swords ♠" && c.rank === "Queen");
 }
 
-// The blade's current "sharpness" for damage purposes: the value of the most recent
-// PLAIN NUMBER kill in its trail (court cards don't sharpen or dull it), or its own
-// face value if it hasn't yet cut down a plain number.
+// The blade's current "sharpness": tracked explicitly, and it only ever updates when
+// a blade-fight lands as a CLEAN kill (0 damage taken) - a costly win proves the blade
+// could still get the job done, but doesn't prove it's grown any sharper. A clean kill
+// against ANY foe (plain number or court card) sets the new proven threshold.
 function sbsiBladeEffectiveValue(state) {
     if (!state.bladeCard) return null;
-    for (let i = state.bladeStack.length - 1; i >= 0; i--) {
-        const c = state.bladeStack[i];
-        if (c.rank !== "King" && c.rank !== "Queen" && c.rank !== "Rogue" && c.rank !== "Ace") {
-            return sbsiValue(c.rank);
-        }
-    }
-    return sbsiValue(state.bladeCard.rank);
+    return state.bladeSharpness;
 }
 
 // Legacy helper kept for display purposes (same computation, different name used by the UI's stack summary)
 function sbsiBladeCeiling(state) {
     return sbsiBladeEffectiveValue(state);
+}
+
+// Re-derive sharpness after the Red Rogue strips the most recent corpse from the trail:
+// find the next-most-recent corpse that was itself a clean kill, or fall back to the
+// blade's own face value if no clean kill remains in the trail.
+function sbsiRecomputeSharpnessAfterRepair(state) {
+    for (let i = state.bladeStack.length - 1; i >= 0; i--) {
+        if (state.bladeStack[i]._sbsiCleanKill) {
+            state.bladeSharpness = sbsiValue(state.bladeStack[i].rank);
+            return;
+        }
+    }
+    state.bladeSharpness = sbsiValue(state.bladeCard.rank);
 }
 
 // UI-facing: blade fighting is now always offered when a blade is equipped - the
@@ -3958,6 +3987,7 @@ function sbsiShatterBlade(state) {
     state.abyss.push(state.bladeCard);
     state.abyss.push(...state.bladeStack);
     state.bladeCard = null;
+    state.bladeSharpness = null;
     state.bladeStack = [];
     state.bladeIsEmergencyRogue = false;
 }
@@ -4008,9 +4038,11 @@ function sbsiFight(state, card, mode) {
         const bonus = Math.min(2, state.bareHandStack.length);
         const rawDmg = 13 + bonus;
         if (mode === "blade" && state.bladeCard) {
-            let dmg = sbsiBladeDamage(state, rawDmg);
-            dmg = sbsiApplyCloakIfCharged(state, dmg);
+            const bladeOnlyDmg = sbsiBladeDamage(state, rawDmg);
+            let dmg = sbsiApplyCloakIfCharged(state, bladeOnlyDmg);
             if (dmg > 0) sbsiApplyDamage(state, dmg);
+            card._sbsiCleanKill = (bladeOnlyDmg === 0);
+            if (bladeOnlyDmg === 0) state.bladeSharpness = val;
             sbsiLog(state, `${SBSI_BLACK_NAMES.King[card.suit]} annihilates${dmg > 0 ? `, but ${dmg} damage still gets past your guard` : ", and your blade turns the full blow aside"}.`, dmg > 0 ? "l-dmg" : "l-note");
             sbsiRemoveFromChamber(state, card.id);
             state.bladeStack.push(card);
@@ -4029,9 +4061,11 @@ function sbsiFight(state, card, mode) {
     if (card.rank === "Queen") {
         const rawDmg = 12;
         if (mode === "blade" && state.bladeCard) {
-            let dmg = sbsiBladeDamage(state, rawDmg);
-            dmg = sbsiApplyCloakIfCharged(state, dmg);
+            const bladeOnlyDmg = sbsiBladeDamage(state, rawDmg);
+            let dmg = sbsiApplyCloakIfCharged(state, bladeOnlyDmg);
             if (dmg > 0) sbsiApplyDamage(state, dmg);
+            card._sbsiCleanKill = (bladeOnlyDmg === 0);
+            if (bladeOnlyDmg === 0) state.bladeSharpness = val;
             sbsiLog(state, `${SBSI_BLACK_NAMES.Queen[card.suit]} strikes${dmg > 0 ? `, but ${dmg} damage still gets past your guard` : ", and your blade turns the full blow aside"}.`, dmg > 0 ? "l-dmg" : "l-note");
             sbsiRemoveFromChamber(state, card.id);
             state.bladeStack.push(card);
@@ -4057,6 +4091,7 @@ function sbsiFight(state, card, mode) {
             state.dungeon.push(state.bladeCard);
             sbsiCutDeck(state);
             state.bladeCard = null;
+            state.bladeSharpness = null;
             state.bladeStack = [];
             state.bladeIsEmergencyRogue = false;
             sbsiRemoveFromChamber(state, card.id);
@@ -4074,12 +4109,14 @@ function sbsiFight(state, card, mode) {
 
     // Plain number monster (2-10)
     if (mode === "blade" && state.bladeCard) {
-        let dmg = sbsiBladeDamage(state, val);
-        dmg = sbsiApplyCloakIfCharged(state, dmg);
+        const bladeOnlyDmg = sbsiBladeDamage(state, val);
+        let dmg = sbsiApplyCloakIfCharged(state, bladeOnlyDmg);
         sbsiRemoveFromChamber(state, card.id);
+        card._sbsiCleanKill = (bladeOnlyDmg === 0);
         state.bladeStack.push(card);
         const wasEmergencyRogue = state.bladeIsEmergencyRogue;
         if (dmg > 0) sbsiApplyDamage(state, dmg);
+        if (bladeOnlyDmg === 0) state.bladeSharpness = val;
         if (val === 2) {
             sbsiLog(state, `The blade shatters upon so base a foe${dmg > 0 ? `, though ${dmg} damage still gets through` : ""}. Your dagger, and all it carried, is lost.`, "l-note");
             sbsiShatterBlade(state);
@@ -4162,6 +4199,7 @@ function sbsiConfirmEquip(state) {
         }
         sbsiRemoveFromChamber(state, card.id);
         state.bladeCard = card;
+        state.bladeSharpness = sbsiValue(card.rank);
         state.bladeStack = [];
         state.bladeIsEmergencyRogue = false;
         sbsiLog(state, `A new dagger, the ${card.rank} of Daggers, is equipped.`, "l-note");
@@ -4174,11 +4212,13 @@ function sbsiRedRogueRepair(state, card) {
     if (state.bladeCard && state.bladeStack.length > 0) {
         const removed = state.bladeStack.pop();
         state.abyss.push(removed);
+        sbsiRecomputeSharpnessAfterRepair(state);
         sbsiCutDeck(state);
         sbsiLog(state, `${SBSI_RED_ROGUE_NAMES[card.suit]} strikes the most recent kill from the blade's trail, restoring some of its edge. The Dungeon is cut.`, "l-note");
     } else if (!state.bladeCard) {
         sbsiRemoveFromChamber(state, card.id);
         state.bladeCard = card;
+        state.bladeSharpness = sbsiValue(card.rank);
         state.bladeStack = [];
         state.bladeIsEmergencyRogue = true;
         sbsiLog(state, `${SBSI_RED_ROGUE_NAMES[card.suit]} is wielded as an improvised blade, good for a single strike.`, "l-note");
@@ -4193,7 +4233,7 @@ function sbsiRedRogueRepair(state, card) {
 
 // ---- Mystic ----
 function sbsiTriggerMystic(state, mysticCard) {
-    const nonMystic = state.chamber.filter(c => c && c.id !== mysticCard.id);
+    const nonMystic = state.chamber.filter(c => c && !c.isMystic);
     const cardA = nonMystic.length > 0 ? nonMystic[0] : null;
     const cardB = nonMystic.length > 0 ? nonMystic[nonMystic.length - 1] : null;
     state.pendingMystic = { mysticCard, cardAId: cardA ? cardA.id : null, cardBId: cardB ? cardB.id : null };
@@ -4218,7 +4258,6 @@ function sbsiResolveMystic(state, follow) {
         // the other 3 cards remain exactly where they were; no cut, no shuffle
     }
     state.pendingMystic = null;
-    state.fledLastChamber = false;
 }
 
 // ---- Queen of Daggers: one-time shield ----
@@ -4242,6 +4281,7 @@ function sbsiFlee(state) {
     state.dungeon = state.dungeon.concat(state.chamber);
     state.chamber = [];
     state.fledLastChamber = true;
+    state.justFled = true;
     state.qodShieldActiveThisChamber = false;
     state.qodHeldCardId = null;
     sbsiLog(state, "You flee this Chamber. The stairway remembers.", "l-dim");
@@ -4447,6 +4487,7 @@ const SBSICardGame = (function () {
     let onExit = null;
     let leftBehindDrankFlag = false;
     let selectingShield = false;
+    let selectedCardId = null;
 
     function init(rootEl, exitCallback) {
         root = rootEl;
@@ -4458,6 +4499,7 @@ const SBSICardGame = (function () {
         state = sbsiNewGame();
         leftBehindDrankFlag = false;
         selectingShield = false;
+        selectedCardId = null;
         sbsiFillChamber(state);
         render();
     }
@@ -4465,12 +4507,14 @@ const SBSICardGame = (function () {
     function afterAction() {
         sbsiMaybeRefill(state);
         if (state.chamber.length === 4) leftBehindDrankFlag = false;
+        selectedCardId = null;
         render();
     }
 
     function cardIsInteractable(card) {
         if (state.gameOver || state.pendingMystic || state.pendingEquip) return false;
         if (card.id === state.qodHeldCardId) return false;
+        if (!card.isMystic && state.chamber.some(c => c && c.isMystic)) return false;
         return true;
     }
 
@@ -4488,14 +4532,16 @@ const SBSICardGame = (function () {
         if (!cardIsInteractable(card)) return;
 
         const cls = sbsiClassify(card);
-        if (cls === "mystic") { sbsiTriggerMystic(state, card); render(); return; }
+        if (cls === "mystic") { selectedCardId = card.id; sbsiTriggerMystic(state, card); render(); return; }
         if (cls === "monster") {
+            selectedCardId = card.id;
             const val = sbsiValue(card.rank);
             renderMonsterChoice(card, sbsiCanFightWithBlade(state, val));
             return;
         }
-        if (cls === "chalice") { renderChaliceChoice(card); return; }
+        if (cls === "chalice") { selectedCardId = card.id; renderChaliceChoice(card); return; }
         if (cls === "equip-blade" || cls === "equip-cloak" || cls === "new-blade") {
+            selectedCardId = card.id;
             sbsiRequestEquip(state, card);
             render();
             return;
@@ -4527,7 +4573,7 @@ const SBSICardGame = (function () {
         });
         root.querySelector("#sbsi-act-blade")?.addEventListener("click", () => { sbsiFight(state, card, "blade"); afterAction(); });
         root.querySelector("#sbsi-act-bare").addEventListener("click", () => { sbsiFight(state, card, "barehanded"); afterAction(); });
-        root.querySelector("#sbsi-act-cancel").addEventListener("click", render);
+        root.querySelector("#sbsi-act-cancel").addEventListener("click", () => { selectedCardId = null; render(); });
     }
 
     function renderChaliceChoice(card) {
@@ -4548,7 +4594,7 @@ const SBSICardGame = (function () {
             sbsiChalice(state, card, "store", leftBehindDrankFlag);
             afterAction();
         });
-        root.querySelector("#sbsi-act-cancel").addEventListener("click", render);
+        root.querySelector("#sbsi-act-cancel").addEventListener("click", () => { selectedCardId = null; render(); });
     }
 
     function doFlee() {
@@ -4610,8 +4656,8 @@ const SBSICardGame = (function () {
         root.innerHTML = `
       <div class="sbsi-topbar">
         <button class="sbsi-back-btn" id="sbsi-cg-back">← Menu</button>
-        <div class="sbsi-life"><span class="heart">❤</span> ${state.life} / ${state.maxLife}</div>
       </div>
+      <div class="sbsi-life-centered"><span class="heart">❤</span> ${state.life} / ${state.maxLife}</div>
 
       <div class="sbsi-stack">
         <div class="sbsi-stack-slot"><span class="who">👸♥️</span><span class="label">Priestess</span>${
@@ -4660,9 +4706,11 @@ const SBSICardGame = (function () {
             const card = state.chamber.find(c => c.id === cardId);
             let disabled = false;
             if (state.pendingMystic && cardId !== state.pendingMystic.mysticCard.id) { el.classList.add("sbsi-disabled"); disabled = true; }
+            else if (!state.pendingMystic && !card.isMystic && state.chamber.some(c => c && c.isMystic)) { el.classList.add("sbsi-disabled"); disabled = true; }
             if (state.pendingEquip) { el.classList.add("sbsi-disabled"); disabled = true; }
             if (cardId === state.qodHeldCardId) { el.classList.add("shield-held"); disabled = true; }
             if (selectingShield && cardId !== state.qodHeldCardId) { el.classList.add("shield-selectable"); }
+            if (cardId === selectedCardId) { el.classList.add("sbsi-selected"); }
             el.addEventListener("click", () => handleCardClick(cardId));
         });
 
@@ -4694,7 +4742,7 @@ const SBSICardGame = (function () {
         <button class="sbsi-btn" id="sbsi-equip-cancel" style="border-color:#666;">Cancel</button>
       </div>`;
         root.querySelector("#sbsi-equip-confirm").addEventListener("click", () => { sbsiConfirmEquip(state); afterAction(); });
-        root.querySelector("#sbsi-equip-cancel").addEventListener("click", () => { sbsiCancelEquip(state); render(); });
+        root.querySelector("#sbsi-equip-cancel").addEventListener("click", () => { sbsiCancelEquip(state); selectedCardId = null; render(); });
     }
 
     function renderMysticPrompt() {
@@ -4960,8 +5008,8 @@ const SBSIRoguelike = (function () {
         root.innerHTML = `
       <div class="sbsi-topbar">
         <button class="sbsi-back-btn" id="sbsi-rl-back">← Menu</button>
-        <div class="sbsi-life"><span class="heart">❤</span> ${gs.life} / ${gs.maxLife}</div>
       </div>
+      <div class="sbsi-life-centered"><span class="heart">❤</span> ${gs.life} / ${gs.maxLife}</div>
       <div style="text-align:center;color:#777;font-size:12px;margin-bottom:8px;">
         Rooms explored: ${visitedRooms.size} / ${dungeonMap.rooms.length} &nbsp;·&nbsp; Blade: ${bladeInfo} &nbsp;·&nbsp; Dungeon: ${gs.dungeon.length}
       </div>
@@ -5024,7 +5072,7 @@ const SBSIRoguelike = (function () {
         <div style="text-align:center;color:#c77dff;font-style:italic;font-size:13px;">"${info.affirmation}"</div>`;
         }
         root.innerHTML = `
-      <div class="sbsi-topbar"><div class="sbsi-life"><span class="heart">❤</span> ${gs.life} / ${gs.maxLife}</div></div>
+      <div class="sbsi-life-centered"><span class="heart">❤</span> ${gs.life} / ${gs.maxLife}</div>
       <div style="text-align:center;font-family:'Metal Mania',cursive;color:#c77dff;font-size:20px;">🃏 A Mystic Beckons 🃏</div>
       ${readingHtml}
       <div class="sbsi-actions" style="margin-top:12px;">
