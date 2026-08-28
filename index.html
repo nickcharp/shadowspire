@@ -595,7 +595,29 @@
 .sbsi-panel{
   background:#000;border:1px solid #444;border-radius:6px;padding:18px;
   box-shadow:0 0 8px rgba(220,53,69,0.15);
+  position:relative;
 }
+.sbsi-fullscreen-btn{
+  position:absolute;top:8px;right:8px;z-index:10;
+  background:#1a1a1a;border:1px solid #666;color:#ccc;border-radius:4px;
+  width:32px;height:32px;font-size:16px;cursor:pointer;line-height:1;
+}
+.sbsi-fullscreen-btn:hover{background:#dc3545;color:#fff;border-color:#dc3545;}
+.sbsi-panel.sbsi-fullscreen-active{
+  position:fixed;inset:0;z-index:99999;margin:0;border-radius:0;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:50px 12px 20px;
+  max-width:none;width:100vw;height:100vh;
+  display:flex;flex-direction:column;align-items:center;
+}
+.sbsi-panel.sbsi-fullscreen-active .sbsi-fullscreen-btn{display:none;}
+.sbsi-fullscreen-close{
+  display:none;position:fixed;top:10px;right:10px;z-index:100000;
+  background:#1a1a1a;border:1px solid #dc3545;color:#eee;border-radius:4px;
+  width:38px;height:38px;font-size:20px;cursor:pointer;line-height:1;
+}
+.sbsi-fullscreen-close.sbsi-fs-visible{display:block;}
+.sbsi-fullscreen-close:hover{background:#dc3545;}
 
 /* ---- Main Menu ---- */
 .sbsi-menu{display:flex;flex-direction:column;gap:14px;align-items:center;padding:10px 0;}
@@ -1032,9 +1054,11 @@
 		</div>
 		<h1 class="sbsi-title">shade blade sorcery: descent</h1>
 		<div class="sbsi-subtitle">choose your trial</div>
-		<div class="sbsi-panel">
+		<div class="sbsi-panel" id="sbsiPanel">
+			<button id="sbsiFullscreenBtn" class="sbsi-fullscreen-btn" title="Fullscreen">⛶</button>
 			<div id="sbsiRoot"></div>
 		</div>
+		<button id="sbsiFullscreenClose" class="sbsi-fullscreen-close" title="Exit Fullscreen">✕</button>
 	</div>
 
 <hr class="glow animate-breathe" id="warpath">
@@ -3827,9 +3851,6 @@ function sbsiNewGame() {
         qodShieldActiveThisChamber: false,
         qodHeldCardId: null,
 
-        gorgonActive: false,
-        succubusActive: false,
-
         log: [],
         gameOver: false,
         won: false,
@@ -3891,16 +3912,36 @@ function sbsiCutDeck(state) {
     state.dungeon = state.dungeon.slice(mid).concat(state.dungeon.slice(0, mid));
 }
 
-function sbsiBladeCeiling(state) {
+function sbsiGorgonActive(state) {
+    return state.chamber.some(c => c && c.suit === "Torches ♣" && c.rank === "Queen");
+}
+function sbsiSuccubusActive(state) {
+    return state.chamber.some(c => c && c.suit === "Swords ♠" && c.rank === "Queen");
+}
+
+// The blade's current "sharpness" for damage purposes: the value of the most recent
+// PLAIN NUMBER kill in its trail (court cards don't sharpen or dull it), or its own
+// face value if it hasn't yet cut down a plain number.
+function sbsiBladeEffectiveValue(state) {
     if (!state.bladeCard) return null;
-    if (state.bladeStack.length > 0) return sbsiValue(state.bladeStack[state.bladeStack.length - 1].rank);
+    for (let i = state.bladeStack.length - 1; i >= 0; i--) {
+        const c = state.bladeStack[i];
+        if (c.rank !== "King" && c.rank !== "Queen" && c.rank !== "Rogue" && c.rank !== "Ace") {
+            return sbsiValue(c.rank);
+        }
+    }
     return sbsiValue(state.bladeCard.rank);
 }
+
+// Legacy helper kept for display purposes (same computation, different name used by the UI's stack summary)
+function sbsiBladeCeiling(state) {
+    return sbsiBladeEffectiveValue(state);
+}
+
+// UI-facing: blade fighting is now always offered when a blade is equipped - the
+// consequence of a weak blade is residual damage (see sbsiBladeDamage), not a block.
 function sbsiCanFightWithBlade(state, monsterValue) {
-    if (!state.bladeCard) return false;
-    if (state.bladeStack.length === 0) return true; // an unblooded blade can be turned on any foe
-    const ceiling = sbsiValue(state.bladeStack[state.bladeStack.length - 1].rank);
-    return monsterValue <= ceiling;
+    return !!state.bladeCard;
 }
 
 function sbsiApplyCloakIfCharged(state, dmg) {
@@ -3930,6 +3971,15 @@ function sbsiFlushBareHandIfNeeded(state) {
     }
 }
 
+// Damage that gets through a blade fight: raw foe damage minus the blade's effective
+// value (reduced by 1 while a Gorgon sits unresolved in the Chamber), floored at 0.
+function sbsiBladeDamage(state, rawDamage) {
+    const bladeVal = sbsiBladeEffectiveValue(state);
+    const gorgonPenalty = sbsiGorgonActive(state) ? 1 : 0;
+    const effective = Math.max(0, bladeVal - gorgonPenalty);
+    return Math.max(0, rawDamage - effective);
+}
+
 // ---- Instant kill via Shade Blade charge (works on ANY monster, incl. named specials) ----
 function sbsiConsumeShadeBladeOn(state, card) {
     state.abyss.push(state.shadeBladeSlotCard);
@@ -3937,8 +3987,6 @@ function sbsiConsumeShadeBladeOn(state, card) {
     state.shadeBladeSlotCard = null;
     sbsiRemoveFromChamber(state, card.id);
     sbsiLog(state, `The Shade Blade slays the foe outright. No damage taken.`, "l-note");
-    if (card.suit === "Torches ♣" && card.rank === "Queen") state.gorgonActive = false;
-    if (card.suit === "Swords ♠" && card.rank === "Queen") state.succubusActive = false;
 }
 
 // ---- Fight resolution ----
@@ -3951,44 +3999,67 @@ function sbsiFight(state, card, mode) {
         sbsiApplyDamage(state, dmg);
         sbsiLog(state, `${SBSI_BLACK_NAMES.Ace[card.suit]} vomits forth catastrophic fire. You take ${dmg} damage.`, "l-dmg");
         sbsiRemoveFromChamber(state, card.id);
-        state.abyss.push(card);
+        state.bareHandStack.push(card);
+        sbsiFlushBareHandIfNeeded(state);
         return;
     }
+
     if (card.rank === "King") {
         const bonus = Math.min(2, state.bareHandStack.length);
-        let dmg = 13 + bonus;
-        dmg = sbsiApplyCloakIfCharged(state, dmg);
-        sbsiApplyDamage(state, dmg);
-        sbsiLog(state, `${SBSI_BLACK_NAMES.King[card.suit]} annihilates without mercy. You take ${dmg} damage.`, "l-dmg");
-        sbsiRemoveFromChamber(state, card.id);
-        state.abyss.push(card);
-        return;
-    }
-    if (card.rank === "Queen") {
-        let dmg = 12;
-        dmg = sbsiApplyCloakIfCharged(state, dmg);
-        sbsiApplyDamage(state, dmg);
-        sbsiLog(state, `${SBSI_BLACK_NAMES.Queen[card.suit]} strikes for ${dmg} damage before being cast down.`, "l-dmg");
-        if (card.suit === "Torches ♣") state.gorgonActive = false;
-        if (card.suit === "Swords ♠") state.succubusActive = false;
-        sbsiRemoveFromChamber(state, card.id);
-        state.abyss.push(card);
-        return;
-    }
-    if (card.rank === "Rogue") {
-        if (mode === "blade" && sbsiCanFightWithBlade(state, val)) {
-            const ceiling = sbsiBladeCeiling(state);
-            const dmg = Math.max(0, 11 - ceiling);
+        const rawDmg = 13 + bonus;
+        if (mode === "blade" && state.bladeCard) {
+            let dmg = sbsiBladeDamage(state, rawDmg);
+            dmg = sbsiApplyCloakIfCharged(state, dmg);
             if (dmg > 0) sbsiApplyDamage(state, dmg);
-            sbsiLog(state, `${SBSI_BLACK_NAMES.Rogue[card.suit]} is felled with your blade${dmg > 0 ? ` for ${dmg} damage` : ", unscathed"}. The blade is sent to the bottom of the Dungeon, which is then cut.`, dmg > 0 ? "l-dmg" : "l-note");
-            const returning = [state.bladeCard, ...state.bladeStack];
-            state.dungeon = state.dungeon.concat(returning);
+            sbsiLog(state, `${SBSI_BLACK_NAMES.King[card.suit]} annihilates${dmg > 0 ? `, but ${dmg} damage still gets past your guard` : ", and your blade turns the full blow aside"}.`, dmg > 0 ? "l-dmg" : "l-note");
+            sbsiRemoveFromChamber(state, card.id);
+            state.bladeStack.push(card);
+        } else {
+            let dmg = rawDmg;
+            dmg = sbsiApplyCloakIfCharged(state, dmg);
+            sbsiApplyDamage(state, dmg);
+            sbsiLog(state, `${SBSI_BLACK_NAMES.King[card.suit]} annihilates without mercy. You take ${dmg} damage.`, "l-dmg");
+            sbsiRemoveFromChamber(state, card.id);
+            state.bareHandStack.push(card);
+            sbsiFlushBareHandIfNeeded(state);
+        }
+        return;
+    }
+
+    if (card.rank === "Queen") {
+        const rawDmg = 12;
+        if (mode === "blade" && state.bladeCard) {
+            let dmg = sbsiBladeDamage(state, rawDmg);
+            dmg = sbsiApplyCloakIfCharged(state, dmg);
+            if (dmg > 0) sbsiApplyDamage(state, dmg);
+            sbsiLog(state, `${SBSI_BLACK_NAMES.Queen[card.suit]} strikes${dmg > 0 ? `, but ${dmg} damage still gets past your guard` : ", and your blade turns the full blow aside"}.`, dmg > 0 ? "l-dmg" : "l-note");
+            sbsiRemoveFromChamber(state, card.id);
+            state.bladeStack.push(card);
+        } else {
+            let dmg = rawDmg;
+            dmg = sbsiApplyCloakIfCharged(state, dmg);
+            sbsiApplyDamage(state, dmg);
+            sbsiLog(state, `${SBSI_BLACK_NAMES.Queen[card.suit]} strikes for ${dmg} damage.`, "l-dmg");
+            sbsiRemoveFromChamber(state, card.id);
+            state.bareHandStack.push(card);
+            sbsiFlushBareHandIfNeeded(state);
+        }
+        return;
+    }
+
+    if (card.rank === "Rogue") {
+        if (mode === "blade" && state.bladeCard) {
+            const dmg = sbsiBladeDamage(state, 11);
+            if (dmg > 0) sbsiApplyDamage(state, dmg);
+            sbsiLog(state, `${SBSI_BLACK_NAMES.Rogue[card.suit]} is felled with your blade${dmg > 0 ? ` for ${dmg} damage` : ", unscathed"}. Your whole trail of corpses is given to the Abyss, and the blade itself is sent to the bottom of the Dungeon, which is then cut.`, dmg > 0 ? "l-dmg" : "l-note");
+            state.abyss.push(...state.bladeStack);
+            state.abyss.push(card);
+            state.dungeon.push(state.bladeCard);
             sbsiCutDeck(state);
             state.bladeCard = null;
             state.bladeStack = [];
             state.bladeIsEmergencyRogue = false;
             sbsiRemoveFromChamber(state, card.id);
-            state.abyss.push(card);
         } else {
             let dmg = 5;
             dmg = sbsiApplyCloakIfCharged(state, dmg);
@@ -4002,16 +4073,19 @@ function sbsiFight(state, card, mode) {
     }
 
     // Plain number monster (2-10)
-    if (mode === "blade" && sbsiCanFightWithBlade(state, val)) {
+    if (mode === "blade" && state.bladeCard) {
+        let dmg = sbsiBladeDamage(state, val);
+        dmg = sbsiApplyCloakIfCharged(state, dmg);
         sbsiRemoveFromChamber(state, card.id);
         state.bladeStack.push(card);
         const wasEmergencyRogue = state.bladeIsEmergencyRogue;
+        if (dmg > 0) sbsiApplyDamage(state, dmg);
         if (val === 2) {
-            sbsiLog(state, `The blade shatters upon so base a foe. Your dagger, and all it carried, is lost.`, "l-note");
+            sbsiLog(state, `The blade shatters upon so base a foe${dmg > 0 ? `, though ${dmg} damage still gets through` : ""}. Your dagger, and all it carried, is lost.`, "l-note");
             sbsiShatterBlade(state);
             if (wasEmergencyRogue) sbsiCutDeck(state);
         } else {
-            sbsiLog(state, `Your blade cuts down the ${val}-value foe cleanly. No damage taken.`, "l-note");
+            sbsiLog(state, dmg > 0 ? `Your blade cuts down the ${val}-value foe, but ${dmg} damage gets through.` : `Your blade cuts down the ${val}-value foe cleanly. No damage taken.`, dmg > 0 ? "l-dmg" : "l-note");
             if (wasEmergencyRogue) {
                 sbsiLog(state, `The improvised Rogue-blade snaps after its single use. The Dungeon is cut.`, "l-note");
                 sbsiShatterBlade(state);
@@ -4037,7 +4111,7 @@ function sbsiChalice(state, card, choice, alreadyDrankThisChamber) {
         sbsiLog(state, `The Priestess accepts the chalice, held in trust for later need.`, "l-note");
         return;
     }
-    if (state.succubusActive) {
+    if (sbsiSuccubusActive(state)) {
         const val = sbsiValue(card.rank);
         sbsiApplyDamage(state, val);
         sbsiLog(state, `The Succubus's poison turns the draught venomous. You take ${val} damage.`, "l-dmg");
@@ -4434,7 +4508,7 @@ const SBSICardGame = (function () {
 
     function renderMonsterChoice(card, canBlade) {
         const actionsEl = root.querySelector(".sbsi-actions-dynamic");
-        const isForced = card.rank === "Ace" || card.rank === "King" || card.rank === "Queen";
+        const isForced = card.rank === "Ace";
         let html = `<div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">`;
         if (state.shadeBladeSlotCard) {
             html += `<button class="sbsi-btn alt" id="sbsi-act-shadeblade">⚡ Shade Blade — Slay Outright</button>`;
@@ -4442,7 +4516,7 @@ const SBSICardGame = (function () {
         if (isForced) {
             html += `<button class="sbsi-btn" id="sbsi-act-bare">⚔️ Confront the Foe</button>`;
         } else {
-            html += `<button class="sbsi-btn" ${canBlade ? "" : "disabled"} id="sbsi-act-blade">⚔️ Fight with Blade</button>`;
+            html += `<button class="sbsi-btn" ${state.bladeCard ? "" : "disabled"} id="sbsi-act-blade">⚔️ Fight with Blade</button>`;
             html += `<button class="sbsi-btn" id="sbsi-act-bare">👊 Fight Bare-Handed</button>`;
         }
         html += `<button class="sbsi-btn" id="sbsi-act-cancel" style="border-color:#666;">Cancel</button>`;
@@ -4550,8 +4624,8 @@ const SBSICardGame = (function () {
         <div class="sbsi-stack-slot"><span class="who">🫅🏻♥️</span><span class="label">Sorcerer</span><span class="info">${state.bareHandStack.length}/3 corpses</span></div>
         <div class="sbsi-stack-slot"><span class="who">🫅🏻♦️</span><span class="label">Lord Wraith</span>${renderBladeStackHTML()}</div>
         <div class="sbsi-stack-slot"><span class="who">👸🏻♦️</span><span class="label">Shield Maiden</span>${qodStatus}</div>
-        <div class="sbsi-stack-slot"><span class="who">🧥</span><span class="label">Shade Cloak</span><span class="info good">${cloakInfo}</span></div>
         <div class="sbsi-stack-slot"><span class="who">🗡️</span><span class="label">Shade Blade</span><span class="info good">${shadeBladeInfo}</span></div>
+        <div class="sbsi-stack-slot"><span class="who">🧥</span><span class="label">Shade Cloak</span><span class="info good">${cloakInfo}</span></div>
       </div>
 
       <div class="sbsi-table">
@@ -5005,13 +5079,48 @@ const SBSIRoguelike = (function () {
         SBSIRoguelike.init(container, sbsiShowMenu);
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
+    function sbsiEnterFullscreen() {
+        const panel = document.getElementById("sbsiPanel");
+        const closeBtn = document.getElementById("sbsiFullscreenClose");
+        panel.classList.add("sbsi-fullscreen-active");
+        closeBtn.classList.add("sbsi-fs-visible");
+        if (panel.requestFullscreen) {
+            panel.requestFullscreen().catch(() => {});
+        } else if (panel.webkitRequestFullscreen) {
+            panel.webkitRequestFullscreen();
+        }
+    }
+    function sbsiExitFullscreen() {
+        const panel = document.getElementById("sbsiPanel");
+        const closeBtn = document.getElementById("sbsiFullscreenClose");
+        panel.classList.remove("sbsi-fullscreen-active");
+        closeBtn.classList.remove("sbsi-fs-visible");
+        if (document.fullscreenElement && document.exitFullscreen) {
+            document.exitFullscreen().catch(() => {});
+        } else if (document.webkitFullscreenElement && document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        }
+    }
+    function sbsiInitAll() {
         if (document.getElementById("sbsiRoot")) sbsiShowMenu();
-    });
+        const fsBtn = document.getElementById("sbsiFullscreenBtn");
+        const closeBtn = document.getElementById("sbsiFullscreenClose");
+        if (fsBtn) fsBtn.addEventListener("click", sbsiEnterFullscreen);
+        if (closeBtn) closeBtn.addEventListener("click", sbsiExitFullscreen);
+    }
+    document.addEventListener("DOMContentLoaded", sbsiInitAll);
     // In case DOMContentLoaded already fired (script placed after the container markup)
     if (document.readyState !== "loading" && document.getElementById("sbsiRoot")) {
-        sbsiShowMenu();
+        sbsiInitAll();
     }
+    document.addEventListener("fullscreenchange", function () {
+        if (!document.fullscreenElement) {
+            const panel = document.getElementById("sbsiPanel");
+            const closeBtn = document.getElementById("sbsiFullscreenClose");
+            if (panel) panel.classList.remove("sbsi-fullscreen-active");
+            if (closeBtn) closeBtn.classList.remove("sbsi-fs-visible");
+        }
+    });
 })();
 
     </script>
