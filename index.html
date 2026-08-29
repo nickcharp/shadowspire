@@ -708,7 +708,7 @@
 /* ==================== BREATH RETENTION TIMER ==================== */
 .brt-safety-warning{
   background:#1a0a0a;border:1px solid #dc3545;border-radius:6px;padding:12px 16px;
-  color:#ff9999;font-size:12.5px;line-height:1.6;text-align:center;margin-bottom:18px;
+  color:#ff9999;font-size:12.5px;line-height:1.6;text-align:center;margin-top:20px;
 }
 .brt-safety-warning strong{color:#fff;}
 .brt-phase-label{
@@ -2121,9 +2121,6 @@ buildPD();
 		<!-- BREATH RETENTION PANEL -->
 		<div class="br-panel" id="brPanelBreath" style="display:none;">
 			<div class="br-section-title">Breath Retention Timer</div>
-			<div class="brt-safety-warning">
-				⚠️ <strong>Never practice breath retention in or near water</strong> — not in a bath, pool, hot tub, or before/during swimming. Breath-holding exercises can cause fainting (shallow water blackout), which has led to real drownings. Always practice seated or lying down, on dry land, somewhere safe to be if you feel lightheaded.
-			</div>
 			<div class="brt-phase-label" id="brtPhaseLabel">Ready</div>
 			<div class="brt-phase-sub" id="brtPhaseSub">Begin when you're ready.</div>
 			<div class="brt-star-wrap"><div id="brtStarHost"></div></div>
@@ -2139,6 +2136,9 @@ buildPD();
 					<tbody id="brtLogBody"></tbody>
 				</table>
 				<div class="brt-total" id="brtTotal"></div>
+			</div>
+			<div class="brt-safety-warning">
+				⚠️ <strong>Never practice breath retention in or near water</strong> — not in a bath, pool, hot tub, or before/during swimming. Breath-holding exercises can cause fainting (shallow water blackout), which has led to real drownings. Always practice seated or lying down, on dry land, somewhere safe to be if you feel lightheaded.
 			</div>
 		</div>
 
@@ -4257,10 +4257,17 @@ function sbsiRecomputeSharpnessAfterRepair(state) {
     state.bladeSharpness = sbsiValue(state.bladeCard.rank);
 }
 
-// UI-facing: blade fighting is now always offered when a blade is equipped - the
-// consequence of a weak blade is residual damage (see sbsiBladeDamage), not a block.
+// UI-facing gate for PLAIN NUMBER monsters specifically. A blade's very first
+// engagement (empty trail) is always allowed - its true limit is still unproven,
+// so differential damage covers whatever the gap turns out to be. Once it has
+// ANY history, though, its limit is known and enforced as a hard gate: a monster
+// stronger than the current proven sharpness cannot be engaged by blade at all.
+// Court cards (King/Queen/Rogue) are untouched by this - they always use the
+// differential-damage path regardless of history.
 function sbsiCanFightWithBlade(state, monsterValue) {
-    return !!state.bladeCard;
+    if (!state.bladeCard) return false;
+    if (state.bladeStack.length === 0) return true;
+    return monsterValue <= state.bladeSharpness;
 }
 
 function sbsiApplyCloakIfCharged(state, dmg) {
@@ -4843,7 +4850,9 @@ const SBSICardGame = (function () {
             selectedCardId = card.id;
             applySelectionGlow();
             const val = sbsiValue(card.rank);
-            renderMonsterChoice(card, sbsiCanFightWithBlade(state, val));
+            const isCourtCard = card.rank === "King" || card.rank === "Queen" || card.rank === "Rogue";
+            const canBlade = isCourtCard ? !!state.bladeCard : sbsiCanFightWithBlade(state, val);
+            renderMonsterChoice(card, canBlade);
             return;
         }
         if (cls === "chalice") { selectedCardId = card.id; applySelectionGlow(); renderChaliceChoice(card); return; }
@@ -4869,7 +4878,7 @@ const SBSICardGame = (function () {
         if (isForced) {
             html += `<button class="sbsi-btn" id="sbsi-act-bare">⚔️ Confront the Foe</button>`;
         } else {
-            html += `<button class="sbsi-btn" ${state.bladeCard ? "" : "disabled"} id="sbsi-act-blade">⚔️ Fight with Blade</button>`;
+            html += `<button class="sbsi-btn" ${canBlade ? "" : "disabled"} id="sbsi-act-blade">⚔️ Fight with Blade</button>`;
             html += `<button class="sbsi-btn" id="sbsi-act-bare">👊 Fight Bare-Handed</button>`;
         }
         html += `<button class="sbsi-btn" id="sbsi-act-cancel" style="border-color:#666;">Cancel</button>`;
@@ -5852,17 +5861,31 @@ const BREngine = {
         if (this.masterGain && this.ctx) this.masterGain.gain.setTargetAtTime(v, this.ctx.currentTime, 0.1);
     },
 
-    stop() {
+    stop(immediate) {
         if (!this.playing || !this.ctx) { this.playing = false; return; }
+        this.playGeneration = (this.playGeneration || 0) + 1;
+        const myGeneration = this.playGeneration;
         const ctx = this.ctx, t = ctx.currentTime;
-        this.masterGain.gain.setTargetAtTime(0, t, 0.3);
         const leftOsc = this.leftOsc, rightOsc = this.rightOsc, texture = this.textureNodes.slice();
-        setTimeout(() => {
+
+        const cleanup = () => {
+            // if a newer start() has begun since this stop() was issued, this cleanup
+            // is stale and must NOT touch the audio element - doing so would kill
+            // the newer session's connection (the bug: switching sessions caused
+            // playback to stop a moment after starting).
+            if (myGeneration !== this.playGeneration) return;
             try { leftOsc.stop(); rightOsc.stop(); } catch (e) {}
             texture.forEach(n => { try { n.stop && n.stop(); } catch (e) {} });
             const audioEl = document.getElementById('brBgAudioEl');
             if (audioEl) { try { audioEl.pause(); audioEl.srcObject = null; } catch (e) {} }
-        }, 900);
+        };
+
+        if (immediate) {
+            cleanup();
+        } else {
+            this.masterGain.gain.setTargetAtTime(0, t, 0.3);
+            setTimeout(cleanup, 900);
+        }
         this.playing = false;
         if ('mediaSession' in navigator) {
             try { navigator.mediaSession.playbackState = 'paused'; } catch (e) {}
@@ -6109,7 +6132,7 @@ function brRenderSessions() {
 }
 
 function brStartSession(session) {
-    brStopSessionIfRunning();
+    brStopSessionIfRunning(true);
     brActiveSession = session;
     brToneStyle = session.tone || 'pure';
     brRenderToneButtons();
@@ -6161,7 +6184,7 @@ function brStartSession(session) {
     brSessionTimer = setInterval(advanceIfNeeded, 1000);
 }
 
-function brStopSessionIfRunning() {
+function brStopSessionIfRunning(immediate) {
     if (brSessionTimer) { clearInterval(brSessionTimer); brSessionTimer = null; }
     if (brActiveSession) {
         const fill = document.getElementById('brProgress-' + brActiveSession.id);
@@ -6169,7 +6192,7 @@ function brStopSessionIfRunning() {
     }
     brActiveSession = null;
     if (BREngine.playing) {
-        BREngine.stop();
+        BREngine.stop(immediate);
         document.getElementById('brPlayBtn').textContent = '▶';
         document.getElementById('brPlayBtn').classList.remove('playing');
     }
@@ -6197,17 +6220,24 @@ function brInitTabs() {
 }
 // ==================== BREATH RETENTION TIMER ====================
 const BRT_STAR_SVG = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="brt-idle" id="brtStarSvg">
+  <defs>
+    <radialGradient id="brtStarGrad" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#000000"/>
+      <stop offset="45%" stop-color="#4a4a4a"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </radialGradient>
+  </defs>
   <polygon points="50.0,6.0 53.8,40.8 81.1,18.9 59.2,46.2 94.0,50.0 59.2,53.8 81.1,81.1 53.8,59.2 50.0,94.0 46.2,59.2 18.9,81.1 40.8,53.8 6.0,50.0 40.8,46.2 18.9,18.9 46.2,40.8"
-    fill="#0a0a0a" stroke="#dc3545" stroke-width="1.2"/>
-  <polygon points="50.0,0.0 55.9,12.5 50.0,18.0 44.1,12.5" fill="#0a0a0a" stroke="#dc3545" stroke-width="1"/>
-  <polygon points="85.4,14.6 80.7,27.7 72.6,27.4 72.3,19.3" fill="#0a0a0a" stroke="#dc3545" stroke-width="1"/>
-  <polygon points="100.0,50.0 87.5,55.9 82.0,50.0 87.5,44.1" fill="#0a0a0a" stroke="#dc3545" stroke-width="1"/>
-  <polygon points="85.4,85.4 72.3,80.7 72.6,72.6 80.7,72.3" fill="#0a0a0a" stroke="#dc3545" stroke-width="1"/>
-  <polygon points="50.0,100.0 44.1,87.5 50.0,82.0 55.9,87.5" fill="#0a0a0a" stroke="#dc3545" stroke-width="1"/>
-  <polygon points="14.6,85.4 19.3,72.3 27.4,72.6 27.7,80.7" fill="#0a0a0a" stroke="#dc3545" stroke-width="1"/>
-  <polygon points="0.0,50.0 12.5,44.1 18.0,50.0 12.5,55.9" fill="#0a0a0a" stroke="#dc3545" stroke-width="1"/>
-  <polygon points="14.6,14.6 27.7,19.3 27.4,27.4 19.3,27.7" fill="#0a0a0a" stroke="#dc3545" stroke-width="1"/>
-  <circle cx="50" cy="50" r="5" fill="#0a0a0a" stroke="#dc3545" stroke-width="1"/>
+    fill="url(#brtStarGrad)" stroke="#ffffff" stroke-width="1.2"/>
+  <polygon points="50.0,0.0 55.9,12.5 50.0,18.0 44.1,12.5" fill="url(#brtStarGrad)" stroke="#ffffff" stroke-width="1"/>
+  <polygon points="85.4,14.6 80.7,27.7 72.6,27.4 72.3,19.3" fill="url(#brtStarGrad)" stroke="#ffffff" stroke-width="1"/>
+  <polygon points="100.0,50.0 87.5,55.9 82.0,50.0 87.5,44.1" fill="url(#brtStarGrad)" stroke="#ffffff" stroke-width="1"/>
+  <polygon points="85.4,85.4 72.3,80.7 72.6,72.6 80.7,72.3" fill="url(#brtStarGrad)" stroke="#ffffff" stroke-width="1"/>
+  <polygon points="50.0,100.0 44.1,87.5 50.0,82.0 55.9,87.5" fill="url(#brtStarGrad)" stroke="#ffffff" stroke-width="1"/>
+  <polygon points="14.6,85.4 19.3,72.3 27.4,72.6 27.7,80.7" fill="url(#brtStarGrad)" stroke="#ffffff" stroke-width="1"/>
+  <polygon points="0.0,50.0 12.5,44.1 18.0,50.0 12.5,55.9" fill="url(#brtStarGrad)" stroke="#ffffff" stroke-width="1"/>
+  <polygon points="14.6,14.6 27.7,19.3 27.4,27.4 19.3,27.7" fill="url(#brtStarGrad)" stroke="#ffffff" stroke-width="1"/>
+  <circle cx="50" cy="50" r="5" fill="#000000" stroke="#ffffff" stroke-width="1"/>
 </svg>`;
 
 const BRT = {
