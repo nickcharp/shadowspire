@@ -706,6 +706,11 @@
 .br-edu-item.open .br-edu-a{max-height:400px;padding-top:8px;}
 
 /* ==================== BREATH RETENTION TIMER ==================== */
+.brt-safety-warning{
+  background:#1a0a0a;border:1px solid #dc3545;border-radius:6px;padding:12px 16px;
+  color:#ff9999;font-size:12.5px;line-height:1.6;text-align:center;margin-bottom:18px;
+}
+.brt-safety-warning strong{color:#fff;}
 .brt-phase-label{
   text-align:center;font-family:'UnifrakturMaguntia',Verdana,cursive;font-size:28px;color:#eee;
   min-height:40px;margin-bottom:4px;
@@ -2116,6 +2121,9 @@ buildPD();
 		<!-- BREATH RETENTION PANEL -->
 		<div class="br-panel" id="brPanelBreath" style="display:none;">
 			<div class="br-section-title">Breath Retention Timer</div>
+			<div class="brt-safety-warning">
+				⚠️ <strong>Never practice breath retention in or near water</strong> — not in a bath, pool, hot tub, or before/during swimming. Breath-holding exercises can cause fainting (shallow water blackout), which has led to real drownings. Always practice seated or lying down, on dry land, somewhere safe to be if you feel lightheaded.
+			</div>
 			<div class="brt-phase-label" id="brtPhaseLabel">Ready</div>
 			<div class="brt-phase-sub" id="brtPhaseSub">Begin when you're ready.</div>
 			<div class="brt-star-wrap"><div id="brtStarHost"></div></div>
@@ -2135,7 +2143,7 @@ buildPD();
 		</div>
 
 		<div style="text-align:center;color:#555;font-size:11px;margin-top:10px;">
-			For meditative and exploratory use. Not a substitute for medical advice. Discontinue if you feel dizzy, and never use while driving or operating machinery. Avoid if you have epilepsy or a seizure disorder, unless cleared by a physician.
+			For meditative and exploratory use. Not a substitute for medical advice. Discontinue if you feel dizzy, and never use while driving or operating machinery. Avoid if you have epilepsy or a seizure disorder, unless cleared by a physician. Never practice the Breath Retention Timer in or near water.
 		</div>
 	</div>
 
@@ -5509,131 +5517,181 @@ function brFlat(pitch, beat, mins) {
 function brDescent(steps) { return steps; } // just a readability alias for multi-stage descents
 
 const BR_SESSIONS = [
-    // ---- SLEEP ----
-    { id: 'sleep-5', name: '5 Minute Intro to Sleep', category: 'Sleep', duration: '5 min', tone: 'bowl',
-      desc: 'A quick dip from waking Alpha toward the edge of Theta - a short taste of the descent toward sleep.',
-      steps: brArc(200, 10, 140, 6, 5, 1) },
-    { id: 'sleep-10', name: '10 Minute Intro to Sleep', category: 'Sleep', duration: '10 min', tone: 'bowl',
-      desc: 'A gentler, longer descent from Alpha into Theta, easing the mind toward drowsiness.',
-      steps: brArc(200, 10, 130, 5, 10, 2) },
-    { id: 'sleep-15', name: '15 Minute Intro to Sleep', category: 'Sleep', duration: '15 min', tone: 'bowl',
-      desc: 'Alpha settling through Theta and touching the top of Delta - enough time to feel genuinely heavy-eyed.',
-      steps: brDescent([{ pitch: 190, beat: 9, mins: 4 }, { pitch: 140, beat: 5.5, mins: 6 }, { pitch: 105, beat: 3, mins: 5 }]) },
-    { id: 'nap-15', name: '15 Minute Nap', category: 'Sleep', duration: '15 min', tone: 'bowl',
-      desc: 'A short power-nap arc that stays in light Theta rather than diving into Delta, aiming for rest without grogginess on waking.',
-      steps: brArc(170, 7.5, 140, 5.5, 15, 3) },
-    { id: 'nap-30', name: '30 Minute Nap', category: 'Sleep', duration: '30 min', tone: 'bowl',
-      desc: 'A fuller nap cycle reaching briefly into Delta before a gentle Theta rise near the end, easing the return to wakefulness.',
-      steps: brDescent([{ pitch: 170, beat: 8, mins: 5 }, { pitch: 120, beat: 4, mins: 8 }, { pitch: 100, beat: 2, mins: 9 }, { pitch: 140, beat: 5.5, mins: 8 }]) },
-    { id: 'sleep-cycle-1', name: 'One Full Sleep Cycle', category: 'Sleep', duration: '90 min', tone: 'bowl',
-      desc: "A single ~90-minute arc tracing the brain's natural cycle: Alpha down through Theta into Delta, then a lighter Theta rise mimicking a REM-adjacent phase.",
-      steps: brDescent([{ pitch: 190, beat: 9, mins: 12 }, { pitch: 140, beat: 5.5, mins: 20 }, { pitch: 100, beat: 2, mins: 30 }, { pitch: 130, beat: 4.5, mins: 18 }, { pitch: 160, beat: 6.5, mins: 10 }]) },
-    { id: 'sleep-cycle-2', name: 'Two Full Sleep Cycles', category: 'Sleep', duration: '180 min', tone: 'bowl',
-      desc: 'Two consecutive ~90-minute sleep-cycle arcs back to back, for a longer guided rest across multiple cycles.',
-      steps: brDescent([
-          { pitch: 190, beat: 9, mins: 12 }, { pitch: 140, beat: 5.5, mins: 20 }, { pitch: 100, beat: 2, mins: 30 }, { pitch: 130, beat: 4.5, mins: 18 }, { pitch: 160, beat: 6.5, mins: 10 },
-          { pitch: 190, beat: 9, mins: 12 }, { pitch: 140, beat: 5.5, mins: 20 }, { pitch: 100, beat: 2, mins: 30 }, { pitch: 130, beat: 4.5, mins: 18 }, { pitch: 160, beat: 6.5, mins: 10 }
-      ]) },
-    { id: 'perfect-night', name: "A Perfect Night's Sleep", category: 'Sleep', duration: '8 hours', tone: 'bowl',
-      desc: "A full 8-hour, five-cycle night's arc, alternating deep Delta with lighter Theta rises to loosely mirror natural sleep-cycle architecture.",
-      steps: brDescent([
+    // ---- RITES OF THE ORDER (original, hand-built for this site) ----
+    { id: 'focus', name: 'Deep Focus', category: 'Rites of the Order', duration: '20 min', tone: 'pure',
+      desc: 'A gentle climb from calm Alpha into steady Beta, built to sharpen concentration without tipping into anxious over-arousal.',
+      steps: [{ pitch: 200, beat: 10, mins: 5 }, { pitch: 220, beat: 14, mins: 7 }, { pitch: 250, beat: 18, mins: 8 }] },
+    { id: 'relax', name: 'Deep Relaxation', category: 'Rites of the Order', duration: '15 min', tone: 'bowl',
+      desc: 'Alpha settling into Theta — the range with the strongest research support for reducing anxiety and inducing calm.',
+      steps: [{ pitch: 200, beat: 10, mins: 5 }, { pitch: 180, beat: 7, mins: 10 }] },
+    { id: 'sleep', name: 'Sleep Onset', category: 'Rites of the Order', duration: '30 min', tone: 'bowl',
+      desc: "A slow descent from Alpha through Theta into Delta, tracing the brain's natural path toward sleep.",
+      steps: [{ pitch: 180, beat: 9, mins: 6 }, { pitch: 150, beat: 6, mins: 9 }, { pitch: 110, beat: 3.5, mins: 8 }, { pitch: 100, beat: 1.5, mins: 7 }] },
+    { id: 'meditate', name: 'Meditative Stillness', category: 'Rites of the Order', duration: '20 min', tone: 'bowl',
+      desc: 'A held Theta state with the Schumann Resonance woven in as a grounding undertone, for seated meditation.',
+      steps: [{ pitch: 136.1, beat: 7.83, mins: 20 }] },
+    { id: 'hypnagogic', name: 'Hypnagogic Threshold', category: 'Rites of the Order', duration: '25 min', tone: 'bowl',
+      desc: 'Exploratory Theta/Delta boundary work in the spirit of Hemi-Sync-style Gateway exercises. Evidence here is much thinner than for relaxation — treat this as exploration, not a guaranteed method.',
+      steps: [{ pitch: 150, beat: 6, mins: 5 }, { pitch: 120, beat: 4.5, mins: 10 }, { pitch: 100, beat: 2, mins: 10 }] },
+    { id: 'shadow', name: 'Shadow Rite', category: 'Rites of the Order', duration: '18 min', tone: 'dark',
+      desc: "Theta depths paired with the Dark Ambience tone — for the Order's own shadow-work meditation, not for sleep.",
+      steps: [{ pitch: 110, beat: 6, mins: 18 }] },
+
+    // ---- THE SLUMBERING DESCENT ----
+    { id: 'sleep-5', name: 'The Threshold', category: 'The Slumbering Descent', duration: '5 min + hold', tone: 'bowl',
+      desc: 'A five-minute fall from waking Alpha into the deep, held there for as long as sleep is wanted.',
+      steps: [{ pitch: 150, beat: 8, mins: 5 }, { pitch: 100, beat: 1.5, mins: null }] },
+    { id: 'sleep-10', name: 'The Threshold, Deepened', category: 'The Slumbering Descent', duration: '10 min + hold', tone: 'bowl',
+      desc: 'A gentler ten-minute descent into deep sleep, held there for as long as sleep is wanted.',
+      steps: [{ pitch: 150, beat: 8, mins: 10 }, { pitch: 100, beat: 1.5, mins: null }] },
+    { id: 'sleep-15', name: 'The Long Threshold', category: 'The Slumbering Descent', duration: '15 min + hold', tone: 'bowl',
+      desc: 'A slow, unhurried fifteen-minute descent into deep sleep, held there for as long as sleep is wanted.',
+      steps: [{ pitch: 150, beat: 8, mins: 15 }, { pitch: 100, beat: 1.5, mins: null }] },
+    { id: 'nap-15', name: 'The Brief Repose', category: 'The Slumbering Descent', duration: '15 min', tone: 'bowl',
+      desc: 'A three-minute fall into deep sleep, ten minutes held there, then a two-minute rise back to waking.',
+      steps: [{ pitch: 150, beat: 8, mins: 3 }, { pitch: 100, beat: 1.5, mins: 10 }, { pitch: 150, beat: 8, mins: 2 }] },
+    { id: 'nap-30', name: 'The Deeper Repose', category: 'The Slumbering Descent', duration: '30 min', tone: 'bowl',
+      desc: 'A five-minute fall into deep sleep, twenty-three minutes held there, then a two-minute rise back to waking.',
+      steps: [{ pitch: 150, beat: 8, mins: 5 }, { pitch: 100, beat: 1.5, mins: 23 }, { pitch: 150, beat: 8, mins: 2 }] },
+    { id: 'sleep-cycle-1', name: 'One Turning of the Wheel', category: 'The Slumbering Descent', duration: '2 hr 7 min', tone: 'bowl',
+      desc: 'One complete sleep cycle: down through the four stages of sleep, thirty full minutes held at the REM-adjacent depth, then a gradual climb back to waking.',
+      steps: [{ pitch: 190, beat: 9, mins: 10 }, { pitch: 150, beat: 6, mins: 15 }, { pitch: 110, beat: 3.5, mins: 15 }, { pitch: 100, beat: 1.5, mins: 27 }, { pitch: 140, beat: 5.5, mins: 30 }, { pitch: 170, beat: 8, mins: 30 }] },
+    { id: 'sleep-cycle-2', name: 'Two Turnings of the Wheel', category: 'The Slumbering Descent', duration: '4 hr 5 min', tone: 'bowl',
+      desc: 'Two complete sleep cycles laid end to end, each carrying its own full thirty minutes of REM-adjacent depth, before a final gradual return to waking.',
+      steps: [
+          { pitch: 190, beat: 9, mins: 10 }, { pitch: 150, beat: 6, mins: 15 }, { pitch: 110, beat: 3.5, mins: 15 }, { pitch: 100, beat: 1.5, mins: 27 }, { pitch: 140, beat: 5.5, mins: 30 },
+          { pitch: 150, beat: 6, mins: 22 }, { pitch: 110, beat: 3.5, mins: 15 }, { pitch: 100, beat: 1.5, mins: 56 }, { pitch: 140, beat: 5.5, mins: 30 }, { pitch: 170, beat: 8, mins: 25 }
+      ] },
+    { id: 'perfect-night', name: 'The Unbroken Night', category: 'The Slumbering Descent', duration: '8 hours', tone: 'bowl',
+      desc: 'A full eight-hour passage through the night, REM-to-NREM oscillations growing shallower as the hours pass, easing toward an effortless waking.',
+      steps: [
           { pitch: 190, beat: 9, mins: 15 }, { pitch: 100, beat: 2, mins: 85 }, { pitch: 140, beat: 5.5, mins: 15 },
           { pitch: 100, beat: 1.8, mins: 85 }, { pitch: 140, beat: 5.5, mins: 15 },
           { pitch: 100, beat: 1.8, mins: 80 }, { pitch: 145, beat: 5.5, mins: 15 },
           { pitch: 105, beat: 2.2, mins: 75 }, { pitch: 150, beat: 6, mins: 15 },
           { pitch: 115, beat: 3, mins: 60 }, { pitch: 170, beat: 8, mins: 20 }
-      ]) },
-    { id: 'lucid-dream', name: 'Lucid Dreaming', category: 'Sleep', duration: '35 min', tone: 'bowl',
-      desc: 'Exploratory Theta work with periodic gentle Alpha pulses meant to nudge a flicker of awareness into a dream state. Evidence for this specific effect is thin and mostly anecdotal - treat it as an experiment, not a guarantee.',
-      steps: brDescent([{ pitch: 160, beat: 7, mins: 8 }, { pitch: 130, beat: 4.5, mins: 6 }, { pitch: 190, beat: 9, mins: 2 }, { pitch: 130, beat: 4.5, mins: 6 }, { pitch: 190, beat: 9, mins: 2 }, { pitch: 120, beat: 4, mins: 6 }, { pitch: 190, beat: 9, mins: 2 }, { pitch: 120, beat: 4, mins: 3 }]) },
+      ] },
+    { id: 'lucid-dream', name: 'Waking Within the Dream', category: 'The Slumbering Descent', duration: '1 hr 7 min', tone: 'bowl',
+      desc: 'Five minutes into deep sleep, then a full hour held there with periodic 8Hz spikes meant to stir a flicker of waking awareness within the dream, before a two-minute return. Evidence for this specific effect is thin and mostly anecdotal — approach it as an experiment, not a guarantee.',
+      steps: [
+          { pitch: 150, beat: 8, mins: 5 },
+          { pitch: 100, beat: 1.5, mins: 8 }, { pitch: 130, beat: 8, mins: 2 },
+          { pitch: 100, beat: 1.5, mins: 8 }, { pitch: 130, beat: 8, mins: 2 },
+          { pitch: 100, beat: 1.5, mins: 8 }, { pitch: 130, beat: 8, mins: 2 },
+          { pitch: 100, beat: 1.5, mins: 8 }, { pitch: 130, beat: 8, mins: 2 },
+          { pitch: 100, beat: 1.5, mins: 8 }, { pitch: 130, beat: 8, mins: 2 },
+          { pitch: 100, beat: 1.5, mins: 8 }, { pitch: 130, beat: 8, mins: 2 },
+          { pitch: 150, beat: 8, mins: 2 }
+      ] },
 
-    // ---- MEDITATION ----
-    { id: 'meditate-intro', name: 'Intro to Meditation', category: 'Meditation', duration: '15 min', tone: 'bowl',
-      desc: 'A gentle settle from Alpha into Theta, ideal for a first sit.',
-      steps: brArc(200, 10, 165, 6, 15, 3) },
-    { id: 'schumann-1', name: 'Schumann Resonance', category: 'Meditation', duration: '20 min', tone: 'bowl',
-      desc: "The fundamental Earth resonance at 7.83 Hz - a favorite grounding tone for seated meditation.",
-      steps: brFlat(136.1, 7.83, 20) },
-    { id: 'schumann-2', name: '2nd Schumann Resonance', category: 'Meditation', duration: '20 min', tone: 'bowl',
-      desc: 'The second Schumann harmonic, ~14.3 Hz - sits at the Alpha/Beta border, for an alert but grounded stillness.',
-      steps: brFlat(160, 14.3, 20) },
-    { id: 'schumann-3', name: '3rd Schumann Resonance', category: 'Meditation', duration: '20 min', tone: 'bowl',
-      desc: 'The third Schumann harmonic, ~20.8 Hz, in the Beta range.',
-      steps: brFlat(180, 20.8, 20) },
-    { id: 'schumann-4', name: '4th Schumann Resonance', category: 'Meditation', duration: '20 min', tone: 'bowl',
-      desc: 'The fourth Schumann harmonic, ~27.3 Hz, deeper into Beta.',
-      steps: brFlat(200, 27.3, 20) },
-    { id: 'schumann-5', name: '5th Schumann Resonance', category: 'Meditation', duration: '20 min', tone: 'bowl',
-      desc: 'The fifth Schumann harmonic, ~33.8 Hz, at the Beta/Gamma border.',
-      steps: brFlat(220, 33.8, 20) },
-    { id: 'meditate-20', name: '20 Minute Meditation', category: 'Meditation', duration: '20 min', tone: 'bowl',
-      desc: 'A settled Theta hold for a standard sit.', steps: brArc(190, 9, 150, 6, 20, 3) },
-    { id: 'meditate-30', name: '30 Minute Meditation', category: 'Meditation', duration: '30 min', tone: 'bowl',
-      desc: 'A deeper, longer Theta hold.', steps: brArc(190, 9, 150, 6, 30, 4) },
-    { id: 'meditate-45', name: '45 Minute Meditation', category: 'Meditation', duration: '45 min', tone: 'bowl',
-      desc: 'An extended sit, easing slightly toward Delta at its center before returning to Theta.',
-      steps: brDescent([{ pitch: 190, beat: 9, mins: 5 }, { pitch: 150, beat: 6, mins: 15 }, { pitch: 120, beat: 4, mins: 10 }, { pitch: 150, beat: 6, mins: 15 }]) },
-    { id: 'meditate-60', name: '1 Hour Meditation', category: 'Meditation', duration: '60 min', tone: 'bowl',
-      desc: 'A full hour, settling from Alpha through Theta into a brief Delta touch and back.',
-      steps: brDescent([{ pitch: 190, beat: 9, mins: 6 }, { pitch: 150, beat: 6, mins: 18 }, { pitch: 110, beat: 3, mins: 12 }, { pitch: 150, beat: 6, mins: 18 }, { pitch: 190, beat: 9, mins: 6 }]) },
+    // ---- STILLNESS & COMMUNION ----
+    { id: 'meditate-intro', name: 'First Stillness', category: 'Stillness & Communion', duration: '15 min + hold', tone: 'bowl',
+      desc: 'A fifteen-minute settle into relaxed Alpha meditation - held there, never dipping toward sleep.',
+      steps: [{ pitch: 200, beat: 10, mins: 15 }, { pitch: 200, beat: 9, mins: null }] },
+    { id: 'schumann-1', name: "The Earth's Own Pulse", category: 'Stillness & Communion', duration: '15 min + hold', tone: 'bowl',
+      desc: "A fifteen-minute settle into the Earth's own fundamental resonance, 7.83 Hz, held as a grounding undertone for as long as the sitting lasts.",
+      steps: [{ pitch: 160, beat: 10, mins: 15 }, { pitch: 136.1, beat: 7.83, mins: null }] },
+    { id: 'schumann-2', name: "The Earth's Pulse, Second Harmonic", category: 'Stillness & Communion', duration: '15 min + hold', tone: 'bowl',
+      desc: 'A fifteen-minute settle into the second resonant mode of the Earth-ionosphere cavity, 14.3 Hz, held for as long as the sitting lasts.',
+      steps: [{ pitch: 160, beat: 10, mins: 15 }, { pitch: 160, beat: 14.3, mins: null }] },
+    { id: 'schumann-3', name: "The Earth's Pulse, Third Harmonic", category: 'Stillness & Communion', duration: '15 min + hold', tone: 'bowl',
+      desc: 'A fifteen-minute settle into the third resonant mode, 20.8 Hz, held for as long as the sitting lasts.',
+      steps: [{ pitch: 180, beat: 10, mins: 15 }, { pitch: 180, beat: 20.8, mins: null }] },
+    { id: 'schumann-4', name: "The Earth's Pulse, Fourth Harmonic", category: 'Stillness & Communion', duration: '15 min + hold', tone: 'bowl',
+      desc: 'A fifteen-minute settle into the fourth resonant mode, 27.3 Hz, held for as long as the sitting lasts.',
+      steps: [{ pitch: 200, beat: 12, mins: 15 }, { pitch: 200, beat: 27.3, mins: null }] },
+    { id: 'schumann-5', name: "The Earth's Pulse, Fifth Harmonic", category: 'Stillness & Communion', duration: '15 min + hold', tone: 'bowl',
+      desc: 'A fifteen-minute settle into the fifth resonant mode, 33.8 Hz, held for as long as the sitting lasts.',
+      steps: [{ pitch: 220, beat: 14, mins: 15 }, { pitch: 220, beat: 33.8, mins: null }] },
+    { id: 'meditate-20', name: 'Stillness Held', category: 'Stillness & Communion', duration: '20 min', tone: 'bowl',
+      desc: 'A five-minute settle into relaxed meditation, held for fifteen minutes, then left to fade quietly away.',
+      steps: [{ pitch: 200, beat: 10, mins: 5 }, { pitch: 190, beat: 9, mins: 15 }] },
+    { id: 'meditate-30', name: 'Stillness Held, Longer', category: 'Stillness & Communion', duration: '30 min', tone: 'bowl',
+      desc: 'A five-minute settle into relaxed meditation, held for twenty-five minutes, then left to fade quietly away.',
+      steps: [{ pitch: 200, beat: 10, mins: 5 }, { pitch: 190, beat: 9, mins: 25 }] },
+    { id: 'meditate-45', name: 'The Deepening Sit', category: 'Stillness & Communion', duration: '45 min', tone: 'bowl',
+      desc: 'A five-minute settle into relaxed meditation, held for forty minutes, then left to fade quietly away.',
+      steps: [{ pitch: 200, beat: 10, mins: 5 }, { pitch: 190, beat: 9, mins: 40 }] },
+    { id: 'meditate-60', name: 'The Hour of Stillness', category: 'Stillness & Communion', duration: '1 hour', tone: 'bowl',
+      desc: 'A five-minute settle into relaxed meditation, held for fifty-five minutes, then left to fade quietly away.',
+      steps: [{ pitch: 200, beat: 10, mins: 5 }, { pitch: 190, beat: 9, mins: 55 }] },
 
-    // ---- PRODUCTIVITY ----
-    { id: 'hyper-to-concentration', name: 'Hyperactivity to Concentration', category: 'Productivity', duration: '10 min', tone: 'pure',
-      desc: 'A 10-minute entrainment from a scattered, hyperactive Beta state down into calm, focused concentration.',
-      steps: brDescent([{ pitch: 260, beat: 24, mins: 3 }, { pitch: 250, beat: 19, mins: 4 }, { pitch: 240, beat: 15, mins: 3 }]) },
-    { id: 'relax-to-concentration', name: 'Relaxation to Concentration', category: 'Productivity', duration: '12 min', tone: 'pure',
-      desc: 'A rise from relaxed Alpha up into engaged, analytical Beta.',
-      steps: brDescent([{ pitch: 200, beat: 10, mins: 4 }, { pitch: 230, beat: 14, mins: 4 }, { pitch: 250, beat: 17, mins: 4 }]) },
-    { id: 'learn-20', name: '20 Minutes of Learning', category: 'Productivity', duration: '20 min', tone: 'pure',
-      desc: 'A 5-minute entrainment into a focused, knowledge-retentive state (the Alpha/Beta border), held, then eased back to rest.',
-      steps: brArc(200, 10, 240, 14, 20, 5) },
-    { id: 'learn-30', name: '30 Minutes of Learning', category: 'Productivity', duration: '30 min', tone: 'pure',
-      desc: 'The same focused-retention arc, held longer.', steps: brArc(200, 10, 240, 14, 30, 5) },
-    { id: 'learn-45', name: '45 Minutes of Learning', category: 'Productivity', duration: '45 min', tone: 'pure',
-      desc: 'An extended learning session.', steps: brArc(200, 10, 240, 14, 45, 5) },
-    { id: 'learn-60', name: 'An Hour of Learning', category: 'Productivity', duration: '60 min', tone: 'pure',
-      desc: 'A full hour of held, knowledge-retentive focus.', steps: brArc(200, 10, 240, 14, 60, 5) },
-    { id: 'problem-20', name: '20 Minutes of Problem-Solving', category: 'Productivity', duration: '20 min', tone: 'pure',
-      desc: 'A 5-minute entrainment into sharper, more analytical Beta focus for active problem-solving, held, then eased back down.',
-      steps: brArc(200, 10, 255, 18, 20, 5) },
-    { id: 'problem-30', name: '30 Minutes of Problem-Solving', category: 'Productivity', duration: '30 min', tone: 'pure',
-      desc: 'The same analytical-focus arc, held longer.', steps: brArc(200, 10, 255, 18, 30, 5) },
-    { id: 'problem-45', name: '45 Minutes of Problem-Solving', category: 'Productivity', duration: '45 min', tone: 'pure',
-      desc: 'An extended problem-solving session.', steps: brArc(200, 10, 255, 18, 45, 5) },
-    { id: 'problem-60', name: 'An Hour of Problem-Solving', category: 'Productivity', duration: '60 min', tone: 'pure',
-      desc: 'A full hour of sharp analytical focus.', steps: brArc(200, 10, 255, 18, 60, 5) },
+    // ---- THE FOCUSED MIND ----
+    { id: 'hyper-to-concentration', name: 'From Chaos to Focus', category: 'The Focused Mind', duration: '10 min + hold', tone: 'pure',
+      desc: 'A ten-minute entrainment from a scattered, hyperactive state into intense concentration, held there for as long as the work continues.',
+      steps: [{ pitch: 260, beat: 24, mins: 10 }, { pitch: 250, beat: 19, mins: null }] },
+    { id: 'relax-to-concentration', name: 'From Calm to Clarity', category: 'The Focused Mind', duration: '10 min + hold', tone: 'pure',
+      desc: 'A ten-minute rise from idle, relaxed Alpha into intense concentration, held there for as long as the work continues.',
+      steps: [{ pitch: 200, beat: 10, mins: 10 }, { pitch: 250, beat: 19, mins: null }] },
+    { id: 'learn-20', name: 'The Retentive Mind', category: 'The Focused Mind', duration: '30 min', tone: 'pure',
+      desc: 'Five minutes into a focused, knowledge-retentive state, held for twenty minutes of study, then five minutes easing back to rest.',
+      steps: [{ pitch: 200, beat: 10, mins: 5 }, { pitch: 240, beat: 14, mins: 20 }, { pitch: 200, beat: 10, mins: 5 }] },
+    { id: 'learn-30', name: 'The Retentive Mind, Sustained', category: 'The Focused Mind', duration: '40 min', tone: 'pure',
+      desc: 'Five minutes into a focused, knowledge-retentive state, held for thirty minutes of study, then five minutes easing back to rest.',
+      steps: [{ pitch: 200, beat: 10, mins: 5 }, { pitch: 240, beat: 14, mins: 30 }, { pitch: 200, beat: 10, mins: 5 }] },
+    { id: 'learn-45', name: 'The Retentive Mind, Deepened', category: 'The Focused Mind', duration: '55 min', tone: 'pure',
+      desc: 'Five minutes into a focused, knowledge-retentive state, held for forty-five minutes of study, then five minutes easing back to rest.',
+      steps: [{ pitch: 200, beat: 10, mins: 5 }, { pitch: 240, beat: 14, mins: 45 }, { pitch: 200, beat: 10, mins: 5 }] },
+    { id: 'learn-60', name: 'The Hour of Retention', category: 'The Focused Mind', duration: '1 hr 10 min', tone: 'pure',
+      desc: 'Five minutes into a focused, knowledge-retentive state, held for a full hour of study, then five minutes easing back to rest.',
+      steps: [{ pitch: 200, beat: 10, mins: 5 }, { pitch: 240, beat: 14, mins: 60 }, { pitch: 200, beat: 10, mins: 5 }] },
+    { id: 'problem-20', name: 'The Analytical Blade', category: 'The Focused Mind', duration: '30 min', tone: 'pure',
+      desc: 'Five minutes into sharp, analytical focus, held for twenty minutes of problem-solving, then five minutes easing back to rest.',
+      steps: [{ pitch: 200, beat: 10, mins: 5 }, { pitch: 250, beat: 18, mins: 20 }, { pitch: 200, beat: 10, mins: 5 }] },
+    { id: 'problem-30', name: 'The Analytical Blade, Sustained', category: 'The Focused Mind', duration: '40 min', tone: 'pure',
+      desc: 'Five minutes into sharp, analytical focus, held for thirty minutes of problem-solving, then five minutes easing back to rest.',
+      steps: [{ pitch: 200, beat: 10, mins: 5 }, { pitch: 250, beat: 18, mins: 30 }, { pitch: 200, beat: 10, mins: 5 }] },
+    { id: 'problem-45', name: 'The Analytical Blade, Honed', category: 'The Focused Mind', duration: '55 min', tone: 'pure',
+      desc: 'Five minutes into sharp, analytical focus, held for forty-five minutes of problem-solving, then five minutes easing back to rest.',
+      steps: [{ pitch: 200, beat: 10, mins: 5 }, { pitch: 250, beat: 18, mins: 45 }, { pitch: 200, beat: 10, mins: 5 }] },
+    { id: 'problem-60', name: 'The Hour of the Analytical Blade', category: 'The Focused Mind', duration: '1 hr 10 min', tone: 'pure',
+      desc: 'Five minutes into sharp, analytical focus, held for a full hour of problem-solving, then five minutes easing back to rest.',
+      steps: [{ pitch: 200, beat: 10, mins: 5 }, { pitch: 250, beat: 18, mins: 60 }, { pitch: 200, beat: 10, mins: 5 }] },
 
-    // ---- HYPNOSIS ----
-    { id: 'hypno-5', name: '5 Minute Hypnotic Induction', category: 'Hypnosis', duration: '5 min', tone: 'bowl',
-      desc: 'A brief descent from Alpha into Theta - the classic hypnotic-suggestibility range.', steps: brArc(190, 9, 155, 5.5, 5, 1.5) },
-    { id: 'hypno-10', name: '10 Minute Hypnotic Induction', category: 'Hypnosis', duration: '10 min', tone: 'bowl',
-      desc: 'A fuller induction descent into Theta.', steps: brArc(190, 9, 150, 5, 10, 3) },
-    { id: 'hypno-15', name: '15 Minute Hypnotic Induction', category: 'Hypnosis', duration: '15 min', tone: 'bowl',
-      desc: 'An unhurried induction, easing well into Theta before the hold.', steps: brArc(190, 9, 145, 4.5, 15, 4) },
-    { id: 'hypno-session-30', name: '30 Minute Hypnotic Session', category: 'Hypnosis', duration: '30 min', tone: 'bowl',
-      desc: 'Induction into a sustained Theta hold for extended hypnotic work.', steps: brArc(190, 9, 145, 4.5, 30, 4) },
-    { id: 'hypno-session-45', name: '45 Minute Hypnotic Session', category: 'Hypnosis', duration: '45 min', tone: 'bowl',
-      desc: 'A longer sustained Theta hold.', steps: brArc(190, 9, 145, 4.5, 45, 4) },
-    { id: 'hypno-session-60', name: '1 Hour Hypnotic Session', category: 'Hypnosis', duration: '60 min', tone: 'bowl',
-      desc: 'A full hour of induction and sustained Theta hold.', steps: brArc(190, 9, 145, 4.5, 60, 5) },
+    // ---- THE TRANCE RITE ----
+    { id: 'hypno-5', name: 'The Descent Within', category: 'The Trance Rite', duration: '5 min + hold', tone: 'bowl',
+      desc: 'A quick five-minute fall into Theta, to aid the induction, held there for as long as the trance continues.',
+      steps: [{ pitch: 190, beat: 9, mins: 5 }, { pitch: 160, beat: 6, mins: null }] },
+    { id: 'hypno-10', name: 'The Descent Within, Deepened', category: 'The Trance Rite', duration: '10 min + hold', tone: 'bowl',
+      desc: 'A ten-minute fall into Theta, to aid the induction, held there for as long as the trance continues.',
+      steps: [{ pitch: 190, beat: 9, mins: 10 }, { pitch: 160, beat: 6, mins: null }] },
+    { id: 'hypno-15', name: 'The Long Descent Within', category: 'The Trance Rite', duration: '15 min + hold', tone: 'bowl',
+      desc: 'A longer, fifteen-minute fall into Theta, to aid the induction, held there for as long as the trance continues.',
+      steps: [{ pitch: 190, beat: 9, mins: 15 }, { pitch: 160, beat: 6, mins: null }] },
+    { id: 'hypno-session-30', name: 'The Deep Trance', category: 'The Trance Rite', duration: '45 min', tone: 'bowl',
+      desc: 'Ten minutes descending into Theta to aid the induction, thirty minutes held there in constant trance, then a five-minute return to ordinary waking.',
+      steps: [{ pitch: 190, beat: 9, mins: 10 }, { pitch: 160, beat: 6, mins: 30 }, { pitch: 190, beat: 9, mins: 5 }] },
+    { id: 'hypno-session-45', name: 'The Deep Trance, Prolonged', category: 'The Trance Rite', duration: '1 hour', tone: 'bowl',
+      desc: 'Ten minutes descending into Theta to aid the induction, forty-five minutes held there in constant trance, then a five-minute return to ordinary waking.',
+      steps: [{ pitch: 190, beat: 9, mins: 10 }, { pitch: 160, beat: 6, mins: 45 }, { pitch: 190, beat: 9, mins: 5 }] },
+    { id: 'hypno-session-60', name: 'The Hour-Long Trance', category: 'The Trance Rite', duration: '1 hr 15 min', tone: 'bowl',
+      desc: 'Ten minutes descending into Theta to aid the induction, a full hour held there in constant trance, then a five-minute return to ordinary waking.',
+      steps: [{ pitch: 190, beat: 9, mins: 10 }, { pitch: 160, beat: 6, mins: 60 }, { pitch: 190, beat: 9, mins: 5 }] },
 
-    // ---- PSYCHOLOGY ----
-    { id: 'confidence', name: 'Confidence', category: 'Psychology', duration: '15 min', tone: 'pure',
-      desc: 'A held mid-Beta state, associated with alert, assured engagement.', steps: brArc(220, 12, 245, 16, 15, 3) },
-    { id: 'energy', name: 'Energy Stimulation', category: 'Psychology', duration: '12 min', tone: 'pure',
-      desc: 'A rise into high Beta/low Gamma for a jolt of alertness.', steps: brArc(230, 14, 280, 32, 12, 3) },
-    { id: 'motivation', name: 'Motivation', category: 'Psychology', duration: '15 min', tone: 'pure',
-      desc: 'A held, energized Beta state to support drive and initiative.', steps: brArc(220, 12, 250, 17, 15, 3) },
-    { id: 'reset', name: 'Reset to Relaxed', category: 'Psychology', duration: '10 min', tone: 'bowl',
-      desc: 'A quick down-shift from Beta back to easy Alpha, for stepping away from stress.', steps: brDescent([{ pitch: 240, beat: 16, mins: 2 }, { pitch: 200, beat: 10, mins: 8 }]) },
-    { id: 'total-relax', name: 'Total Relaxation', category: 'Psychology', duration: '20 min', tone: 'bowl',
-      desc: 'A deep settle into Theta for full-body relaxation.', steps: brArc(190, 9, 150, 5.5, 20, 4) },
-    { id: 'wakeful-relax', name: 'Wakeful Relaxation', category: 'Psychology', duration: '20 min', tone: 'bowl',
-      desc: 'A calm, held Alpha state - relaxed, but staying alert rather than drifting toward Theta.', steps: brFlat(200, 10, 20) }
+    // ---- INNER ALCHEMY ----
+    { id: 'wakeful-relax', name: 'Calm Vigilance', category: 'Inner Alchemy', duration: '15 min + hold', tone: 'bowl',
+      desc: 'A fifteen-minute descent from an anxious, high-Beta state to a relaxed-but-alert 13 Hz, held there without drifting further toward sleep.',
+      steps: [{ pitch: 240, beat: 30, mins: 15 }, { pitch: 200, beat: 13, mins: null }] },
+    { id: 'confidence', name: 'The Unshaken Will', category: 'Inner Alchemy', duration: '20 min', tone: 'pure',
+      desc: 'Relaxed comfort paired with alertness. Fifteen minutes easing into calm, then a gentle five-minute lift of alertness - suited to walking into a room where you need to be steady.',
+      steps: [{ pitch: 220, beat: 12, mins: 15 }, { pitch: 230, beat: 13.5, mins: 5 }] },
+    { id: 'motivation', name: 'The Driving Flame', category: 'Inner Alchemy', duration: '15 min + hold', tone: 'pure',
+      desc: 'From a lethargic 10 Hz up through a brief high-energy Gamma peak, settling into a focused 20 Hz and held there, ready to work.',
+      steps: [{ pitch: 200, beat: 10, mins: 5 }, { pitch: 260, beat: 70, mins: 5 }, { pitch: 240, beat: 20, mins: 5 }, { pitch: 240, beat: 20, mins: null }] },
+    { id: 'reset', name: 'Return to Center', category: 'Inner Alchemy', duration: '20 min', tone: 'bowl',
+      desc: 'Fifteen minutes down from an anxious, high-Beta state to a thoroughly relaxed 8 Hz, then five minutes easing back to full waking before fading to silence.',
+      steps: [{ pitch: 240, beat: 30, mins: 15 }, { pitch: 200, beat: 10, mins: 5 }] },
+    { id: 'energy', name: 'The Spark Ignited', category: 'Inner Alchemy', duration: '15 min + hold', tone: 'pure',
+      desc: 'A fifteen-minute climb into Gamma for a caffeine-like lift, held there for as long as the alertness is needed.',
+      steps: [{ pitch: 230, beat: 14, mins: 15 }, { pitch: 260, beat: 32, mins: null }] },
+    { id: 'total-relax', name: 'The Full Release', category: 'Inner Alchemy', duration: '15 min + hold', tone: 'bowl',
+      desc: 'A fifteen-minute descent from an anxious, high-Beta state to a deeply relaxed 8 Hz, at the low edge of Alpha - held there for as long as ease is wanted. Not suited to moments needing alertness.',
+      steps: [{ pitch: 240, beat: 30, mins: 15 }, { pitch: 190, beat: 8, mins: null }] }
 ];
 
 const BR_EDU = [
     { q: 'What are binaural beats, actually?', a: "When each ear hears a slightly different pure tone at the same time, the brain doesn't hear two tones — it perceives a third, phantom pulsing rhythm equal to the DIFFERENCE between the two frequencies. That illusory pulse is the \"binaural beat,\" and it only works over headphones, since it's manufactured inside your own auditory processing, not in the air." },
+    { q: 'Why does the brain hear a pulse that was never played?', a: "It's a side effect of how you locate sound. Your brain constantly compares the tiny timing difference between what each ear hears to judge which direction a sound came from. Feed it two tones of slightly different frequency instead of one, and that timing difference never settles — it drifts continuously, at a rate equal to the gap between the two frequencies. Your brain reads that drift as a rhythmic pulse, and that manufactured pulse is the stimulus believed to nudge brain activity toward its frequency." },
     { q: 'Does the research actually support this?', a: 'The strongest evidence is for relaxation and anxiety reduction — several meta-analyses report a moderate, consistent effect. Evidence for memory, sleep, and cognitive enhancement is more mixed. Claims about lucid dreaming, astral projection, or "hacking" specific brain states are mostly anecdotal and traditional rather than rigorously proven — worth exploring with curiosity, not certainty.' },
     { q: 'Delta (0.5–4 Hz)', a: 'The deepest, slowest waves — dominant during dreamless sleep. Associated with physical healing, immune regulation, and rest that lighter sleep stages cannot provide.' },
     { q: 'Theta (4–8 Hz)', a: 'The doorway between waking and sleeping. Present during meditation, hypnagogia, REM dreaming, and deep creative insight. Many meditation traditions consider this the most "receptive" state of mind.' },
@@ -5641,6 +5699,7 @@ const BR_EDU = [
     { q: 'Beta (12–30 Hz)', a: 'Ordinary waking thought. Useful for active concentration and productive work, but too much time here, especially at the high end, is linked to stress and overstimulation.' },
     { q: 'Gamma (30–100 Hz)', a: 'The fastest, most energetic waves, tied to peak focus, sudden insight, and the brain "binding" separate pieces of information into one experience. 40 Hz in particular has drawn real interest in recent cognitive research.' },
     { q: 'Schumann Resonance (7.83 Hz)', a: "Not a brainwave at all, but a real physical phenomenon: the fundamental standing-wave frequency of the electromagnetic cavity between the Earth's surface and the ionosphere, first predicted by physicist Winfried Otto Schumann in 1952. It sits right at the Theta/Alpha border, part of why many use it as a grounding tone." },
+    { q: 'Which range should I reach for?', a: "As a rough guide: Delta for deep dreamless rest; Theta for sleep, meditation, or hypnotic work; Alpha for calm, unforced focus and easing anxiety; Beta for active concentration, productivity, and alertness; Gamma for a short jolt of energy or peak mental effort. The Sessions tab builds all of these into ready-made arcs rather than leaving you to dial in a single static tone." },
     { q: 'What is the Gateway Experience / Hemi-Sync?', a: 'A set of audio techniques developed by The Monroe Institute beginning in the 1970s, designed to bring the two brain hemispheres into a synchronized state through binaural beats layered with pink noise and guided voice. It was studied by the U.S. Army in a declassified report on altered states of consciousness. Its more esoteric claims (astral projection, remote viewing) remain unverified by mainstream science, but its core relaxation and focus techniques rest on the same binaural mechanism used throughout this tool.' },
     { q: 'Why do I need headphones?', a: 'The binaural illusion is built inside your brain from two DIFFERENT tones, one per ear. Speakers let both ears hear both tones blended together in the air, which destroys the effect entirely.' }
 ];
@@ -6010,7 +6069,7 @@ function brStartVisualizer() {
 
 // ---- Sessions ----
 let brSessionCategoryFilter = 'All';
-const BR_SESSION_CATEGORIES = ['All', 'Sleep', 'Meditation', 'Productivity', 'Hypnosis', 'Psychology'];
+const BR_SESSION_CATEGORIES = ['All', 'Rites of the Order', 'The Slumbering Descent', 'Stillness & Communion', 'The Focused Mind', 'The Trance Rite', 'Inner Alchemy'];
 
 function brRenderSessionCategoryTabs() {
     const host = document.getElementById('brSessionCategoryTabs');
@@ -6066,7 +6125,10 @@ function brStartSession(session) {
     document.getElementById('brPlayBtn').textContent = '❚❚';
     document.getElementById('brPlayBtn').classList.add('playing');
 
-    const totalMs = session.steps.reduce((a, s) => a + s.mins * 60000, 0);
+    const lastStep = session.steps[session.steps.length - 1];
+    const isIndefinite = lastStep.mins === null;
+    const finiteSteps = isIndefinite ? session.steps.slice(0, -1) : session.steps;
+    const totalMs = finiteSteps.reduce((a, s) => a + s.mins * 60000, 0);
     const sessionStart = Date.now();
     let stepIndex = 0;
     let stepStart = Date.now();
@@ -6074,12 +6136,14 @@ function brStartSession(session) {
     function advanceIfNeeded() {
         const now = Date.now();
         const elapsedTotal = now - sessionStart;
-        if (elapsedTotal >= totalMs) {
+        const onIndefiniteStep = isIndefinite && stepIndex === session.steps.length - 1;
+
+        if (!onIndefiniteStep && elapsedTotal >= totalMs) {
             brStopSessionIfRunning();
             return;
         }
         const currentStep = session.steps[stepIndex];
-        if (now - stepStart >= currentStep.mins * 60000 && stepIndex < session.steps.length - 1) {
+        if (!onIndefiniteStep && now - stepStart >= currentStep.mins * 60000 && stepIndex < session.steps.length - 1) {
             stepIndex++;
             stepStart = now;
             const step = session.steps[stepIndex];
@@ -6089,7 +6153,10 @@ function brStartSession(session) {
             BREngine.updateFrequencies(brPitch, brBeat);
         }
         const fill = document.getElementById('brProgress-' + session.id);
-        if (fill) fill.style.width = Math.min(100, (elapsedTotal / totalMs) * 100) + '%';
+        if (fill) {
+            if (onIndefiniteStep) fill.style.width = '100%';
+            else fill.style.width = Math.min(100, (elapsedTotal / totalMs) * 100) + '%';
+        }
     }
     brSessionTimer = setInterval(advanceIfNeeded, 1000);
 }
