@@ -578,6 +578,171 @@
 
 
 
+/* ==================== BINAURAL RITUAL ==================== */
+.br-wrap{max-width:900px;margin:0 auto;font-family:'Open Sans',sans-serif;color:#ccc;}
+.br-title{
+  font-family:'UnifrakturMaguntia',Verdana,cursive;font-size:44px;color:#bfbfbf;
+  text-align:center;margin-bottom:2px;
+}
+.br-subtitle{text-align:center;color:#888;font-size:13px;letter-spacing:1px;margin-bottom:22px;font-style:italic;}
+.br-panel{
+  background:#000;border:1px solid #444;border-radius:6px;padding:20px;
+  box-shadow:0 0 8px rgba(153,50,204,0.15);margin-bottom:22px;
+}
+.br-section-title{
+  font-family:'Metal Mania',cursive;color:#c77dff;font-size:22px;text-align:center;
+  margin:0 0 14px;letter-spacing:1px;
+}
+.br-tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;}
+.br-tab{
+  background:#1a1a1a;border:1px solid #555;color:#aaa;padding:8px 18px;border-radius:4px;
+  cursor:pointer;font-family:'Metal Mania',cursive;font-size:15px;letter-spacing:1px;
+  transition:all .2s;
+}
+.br-tab:hover{border-color:#9932CC;color:#c77dff;}
+.br-tab.active{background:#2a1a3a;border-color:#9932CC;color:#fff;box-shadow:0 0 8px rgba(153,50,204,0.5);}
+
+/* ---- Preset mode buttons ---- */
+.br-modes{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:18px;}
+.br-mode-btn{
+  background:#151515;border:1px solid #555;color:#bbb;padding:9px 14px;border-radius:5px;
+  cursor:pointer;font-size:12.5px;text-align:center;min-width:84px;transition:all .2s;
+}
+.br-mode-btn .mb-name{display:block;font-family:'Metal Mania',cursive;font-size:15px;letter-spacing:.5px;}
+.br-mode-btn .mb-range{display:block;color:#777;font-size:10.5px;margin-top:2px;}
+.br-mode-btn:hover{border-color:#dc3545;color:#fff;}
+.br-mode-btn.active{
+  background:linear-gradient(160deg,#2a0a0a,#1a0505);border-color:#dc3545;color:#fff;
+  box-shadow:0 0 10px rgba(220,53,69,0.5);
+}
+
+/* ---- Sliders ---- */
+.br-slider-row{margin:18px 0;}
+.br-slider-label{
+  display:flex;justify-content:space-between;font-size:13px;color:#999;margin-bottom:6px;
+  font-family:'Metal Mania',cursive;letter-spacing:.5px;
+}
+.br-slider-label .val{color:#ffc107;font-family:'Open Sans',sans-serif;}
+.br-slider{
+  width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:3px;
+  background:linear-gradient(to right,#333,#555);outline:none;cursor:pointer;
+}
+.br-slider::-webkit-slider-thumb{
+  -webkit-appearance:none;width:18px;height:18px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#ff6b7a,#dc3545);
+  box-shadow:0 0 6px rgba(220,53,69,0.8);cursor:pointer;border:1px solid #fff2;
+}
+.br-slider::-moz-range-thumb{
+  width:18px;height:18px;border-radius:50%;border:1px solid #fff2;
+  background:radial-gradient(circle at 35% 35%,#ff6b7a,#dc3545);
+  box-shadow:0 0 6px rgba(220,53,69,0.8);cursor:pointer;
+}
+.br-state-readout{
+  text-align:center;margin:16px 0;padding:12px;background:#0d0d0d;border:1px solid #333;
+  border-radius:5px;
+}
+.br-state-name{font-family:'Metal Mania',cursive;color:#ffc107;font-size:19px;letter-spacing:1px;}
+.br-state-desc{color:#999;font-size:12.5px;margin-top:5px;line-height:1.5;}
+
+/* ---- Tone style + transport ---- */
+.br-tone-row{display:flex;gap:10px;justify-content:center;margin:16px 0;flex-wrap:wrap;}
+.br-tone-btn{
+  background:#151515;border:1px solid #555;color:#aaa;padding:7px 16px;border-radius:5px;
+  cursor:pointer;font-size:12.5px;
+}
+.br-tone-btn.active{border-color:#c77dff;color:#fff;background:#1f1030;box-shadow:0 0 8px rgba(199,125,255,0.4);}
+.br-transport{display:flex;gap:12px;justify-content:center;align-items:center;margin-top:18px;}
+.br-play-btn{
+  background:linear-gradient(160deg,#2a0a0a,#1a0505);border:2px solid #dc3545;color:#fff;
+  width:64px;height:64px;border-radius:50%;font-size:22px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 0 12px rgba(220,53,69,0.4);
+  transition:box-shadow .2s;
+}
+.br-play-btn:hover{box-shadow:0 0 20px rgba(220,53,69,0.7);}
+.br-play-btn.playing{animation:brPulse 2.4s ease-in-out infinite;}
+@keyframes brPulse{0%,100%{box-shadow:0 0 12px rgba(220,53,69,0.4);}50%{box-shadow:0 0 24px rgba(220,53,69,0.85);}}
+.br-vol-row{display:flex;align-items:center;gap:8px;color:#888;font-size:12px;}
+.br-vol-row input{width:80px;}
+.br-headphone-note{text-align:center;color:#666;font-size:11px;margin-top:10px;font-style:italic;}
+.br-sleep-timer-row{
+  display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;
+  padding-top:14px;border-top:1px solid #262626;font-size:13px;color:#999;
+}
+.br-sleep-timer-label{font-family:'Metal Mania',cursive;letter-spacing:.5px;}
+.br-sleep-timer-row select{
+  background:#151515;border:1px solid #555;color:#ccc;border-radius:4px;padding:5px 8px;font-size:12.5px;
+}
+.br-sleep-timer-countdown{color:#ffc107;font-family:'Metal Mania',cursive;min-width:46px;}
+
+/* ---- Wave visualizer ---- */
+.br-visualizer{width:100%;height:80px;background:#050505;border:1px solid #333;border-radius:5px;margin:14px 0;display:block;}
+
+/* ---- Sessions ---- */
+.br-session-list{display:flex;flex-direction:column;gap:10px;}
+.br-session-card{
+  background:#111;border:1px solid #444;border-radius:6px;padding:14px 16px;cursor:pointer;
+  transition:all .2s;
+}
+.br-session-card:hover{border-color:#9932CC;}
+.br-session-card.active{border-color:#ffc107;box-shadow:0 0 10px rgba(255,193,7,0.3);}
+.br-session-name{font-family:'Metal Mania',cursive;color:#ffc107;font-size:17px;}
+.br-session-meta{color:#777;font-size:11px;margin:2px 0 6px;}
+.br-session-desc{color:#aaa;font-size:12.5px;line-height:1.5;}
+.br-session-progress{
+  height:4px;background:#222;border-radius:2px;margin-top:10px;overflow:hidden;display:none;
+}
+.br-session-card.active .br-session-progress{display:block;}
+.br-session-progress-fill{height:100%;background:linear-gradient(to right,#dc3545,#ffc107);width:0%;transition:width 1s linear;}
+
+/* ---- Educational accordion ---- */
+.br-edu-item{border-bottom:1px solid #2a2a2a;padding:10px 2px;}
+.br-edu-q{
+  display:flex;justify-content:space-between;cursor:pointer;color:#ccc;font-size:14px;
+  font-family:'Metal Mania',cursive;letter-spacing:.5px;
+}
+.br-edu-q .arrow{transition:transform .2s;color:#888;}
+.br-edu-item.open .arrow{transform:rotate(90deg);}
+.br-edu-a{max-height:0;overflow:hidden;transition:max-height .3s ease;color:#999;font-size:12.5px;line-height:1.6;}
+.br-edu-item.open .br-edu-a{max-height:400px;padding-top:8px;}
+
+/* ==================== BREATH RETENTION TIMER ==================== */
+.brt-phase-label{
+  text-align:center;font-family:'UnifrakturMaguntia',Verdana,cursive;font-size:28px;color:#eee;
+  min-height:40px;margin-bottom:4px;
+}
+.brt-phase-sub{text-align:center;color:#888;font-size:12.5px;margin-bottom:16px;min-height:16px;}
+.brt-star-wrap{display:flex;justify-content:center;align-items:center;margin:10px 0 18px;}
+.brt-star-wrap svg{width:180px;height:180px;transform-origin:center;}
+.brt-star-wrap svg.brt-idle{transform:scale(0.82);transition:transform .6s ease;}
+.brt-star-wrap svg.brt-breathing{animation:brtBreathPulse 4s ease-in-out infinite;}
+.brt-star-wrap svg.brt-exhale-hold{transform:scale(0.62);transition:transform 1.2s ease-out;}
+.brt-star-wrap svg.brt-inhale-hold{transform:scale(1.18);transition:transform 15s cubic-bezier(.2,.6,.4,1);}
+@keyframes brtBreathPulse{0%,100%{transform:scale(0.72);}50%{transform:scale(1.05);}}
+.brt-timer{text-align:center;font-family:'Metal Mania',cursive;font-size:38px;color:#ffc107;letter-spacing:2px;}
+.brt-round{text-align:center;color:#999;font-size:12px;margin-top:2px;}
+.brt-controls{display:flex;justify-content:center;gap:12px;margin:20px 0;}
+.brt-btn{
+  background:linear-gradient(160deg,#2a0a0a,#1a0505);border:2px solid #dc3545;color:#fff;
+  padding:14px 34px;border-radius:8px;font-family:'Metal Mania',cursive;font-size:18px;
+  letter-spacing:1px;cursor:pointer;box-shadow:0 0 10px rgba(220,53,69,0.35);
+}
+.brt-btn:hover{box-shadow:0 0 18px rgba(220,53,69,0.65);}
+.brt-btn.secondary{border-color:#666;background:#151515;font-size:13px;padding:10px 20px;}
+.brt-log{margin-top:20px;}
+.brt-log table{width:100%;border-collapse:collapse;font-size:12px;}
+.brt-log th{color:#777;text-align:left;padding:6px 8px;border-bottom:1px solid #333;font-weight:normal;}
+.brt-log td{padding:6px 8px;border-bottom:1px solid #1e1e1e;color:#bbb;}
+.brt-log .phase-breathe{color:#7fd67f;}
+.brt-log .phase-exhale{color:#ff8080;}
+.brt-log .phase-inhale{color:#80c0ff;}
+.brt-total{text-align:center;color:#999;font-size:12.5px;margin-top:10px;}
+
+@media (max-width: 600px) {
+  .br-mode-btn{min-width:70px;padding:7px 8px;}
+  .brt-star-wrap svg{width:140px;height:140px;}
+  .brt-timer{font-size:30px;}
+}
+
 /* ==================== SHADE BLADE SORCERY: INTERACTIVE ==================== */
 .sbsi-wrap,.sbsi-wrap *{box-sizing:border-box;}
 .sbsi-wrap{
@@ -863,6 +1028,9 @@
                     </li>
 					<li class="nav-item">
                         <a class="nav-link" href="#yijing-dice">yijing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#binaural-ritual">binaural ritual</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#metronome">metronome</a>
@@ -1864,7 +2032,116 @@ buildPD();
 		</div>
 	</div>
 
+<hr class="glow animate-breathe" id="binaural-ritual">
+
+<!-- Binaural Ritual -->
+	<div class="br-wrap">
+		<div class="container-fluid text-center" id="deathmask">
+			<img src="images/shadedeathmask-303030.png" width="115" height="auto" alt="Shade Deathmask">
+		</div>
+		<h1 class="br-title">binaural ritual</h1>
+		<div class="br-subtitle">brainwave entrainment &amp; breath</div>
+
+		<div class="br-tabs">
+			<button class="br-tab active" data-brtab="generator">Generator</button>
+			<button class="br-tab" data-brtab="sessions">Sessions</button>
+			<button class="br-tab" data-brtab="learn">Learn</button>
+			<button class="br-tab" data-brtab="breath">Breath Retention</button>
+		</div>
+
+		<!-- GENERATOR PANEL -->
+		<div class="br-panel" id="brPanelGenerator">
+			<div class="br-section-title">Binaural Beats Generator</div>
+			<div class="br-modes" id="brModes"></div>
+
+			<div class="br-slider-row">
+				<div class="br-slider-label"><span>Pitch (carrier tone)</span><span class="val" id="brPitchVal">200.0 Hz</span></div>
+				<input type="range" id="brPitchSlider" class="br-slider" min="50" max="1000" step="0.1" value="200">
+			</div>
+			<div class="br-slider-row">
+				<div class="br-slider-label"><span>Beat (binaural offset)</span><span class="val" id="brBeatVal">10.0 Hz</span></div>
+				<input type="range" id="brBeatSlider" class="br-slider" min="0.1" max="100" step="0.1" value="10">
+			</div>
+
+			<div class="br-state-readout">
+				<div class="br-state-name" id="brStateName">Alpha</div>
+				<div class="br-state-desc" id="brStateDesc"></div>
+			</div>
+
+			<canvas class="br-visualizer" id="brVisualizer"></canvas>
+
+			<div class="br-tone-row" id="brToneRow"></div>
+
+			<div class="br-transport">
+				<button class="br-play-btn" id="brPlayBtn">▶</button>
+				<div class="br-vol-row">
+					<span>Vol</span>
+					<input type="range" id="brVolSlider" min="0" max="100" value="55">
+				</div>
+			</div>
+			<div class="br-sleep-timer-row">
+				<span class="br-sleep-timer-label">😴 Sleep Timer</span>
+				<select id="brSleepTimerSelect">
+					<option value="0">Off</option>
+					<option value="5">5 min</option>
+					<option value="10">10 min</option>
+					<option value="15">15 min</option>
+					<option value="20">20 min</option>
+					<option value="30">30 min</option>
+					<option value="45">45 min</option>
+					<option value="60">60 min</option>
+					<option value="90">90 min</option>
+					<option value="120">120 min</option>
+				</select>
+				<span class="br-sleep-timer-countdown" id="brSleepTimerCountdown"></span>
+			</div>
+			<div class="br-headphone-note">🎧 Headphones required — binaural beats rely on each ear hearing a different tone.</div>
+			<div class="br-headphone-note" id="brBgAudioNote">🔊 Tap Play once, then lock your screen or switch apps — audio will keep playing in the background.</div>
+			<audio id="brBgAudioEl" playsinline style="display:none;"></audio>
+		</div>
+
+		<!-- SESSIONS PANEL -->
+		<div class="br-panel" id="brPanelSessions" style="display:none;">
+			<div class="br-section-title">Guided Sessions</div>
+			<div class="br-tone-row" id="brSessionCategoryTabs" style="margin-bottom:16px;"></div>
+			<div class="br-session-list" id="brSessionList"></div>
+		</div>
+
+		<!-- LEARN PANEL -->
+		<div class="br-panel" id="brPanelLearn" style="display:none;">
+			<div class="br-section-title">The Spectrum</div>
+			<div id="brEduList"></div>
+		</div>
+
+		<!-- BREATH RETENTION PANEL -->
+		<div class="br-panel" id="brPanelBreath" style="display:none;">
+			<div class="br-section-title">Breath Retention Timer</div>
+			<div class="brt-phase-label" id="brtPhaseLabel">Ready</div>
+			<div class="brt-phase-sub" id="brtPhaseSub">Begin when you're ready.</div>
+			<div class="brt-star-wrap"><div id="brtStarHost"></div></div>
+			<div class="brt-timer" id="brtTimer">00:00</div>
+			<div class="brt-round" id="brtRound"></div>
+			<div class="brt-controls">
+				<button class="brt-btn" id="brtMainBtn">Begin Session</button>
+				<button class="brt-btn secondary" id="brtResetBtn" style="display:none;">End &amp; Reset</button>
+			</div>
+			<div class="brt-log" id="brtLog" style="display:none;">
+				<table>
+					<thead><tr><th>Round</th><th>Phase</th><th>Duration</th></tr></thead>
+					<tbody id="brtLogBody"></tbody>
+				</table>
+				<div class="brt-total" id="brtTotal"></div>
+			</div>
+		</div>
+
+		<div style="text-align:center;color:#555;font-size:11px;margin-top:10px;">
+			For meditative and exploratory use. Not a substitute for medical advice. Discontinue if you feel dizzy, and never use while driving or operating machinery. Avoid if you have epilepsy or a seizure disorder, unless cleared by a physician.
+		</div>
+	</div>
+
 	<hr class="glow animate-breathe" id="metronome">
+
+
 
 
 
@@ -3349,7 +3626,12 @@ When a Black #2 Card is attached to your 🗡️, the 🗡️ shatters into the 
 <span class="sm-reds">Hourglass of Desperation & Death (Torch Timer for Blitzkrieg rounds):</span> 
 <li>Set a real-world timer to <span class="number">10 minutes</span> or physical hourglass of chosen duration. When the 10 minutes is up, your torch light fades and the least powerful enemy in the Abyss is resurrected to your current chamber.</li>
 <span class="sm-reds">Recommended Decks: </span>
-<li>Bicycle Spellbound & Black Ghost</ul>`;
+<li>Bicycle Spellbound & Black Ghost</li>
+<span class="sm-reds">Digital App — Known To-Do List:</span>
+<li>Court card icons in the interactive Card Game currently don't match the distinct icons used above in this written ruleset to tell each court card apart. These need to be updated to align.</li>
+<li>Further testing and fixes to the interactive Card Game are ongoing.</li>
+<li>The Roguelike Descent dungeon crawler has not yet been updated to match the Card Game's current ruleset, and needs a full pass once the Card Game itself is stable.</li>
+</ul>`;
             document.getElementById("scoundrelOutput").innerHTML = scoundrelText + "";
         }
 
@@ -5189,6 +5471,801 @@ const SBSIRoguelike = (function () {
     });
 })();
 
+    </script>
+
+
+    <script>
+// ==================== BINAURAL RITUAL ====================
+
+const BR_PRESETS = [
+    { id: 'delta', name: 'Delta', range: [0.5, 4], beat: 2.5, pitch: 100,
+      desc: 'The slowest waves, dominant during deep, dreamless sleep. Associated with physical restoration, immune function, and unconscious healing.' },
+    { id: 'theta', name: 'Theta', range: [4, 8], beat: 6, pitch: 136.1,
+      desc: 'The doorway between waking and sleeping. Present during meditation, REM dreaming, and deep creative insight.' },
+    { id: 'alpha', name: 'Alpha', range: [8, 12], beat: 10, pitch: 200,
+      desc: 'Calm, relaxed alertness — the classic meditative band, with the strongest research support for easing anxiety.' },
+    { id: 'beta', name: 'Beta', range: [12, 30], beat: 18, pitch: 250,
+      desc: 'Ordinary waking thought. Useful for active concentration and productive work.' },
+    { id: 'gamma', name: 'Gamma', range: [30, 100], beat: 40, pitch: 300,
+      desc: 'The fastest waves, tied to peak focus and sudden insight. 40 Hz specifically has drawn real research interest.' },
+    { id: 'schumann', name: 'Schumann Resonance', range: [7.83, 7.83], beat: 7.83, pitch: 136.1,
+      desc: "The Earth's own electromagnetic standing wave, sitting right at the Theta/Alpha border. A favorite grounding tone." }
+];
+
+// Fixed-ramp helper: rampMins spent settling in, rampMins spent settling out,
+// remainder held at the target state - matches the pattern the user described
+// (e.g. "5 minute entrainment... held... then a 5 minute entrainment back").
+function brArc(restPitch, restBeat, targetPitch, targetBeat, totalMins, rampMins) {
+    const hold = Math.max(1, totalMins - rampMins * 2);
+    return [
+        { pitch: restPitch, beat: restBeat, mins: rampMins },
+        { pitch: targetPitch, beat: targetBeat, mins: hold },
+        { pitch: restPitch, beat: restBeat, mins: rampMins }
+    ];
+}
+function brFlat(pitch, beat, mins) {
+    return [{ pitch, beat, mins }];
+}
+function brDescent(steps) { return steps; } // just a readability alias for multi-stage descents
+
+const BR_SESSIONS = [
+    // ---- SLEEP ----
+    { id: 'sleep-5', name: '5 Minute Intro to Sleep', category: 'Sleep', duration: '5 min', tone: 'bowl',
+      desc: 'A quick dip from waking Alpha toward the edge of Theta - a short taste of the descent toward sleep.',
+      steps: brArc(200, 10, 140, 6, 5, 1) },
+    { id: 'sleep-10', name: '10 Minute Intro to Sleep', category: 'Sleep', duration: '10 min', tone: 'bowl',
+      desc: 'A gentler, longer descent from Alpha into Theta, easing the mind toward drowsiness.',
+      steps: brArc(200, 10, 130, 5, 10, 2) },
+    { id: 'sleep-15', name: '15 Minute Intro to Sleep', category: 'Sleep', duration: '15 min', tone: 'bowl',
+      desc: 'Alpha settling through Theta and touching the top of Delta - enough time to feel genuinely heavy-eyed.',
+      steps: brDescent([{ pitch: 190, beat: 9, mins: 4 }, { pitch: 140, beat: 5.5, mins: 6 }, { pitch: 105, beat: 3, mins: 5 }]) },
+    { id: 'nap-15', name: '15 Minute Nap', category: 'Sleep', duration: '15 min', tone: 'bowl',
+      desc: 'A short power-nap arc that stays in light Theta rather than diving into Delta, aiming for rest without grogginess on waking.',
+      steps: brArc(170, 7.5, 140, 5.5, 15, 3) },
+    { id: 'nap-30', name: '30 Minute Nap', category: 'Sleep', duration: '30 min', tone: 'bowl',
+      desc: 'A fuller nap cycle reaching briefly into Delta before a gentle Theta rise near the end, easing the return to wakefulness.',
+      steps: brDescent([{ pitch: 170, beat: 8, mins: 5 }, { pitch: 120, beat: 4, mins: 8 }, { pitch: 100, beat: 2, mins: 9 }, { pitch: 140, beat: 5.5, mins: 8 }]) },
+    { id: 'sleep-cycle-1', name: 'One Full Sleep Cycle', category: 'Sleep', duration: '90 min', tone: 'bowl',
+      desc: "A single ~90-minute arc tracing the brain's natural cycle: Alpha down through Theta into Delta, then a lighter Theta rise mimicking a REM-adjacent phase.",
+      steps: brDescent([{ pitch: 190, beat: 9, mins: 12 }, { pitch: 140, beat: 5.5, mins: 20 }, { pitch: 100, beat: 2, mins: 30 }, { pitch: 130, beat: 4.5, mins: 18 }, { pitch: 160, beat: 6.5, mins: 10 }]) },
+    { id: 'sleep-cycle-2', name: 'Two Full Sleep Cycles', category: 'Sleep', duration: '180 min', tone: 'bowl',
+      desc: 'Two consecutive ~90-minute sleep-cycle arcs back to back, for a longer guided rest across multiple cycles.',
+      steps: brDescent([
+          { pitch: 190, beat: 9, mins: 12 }, { pitch: 140, beat: 5.5, mins: 20 }, { pitch: 100, beat: 2, mins: 30 }, { pitch: 130, beat: 4.5, mins: 18 }, { pitch: 160, beat: 6.5, mins: 10 },
+          { pitch: 190, beat: 9, mins: 12 }, { pitch: 140, beat: 5.5, mins: 20 }, { pitch: 100, beat: 2, mins: 30 }, { pitch: 130, beat: 4.5, mins: 18 }, { pitch: 160, beat: 6.5, mins: 10 }
+      ]) },
+    { id: 'perfect-night', name: "A Perfect Night's Sleep", category: 'Sleep', duration: '8 hours', tone: 'bowl',
+      desc: "A full 8-hour, five-cycle night's arc, alternating deep Delta with lighter Theta rises to loosely mirror natural sleep-cycle architecture.",
+      steps: brDescent([
+          { pitch: 190, beat: 9, mins: 15 }, { pitch: 100, beat: 2, mins: 85 }, { pitch: 140, beat: 5.5, mins: 15 },
+          { pitch: 100, beat: 1.8, mins: 85 }, { pitch: 140, beat: 5.5, mins: 15 },
+          { pitch: 100, beat: 1.8, mins: 80 }, { pitch: 145, beat: 5.5, mins: 15 },
+          { pitch: 105, beat: 2.2, mins: 75 }, { pitch: 150, beat: 6, mins: 15 },
+          { pitch: 115, beat: 3, mins: 60 }, { pitch: 170, beat: 8, mins: 20 }
+      ]) },
+    { id: 'lucid-dream', name: 'Lucid Dreaming', category: 'Sleep', duration: '35 min', tone: 'bowl',
+      desc: 'Exploratory Theta work with periodic gentle Alpha pulses meant to nudge a flicker of awareness into a dream state. Evidence for this specific effect is thin and mostly anecdotal - treat it as an experiment, not a guarantee.',
+      steps: brDescent([{ pitch: 160, beat: 7, mins: 8 }, { pitch: 130, beat: 4.5, mins: 6 }, { pitch: 190, beat: 9, mins: 2 }, { pitch: 130, beat: 4.5, mins: 6 }, { pitch: 190, beat: 9, mins: 2 }, { pitch: 120, beat: 4, mins: 6 }, { pitch: 190, beat: 9, mins: 2 }, { pitch: 120, beat: 4, mins: 3 }]) },
+
+    // ---- MEDITATION ----
+    { id: 'meditate-intro', name: 'Intro to Meditation', category: 'Meditation', duration: '15 min', tone: 'bowl',
+      desc: 'A gentle settle from Alpha into Theta, ideal for a first sit.',
+      steps: brArc(200, 10, 165, 6, 15, 3) },
+    { id: 'schumann-1', name: 'Schumann Resonance', category: 'Meditation', duration: '20 min', tone: 'bowl',
+      desc: "The fundamental Earth resonance at 7.83 Hz - a favorite grounding tone for seated meditation.",
+      steps: brFlat(136.1, 7.83, 20) },
+    { id: 'schumann-2', name: '2nd Schumann Resonance', category: 'Meditation', duration: '20 min', tone: 'bowl',
+      desc: 'The second Schumann harmonic, ~14.3 Hz - sits at the Alpha/Beta border, for an alert but grounded stillness.',
+      steps: brFlat(160, 14.3, 20) },
+    { id: 'schumann-3', name: '3rd Schumann Resonance', category: 'Meditation', duration: '20 min', tone: 'bowl',
+      desc: 'The third Schumann harmonic, ~20.8 Hz, in the Beta range.',
+      steps: brFlat(180, 20.8, 20) },
+    { id: 'schumann-4', name: '4th Schumann Resonance', category: 'Meditation', duration: '20 min', tone: 'bowl',
+      desc: 'The fourth Schumann harmonic, ~27.3 Hz, deeper into Beta.',
+      steps: brFlat(200, 27.3, 20) },
+    { id: 'schumann-5', name: '5th Schumann Resonance', category: 'Meditation', duration: '20 min', tone: 'bowl',
+      desc: 'The fifth Schumann harmonic, ~33.8 Hz, at the Beta/Gamma border.',
+      steps: brFlat(220, 33.8, 20) },
+    { id: 'meditate-20', name: '20 Minute Meditation', category: 'Meditation', duration: '20 min', tone: 'bowl',
+      desc: 'A settled Theta hold for a standard sit.', steps: brArc(190, 9, 150, 6, 20, 3) },
+    { id: 'meditate-30', name: '30 Minute Meditation', category: 'Meditation', duration: '30 min', tone: 'bowl',
+      desc: 'A deeper, longer Theta hold.', steps: brArc(190, 9, 150, 6, 30, 4) },
+    { id: 'meditate-45', name: '45 Minute Meditation', category: 'Meditation', duration: '45 min', tone: 'bowl',
+      desc: 'An extended sit, easing slightly toward Delta at its center before returning to Theta.',
+      steps: brDescent([{ pitch: 190, beat: 9, mins: 5 }, { pitch: 150, beat: 6, mins: 15 }, { pitch: 120, beat: 4, mins: 10 }, { pitch: 150, beat: 6, mins: 15 }]) },
+    { id: 'meditate-60', name: '1 Hour Meditation', category: 'Meditation', duration: '60 min', tone: 'bowl',
+      desc: 'A full hour, settling from Alpha through Theta into a brief Delta touch and back.',
+      steps: brDescent([{ pitch: 190, beat: 9, mins: 6 }, { pitch: 150, beat: 6, mins: 18 }, { pitch: 110, beat: 3, mins: 12 }, { pitch: 150, beat: 6, mins: 18 }, { pitch: 190, beat: 9, mins: 6 }]) },
+
+    // ---- PRODUCTIVITY ----
+    { id: 'hyper-to-concentration', name: 'Hyperactivity to Concentration', category: 'Productivity', duration: '10 min', tone: 'pure',
+      desc: 'A 10-minute entrainment from a scattered, hyperactive Beta state down into calm, focused concentration.',
+      steps: brDescent([{ pitch: 260, beat: 24, mins: 3 }, { pitch: 250, beat: 19, mins: 4 }, { pitch: 240, beat: 15, mins: 3 }]) },
+    { id: 'relax-to-concentration', name: 'Relaxation to Concentration', category: 'Productivity', duration: '12 min', tone: 'pure',
+      desc: 'A rise from relaxed Alpha up into engaged, analytical Beta.',
+      steps: brDescent([{ pitch: 200, beat: 10, mins: 4 }, { pitch: 230, beat: 14, mins: 4 }, { pitch: 250, beat: 17, mins: 4 }]) },
+    { id: 'learn-20', name: '20 Minutes of Learning', category: 'Productivity', duration: '20 min', tone: 'pure',
+      desc: 'A 5-minute entrainment into a focused, knowledge-retentive state (the Alpha/Beta border), held, then eased back to rest.',
+      steps: brArc(200, 10, 240, 14, 20, 5) },
+    { id: 'learn-30', name: '30 Minutes of Learning', category: 'Productivity', duration: '30 min', tone: 'pure',
+      desc: 'The same focused-retention arc, held longer.', steps: brArc(200, 10, 240, 14, 30, 5) },
+    { id: 'learn-45', name: '45 Minutes of Learning', category: 'Productivity', duration: '45 min', tone: 'pure',
+      desc: 'An extended learning session.', steps: brArc(200, 10, 240, 14, 45, 5) },
+    { id: 'learn-60', name: 'An Hour of Learning', category: 'Productivity', duration: '60 min', tone: 'pure',
+      desc: 'A full hour of held, knowledge-retentive focus.', steps: brArc(200, 10, 240, 14, 60, 5) },
+    { id: 'problem-20', name: '20 Minutes of Problem-Solving', category: 'Productivity', duration: '20 min', tone: 'pure',
+      desc: 'A 5-minute entrainment into sharper, more analytical Beta focus for active problem-solving, held, then eased back down.',
+      steps: brArc(200, 10, 255, 18, 20, 5) },
+    { id: 'problem-30', name: '30 Minutes of Problem-Solving', category: 'Productivity', duration: '30 min', tone: 'pure',
+      desc: 'The same analytical-focus arc, held longer.', steps: brArc(200, 10, 255, 18, 30, 5) },
+    { id: 'problem-45', name: '45 Minutes of Problem-Solving', category: 'Productivity', duration: '45 min', tone: 'pure',
+      desc: 'An extended problem-solving session.', steps: brArc(200, 10, 255, 18, 45, 5) },
+    { id: 'problem-60', name: 'An Hour of Problem-Solving', category: 'Productivity', duration: '60 min', tone: 'pure',
+      desc: 'A full hour of sharp analytical focus.', steps: brArc(200, 10, 255, 18, 60, 5) },
+
+    // ---- HYPNOSIS ----
+    { id: 'hypno-5', name: '5 Minute Hypnotic Induction', category: 'Hypnosis', duration: '5 min', tone: 'bowl',
+      desc: 'A brief descent from Alpha into Theta - the classic hypnotic-suggestibility range.', steps: brArc(190, 9, 155, 5.5, 5, 1.5) },
+    { id: 'hypno-10', name: '10 Minute Hypnotic Induction', category: 'Hypnosis', duration: '10 min', tone: 'bowl',
+      desc: 'A fuller induction descent into Theta.', steps: brArc(190, 9, 150, 5, 10, 3) },
+    { id: 'hypno-15', name: '15 Minute Hypnotic Induction', category: 'Hypnosis', duration: '15 min', tone: 'bowl',
+      desc: 'An unhurried induction, easing well into Theta before the hold.', steps: brArc(190, 9, 145, 4.5, 15, 4) },
+    { id: 'hypno-session-30', name: '30 Minute Hypnotic Session', category: 'Hypnosis', duration: '30 min', tone: 'bowl',
+      desc: 'Induction into a sustained Theta hold for extended hypnotic work.', steps: brArc(190, 9, 145, 4.5, 30, 4) },
+    { id: 'hypno-session-45', name: '45 Minute Hypnotic Session', category: 'Hypnosis', duration: '45 min', tone: 'bowl',
+      desc: 'A longer sustained Theta hold.', steps: brArc(190, 9, 145, 4.5, 45, 4) },
+    { id: 'hypno-session-60', name: '1 Hour Hypnotic Session', category: 'Hypnosis', duration: '60 min', tone: 'bowl',
+      desc: 'A full hour of induction and sustained Theta hold.', steps: brArc(190, 9, 145, 4.5, 60, 5) },
+
+    // ---- PSYCHOLOGY ----
+    { id: 'confidence', name: 'Confidence', category: 'Psychology', duration: '15 min', tone: 'pure',
+      desc: 'A held mid-Beta state, associated with alert, assured engagement.', steps: brArc(220, 12, 245, 16, 15, 3) },
+    { id: 'energy', name: 'Energy Stimulation', category: 'Psychology', duration: '12 min', tone: 'pure',
+      desc: 'A rise into high Beta/low Gamma for a jolt of alertness.', steps: brArc(230, 14, 280, 32, 12, 3) },
+    { id: 'motivation', name: 'Motivation', category: 'Psychology', duration: '15 min', tone: 'pure',
+      desc: 'A held, energized Beta state to support drive and initiative.', steps: brArc(220, 12, 250, 17, 15, 3) },
+    { id: 'reset', name: 'Reset to Relaxed', category: 'Psychology', duration: '10 min', tone: 'bowl',
+      desc: 'A quick down-shift from Beta back to easy Alpha, for stepping away from stress.', steps: brDescent([{ pitch: 240, beat: 16, mins: 2 }, { pitch: 200, beat: 10, mins: 8 }]) },
+    { id: 'total-relax', name: 'Total Relaxation', category: 'Psychology', duration: '20 min', tone: 'bowl',
+      desc: 'A deep settle into Theta for full-body relaxation.', steps: brArc(190, 9, 150, 5.5, 20, 4) },
+    { id: 'wakeful-relax', name: 'Wakeful Relaxation', category: 'Psychology', duration: '20 min', tone: 'bowl',
+      desc: 'A calm, held Alpha state - relaxed, but staying alert rather than drifting toward Theta.', steps: brFlat(200, 10, 20) }
+];
+
+const BR_EDU = [
+    { q: 'What are binaural beats, actually?', a: "When each ear hears a slightly different pure tone at the same time, the brain doesn't hear two tones — it perceives a third, phantom pulsing rhythm equal to the DIFFERENCE between the two frequencies. That illusory pulse is the \"binaural beat,\" and it only works over headphones, since it's manufactured inside your own auditory processing, not in the air." },
+    { q: 'Does the research actually support this?', a: 'The strongest evidence is for relaxation and anxiety reduction — several meta-analyses report a moderate, consistent effect. Evidence for memory, sleep, and cognitive enhancement is more mixed. Claims about lucid dreaming, astral projection, or "hacking" specific brain states are mostly anecdotal and traditional rather than rigorously proven — worth exploring with curiosity, not certainty.' },
+    { q: 'Delta (0.5–4 Hz)', a: 'The deepest, slowest waves — dominant during dreamless sleep. Associated with physical healing, immune regulation, and rest that lighter sleep stages cannot provide.' },
+    { q: 'Theta (4–8 Hz)', a: 'The doorway between waking and sleeping. Present during meditation, hypnagogia, REM dreaming, and deep creative insight. Many meditation traditions consider this the most "receptive" state of mind.' },
+    { q: 'Alpha (8–12 Hz)', a: 'Calm, relaxed alertness — eyes closed, mind quiet but not asleep. The classic "meditative" band, and the one with the best-supported research for lowering anxiety.' },
+    { q: 'Beta (12–30 Hz)', a: 'Ordinary waking thought. Useful for active concentration and productive work, but too much time here, especially at the high end, is linked to stress and overstimulation.' },
+    { q: 'Gamma (30–100 Hz)', a: 'The fastest, most energetic waves, tied to peak focus, sudden insight, and the brain "binding" separate pieces of information into one experience. 40 Hz in particular has drawn real interest in recent cognitive research.' },
+    { q: 'Schumann Resonance (7.83 Hz)', a: "Not a brainwave at all, but a real physical phenomenon: the fundamental standing-wave frequency of the electromagnetic cavity between the Earth's surface and the ionosphere, first predicted by physicist Winfried Otto Schumann in 1952. It sits right at the Theta/Alpha border, part of why many use it as a grounding tone." },
+    { q: 'What is the Gateway Experience / Hemi-Sync?', a: 'A set of audio techniques developed by The Monroe Institute beginning in the 1970s, designed to bring the two brain hemispheres into a synchronized state through binaural beats layered with pink noise and guided voice. It was studied by the U.S. Army in a declassified report on altered states of consciousness. Its more esoteric claims (astral projection, remote viewing) remain unverified by mainstream science, but its core relaxation and focus techniques rest on the same binaural mechanism used throughout this tool.' },
+    { q: 'Why do I need headphones?', a: 'The binaural illusion is built inside your brain from two DIFFERENT tones, one per ear. Speakers let both ears hear both tones blended together in the air, which destroys the effect entirely.' }
+];
+
+function brGetBandForBeat(beat) {
+    if (beat <= 4) return BR_PRESETS[0];
+    if (beat <= 8) return BR_PRESETS[1];
+    if (beat <= 12) return BR_PRESETS[2];
+    if (beat <= 30) return BR_PRESETS[3];
+    return BR_PRESETS[4];
+}
+
+// ---- Web Audio Engine ----
+const BREngine = {
+    ctx: null, leftOsc: null, rightOsc: null, leftPan: null, rightPan: null,
+    leftGain: null, rightGain: null, masterGain: null, analyser: null,
+    textureNodes: [], playing: false, pitch: 200, beat: 10, toneStyle: 'pure', volume: 0.55,
+
+    ensureContext() {
+        if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+    },
+
+    start(pitch, beat, toneStyle, volume) {
+        this.ensureContext();
+        this.pitch = pitch; this.beat = beat; this.toneStyle = toneStyle; this.volume = volume;
+        const ctx = this.ctx;
+
+        this.masterGain = ctx.createGain();
+        this.masterGain.gain.setValueAtTime(0, ctx.currentTime);
+        this.masterGain.gain.linearRampToValueAtTime(volume, ctx.currentTime + 1.2);
+
+        this.analyser = ctx.createAnalyser();
+        this.analyser.fftSize = 1024;
+        this.masterGain.connect(this.analyser);
+
+        // Route final output through a real <audio> element so mobile OSes recognize
+        // this as active media playback and exempt it from background/screen-off
+        // suspension. Falls back to direct AudioContext output if unsupported.
+        this.usingAudioElement = false;
+        try {
+            if (ctx.createMediaStreamDestination) {
+                this.streamDest = ctx.createMediaStreamDestination();
+                this.analyser.connect(this.streamDest);
+                const audioEl = document.getElementById('brBgAudioEl');
+                if (audioEl) {
+                    audioEl.srcObject = this.streamDest.stream;
+                    audioEl.play().catch(() => {});
+                    this.usingAudioElement = true;
+                }
+            }
+        } catch (e) { this.usingAudioElement = false; }
+        if (!this.usingAudioElement) {
+            this.analyser.connect(ctx.destination);
+        }
+
+        this.leftOsc = ctx.createOscillator();
+        this.leftOsc.type = 'sine';
+        this.leftOsc.frequency.setValueAtTime(pitch, ctx.currentTime);
+        this.leftPan = ctx.createStereoPanner();
+        this.leftPan.pan.setValueAtTime(-1, ctx.currentTime);
+        this.leftGain = ctx.createGain();
+        this.leftGain.gain.setValueAtTime(0.5, ctx.currentTime);
+        this.leftOsc.connect(this.leftGain).connect(this.leftPan).connect(this.masterGain);
+
+        this.rightOsc = ctx.createOscillator();
+        this.rightOsc.type = 'sine';
+        this.rightOsc.frequency.setValueAtTime(pitch + beat, ctx.currentTime);
+        this.rightPan = ctx.createStereoPanner();
+        this.rightPan.pan.setValueAtTime(1, ctx.currentTime);
+        this.rightGain = ctx.createGain();
+        this.rightGain.gain.setValueAtTime(0.5, ctx.currentTime);
+        this.rightOsc.connect(this.rightGain).connect(this.rightPan).connect(this.masterGain);
+
+        this.leftOsc.start();
+        this.rightOsc.start();
+        this._buildTexture(toneStyle);
+        this.playing = true;
+        this._setupMediaSession();
+    },
+
+    _setupMediaSession() {
+        if (!('mediaSession' in navigator)) return;
+        try {
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: 'Binaural Ritual',
+                artist: 'Order of the Archwraith',
+                album: 'Pitch ' + this.pitch.toFixed(1) + ' Hz · Beat ' + this.beat.toFixed(1) + ' Hz'
+            });
+            navigator.mediaSession.playbackState = 'playing';
+            navigator.mediaSession.setActionHandler('play', () => { if (window.brTogglePlay) window.brTogglePlay(); });
+            navigator.mediaSession.setActionHandler('pause', () => { if (window.brTogglePlay) window.brTogglePlay(); });
+            navigator.mediaSession.setActionHandler('stop', () => { if (window.brTogglePlay) window.brTogglePlay(); });
+        } catch (e) {}
+    },
+
+    _buildTexture(style) {
+        this._clearTexture();
+        if (!this.ctx || !this.masterGain) return;
+        const ctx = this.ctx;
+        if (style === 'bowl') {
+            const harm = ctx.createOscillator();
+            harm.type = 'sine';
+            harm.frequency.setValueAtTime(this.pitch * 2, ctx.currentTime);
+            const harmGain = ctx.createGain();
+            harmGain.gain.setValueAtTime(0.06, ctx.currentTime);
+            const lfo = ctx.createOscillator();
+            lfo.frequency.setValueAtTime(0.13, ctx.currentTime);
+            const lfoGain = ctx.createGain();
+            lfoGain.gain.setValueAtTime(0.04, ctx.currentTime);
+            lfo.connect(lfoGain).connect(harmGain.gain);
+            harm.connect(harmGain).connect(this.masterGain);
+            harm.start(); lfo.start();
+            this.textureNodes.push(harm, lfo);
+        } else if (style === 'dark') {
+            const drone = ctx.createOscillator();
+            drone.type = 'triangle';
+            drone.frequency.setValueAtTime(Math.max(30, this.pitch / 4), ctx.currentTime);
+            const filt = ctx.createBiquadFilter();
+            filt.type = 'lowpass';
+            filt.frequency.setValueAtTime(180, ctx.currentTime);
+            const droneGain = ctx.createGain();
+            droneGain.gain.setValueAtTime(0.12, ctx.currentTime);
+            drone.connect(filt).connect(droneGain).connect(this.masterGain);
+            drone.start();
+            this.textureNodes.push(drone);
+        }
+    },
+
+    _clearTexture() {
+        this.textureNodes.forEach(n => { try { n.stop && n.stop(); n.disconnect(); } catch (e) {} });
+        this.textureNodes = [];
+    },
+
+    updateFrequencies(pitch, beat) {
+        this.pitch = pitch; this.beat = beat;
+        if (!this.playing || !this.ctx) return;
+        const t = this.ctx.currentTime;
+        this.leftOsc.frequency.setTargetAtTime(pitch, t, 0.15);
+        this.rightOsc.frequency.setTargetAtTime(pitch + beat, t, 0.15);
+    },
+
+    setToneStyle(style) {
+        this.toneStyle = style;
+        if (this.playing) this._buildTexture(style);
+    },
+
+    setVolume(v) {
+        this.volume = v;
+        if (this.masterGain && this.ctx) this.masterGain.gain.setTargetAtTime(v, this.ctx.currentTime, 0.1);
+    },
+
+    stop() {
+        if (!this.playing || !this.ctx) { this.playing = false; return; }
+        const ctx = this.ctx, t = ctx.currentTime;
+        this.masterGain.gain.setTargetAtTime(0, t, 0.3);
+        const leftOsc = this.leftOsc, rightOsc = this.rightOsc, texture = this.textureNodes.slice();
+        setTimeout(() => {
+            try { leftOsc.stop(); rightOsc.stop(); } catch (e) {}
+            texture.forEach(n => { try { n.stop && n.stop(); } catch (e) {} });
+            const audioEl = document.getElementById('brBgAudioEl');
+            if (audioEl) { try { audioEl.pause(); audioEl.srcObject = null; } catch (e) {} }
+        }, 900);
+        this.playing = false;
+        if ('mediaSession' in navigator) {
+            try { navigator.mediaSession.playbackState = 'paused'; } catch (e) {}
+        }
+    }
+};
+// ---- Tab switching ----
+function brSwitchTab(tab) {
+    document.querySelectorAll('.br-tab').forEach(el => el.classList.toggle('active', el.getAttribute('data-brtab') === tab));
+    document.getElementById('brPanelGenerator').style.display = tab === 'generator' ? '' : 'none';
+    document.getElementById('brPanelSessions').style.display = tab === 'sessions' ? '' : 'none';
+    document.getElementById('brPanelLearn').style.display = tab === 'learn' ? '' : 'none';
+    document.getElementById('brPanelBreath').style.display = tab === 'breath' ? '' : 'none';
+}
+
+// ---- Generator state ----
+let brPitch = 200, brBeat = 10, brToneStyle = 'pure', brVolume = 0.55, brActiveModeId = 'alpha';
+let brActiveSession = null;
+let brSessionTimer = null;
+
+function brRenderModes() {
+    const el = document.getElementById('brModes');
+    el.innerHTML = BR_PRESETS.map(p =>
+        `<button class="br-mode-btn${p.id === brActiveModeId ? ' active' : ''}" data-mode="${p.id}">
+      <span class="mb-name">${p.name}</span>
+      <span class="mb-range">${p.range[0] === p.range[1] ? p.range[0] + ' Hz' : p.range[0] + '–' + p.range[1] + ' Hz'}</span>
+    </button>`
+    ).join('');
+    el.querySelectorAll('.br-mode-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const preset = BR_PRESETS.find(p => p.id === btn.getAttribute('data-mode'));
+            brActiveModeId = preset.id;
+            brPitch = preset.pitch; brBeat = preset.beat;
+            brSyncSlidersToState();
+            brRenderModes();
+            brUpdateStateReadout();
+            if (BREngine.playing) BREngine.updateFrequencies(brPitch, brBeat);
+        });
+    });
+}
+
+function brRenderToneButtons() {
+    const el = document.getElementById('brToneRow');
+    const tones = [{ id: 'pure', label: 'Pure Tone' }, { id: 'bowl', label: 'Singing Bowl' }, { id: 'dark', label: 'Dark Ambience' }];
+    el.innerHTML = tones.map(t => `<button class="br-tone-btn${t.id === brToneStyle ? ' active' : ''}" data-tone="${t.id}">${t.label}</button>`).join('');
+    el.querySelectorAll('.br-tone-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            brToneStyle = btn.getAttribute('data-tone');
+            brRenderToneButtons();
+            BREngine.setToneStyle(brToneStyle);
+        });
+    });
+}
+
+function brSyncSlidersToState() {
+    document.getElementById('brPitchSlider').value = brPitch;
+    document.getElementById('brBeatSlider').value = brBeat;
+    document.getElementById('brPitchVal').textContent = brPitch.toFixed(1) + ' Hz';
+    document.getElementById('brBeatVal').textContent = brBeat.toFixed(1) + ' Hz';
+}
+
+function brUpdateStateReadout() {
+    const band = brGetBandForBeat(brBeat);
+    const isExactSchumann = Math.abs(brBeat - 7.83) < 0.05;
+    const preset = isExactSchumann ? BR_PRESETS.find(p => p.id === 'schumann') : band;
+    document.getElementById('brStateName').textContent = preset.name;
+    document.getElementById('brStateDesc').textContent = preset.desc;
+}
+
+let brSleepTimerMinutes = 0;
+let brSleepTimerDeadline = null;
+let brSleepTimerInterval = null;
+
+function brInitGenerator() {
+    brRenderModes();
+    brRenderToneButtons();
+    brSyncSlidersToState();
+    brUpdateStateReadout();
+
+    const pitchSlider = document.getElementById('brPitchSlider');
+    const beatSlider = document.getElementById('brBeatSlider');
+
+    pitchSlider.addEventListener('input', () => {
+        brPitch = parseFloat(pitchSlider.value);
+        document.getElementById('brPitchVal').textContent = brPitch.toFixed(1) + ' Hz';
+        brActiveModeId = null; brRenderModes();
+        if (BREngine.playing) BREngine.updateFrequencies(brPitch, brBeat);
+    });
+    beatSlider.addEventListener('input', () => {
+        brBeat = parseFloat(beatSlider.value);
+        document.getElementById('brBeatVal').textContent = brBeat.toFixed(1) + ' Hz';
+        brActiveModeId = null; brRenderModes();
+        brUpdateStateReadout();
+        if (BREngine.playing) BREngine.updateFrequencies(brPitch, brBeat);
+    });
+
+    document.getElementById('brVolSlider').addEventListener('input', (e) => {
+        brVolume = parseInt(e.target.value, 10) / 100;
+        BREngine.setVolume(brVolume);
+    });
+
+    document.getElementById('brPlayBtn').addEventListener('click', brTogglePlay);
+
+    document.getElementById('brSleepTimerSelect').addEventListener('change', (e) => {
+        brSleepTimerMinutes = parseInt(e.target.value, 10);
+        if (BREngine.playing) brStartSleepTimerCountdown();
+        else brUpdateSleepTimerDisplay();
+    });
+}
+
+function brStartSleepTimerCountdown() {
+    brClearSleepTimer(false);
+    if (brSleepTimerMinutes <= 0) return;
+    brSleepTimerDeadline = Date.now() + brSleepTimerMinutes * 60000;
+    brSleepTimerInterval = setInterval(brTickSleepTimer, 1000);
+    brTickSleepTimer();
+}
+
+function brTickSleepTimer() {
+    if (!brSleepTimerDeadline) return;
+    const remainingMs = brSleepTimerDeadline - Date.now();
+    if (remainingMs <= 0) {
+        brClearSleepTimer(true);
+        if (BREngine.playing) brTogglePlay();
+        return;
+    }
+    brUpdateSleepTimerDisplay(remainingMs);
+}
+
+function brUpdateSleepTimerDisplay(remainingMs) {
+    const el = document.getElementById('brSleepTimerCountdown');
+    if (!el) return;
+    if (remainingMs === undefined) { el.textContent = ''; return; }
+    const totalSec = Math.ceil(remainingMs / 1000);
+    const m = Math.floor(totalSec / 60);
+    const s = totalSec % 60;
+    el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+}
+
+function brClearSleepTimer(keepSelectValue) {
+    if (brSleepTimerInterval) { clearInterval(brSleepTimerInterval); brSleepTimerInterval = null; }
+    brSleepTimerDeadline = null;
+    brUpdateSleepTimerDisplay();
+    if (!keepSelectValue) {
+        const sel = document.getElementById('brSleepTimerSelect');
+        if (sel && brSleepTimerMinutes <= 0) sel.value = '0';
+    }
+}
+
+function brTogglePlay() {
+    const btn = document.getElementById('brPlayBtn');
+    if (BREngine.playing) {
+        BREngine.stop();
+        btn.textContent = '▶';
+        btn.classList.remove('playing');
+        brStopSessionIfRunning();
+        brClearSleepTimer(true);
+    } else {
+        BREngine.start(brPitch, brBeat, brToneStyle, brVolume);
+        btn.textContent = '❚❚';
+        btn.classList.add('playing');
+        if (brSleepTimerMinutes > 0) brStartSleepTimerCountdown();
+    }
+}
+window.brTogglePlay = brTogglePlay;
+
+// ---- Visualizer ----
+function brStartVisualizer() {
+    const canvas = document.getElementById('brVisualizer');
+    if (!canvas) return;
+    const ctx2d = canvas.getContext('2d');
+    function resize() {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.max(1, rect.width * (window.devicePixelRatio || 1));
+        canvas.height = Math.max(1, rect.height * (window.devicePixelRatio || 1));
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function draw() {
+        requestAnimationFrame(draw);
+        ctx2d.fillStyle = '#050505';
+        ctx2d.fillRect(0, 0, canvas.width, canvas.height);
+        const analyser = BREngine.analyser;
+        if (!analyser || !BREngine.playing) return;
+        const bufferLength = analyser.fftSize;
+        const dataArray = new Uint8Array(bufferLength);
+        analyser.getByteTimeDomainData(dataArray);
+        ctx2d.lineWidth = 2 * (window.devicePixelRatio || 1);
+        ctx2d.strokeStyle = '#dc3545';
+        ctx2d.beginPath();
+        const sliceWidth = canvas.width / bufferLength;
+        let x = 0;
+        for (let i = 0; i < bufferLength; i++) {
+            const v = dataArray[i] / 128.0;
+            const y = v * canvas.height / 2;
+            if (i === 0) ctx2d.moveTo(x, y); else ctx2d.lineTo(x, y);
+            x += sliceWidth;
+        }
+        ctx2d.stroke();
+    }
+    draw();
+}
+
+// ---- Sessions ----
+let brSessionCategoryFilter = 'All';
+const BR_SESSION_CATEGORIES = ['All', 'Sleep', 'Meditation', 'Productivity', 'Hypnosis', 'Psychology'];
+
+function brRenderSessionCategoryTabs() {
+    const host = document.getElementById('brSessionCategoryTabs');
+    if (!host) return;
+    host.innerHTML = BR_SESSION_CATEGORIES.map(cat =>
+        `<button class="br-tone-btn${cat === brSessionCategoryFilter ? ' active' : ''}" data-cat="${cat}">${cat}</button>`
+    ).join('');
+    host.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            brSessionCategoryFilter = btn.getAttribute('data-cat');
+            brRenderSessionCategoryTabs();
+            brRenderSessions();
+        });
+    });
+}
+
+function brRenderSessions() {
+    const el = document.getElementById('brSessionList');
+    const list = brSessionCategoryFilter === 'All' ? BR_SESSIONS : BR_SESSIONS.filter(s => s.category === brSessionCategoryFilter);
+    el.innerHTML = list.map(s => `
+    <div class="br-session-card${brActiveSession && brActiveSession.id === s.id ? ' active' : ''}" data-session="${s.id}">
+      <div class="br-session-name">${s.name}</div>
+      <div class="br-session-meta">${s.category} · ${s.duration} · ${s.tone === 'bowl' ? 'Singing Bowl' : s.tone === 'dark' ? 'Dark Ambience' : 'Pure Tone'}</div>
+      <div class="br-session-desc">${s.desc}</div>
+      <div class="br-session-progress"><div class="br-session-progress-fill" id="brProgress-${s.id}"></div></div>
+    </div>`).join('');
+    el.querySelectorAll('.br-session-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const session = BR_SESSIONS.find(s => s.id === card.getAttribute('data-session'));
+            if (brActiveSession && brActiveSession.id === session.id) {
+                brStopSessionIfRunning();
+            } else {
+                brStartSession(session);
+            }
+        });
+    });
+}
+
+function brStartSession(session) {
+    brStopSessionIfRunning();
+    brActiveSession = session;
+    brToneStyle = session.tone || 'pure';
+    brRenderToneButtons();
+    const firstStep = session.steps[0];
+    brPitch = firstStep.pitch; brBeat = firstStep.beat;
+    brActiveModeId = null;
+    brSyncSlidersToState();
+    brUpdateStateReadout();
+    brRenderModes();
+    brRenderSessions();
+
+    BREngine.start(brPitch, brBeat, brToneStyle, brVolume);
+    document.getElementById('brPlayBtn').textContent = '❚❚';
+    document.getElementById('brPlayBtn').classList.add('playing');
+
+    const totalMs = session.steps.reduce((a, s) => a + s.mins * 60000, 0);
+    const sessionStart = Date.now();
+    let stepIndex = 0;
+    let stepStart = Date.now();
+
+    function advanceIfNeeded() {
+        const now = Date.now();
+        const elapsedTotal = now - sessionStart;
+        if (elapsedTotal >= totalMs) {
+            brStopSessionIfRunning();
+            return;
+        }
+        const currentStep = session.steps[stepIndex];
+        if (now - stepStart >= currentStep.mins * 60000 && stepIndex < session.steps.length - 1) {
+            stepIndex++;
+            stepStart = now;
+            const step = session.steps[stepIndex];
+            brPitch = step.pitch; brBeat = step.beat;
+            brSyncSlidersToState();
+            brUpdateStateReadout();
+            BREngine.updateFrequencies(brPitch, brBeat);
+        }
+        const fill = document.getElementById('brProgress-' + session.id);
+        if (fill) fill.style.width = Math.min(100, (elapsedTotal / totalMs) * 100) + '%';
+    }
+    brSessionTimer = setInterval(advanceIfNeeded, 1000);
+}
+
+function brStopSessionIfRunning() {
+    if (brSessionTimer) { clearInterval(brSessionTimer); brSessionTimer = null; }
+    if (brActiveSession) {
+        const fill = document.getElementById('brProgress-' + brActiveSession.id);
+        if (fill) fill.style.width = '0%';
+    }
+    brActiveSession = null;
+    if (BREngine.playing) {
+        BREngine.stop();
+        document.getElementById('brPlayBtn').textContent = '▶';
+        document.getElementById('brPlayBtn').classList.remove('playing');
+    }
+    brRenderSessions();
+}
+
+// ---- Education accordion ----
+function brRenderEdu() {
+    const el = document.getElementById('brEduList');
+    el.innerHTML = BR_EDU.map((item, i) => `
+    <div class="br-edu-item" data-idx="${i}">
+      <div class="br-edu-q"><span>${item.q}</span><span class="arrow">▸</span></div>
+      <div class="br-edu-a">${item.a}</div>
+    </div>`).join('');
+    el.querySelectorAll('.br-edu-item').forEach(item => {
+        item.querySelector('.br-edu-q').addEventListener('click', () => item.classList.toggle('open'));
+    });
+}
+
+// ---- Tabs init ----
+function brInitTabs() {
+    document.querySelectorAll('.br-tab').forEach(tab => {
+        tab.addEventListener('click', () => brSwitchTab(tab.getAttribute('data-brtab')));
+    });
+}
+// ==================== BREATH RETENTION TIMER ====================
+const BRT_STAR_SVG = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="brt-idle" id="brtStarSvg">
+  <polygon points="50.0,6.0 53.8,40.8 81.1,18.9 59.2,46.2 94.0,50.0 59.2,53.8 81.1,81.1 53.8,59.2 50.0,94.0 46.2,59.2 18.9,81.1 40.8,53.8 6.0,50.0 40.8,46.2 18.9,18.9 46.2,40.8"
+    fill="#0a0a0a" stroke="#dc3545" stroke-width="1.2"/>
+  <polygon points="50.0,0.0 55.9,12.5 50.0,18.0 44.1,12.5" fill="#0a0a0a" stroke="#dc3545" stroke-width="1"/>
+  <polygon points="85.4,14.6 80.7,27.7 72.6,27.4 72.3,19.3" fill="#0a0a0a" stroke="#dc3545" stroke-width="1"/>
+  <polygon points="100.0,50.0 87.5,55.9 82.0,50.0 87.5,44.1" fill="#0a0a0a" stroke="#dc3545" stroke-width="1"/>
+  <polygon points="85.4,85.4 72.3,80.7 72.6,72.6 80.7,72.3" fill="#0a0a0a" stroke="#dc3545" stroke-width="1"/>
+  <polygon points="50.0,100.0 44.1,87.5 50.0,82.0 55.9,87.5" fill="#0a0a0a" stroke="#dc3545" stroke-width="1"/>
+  <polygon points="14.6,85.4 19.3,72.3 27.4,72.6 27.7,80.7" fill="#0a0a0a" stroke="#dc3545" stroke-width="1"/>
+  <polygon points="0.0,50.0 12.5,44.1 18.0,50.0 12.5,55.9" fill="#0a0a0a" stroke="#dc3545" stroke-width="1"/>
+  <polygon points="14.6,14.6 27.7,19.3 27.4,27.4 19.3,27.7" fill="#0a0a0a" stroke="#dc3545" stroke-width="1"/>
+  <circle cx="50" cy="50" r="5" fill="#0a0a0a" stroke="#dc3545" stroke-width="1"/>
+</svg>`;
+
+const BRT = {
+    state: 'idle', // idle | breathing | exhale-hold | inhale-hold
+    round: 0,
+    phaseStartTime: null,
+    log: [], // { round, phase, durationMs }
+    timerInterval: null
+};
+
+const BRT_PHASE_META = {
+    breathing: { label: 'Deeply In... Let It Go...', sub: 'Rapid deep breathing. Click when ready to exhale and hold.', cls: 'phase-breathe', logName: 'Breathing' },
+    'exhale-hold': { label: 'Exhale. Hold.', sub: 'Let the breath go completely, and hold in stillness. Click when ready to inhale.', cls: 'phase-exhale', logName: 'Exhale Hold' },
+    'inhale-hold': { label: 'Inhale Deeply. Hold.', sub: 'Draw a full breath and hold for about 15 seconds. Click to begin the next round.', cls: 'phase-inhale', logName: 'Inhale Hold' }
+};
+
+function brtFormatTime(ms) {
+    const totalSec = Math.floor(ms / 1000);
+    const m = Math.floor(totalSec / 60);
+    const s = totalSec % 60;
+    return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+}
+
+function brtUpdateStarClass() {
+    const svg = document.getElementById('brtStarSvg');
+    if (!svg) return;
+    svg.setAttribute('class', 'brt-' + BRT.state);
+}
+
+function brtUpdateUI() {
+    const meta = BRT_PHASE_META[BRT.state];
+    document.getElementById('brtPhaseLabel').textContent = meta ? meta.label : 'Ready';
+    document.getElementById('brtPhaseSub').textContent = meta ? meta.sub : "Begin when you're ready.";
+    document.getElementById('brtRound').textContent = BRT.state === 'idle' ? '' : 'Round ' + BRT.round;
+    const mainBtn = document.getElementById('brtMainBtn');
+    if (BRT.state === 'idle') mainBtn.textContent = 'Begin Session';
+    else if (BRT.state === 'breathing') mainBtn.textContent = 'Exhale & Hold';
+    else if (BRT.state === 'exhale-hold') mainBtn.textContent = 'Inhale & Hold';
+    else if (BRT.state === 'inhale-hold') mainBtn.textContent = 'Next Round';
+    brtUpdateStarClass();
+}
+
+function brtRenderLog() {
+    const tbody = document.getElementById('brtLogBody');
+    tbody.innerHTML = BRT.log.map(entry => {
+        const meta = BRT_PHASE_META[entry.phase];
+        return `<tr><td>${entry.round}</td><td class="${meta.cls}">${meta.logName}</td><td>${brtFormatTime(entry.durationMs)}</td></tr>`;
+    }).join('');
+    const totalMs = BRT.log.reduce((a, e) => a + e.durationMs, 0);
+    document.getElementById('brtTotal').textContent = 'Total session time: ' + brtFormatTime(totalMs);
+}
+
+function brtSetPhase(phase) {
+    if (BRT.phaseStartTime && BRT.state !== 'idle') {
+        const elapsed = Date.now() - BRT.phaseStartTime;
+        BRT.log.push({ round: BRT.round, phase: BRT.state, durationMs: elapsed });
+        brtRenderLog();
+    }
+    BRT.state = phase;
+    BRT.phaseStartTime = Date.now();
+    brtUpdateUI();
+    document.getElementById('brtTimer').textContent = '00:00';
+}
+
+function brtStart() {
+    BRT.round = 1;
+    BRT.log = [];
+    brtSetPhase('breathing');
+    if (BRT.timerInterval) clearInterval(BRT.timerInterval);
+    BRT.timerInterval = setInterval(brtTick, 100);
+    document.getElementById('brtLog').style.display = 'block';
+    document.getElementById('brtResetBtn').style.display = 'inline-block';
+    brtRenderLog();
+}
+
+function brtAdvance() {
+    if (BRT.state === 'idle') { brtStart(); return; }
+    if (BRT.state === 'breathing') brtSetPhase('exhale-hold');
+    else if (BRT.state === 'exhale-hold') brtSetPhase('inhale-hold');
+    else if (BRT.state === 'inhale-hold') { BRT.round++; brtSetPhase('breathing'); }
+}
+
+function brtReset() {
+    if (BRT.state !== 'idle' && BRT.phaseStartTime) {
+        const elapsed = Date.now() - BRT.phaseStartTime;
+        BRT.log.push({ round: BRT.round, phase: BRT.state, durationMs: elapsed });
+        brtRenderLog();
+    }
+    BRT.state = 'idle';
+    BRT.round = 0;
+    BRT.phaseStartTime = null;
+    if (BRT.timerInterval) { clearInterval(BRT.timerInterval); BRT.timerInterval = null; }
+    document.getElementById('brtResetBtn').style.display = 'none';
+    brtUpdateUI();
+}
+
+function brtTick() {
+    if (BRT.state === 'idle' || !BRT.phaseStartTime) return;
+    const elapsed = Date.now() - BRT.phaseStartTime;
+    document.getElementById('brtTimer').textContent = brtFormatTime(elapsed);
+}
+
+function brtInit() {
+    document.getElementById('brtStarHost').innerHTML = BRT_STAR_SVG;
+    document.getElementById('brtMainBtn').addEventListener('click', brtAdvance);
+    document.getElementById('brtResetBtn').addEventListener('click', brtReset);
+    brtUpdateUI();
+}
+
+// ---- init ----
+function brInitAll() {
+    brInitTabs();
+    brInitGenerator();
+    brStartVisualizer();
+    brRenderSessionCategoryTabs();
+    brRenderSessions();
+    brRenderEdu();
+    brtInit();
+}
+document.addEventListener('DOMContentLoaded', function () {
+    if (document.getElementById('brModes')) brInitAll();
+});
+if (document.readyState !== 'loading' && document.getElementById('brModes')) {
+    brInitAll();
+}
     </script>
 
 </body>
