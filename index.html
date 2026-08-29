@@ -4513,9 +4513,25 @@ const SBSICardGame = (function () {
 
     function cardIsInteractable(card) {
         if (state.gameOver || state.pendingMystic || state.pendingEquip) return false;
+        if (selectedCardId && card.id !== selectedCardId) return false;
         if (card.id === state.qodHeldCardId) return false;
         if (!card.isMystic && state.chamber.some(c => c && c.isMystic)) return false;
         return true;
+    }
+
+    function applySelectionGlow() {
+        const chamberEl = root.querySelector("#sbsi-chamber");
+        if (!chamberEl) return;
+        chamberEl.querySelectorAll(".sbsi-card").forEach(el => {
+            const id = el.getAttribute("data-card-id");
+            if (id === selectedCardId) {
+                el.classList.add("sbsi-selected");
+                el.classList.remove("sbsi-disabled");
+            } else {
+                el.classList.remove("sbsi-selected");
+                if (selectedCardId) el.classList.add("sbsi-disabled");
+            }
+        });
     }
 
     function handleCardClick(cardId) {
@@ -4535,11 +4551,12 @@ const SBSICardGame = (function () {
         if (cls === "mystic") { selectedCardId = card.id; sbsiTriggerMystic(state, card); render(); return; }
         if (cls === "monster") {
             selectedCardId = card.id;
+            applySelectionGlow();
             const val = sbsiValue(card.rank);
             renderMonsterChoice(card, sbsiCanFightWithBlade(state, val));
             return;
         }
-        if (cls === "chalice") { selectedCardId = card.id; renderChaliceChoice(card); return; }
+        if (cls === "chalice") { selectedCardId = card.id; applySelectionGlow(); renderChaliceChoice(card); return; }
         if (cls === "equip-blade" || cls === "equip-cloak" || cls === "new-blade") {
             selectedCardId = card.id;
             sbsiRequestEquip(state, card);
@@ -4708,6 +4725,7 @@ const SBSICardGame = (function () {
             if (state.pendingMystic && cardId !== state.pendingMystic.mysticCard.id) { el.classList.add("sbsi-disabled"); disabled = true; }
             else if (!state.pendingMystic && !card.isMystic && state.chamber.some(c => c && c.isMystic)) { el.classList.add("sbsi-disabled"); disabled = true; }
             if (state.pendingEquip) { el.classList.add("sbsi-disabled"); disabled = true; }
+            if (selectedCardId && cardId !== selectedCardId) { el.classList.add("sbsi-disabled"); disabled = true; }
             if (cardId === state.qodHeldCardId) { el.classList.add("shield-held"); disabled = true; }
             if (selectingShield && cardId !== state.qodHeldCardId) { el.classList.add("shield-selectable"); }
             if (cardId === selectedCardId) { el.classList.add("sbsi-selected"); }
