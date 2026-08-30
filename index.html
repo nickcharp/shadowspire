@@ -922,6 +922,11 @@
 
 /* ---- Action buttons ---- */
 .sbsi-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px;}
+.sbsi-dmg-preview{
+  text-align:center;color:#999;font-size:13px;margin-bottom:10px;
+}
+.sbsi-dmg-preview strong{color:#ffc107;font-family:'Metal Mania',cursive;font-size:15px;}
+.sbsi-dmg-preview .blocked{color:#666;font-style:italic;}
 .sbsi-btn{
   background:#333;color:#eee;border:1px solid #dc3545;border-radius:4px;padding:9px 16px;
   cursor:pointer;font-size:14px;transition:all .2s;
@@ -3593,7 +3598,7 @@ When the Chalice is offered to her Master, she is sacrificed and cast to the Aby
 ⚔️R of C♥️
 🎭Shadow Deathmask Artisan🎭</span>
 <li>Both <span class="number">remove the most recently slain corpse</span> from atop the 🫅🏻K of D♦️'s blood-drenched warpath, sending it to the Abyss alongside the Red Rogue and restoring the durability of Lord Wraith's blade back to whatever it was before that kill (for example, if the blade had already slain a Queen, then a lesser foe afterward, removing that lesser foe restores the blade's reach back up to Queen-level once more) — and the Dungeon is cut; 
-<span class="number">OR</span> if there's no blade currently equipped, then R of D♦️/C♥️ may be wielded itself as an improvised 🗡️♦️, good for exactly <span class="number">one strike</span> against a single foe of any strength. Once that battle resolves, both the Red Rogue and the slain foe go to the Abyss together, and the Dungeon is cut. 
+<span class="number">OR</span> if there's no blade currently equipped, then R of D♦️/C♥️ may be wielded itself as an improvised 🗡️♦️ — a mere 1-value dagger, blocking only 1 point of damage — good for exactly <span class="number">one strike</span> against a single foe of any strength. Once that battle resolves, both the Red Rogue and the slain foe go to the Abyss together, and the Dungeon is cut. 
 <span class="number">OR</span>, if there's a 🗡️♦️ equipped to 🫅🏻K of D♦️ which has not yet slain any enemy (nothing yet to repair), R of D♦️/C♥️ instead fades into the Abyss alone while pulling a hidden lever, cutting the Dungeon by itself. 
 <span class="number">Note: this scenario never truly arises for a "2," since a "2" always shatters the blade the instant it falls, long before any Rogue could act upon it. In each of these three outcomes, it is the Red Rogue's passage to the Abyss that cuts the Dungeon — no other card save a followed Mystic can do this.</span></li>
 <hr class="glow-box animate-breathe">
@@ -4233,7 +4238,8 @@ function sbsiSuccubusActive(state) {
 // The blade's current "sharpness": tracked explicitly, and it only ever updates when
 // a blade-fight lands as a CLEAN kill (0 damage taken) - a costly win proves the blade
 // could still get the job done, but doesn't prove it's grown any sharper. A clean kill
-// against ANY foe (plain number or court card) sets the new proven threshold.
+// against ANY foe (plain number or court card) sets the new proven threshold. This is
+// what DAMAGE is calculated from - it deliberately does NOT track costly fights.
 function sbsiBladeEffectiveValue(state) {
     if (!state.bladeCard) return null;
     return state.bladeSharpness;
@@ -4242,6 +4248,26 @@ function sbsiBladeEffectiveValue(state) {
 // Legacy helper kept for display purposes (same computation, different name used by the UI's stack summary)
 function sbsiBladeCeiling(state) {
     return sbsiBladeEffectiveValue(state);
+}
+
+// The blade's GATE ceiling: separate from sharpness above, this tracks whatever plain
+// number is physically sitting on top of the stack right now, updating every time a
+// plain number is stacked, clean or costly alike - a beaten 8 is still an 8 sitting on
+// the blade, regardless of how much got through. Court cards never count here. This is
+// what determines whether "Fight with Blade" is even offered for the NEXT plain number,
+// not how much damage that next fight actually deals (see sbsiBladeEffectiveValue).
+function sbsiBladeGateCeiling(state) {
+    if (!state.bladeCard) return null;
+    for (let i = state.bladeStack.length - 1; i >= 0; i--) {
+        const c = state.bladeStack[i];
+        if (c.rank !== "King" && c.rank !== "Queen" && c.rank !== "Rogue" && c.rank !== "Ace") {
+            return sbsiValue(c.rank);
+        }
+    }
+    return sbsiValue(state.bladeCard.rank);
+}
+function sbsiBladeHasPlainNumberHistory(state) {
+    return state.bladeStack.some(c => c.rank !== "King" && c.rank !== "Queen" && c.rank !== "Rogue" && c.rank !== "Ace");
 }
 
 // Re-derive sharpness after the Red Rogue strips the most recent corpse from the trail:
@@ -4257,17 +4283,18 @@ function sbsiRecomputeSharpnessAfterRepair(state) {
     state.bladeSharpness = sbsiValue(state.bladeCard.rank);
 }
 
-// UI-facing gate for PLAIN NUMBER monsters specifically. A blade's very first
-// engagement (empty trail) is always allowed - its true limit is still unproven,
-// so differential damage covers whatever the gap turns out to be. Once it has
-// ANY history, though, its limit is known and enforced as a hard gate: a monster
-// stronger than the current proven sharpness cannot be engaged by blade at all.
-// Court cards (King/Queen/Rogue) are untouched by this - they always use the
-// differential-damage path regardless of history.
+// UI-facing gate for PLAIN NUMBER monsters specifically. A blade's very first plain-
+// number engagement is always allowed - its true limit is still unproven, so
+// differential damage (from sharpness) covers whatever the gap turns out to be. Once
+// it has ANY plain-number history, its most recently stacked value becomes a hard gate:
+// a monster stronger than that cannot be engaged by blade at all, full stop, regardless
+// of whether that most-recent fight happened to be clean or costly. Court cards
+// (King/Queen/Rogue) are untouched by this - they always use the differential-damage
+// path and never establish or consume this gate.
 function sbsiCanFightWithBlade(state, monsterValue) {
     if (!state.bladeCard) return false;
-    if (state.bladeStack.length === 0) return true;
-    return monsterValue <= state.bladeSharpness;
+    if (!sbsiBladeHasPlainNumberHistory(state)) return true;
+    return monsterValue <= sbsiBladeGateCeiling(state);
 }
 
 function sbsiApplyCloakIfCharged(state, dmg) {
@@ -4305,6 +4332,40 @@ function sbsiBladeDamage(state, rawDamage) {
     const gorgonPenalty = sbsiGorgonActive(state) ? 1 : 0;
     const effective = Math.max(0, bladeVal - gorgonPenalty);
     return Math.max(0, rawDamage - effective);
+}
+
+// Pure preview of what a foe WOULD deal right now, by blade and bare-handed, without
+// mutating any state. Mirrors sbsiFight's branches exactly, including the one real
+// asymmetry in the live game logic: a Rogue fought by blade does not get Cloak
+// mitigation (only its bare-handed path does) - the preview must match that, not
+// silently "fix" it.
+function sbsiPreviewCloak(state, dmg) {
+    return state.cloakSlotCard ? Math.max(0, dmg - 2) : dmg;
+}
+function sbsiPreviewDamage(state, card) {
+    let bladeDmg = null;
+    let bareDmg = 0;
+
+    if (card.rank === "Ace") {
+        bareDmg = sbsiPreviewCloak(state, Math.ceil(state.life / 2));
+    } else if (card.rank === "King") {
+        const rawDmg = 13 + Math.min(2, state.bareHandStack.length);
+        if (state.bladeCard) bladeDmg = sbsiPreviewCloak(state, sbsiBladeDamage(state, rawDmg));
+        bareDmg = sbsiPreviewCloak(state, rawDmg);
+    } else if (card.rank === "Queen") {
+        const rawDmg = 12;
+        if (state.bladeCard) bladeDmg = sbsiPreviewCloak(state, sbsiBladeDamage(state, rawDmg));
+        bareDmg = sbsiPreviewCloak(state, rawDmg);
+    } else if (card.rank === "Rogue") {
+        if (state.bladeCard) bladeDmg = sbsiBladeDamage(state, 11);
+        bareDmg = sbsiPreviewCloak(state, 5);
+    } else {
+        const val = sbsiValue(card.rank);
+        if (state.bladeCard) bladeDmg = sbsiPreviewCloak(state, sbsiBladeDamage(state, val));
+        bareDmg = sbsiPreviewCloak(state, val);
+    }
+
+    return { bladeDmg, bareDmg };
 }
 
 // ---- Instant kill via Shade Blade charge (works on ANY monster, incl. named specials) ----
@@ -4515,10 +4576,10 @@ function sbsiRedRogueRepair(state, card) {
     } else if (!state.bladeCard) {
         sbsiRemoveFromChamber(state, card.id);
         state.bladeCard = card;
-        state.bladeSharpness = sbsiValue(card.rank);
+        state.bladeSharpness = 1;
         state.bladeStack = [];
         state.bladeIsEmergencyRogue = true;
-        sbsiLog(state, `${SBSI_RED_ROGUE_NAMES[card.suit]} is wielded as an improvised blade, good for a single strike.`, "l-note");
+        sbsiLog(state, `${SBSI_RED_ROGUE_NAMES[card.suit]} is wielded as an improvised blade - a mere 1-value dagger, good for a single strike.`, "l-note");
         return;
     } else {
         sbsiCutDeck(state);
@@ -4750,11 +4811,27 @@ function sbsiSuitShortName(suit) {
     return suit.replace(/\s*[♠♣♦♥]\s*$/, "").trim();
 }
 function sbsiCenterArt(card) {
-    if (card.rank === "King") return card.suit === "Swords ♠" || card.suit === "Torches ♣" ? "💀" : "🫅🏻";
-    if (card.rank === "Queen") return card.suit === "Swords ♠" || card.suit === "Torches ♣" ? "🐍" : "👸";
-    if (card.rank === "Rogue") return card.suit === "Swords ♠" || card.suit === "Torches ♣" ? "🐺" : "🗡️";
+    if (card.rank === "King") {
+        if (card.suit === "Swords ♠") return "💀";
+        if (card.suit === "Torches ♣") return "💀";
+        if (card.suit === "Chalices ♥") return "🧙🏻‍♂️♥️";
+        return "🫅🏻";
+    }
+    if (card.rank === "Queen") {
+        if (card.suit === "Swords ♠") return "☣️";
+        if (card.suit === "Torches ♣") return "🐍";
+        return "👸";
+    }
+    if (card.rank === "Rogue") {
+        if (card.suit === "Swords ♠") return "🦇";
+        if (card.suit === "Torches ♣") return "🐺";
+        if (card.suit === "Daggers ♦") return "🛡️";
+        if (card.suit === "Chalices ♥") return "🎭";
+    }
     if (card.rank === "Ace" && card.suit === "Daggers ♦") return "🗡️";
     if (card.rank === "Ace" && card.suit === "Chalices ♥") return "👕";
+    if (card.rank === "Ace" && card.suit === "Swords ♠") return "🐲";
+    if (card.rank === "Ace" && card.suit === "Torches ♣") return "🐉";
     return sbsiSuitGlyph(card.suit);
 }
 function sbsiCardFrontHTML(card) {
@@ -4871,7 +4948,15 @@ const SBSICardGame = (function () {
     function renderMonsterChoice(card, canBlade) {
         const actionsEl = root.querySelector(".sbsi-actions-dynamic");
         const isForced = card.rank === "Ace";
-        let html = `<div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">`;
+        const preview = sbsiPreviewDamage(state, card);
+        let html = "";
+        if (isForced) {
+            html += `<div class="sbsi-dmg-preview">🔥 Confront: <strong>${preview.bareDmg}</strong> dmg</div>`;
+        } else {
+            const bladeText = state.bladeCard ? (canBlade ? `<strong>${preview.bladeDmg}</strong> dmg` : `<span class="blocked">blocked</span>`) : `<span class="blocked">unarmed</span>`;
+            html += `<div class="sbsi-dmg-preview">⚔️ Blade: ${bladeText} &nbsp;·&nbsp; 👊 Bare-Handed: <strong>${preview.bareDmg}</strong> dmg</div>`;
+        }
+        html += `<div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">`;
         if (state.shadeBladeSlotCard) {
             html += `<button class="sbsi-btn alt" id="sbsi-act-shadeblade">⚡ Shade Blade — Slay Outright</button>`;
         }
@@ -4983,7 +5068,7 @@ const SBSICardGame = (function () {
                     : `<span class="info">Awaiting</span>`)
                 : `<span class="info warn">Sacrificed</span>`
         }</div>
-        <div class="sbsi-stack-slot"><span class="who">🫅🏻♥️</span><span class="label">Sorcerer</span><span class="info">${state.bareHandStack.length}/3 corpses</span></div>
+        <div class="sbsi-stack-slot"><span class="who">🧙🏻‍♂️♥️</span><span class="label">Sorcerer</span><span class="info">${state.bareHandStack.length}/3 corpses</span></div>
         <div class="sbsi-stack-slot"><span class="who">🫅🏻♦️</span><span class="label">Lord Wraith</span>${renderBladeStackHTML()}</div>
         <div class="sbsi-stack-slot"><span class="who">👸🏻♦️</span><span class="label">Shield Maiden</span>${qodStatus}</div>
         <div class="sbsi-stack-slot"><span class="who">🗡️</span><span class="label">Shade Blade</span><span class="info good">${shadeBladeInfo}</span></div>
@@ -5077,7 +5162,9 @@ const SBSICardGame = (function () {
             const titleA = minorArcanaTitle(cardA), titleB = minorArcanaTitle(cardB);
             readingHtml = `
         <div style="color:#999;font-size:11px;max-width:480px;margin:6px auto;text-align:center;">
+          <div style="color:#c77dff;font-family:'Metal Mania',cursive;font-size:12px;letter-spacing:1px;margin-bottom:2px;">Situation:</div>
           <strong style="color:#ccc;">${a.rank} of ${sbsiSuitShortName(a.suit)}${titleA ? " — " + titleA : ""}:</strong> ${minorMeaning(cardA)}<br><br>
+          <div style="color:#c77dff;font-family:'Metal Mania',cursive;font-size:12px;letter-spacing:1px;margin-bottom:2px;">Challenge:</div>
           <strong style="color:#ccc;">${b.rank} of ${sbsiSuitShortName(b.suit)}${titleB ? " — " + titleB : ""}:</strong> ${minorMeaning(cardB)}
         </div>
         <div style="text-align:center;color:#ffc107;font-family:'Metal Mania',cursive;font-size:17px;margin:6px 0 2px;">${archetype}</div>
