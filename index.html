@@ -4726,7 +4726,6 @@ function sbsiResolveMystic(state, follow) {
 // ---- Queen of Daggers: one-time shield ----
 function sbsiActivateShield(state, heldCardId) {
     if (state.qodShieldUsedEver || !state.queenDaggersAlive) return false;
-    if (state.chamber.length !== 4) return false;
     if (state.pendingMystic || state.pendingEquip) return false;
     state.qodShieldUsedEver = true;
     state.queenDaggersAlive = false;
@@ -5098,11 +5097,12 @@ const SBSICardGame = (function () {
         if (state.shadeBladeSlotCard) {
             html += `<button class="sbsi-btn alt" id="sbsi-act-shadeblade">⚡ Shade Blade — Slay Outright</button>`;
         }
+        const mustUseShadeBlade = !!state.shadeBladeSlotCard;
         if (isForced) {
-            html += `<button class="sbsi-btn" id="sbsi-act-bare">⚔️ Confront the Foe</button>`;
+            html += `<button class="sbsi-btn" ${mustUseShadeBlade ? "disabled" : ""} id="sbsi-act-bare">⚔️ Confront the Foe</button>`;
         } else {
-            html += `<button class="sbsi-btn" ${canBlade ? "" : "disabled"} id="sbsi-act-blade">⚔️ Fight with Blade</button>`;
-            html += `<button class="sbsi-btn" id="sbsi-act-bare">👊 Fight Bare-Handed</button>`;
+            html += `<button class="sbsi-btn" ${(canBlade && !mustUseShadeBlade) ? "" : "disabled"} id="sbsi-act-blade">⚔️ Fight with Blade</button>`;
+            html += `<button class="sbsi-btn" ${mustUseShadeBlade ? "disabled" : ""} id="sbsi-act-bare">👊 Fight Bare-Handed</button>`;
         }
         html += `<button class="sbsi-btn" id="sbsi-act-cancel" style="border-color:#666;">Cancel</button>`;
         html += `</div>`;
@@ -5156,6 +5156,7 @@ const SBSICardGame = (function () {
     }
     function toggleShieldMode() {
         selectingShield = !selectingShield;
+        selectedCardId = null;
         render();
     }
 
@@ -5187,7 +5188,7 @@ const SBSICardGame = (function () {
 
         const cloakInfo = state.cloakSlotCard ? `${state.cloakSlotCard.rank} ♥` : "—";
         const shadeBladeInfo = state.shadeBladeSlotCard ? `${state.shadeBladeSlotCard.rank} ♦` : "—";
-        const canShield = !state.qodShieldUsedEver && state.queenDaggersAlive && state.chamber.length === 4 && !state.pendingMystic && !state.pendingEquip;
+        const canShield = !state.qodShieldUsedEver && state.queenDaggersAlive && !state.pendingMystic && !state.pendingEquip;
         const qodStatus = state.queenDaggersAlive
             ? (canShield ? `<button class="sbsi-shield-btn" id="sbsi-shield-toggle">${selectingShield ? "Cancel Shield" : "🛡️ Shield (once)"}</button>` : `<span class="info">Ready</span>`)
             : `<span class="info warn">Spent</span>`;
@@ -5474,11 +5475,12 @@ const SBSIRoguelike = (function () {
         if (state.gs.shadeBladeSlotCard) {
             html += `<button class="sbsi-btn alt" id="sbsi-rl-shadeblade">⚡ Shade Blade</button>`;
         }
+        const mustUseShadeBlade = !!state.gs.shadeBladeSlotCard;
         if (isForced) {
-            html += `<button class="sbsi-btn" id="sbsi-rl-bare">⚔️ Confront</button>`;
+            html += `<button class="sbsi-btn" ${mustUseShadeBlade ? "disabled" : ""} id="sbsi-rl-bare">⚔️ Confront</button>`;
         } else {
-            html += `<button class="sbsi-btn" ${canBlade ? "" : "disabled"} id="sbsi-rl-blade">⚔️ Blade</button>`;
-            html += `<button class="sbsi-btn" id="sbsi-rl-bare">👊 Bare-Handed</button>`;
+            html += `<button class="sbsi-btn" ${(canBlade && !mustUseShadeBlade) ? "" : "disabled"} id="sbsi-rl-blade">⚔️ Blade</button>`;
+            html += `<button class="sbsi-btn" ${mustUseShadeBlade ? "disabled" : ""} id="sbsi-rl-bare">👊 Bare-Handed</button>`;
         }
         html += `<button class="sbsi-btn" id="sbsi-rl-cancel" style="border-color:#666;">Cancel</button></div>`;
         actionsEl.innerHTML = html;
@@ -5615,6 +5617,7 @@ const SBSIRoguelike = (function () {
 
     function toggleShieldMode() {
         selectingShield = !selectingShield;
+        selectedCardId = null;
         render();
     }
 
@@ -5650,7 +5653,7 @@ const SBSIRoguelike = (function () {
 
         const cloakInfo = state.gs.cloakSlotCard ? `${state.gs.cloakSlotCard.rank}` : "—";
         const shadeBladeInfo = state.gs.shadeBladeSlotCard ? `${state.gs.shadeBladeSlotCard.rank}` : "—";
-        const canShield = !state.gs.qodShieldUsedEver && state.gs.queenDaggersAlive && state.gs.chamber.length === 4 && !state.gs.pendingMystic && !state.gs.pendingEquip;
+        const canShield = !state.gs.qodShieldUsedEver && state.gs.queenDaggersAlive && !state.gs.pendingMystic && !state.gs.pendingEquip;
         const qodStatus = state.gs.queenDaggersAlive
             ? (canShield ? `<button class="sbsi-shield-btn" id="sbsi-rl-shield-toggle">${selectingShield ? "Cancel" : "🛡️"}</button>` : `<span class="info">Ready</span>`)
             : `<span class="info warn">Spent</span>`;
