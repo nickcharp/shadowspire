@@ -804,6 +804,14 @@
 
 /* ---- Shared top bar / back button ---- */
 .sbsi-topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+/* Card game only: 3-column layout so Settings stays truly centered on the same row as
+   Menu, with the right column reserved (empty) for the fullscreen button's space. The
+   negative margin-top pulls this row up to vertically align with the fullscreen button,
+   which sits at top:8px against the panel's own 18px padding. */
+.sbsi-topbar.sbsi-topbar-3col{display:grid;grid-template-columns:1fr 1fr 1fr;margin-top:-10px;}
+.sbsi-topbar-left{justify-self:start;}
+.sbsi-topbar-center{justify-self:center;}
+.sbsi-topbar-right{justify-self:end;}
 .sbsi-back-btn{
   background:#222;border:1px solid #666;color:#ccc;padding:6px 14px;border-radius:4px;
   cursor:pointer;font-family:'Open Sans',sans-serif;font-size:13px;
@@ -818,6 +826,76 @@
   text-align:center;margin:12px 0 10px;
 }
 .sbsi-life-centered .heart{color:#dc3545;}
+
+/* ---- Easy Mode toggle (main menu) ---- */
+.sbsi-easymode-row{
+  display:flex;align-items:center;gap:10px;color:#ccc;font-family:'Open Sans',sans-serif;
+  font-size:13px;cursor:pointer;max-width:420px;width:100%;padding:4px 2px;
+}
+.sbsi-easymode-desc{color:#888;font-size:11px;}
+.sbsi-toggle-switch{position:relative;display:inline-block;width:40px;height:22px;flex-shrink:0;}
+.sbsi-toggle-switch input{opacity:0;width:0;height:0;}
+.sbsi-toggle-slider{
+  position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;
+  background:#333;border:1px solid #666;border-radius:22px;transition:.2s;
+}
+.sbsi-toggle-slider::before{
+  position:absolute;content:"";height:14px;width:14px;left:3px;bottom:3px;
+  background:#ccc;border-radius:50%;transition:.2s;
+}
+.sbsi-toggle-switch input:checked + .sbsi-toggle-slider{background:#dc3545;border-color:#dc3545;}
+.sbsi-toggle-switch input:checked + .sbsi-toggle-slider::before{transform:translateX(18px);background:#fff;}
+
+/* ---- Hourglass Timer + Settings buttons ---- */
+.sbsi-hourglass-btn{
+  background:#1a1a1a;border:1px solid #666;color:#ffc107;padding:8px 14px;border-radius:4px;
+  cursor:pointer;font-family:'Open Sans',sans-serif;font-size:14px;letter-spacing:.5px;
+  width:100%;max-width:220px;
+}
+.sbsi-hourglass-btn:hover{background:#333;border-color:#ffc107;}
+.sbsi-hourglass-btn.frozen{color:#999;border-color:#777;}
+.sbsi-hourglass-btn.frozen:hover{background:#333;border-color:#ffc107;}
+.sbsi-settings-btn{
+  background:#222;border:1px solid #666;color:#ccc;padding:6px 14px;border-radius:4px;
+  cursor:pointer;font-family:'Open Sans',sans-serif;font-size:13px;
+}
+.sbsi-settings-btn:hover{background:#333;border-color:#999;}
+.sbsi-actions-row{display:flex;width:100%;gap:10px;margin-top:10px;}
+.sbsi-actions-half{flex:1;display:flex;justify-content:center;}
+.sbsi-actions-half .sbsi-btn{width:100%;max-width:260px;}
+
+/* ---- Settings modal ---- */
+.sbsi-settings-overlay{
+  position:fixed;inset:0;z-index:100050;background:rgba(0,0,0,.7);
+  display:flex;align-items:center;justify-content:center;padding:16px;
+}
+.sbsi-settings-modal{
+  background:#111;border:1px solid #dc3545;border-radius:8px;padding:20px;
+  max-width:380px;width:100%;box-shadow:0 0 20px rgba(220,53,69,.3);
+}
+.sbsi-settings-title{font-family:'Metal Mania',cursive;font-size:22px;color:#ffc107;margin-bottom:14px;text-align:center;}
+.sbsi-settings-group{margin-bottom:16px;}
+.sbsi-settings-label{color:#ccc;font-family:'Open Sans',sans-serif;font-size:13px;margin-bottom:8px;}
+.sbsi-settings-options{display:flex;gap:8px;flex-wrap:wrap;}
+.sbsi-settings-opt{
+  background:#222;border:1px solid #666;color:#ccc;padding:6px 12px;border-radius:4px;
+  cursor:pointer;font-family:'Open Sans',sans-serif;font-size:12px;
+}
+.sbsi-settings-opt:hover{border-color:#999;}
+.sbsi-settings-opt.active{background:#dc3545;border-color:#dc3545;color:#fff;}
+.sbsi-settings-toggle-row{display:flex;align-items:center;gap:8px;color:#ccc;font-family:'Open Sans',sans-serif;font-size:13px;cursor:pointer;margin-bottom:8px;}
+
+/* ---- Dungeon remaining-cards list ---- */
+.sbsi-dungeon-list{
+  background:#000;border:1px solid #444;border-radius:6px;padding:10px 12px;margin-top:10px;
+}
+.sbsi-dungeon-list-title{color:#999;font-family:'Open Sans',sans-serif;font-size:11px;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;}
+.sbsi-dungeon-list-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.sbsi-dungeon-chip{
+  background:#1a1a1a;border:1px solid #555;color:#ccc;padding:3px 8px;border-radius:10px;
+  font-family:'Open Sans',sans-serif;font-size:11px;
+}
+.sbsi-dungeon-chip.mystic{border-color:#9932CC;color:#c77dff;}
 
 /* ---- Playing cards ---- */
 .sbsi-card{
@@ -4250,6 +4328,56 @@ function sbsiClassify(card) {
 // ---- engine.js ----
 // ==================== SHADE BLADE SORCERY: GAME ENGINE v2 (pure logic) ====================
 
+// Shared across the menu and both game modes: whether Easy Mode is currently toggled on.
+let sbsiEasyModeEnabled = false;
+
+// Easy Mode: guarantees one random red Dagger (Ace, 5-10) AND one random black King or Queen
+// both land in the very first chamber, by pulling each out of the freshly-shuffled dungeon and
+// moving them to the front. The other two chamber slots stay fully random. No-op when off.
+function sbsiApplyEasyModeIfEnabled(gs) {
+    if (!sbsiEasyModeEnabled) return;
+    const daggerCandidates = ["Ace", "5", "6", "7", "8", "9", "10"];
+    const daggerRank = daggerCandidates[Math.floor(Math.random() * daggerCandidates.length)];
+    const daggerIdx = gs.dungeon.findIndex(c => c.suit === "Daggers ♦" && c.rank === daggerRank);
+    if (daggerIdx !== -1) {
+        const [card] = gs.dungeon.splice(daggerIdx, 1);
+        gs.dungeon.unshift(card);
+    }
+    const royalCandidates = [
+        { suit: "Swords ♠", rank: "King" }, { suit: "Torches ♣", rank: "King" },
+        { suit: "Swords ♠", rank: "Queen" }, { suit: "Torches ♣", rank: "Queen" }
+    ];
+    const royal = royalCandidates[Math.floor(Math.random() * royalCandidates.length)];
+    const royalIdx = gs.dungeon.findIndex(c => c.suit === royal.suit && c.rank === royal.rank);
+    if (royalIdx !== -1) {
+        const [card] = gs.dungeon.splice(royalIdx, 1);
+        gs.dungeon.unshift(card);
+    }
+}
+
+// Hourglass Timer event: the lowest-power adversary sitting in the Abyss claws its way back
+// into the Dungeon at a random position. Only plain-number black cards (2-10) are eligible -
+// the Ace (Dragon), Rogue, Queen, and King are excluded regardless of how low their notional
+// power might seem. Ties among eligible cards are broken randomly for variety.
+function sbsiTriggerHourglassEvent(state) {
+    const namedRanks = ["Ace", "Rogue", "Queen", "King"];
+    const eligible = [];
+    state.abyss.forEach((c, i) => {
+        if (sbsiClassify(c) === "monster" && !namedRanks.includes(c.rank)) eligible.push(i);
+    });
+    if (eligible.length === 0) {
+        sbsiLog(state, "The torches carried by the Ashen Blood are snuffed out - but in the darkness of the Abyss, nothing yet stirs.", "l-dim");
+        return;
+    }
+    let lowestVal = Math.min(...eligible.map(i => sbsiValue(state.abyss[i].rank)));
+    const tied = eligible.filter(i => sbsiValue(state.abyss[i].rank) === lowestVal);
+    const chosenIdx = tied[Math.floor(Math.random() * tied.length)];
+    const [card] = state.abyss.splice(chosenIdx, 1);
+    const insertAt = Math.floor(Math.random() * (state.dungeon.length + 1));
+    state.dungeon.splice(insertAt, 0, card);
+    sbsiLog(state, "The torches carried by the Ashen Blood are snuffed out. In the sudden dark, the weakest of the fallen stirs and is restored to the Dungeon, its position unknown.", "l-note");
+}
+
 function sbsiNewGame() {
     return {
         dungeon: sbsiShuffle(sbsiBuildDungeon()),
@@ -4926,6 +5054,7 @@ function sbsiRlNewState() {
     };
     sbsiRlRevealRoom(state.revealed, startRoom);
     state.visitedRooms.add(startRoom.id);
+    sbsiApplyEasyModeIfEnabled(state.gs);
     sbsiFillChamber(state.gs);
     return state;
 }
@@ -5001,17 +5130,81 @@ const SBSICardGame = (function () {
     let selectingShield = false;
     let selectedCardId = null;
 
+    // ---- Experimental settings, persist across "New Game" within this session ----
+    let settingsTimerPresetMinutes = 10;   // 5, 10, 15, or 0 for "Off"
+    let settingsShowDungeonList = false;
+    let settingsDungeonListOrder = "random"; // "random" | "ordered"
+    let settingsShowAbyssList = false;
+    let settingsAbyssListOrder = "ordered"; // "random" | "ordered" - defaults to ordered
+    let settingsPanelOpen = false;
+
+    // ---- Per-game Hourglass Timer state ----
+    let timerEnabled = false;
+    let timerFrozen = false;
+    let timerSecondsRemaining = 0;
+    let timerIntervalId = null;
+
     function init(rootEl, exitCallback) {
         root = rootEl;
         onExit = exitCallback;
         newGame();
     }
 
+    function teardown() {
+        if (timerIntervalId) { clearInterval(timerIntervalId); timerIntervalId = null; }
+    }
+
+    function stopTimerInterval() {
+        if (timerIntervalId) { clearInterval(timerIntervalId); timerIntervalId = null; }
+    }
+
+    function startTimerIfEnabled() {
+        stopTimerInterval();
+        timerEnabled = settingsTimerPresetMinutes > 0;
+        timerFrozen = false;
+        timerSecondsRemaining = settingsTimerPresetMinutes * 60;
+        if (timerEnabled) timerIntervalId = setInterval(tickTimer, 1000);
+    }
+
+    function tickTimer() {
+        if (!state || state.gameOver || timerFrozen || !timerEnabled) { stopTimerInterval(); return; }
+        timerSecondsRemaining--;
+        if (timerSecondsRemaining <= 0) {
+            sbsiTriggerHourglassEvent(state);
+            timerSecondsRemaining = settingsTimerPresetMinutes * 60;
+            render();
+        } else {
+            updateTimerDisplay();
+        }
+    }
+
+    function updateTimerDisplay() {
+        const el = root && root.querySelector("#sbsi-hourglass-time");
+        if (!el) return;
+        const m = Math.floor(timerSecondsRemaining / 60);
+        const s = timerSecondsRemaining % 60;
+        el.textContent = `${m}:${String(s).padStart(2, "0")}`;
+    }
+
+    function toggleTimerPause() {
+        if (!timerEnabled) return;
+        timerFrozen = !timerFrozen;
+        if (timerFrozen) {
+            stopTimerInterval();
+        } else if (!timerIntervalId) {
+            timerIntervalId = setInterval(tickTimer, 1000);
+        }
+        render();
+    }
+
     function newGame() {
         state = sbsiNewGame();
+        sbsiApplyEasyModeIfEnabled(state);
         leftBehindDrankFlag = false;
         selectingShield = false;
         selectedCardId = null;
+        settingsPanelOpen = false;
+        startTimerIfEnabled();
         sbsiFillChamber(state);
         render();
     }
@@ -5180,6 +5373,7 @@ const SBSICardGame = (function () {
         if (!root) return;
 
         if (state.gameOver) {
+            stopTimerInterval();
             root.innerHTML = renderEndScreen();
             root.querySelector("#sbsi-cg-again").addEventListener("click", newGame);
             root.querySelector("#sbsi-cg-exit").addEventListener("click", () => onExit && onExit());
@@ -5192,11 +5386,17 @@ const SBSICardGame = (function () {
         const qodStatus = state.queenDaggersAlive
             ? (canShield ? `<button class="sbsi-shield-btn" id="sbsi-shield-toggle">${selectingShield ? "Cancel Shield" : "🛡️ Shield (once)"}</button>` : `<span class="info">Ready</span>`)
             : `<span class="info warn">Spent</span>`;
+        const timerMin = Math.floor(timerSecondsRemaining / 60);
+        const timerSec = timerSecondsRemaining % 60;
+        const timerDisplay = `${timerMin}:${String(timerSec).padStart(2, "0")}`;
 
         root.innerHTML = `
-      <div class="sbsi-topbar">
-        <button class="sbsi-back-btn" id="sbsi-cg-back">← Menu</button>
+      <div class="sbsi-topbar sbsi-topbar-3col">
+        <div class="sbsi-topbar-left"><button class="sbsi-back-btn" id="sbsi-cg-back">← Menu</button></div>
+        <div class="sbsi-topbar-center"><button class="sbsi-settings-btn" id="sbsi-settings-btn">🕯️ Settings</button></div>
+        <div class="sbsi-topbar-right"></div>
       </div>
+      ${settingsPanelOpen ? renderSettingsPanel() : ""}
 
       <div class="sbsi-stack">
         <div class="sbsi-stack-slot"><span class="who">👸♥️</span><span class="label">Priestess</span>${
@@ -5228,13 +5428,20 @@ const SBSICardGame = (function () {
 
       <div class="sbsi-actions-dynamic" style="min-height:44px;"></div>
 
-      <div class="sbsi-actions">
-        <button class="sbsi-btn" id="sbsi-flee" ${(state.fledLastChamber || state.chamber.length !== 4 || state.pendingMystic || state.pendingEquip) ? "disabled" : ""}>🏃 Flee this Chamber</button>
+      <div class="sbsi-actions-row">
+        ${timerEnabled ? `<div class="sbsi-actions-half">
+          <button class="sbsi-hourglass-btn${timerFrozen ? " frozen" : ""}" id="sbsi-hourglass-btn" title="${timerFrozen ? "Paused - click to resume" : "Click to pause the countdown"}">⏳ <span id="sbsi-hourglass-time">${timerDisplay}</span></button>
+        </div>` : ""}
+        <div class="sbsi-actions-half">
+          <button class="sbsi-btn" id="sbsi-flee" ${(state.fledLastChamber || state.chamber.length !== 4 || state.pendingMystic || state.pendingEquip) ? "disabled" : ""}>🏃 Flee this Chamber</button>
+        </div>
       </div>
 
       <div class="sbsi-life-centered"><span class="heart">❤</span> ${state.life} / ${state.maxLife}</div>
 
       <div class="sbsi-log"></div>
+      ${renderDungeonList(state)}
+      ${renderAbyssList(state)}
     `;
 
         const chamberEl = root.querySelector("#sbsi-chamber");
@@ -5262,12 +5469,118 @@ const SBSICardGame = (function () {
         if (redeemEl) redeemEl.addEventListener("click", doRedeemChalice);
         const shieldBtn = root.querySelector("#sbsi-shield-toggle");
         if (shieldBtn) shieldBtn.addEventListener("click", toggleShieldMode);
+        const hourglassBtn = root.querySelector("#sbsi-hourglass-btn");
+        if (hourglassBtn) hourglassBtn.addEventListener("click", toggleTimerPause);
+        const settingsBtn = root.querySelector("#sbsi-settings-btn");
+        if (settingsBtn) settingsBtn.addEventListener("click", () => { settingsPanelOpen = !settingsPanelOpen; render(); });
+        if (settingsPanelOpen) attachSettingsPanelListeners();
 
         if (state.pendingMystic) renderMysticPrompt();
         if (state.pendingEquip) renderEquipPrompt();
 
         renderLog();
     }
+
+    function renderSettingsPanel() {
+        const timerOpts = [5, 10, 15, 0].map(m =>
+            `<button class="sbsi-settings-opt${settingsTimerPresetMinutes === m ? " active" : ""}" data-timer="${m}">${m === 0 ? "Off" : m + " min"}</button>`
+        ).join("");
+        return `
+      <div class="sbsi-settings-overlay" id="sbsi-settings-overlay">
+        <div class="sbsi-settings-modal">
+          <div class="sbsi-settings-title">🕯️ Settings</div>
+          <div class="sbsi-settings-group">
+            <div class="sbsi-settings-label">Hourglass Timer (default for new games)</div>
+            <div class="sbsi-settings-options">${timerOpts}</div>
+          </div>
+          <div class="sbsi-settings-group">
+            <label class="sbsi-settings-toggle-row">
+              <input type="checkbox" id="sbsi-settings-showlist" ${settingsShowDungeonList ? "checked" : ""}>
+              Show remaining Dungeon cards
+            </label>
+            <div class="sbsi-settings-options" id="sbsi-settings-order-row" style="${settingsShowDungeonList ? "" : "opacity:.4;pointer-events:none;"}">
+              <button class="sbsi-settings-opt${settingsDungeonListOrder === "random" ? " active" : ""}" data-dungeonorder="random">Unordered</button>
+              <button class="sbsi-settings-opt${settingsDungeonListOrder === "ordered" ? " active" : ""}" data-dungeonorder="ordered">Ordered</button>
+            </div>
+          </div>
+          <div class="sbsi-settings-group">
+            <label class="sbsi-settings-toggle-row">
+              <input type="checkbox" id="sbsi-settings-showabyss" ${settingsShowAbyssList ? "checked" : ""}>
+              Show contents of the Abyss
+            </label>
+            <div class="sbsi-settings-options" id="sbsi-settings-abyssorder-row" style="${settingsShowAbyssList ? "" : "opacity:.4;pointer-events:none;"}">
+              <button class="sbsi-settings-opt${settingsAbyssListOrder === "ordered" ? " active" : ""}" data-abyssorder="ordered">Ordered</button>
+              <button class="sbsi-settings-opt${settingsAbyssListOrder === "random" ? " active" : ""}" data-abyssorder="random">Unordered</button>
+            </div>
+          </div>
+          <button class="sbsi-btn" id="sbsi-settings-close">Close</button>
+        </div>
+      </div>`;
+    }
+
+    function attachSettingsPanelListeners() {
+        root.querySelectorAll("#sbsi-settings-overlay [data-timer]").forEach(btn => {
+            btn.addEventListener("click", () => {
+                settingsTimerPresetMinutes = parseInt(btn.getAttribute("data-timer"), 10);
+                render();
+            });
+        });
+        root.querySelectorAll("#sbsi-settings-overlay [data-dungeonorder]").forEach(btn => {
+            btn.addEventListener("click", () => {
+                settingsDungeonListOrder = btn.getAttribute("data-dungeonorder");
+                render();
+            });
+        });
+        root.querySelectorAll("#sbsi-settings-overlay [data-abyssorder]").forEach(btn => {
+            btn.addEventListener("click", () => {
+                settingsAbyssListOrder = btn.getAttribute("data-abyssorder");
+                render();
+            });
+        });
+        const showListChk = root.querySelector("#sbsi-settings-showlist");
+        if (showListChk) showListChk.addEventListener("change", () => {
+            settingsShowDungeonList = showListChk.checked;
+            render();
+        });
+        const showAbyssChk = root.querySelector("#sbsi-settings-showabyss");
+        if (showAbyssChk) showAbyssChk.addEventListener("change", () => {
+            settingsShowAbyssList = showAbyssChk.checked;
+            render();
+        });
+        const closeBtn = root.querySelector("#sbsi-settings-close");
+        if (closeBtn) closeBtn.addEventListener("click", () => { settingsPanelOpen = false; render(); });
+        const overlay = root.querySelector("#sbsi-settings-overlay");
+        if (overlay) overlay.addEventListener("click", (e) => { if (e.target === overlay) { settingsPanelOpen = false; render(); } });
+    }
+
+    function renderDungeonList(gs) {
+        if (!settingsShowDungeonList) return "";
+        let cards = gs.dungeon.slice();
+        if (settingsDungeonListOrder === "random") cards = sbsiShuffle(cards);
+        const items = cards.map(c => c.isMystic
+            ? `<span class="sbsi-dungeon-chip mystic">🃏 Mystic</span>`
+            : `<span class="sbsi-dungeon-chip">${c.rank} of ${sbsiSuitShortName(c.suit)}</span>`
+        ).join("");
+        return `<div class="sbsi-dungeon-list">
+        <div class="sbsi-dungeon-list-title">Remaining in the Dungeon (${cards.length})${settingsDungeonListOrder === "ordered" ? " — next to last" : ""}</div>
+        <div class="sbsi-dungeon-list-chips">${items || '<span class="sbsi-dim">empty</span>'}</div>
+      </div>`;
+    }
+
+    function renderAbyssList(gs) {
+        if (!settingsShowAbyssList) return "";
+        let cards = gs.abyss.slice();
+        if (settingsAbyssListOrder === "random") cards = sbsiShuffle(cards);
+        const items = cards.map(c => c.isMystic
+            ? `<span class="sbsi-dungeon-chip mystic">🃏 Mystic</span>`
+            : `<span class="sbsi-dungeon-chip">${c.rank} of ${sbsiSuitShortName(c.suit)}</span>`
+        ).join("");
+        return `<div class="sbsi-dungeon-list">
+        <div class="sbsi-dungeon-list-title">Fallen into the Abyss (${cards.length})${settingsAbyssListOrder === "ordered" ? " — earliest to latest" : ""}</div>
+        <div class="sbsi-dungeon-list-chips">${items || '<span class="sbsi-dim">empty</span>'}</div>
+      </div>`;
+    }
+
 
     function renderEquipPrompt() {
         const pe = state.pendingEquip;
@@ -5752,6 +6065,7 @@ const SBSIRoguelike = (function () {
     function sbsiShowMenu() {
         const container = document.getElementById("sbsiRoot");
         if (SBSIRoguelike && SBSIRoguelike.teardown) SBSIRoguelike.teardown();
+        if (SBSICardGame && SBSICardGame.teardown) SBSICardGame.teardown();
         container.innerHTML = `
       <div class="sbsi-menu">
         <button class="sbsi-menu-btn" id="sbsi-go-cardgame">
@@ -5766,10 +6080,18 @@ const SBSIRoguelike = (function () {
             <span class="desc">Lead the Ashen Blood — Lord Wraith, the Sorcerer, the Priestess, and the Shield Maiden — through a procedurally-carved dungeon of chambers and corridors. Every rule of the Card Game, made spatial.</span>
           </span>
         </button>
+        <label class="sbsi-easymode-row">
+          <span class="sbsi-toggle-switch">
+            <input type="checkbox" id="sbsi-easymode-toggle" ${sbsiEasyModeEnabled ? "checked" : ""}>
+            <span class="sbsi-toggle-slider"></span>
+          </span>
+          <span>⚡ Easy Mode <span class="sbsi-easymode-desc">— start with a random red Dagger (Ace, 5-10) and a black King or Queen already in your first chamber</span></span>
+        </label>
       </div>
     `;
         document.getElementById("sbsi-go-cardgame").addEventListener("click", sbsiShowCardGame);
         document.getElementById("sbsi-go-roguelike").addEventListener("click", sbsiShowRoguelike);
+        document.getElementById("sbsi-easymode-toggle").addEventListener("change", (e) => { sbsiEasyModeEnabled = e.target.checked; });
     }
 
     function sbsiShowCardGame() {
